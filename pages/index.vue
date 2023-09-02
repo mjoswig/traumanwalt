@@ -8,6 +8,7 @@
           <fieldset class="flex flex-col sm:flex-row mb-4 md:mb-6">
             <select class="border rounded-t-md sm:rounded-none sm:rounded-l-md p-2 w-full">
               <option value="">Rechtsgebiet auswählen</option>
+              <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
             <input class="border rounded-b-md border-t-0 sm:border-t sm:border-l-0 sm:rounded-none sm:rounded-r-md p-2 w-full" placeholder="Ort eingeben" />
           </fieldset>

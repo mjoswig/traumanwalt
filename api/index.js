@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 
 // import routes
+const cities = require('./routes/cities')
 const legalFields = require('./routes/legal-fields')
 
 // initialize server
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 })
 app.use(express.urlencoded({ extended: false }))
 app.use(cors({ origin: true }))
+app.use('/api/cities', cities)
 app.use('/api/legal-fields', legalFields)
 
 // test api request

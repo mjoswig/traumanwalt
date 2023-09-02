@@ -27,6 +27,14 @@
         </li>
       </ul>
     </section>
+    <section class="mb-12">
+      <h2 class="mb-6">Anwälte nach Ort</h2>
+      <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <li class="border-b pb-2 break-words" v-for="(city, index) in cities" :key="index">
+          <nuxt-link to="/">Anwalt {{ city.name }}</nuxt-link>
+        </li>
+      </ul>
+    </section>
     <section class="grid md:grid-cols-2 gap-8 xl:items-center">
       <div>
         <img class="rounded-md shadow-sm" src="@/assets/images/traumanwalt-home-2.jpeg" />
@@ -45,8 +53,10 @@ export default {
   name: 'IndexPage',
   async asyncData({ app }) {
     const legalFields = await app.$axios.$get('/api/legal-fields')
+    const cities = await app.$axios.$get('/api/cities/popular')
     return {
-      legalFields
+      legalFields,
+      cities
     }
   }
 }

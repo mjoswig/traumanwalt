@@ -9,7 +9,7 @@
           <div>
             <div class="hidden md:flex items-center space-x-6 sm:space-x-8 sm:text-xl">
               <nuxt-link to="/">Login</nuxt-link>
-              <Btn>Registrieren</Btn>
+              <Btn>Sie sind Anwalt?</Btn>
             </div>
             <div class="md:hidden mt-1">
               <svg v-show="!showMobileMenu" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" @click="showMobileMenu = true">
@@ -21,9 +21,9 @@
             </div>
           </div>
         </div>
-        <div class="flex-col space-y-6 mt-6 text-lg" :class="{ 'flex sm:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
+        <div class="bg-gray-100 p-4 flex-col space-y-4 mt-4" :class="{ 'flex sm:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
           <nuxt-link to="/">Login</nuxt-link>
-          <Btn class="w-fit">Registrieren</Btn>
+          <Btn class="w-fit">Sie sind Anwalt?</Btn>
         </div>
       </header>
       <main>

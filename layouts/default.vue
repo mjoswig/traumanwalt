@@ -6,12 +6,14 @@
           <div>
             <nuxt-link to="/"><img class="h-10 md:h-12 w-auto" src="@/assets/images/traumanwalt-logo.png" /></nuxt-link>
           </div>
-          <div>
-            <div class="hidden md:flex items-center space-x-6 sm:space-x-8 sm:text-xl">
+          <div class="flex items-center space-x-8">
+            <div class="hidden md:flex items-center space-x-6 sm:space-x-8 sm:text-lg">
+              <nuxt-link to="/" class="hidden lg:inline-block">Anwälte finden</nuxt-link>
+              <nuxt-link to="/" class="hidden lg:inline-block">Rechtstipps</nuxt-link>
               <nuxt-link to="/">Login</nuxt-link>
               <Btn>Sie sind Anwalt?</Btn>
             </div>
-            <div class="md:hidden mt-1">
+            <div class="lg:hidden mt-1">
               <svg v-show="!showMobileMenu" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" @click="showMobileMenu = true">
                 <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
               </svg>
@@ -21,9 +23,11 @@
             </div>
           </div>
         </div>
-        <div class="bg-gray-100 p-4 flex-col space-y-4 mt-4" :class="{ 'flex sm:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
-          <nuxt-link to="/">Login</nuxt-link>
-          <Btn class="w-fit">Sie sind Anwalt?</Btn>
+        <div class="bg-gray-100 p-4 flex-col space-y-4 mt-4" :class="{ 'flex lg:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
+          <nuxt-link to="/">Anwälte finden</nuxt-link>
+          <nuxt-link to="/">Rechtstipps</nuxt-link>
+          <nuxt-link to="/" class="md:hidden">Login</nuxt-link>
+          <Btn class="w-fit md:hidden">Sie sind Anwalt?</Btn>
         </div>
       </header>
       <main>

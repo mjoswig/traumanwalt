@@ -4,7 +4,7 @@ const db = require('../db')
 // get cities
 router.get('/', async (req, res) => {
   const result = await db.query(`
-    SELECT name, slug
+    SELECT name, slug, popular
     FROM cities
     ORDER BY slug ASC
   `)

@@ -5,12 +5,12 @@
         <h1 class="mb-2">Finden Sie Ihren Traumanwalt</h1>
         <p class="text-xl mb-4 md:mb-8">Unser Ziel ist es, Ihnen mit nur wenigen Klicks den perfekten Fachanwalt für Ihre individuellen Bedürfnisse zu präsentieren.</p>
         <form @submit.prevent>
-          <fieldset class="flex flex-col sm:flex-row mb-4 md:mb-6">
+          <fieldset class="search-widget flex flex-col sm:flex-row mb-4 md:mb-6">
             <select class="border rounded-t-md sm:rounded-none sm:rounded-l-md p-2 w-full">
               <option value="">Rechtsgebiet auswählen</option>
               <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
-            <input class="border rounded-b-md border-t-0 sm:border-t sm:border-l-0 sm:rounded-none sm:rounded-r-md p-2 w-full" placeholder="Ort eingeben" />
+            <autocomplete base-class="city-search" placeholder="Ort eingeben" :search="searchCities" @submit="result => searchedCityName = result"></autocomplete>
           </fieldset>
           <div class="flex justify-end">
             <Btn class="w-full sm:w-fit">Anwälte suchen</Btn>
@@ -31,7 +31,7 @@
     <section class="mb-12">
       <h2 class="mb-6">Anwälte nach Ort</h2>
       <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <li class="border-b pb-2 break-words" v-for="(city, index) in cities" :key="index">
+        <li class="border-b pb-2 break-words" v-for="(city, index) in popularCities" :key="index">
           <nuxt-link to="/">Anwalt {{ city.name }}</nuxt-link>
         </li>
       </ul>
@@ -54,11 +54,48 @@ export default {
   name: 'IndexPage',
   async asyncData({ app }) {
     const legalFields = await app.$axios.$get('/api/legal-fields')
-    const cities = await app.$axios.$get('/api/cities/popular')
+    const cities = await app.$axios.$get('/api/cities')
     return {
       legalFields,
       cities
     }
+  },
+  data() {
+    return {
+      searchedCityName: null
+    }
+  },
+  computed: {
+    popularCities() {
+      return this.cities.filter(city => city.popular)
+    },
+    searchedCity() {
+      if (!this.searchedCityName) return null
+      return this.cities.find(city => city.name === this.searchedCityName)
+    }
+  },
+  methods: {
+    searchCities(input) {
+      const cityNames = this.cities.map(city => city.name)
+      if (input.length < 1) { return [] }
+      return cityNames.filter(cityName => {
+        return cityName.toLowerCase().startsWith(input.toLowerCase())
+      })
+    }
   }
 }
 </script>
+
+<style lang="postcss">
+.search-widget div {
+  @apply w-full;
+}
+
+.city-search-input {
+  @apply border rounded-b-md border-t-0 sm:border-t sm:border-l-0 sm:rounded-none sm:rounded-r-md p-2 w-full;
+}
+
+.city-search-result-list li {
+  @apply bg-white p-2;
+}
+</style>

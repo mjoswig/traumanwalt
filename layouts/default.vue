@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
-    <div class="p-4 sm:p-8 wrapper flex flex-col space-y-4 md:space-y-12 w-full">
-      <header>
+    <div class="p-4 sm:p-8 wrapper flex flex-col w-full">
+      <header class="mb-4 md:mb-12">
         <div class="flex items-center justify-between">
           <div>
             <nuxt-link to="/"><img class="h-10 md:h-12 w-auto" src="@/assets/images/traumanwalt-logo.png" /></nuxt-link>
@@ -30,10 +30,10 @@
           <Btn class="w-fit md:hidden">Sie sind Anwalt?</Btn>
         </div>
       </header>
-      <main>
+      <main class="mb-12">
         <nuxt />
       </main>
-      <footer class="flex flex-col items-center pt-6 text-sm">
+      <footer class="border-t flex flex-col items-center pt-4 md:pt-8 text-sm">
         <div>
           <p>Copyright &copy; {{ copyrightYear }} Traumanwalt – eine Lösung von <a href="https://joswigsolutions.com/" target="_blank">Joswig Solutions</a>. All rights reserved.</p>
         </div>
@@ -82,32 +82,32 @@ html {
 }
 
 h1 {
-  @apply text-5xl font-bold;
-  line-height: 1.2;
-}
-
-h2 {
   @apply text-4xl font-bold;
   line-height: 1.2;
 }
 
-h3 {
+h2 {
   @apply text-3xl font-bold;
   line-height: 1.2;
 }
 
-h4 {
+h3 {
   @apply text-2xl font-bold;
   line-height: 1.2;
 }
 
-h5 {
+h4 {
   @apply text-xl font-bold;
   line-height: 1.2;
 }
 
-h6 {
+h5 {
   @apply text-lg font-bold;
+  line-height: 1.2;
+}
+
+h6 {
+  @apply text-base font-bold;
   line-height: 1.2;
 }
 
@@ -134,23 +134,23 @@ a {
 
 @media (max-width: 1280px) {
   h1 {
-    @apply text-4xl;
-  }
-
-  h2 {
     @apply text-3xl;
   }
 
-  h3 {
+  h2 {
     @apply text-2xl;
   }
 
-  h4 {
+  h3 {
     @apply text-xl;
   }
 
-  h5 {
+  h4 {
     @apply text-lg;
+  }
+
+  h5 {
+    @apply text-base;
   }
 
   h6 {

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <section class="bg-gray-100 flex flex-col-reverse md:flex-row items-center rounded-md shadow-md mb-12">
+  <div class="-mt-4">
+    <section class="bg-gray-100 flex flex-col-reverse md:flex-row items-center rounded-md shadow-sm mb-12">
       <div class="px-4 py-6 md:p-8 w-full">
         <h1 class="mb-2">Finden Sie Ihren Traumanwalt</h1>
         <p class="text-xl mb-4 md:mb-8">Unser Ziel ist es, Ihnen mit nur wenigen Mausklicks den perfekten Fachanwalt für Ihre individuellen Bedürfnisse zu präsentieren.</p>

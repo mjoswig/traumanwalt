@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center">
     <div class="p-4 sm:p-8 wrapper flex flex-col w-full">
-      <header class="mb-4 md:mb-12">
+      <header class="mb-8 md:mb-12">
         <div class="flex items-center justify-between">
           <div>
             <nuxt-link to="/"><img class="h-10 md:h-12 w-auto" src="@/assets/images/traumanwalt-logo.png" /></nuxt-link>
@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="bg-gray-100 p-4 flex-col space-y-4 mt-4" :class="{ 'flex lg:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
+        <div class="bg-gray-100 p-4 flex-col space-y-4 rounded-md shadow-sm mt-4" :class="{ 'flex lg:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
           <nuxt-link to="/">Anwälte finden</nuxt-link>
           <nuxt-link to="/">Rechtstipps</nuxt-link>
           <nuxt-link to="/" class="md:hidden">Login</nuxt-link>

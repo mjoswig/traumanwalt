@@ -16,10 +16,10 @@ app.use((req, res, next) => {
 })
 app.use(express.urlencoded({ extended: false }))
 app.use(cors({ origin: true }))
-app.use('/legal-fields', legalFields)
+app.use('/api/legal-fields', legalFields)
 
 // test api request
-app.get('/', async (req, res) => {
+app.get('/api', async (req, res) => {
   return res.status(200).send('API is ready')
 })
 

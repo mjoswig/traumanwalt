@@ -1,5 +1,5 @@
 {
   "routes": [
-    { "src": "/api/[^.]+", "dest": "/index.js", "status": 200 }
+    { "src": "/api/[^.]+", "dest": "/api/index.js", "status": 200 }
   ]
 }

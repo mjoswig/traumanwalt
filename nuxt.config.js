@@ -77,7 +77,7 @@ export default {
 
   // Axios Configuration
   axios: {
-    baseURL: '/'
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://traumanwalt.com/api' : 'http://localhost:3000/api'
   },
 
   // Server Middleware Configuration

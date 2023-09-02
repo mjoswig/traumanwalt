@@ -2,6 +2,9 @@
 const express = require('express')
 const cors = require('cors')
 
+// import routes
+const legalFields = require('./routes/legal-fields')
+
 // initialize server
 const app = express()
 app.use((req, res, next) => {
@@ -13,6 +16,7 @@ app.use((req, res, next) => {
 })
 app.use(express.urlencoded({ extended: false }))
 app.use(cors({ origin: true }))
+app.use('/legal-fields', legalFields)
 
 // test api request
 app.get('/', async (req, res) => {

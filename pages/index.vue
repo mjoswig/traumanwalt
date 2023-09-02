@@ -20,7 +20,12 @@
       </div>
     </section>
     <section class="mb-12">
-      <h2>Anwälte nach Rechtsgebiet</h2>
+      <h2 class="mb-6">Anwälte nach Rechtsgebiet</h2>
+      <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <li class="border-b pb-2 break-words" v-for="(legalField, index) in legalFields" :key="index">
+          <nuxt-link to="/">Anwalt {{ legalField.name }}</nuxt-link>
+        </li>
+      </ul>
     </section>
     <section class="grid md:grid-cols-2 gap-8 xl:items-center">
       <div>
@@ -37,6 +42,12 @@
 
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  async asyncData({ app }) {
+    const legalFields = await app.$axios.$get('/legal-fields')
+    return {
+      legalFields
+    }
+  }
 }
 </script>

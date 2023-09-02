@@ -44,9 +44,9 @@
 export default {
   name: 'IndexPage',
   async asyncData({ app }) {
-    //const legalFields = await app.$axios.$get('/api/legal-fields')
+    const legalFields = await app.$axios.$get('/api/legal-fields')
     return {
-      legalFields: []
+      legalFields
     }
   }
 }

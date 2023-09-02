@@ -82,7 +82,7 @@ export default {
 
   // Server Middleware Configuration
   serverMiddleware: [
-    { path: '/', handler: '@/api/index.js' }
+    { path: '/api', handler: '@/api/index.js' }
   ],
 
   // Sitemap Configuration

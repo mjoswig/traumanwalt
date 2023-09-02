@@ -1,10 +1,10 @@
 <template>
   <div class="flex justify-center">
-    <div class="p-4 sm:p-8 wrapper flex flex-col space-y-12 w-full">
+    <div class="p-4 sm:p-8 wrapper flex flex-col space-y-4 md:space-y-12 w-full">
       <header>
         <div class="flex items-center justify-between">
           <div>
-            <nuxt-link to="/"><img class="h-10 md:h-12 w-auto" src="@/assets/images/traumanwalt-logo-2.png" /></nuxt-link>
+            <nuxt-link to="/"><img class="h-10 md:h-12 w-auto" src="@/assets/images/traumanwalt-logo.png" /></nuxt-link>
           </div>
           <div>
             <div class="hidden md:flex items-center space-x-6 sm:space-x-8 sm:text-xl">

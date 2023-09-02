@@ -57,7 +57,8 @@ export default {
     const cities = await app.$axios.$get('/api/cities')
     return {
       legalFields,
-      cities
+      cities,
+      popularCities: cities.filter(city => city.popular)
     }
   },
   data() {
@@ -66,9 +67,6 @@ export default {
     }
   },
   computed: {
-    popularCities() {
-      return this.cities.filter(city => city.popular)
-    },
     searchedCity() {
       if (!this.searchedCityName) return null
       return this.cities.find(city => city.name === this.searchedCityName)

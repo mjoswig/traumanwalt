@@ -33,10 +33,37 @@
       <main class="mb-8 md:mb-12">
         <nuxt />
       </main>
-      <footer class="border-t flex flex-col items-center pt-4 md:pt-8 text-sm">
-        <div>
-          <p>Copyright &copy; {{ copyrightYear }} Traumanwalt – eine Lösung von <a href="https://joswigsolutions.com/" target="_blank">Joswig Solutions</a>. All rights reserved.</p>
+      <footer class="border-t flex flex-col pt-4 md:pt-8 w-full">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full mb-8 lg:mb-12">
+          <div>
+            <img class="h-10 md:h-12 w-auto mb-1" src="@/assets/images/traumanwalt-logo.png" />
+            <p class="mb-2">In nur wenigen Klicks zum passenden Fachanwalt!</p>
+            <img class="h-10 md:h-12 w-auto" src="@/assets/images/serverstandort-deutschland.svg" />
+          </div>
+          <div>
+            <h3 class="text-lg mb-2">Unternehmen</h3>
+            <ul class="flex flex-col space-y-2">
+              <li>Über uns</li>
+              <li>Impressum</li>
+              <li>AGB</li>
+              <li>Datenschutz</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg mb-2">Für Anwälte</h3>
+            <ul class="flex flex-col space-y-2">
+              <li>Anmelden</li>
+              <li>Registrieren</li>
+              <li>Vorteile</li>
+              <li>Werbepakete</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg mb-2">Kontakt</h3>
+            <span>support@traumanwalt.com</span>
+          </div>
         </div>
+        <p class="text-left text-sm">Copyright &copy; {{ copyrightYear }} Traumanwalt – eine Lösung von <a href="https://joswigsolutions.com/" target="_blank">Joswig Solutions</a>. All rights reserved.</p>
       </footer>
     </div>
   </div>

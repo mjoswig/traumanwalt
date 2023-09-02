@@ -23,6 +23,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '@/plugins/firebase-storage' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -36,9 +37,62 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: process.env.FIREBASE_API_KEY,
+          authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+          projectId: process.env.FIREBASE_PROJECT_ID,
+          storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+          messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+          appId: process.env.FIREBASE_APP_ID,
+          measurementId: process.env.FIREBASE_MEASUREMENT_ID
+        },
+        services: {
+          auth: {
+            initialize: {
+              onAuthStateChangedAction: 'onAuthStateChanged',
+            },
+            ssr: true
+          },
+          storage: true
+        }
+      }
+    ],
+    '@nuxtjs/axios',
+    '@nuxtjs/google-gtag',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/toast'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  // Google Analytics Configuration
+  'google-gtag': {
+    id: process.env.FIREBASE_MEASUREMENT_ID
+  },
+
+  // Axios Configuration
+  axios: {
+    baseURL: '/'
+  },
+
+  // Server Middleware Configuration
+  serverMiddleware: [
+    { path: '/api', handler: '@/api/index.js' }
+  ],
+
+  // Sitemap Configuration
+  sitemap: {
+    hostname: 'https://traumanwalt.com'
+  },
+
+  // Toast Configuration
+  toast: {
+    position: 'top-center',
+    duration: 2000
   }
 }

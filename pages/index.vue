@@ -3,7 +3,7 @@
     <section class="bg-gray-100 flex flex-col-reverse md:flex-row items-center rounded-md shadow-sm mb-12">
       <div class="px-4 py-6 md:p-8 w-full">
         <h1 class="mb-2">Finden Sie Ihren Traumanwalt</h1>
-        <p class="text-xl mb-4 md:mb-8">Unser Ziel ist es, Ihnen mit nur wenigen Mausklicks den perfekten Fachanwalt für Ihre individuellen Bedürfnisse zu präsentieren.</p>
+        <p class="text-xl mb-4 md:mb-8">Unser Ziel ist es, Ihnen mit nur wenigen Klicks den perfekten Fachanwalt für Ihre individuellen Bedürfnisse zu präsentieren.</p>
         <form @submit.prevent>
           <fieldset class="flex flex-col sm:flex-row mb-4 md:mb-6">
             <select class="border rounded-t-md sm:rounded-none sm:rounded-l-md p-2 w-full">

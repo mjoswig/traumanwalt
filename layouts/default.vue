@@ -30,7 +30,7 @@
           <Btn class="w-fit md:hidden">Sie sind Anwalt?</Btn>
         </div>
       </header>
-      <main class="mb-12">
+      <main class="mb-8 md:mb-12">
         <nuxt />
       </main>
       <footer class="border-t flex flex-col items-center pt-4 md:pt-8 text-sm">

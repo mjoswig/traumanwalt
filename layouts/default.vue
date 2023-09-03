@@ -41,21 +41,19 @@
             <img class="h-10 md:h-12 w-auto" src="@/assets/images/serverstandort-deutschland.svg" />
           </div>
           <div>
-            <h3 class="text-lg mb-2">Unternehmen</h3>
+            <h3 class="text-lg mb-2">Für Anwälte</h3>
             <ul class="flex flex-col space-y-2">
-              <li>Über uns</li>
-              <li>Impressum</li>
-              <li>AGB</li>
-              <li>Datenschutz</li>
+              <li><nuxt-link to="/">Anmelden</nuxt-link></li>
+              <li><nuxt-link to="/">Registrieren</nuxt-link></li>
+              <li><nuxt-link to="/">Mitgliedschaft</nuxt-link></li>
             </ul>
           </div>
           <div>
-            <h3 class="text-lg mb-2">Für Anwälte</h3>
+            <h3 class="text-lg mb-2">Rechtliches</h3>
             <ul class="flex flex-col space-y-2">
-              <li>Anmelden</li>
-              <li>Registrieren</li>
-              <li>Vorteile</li>
-              <li>Werbepakete</li>
+              <li><nuxt-link to="/impressum">Impressum</nuxt-link></li>
+              <li><nuxt-link to="/agb">AGB</nuxt-link></li>
+              <li><nuxt-link to="/datenschutz">Datenschutz</nuxt-link></li>
             </ul>
           </div>
           <div>
@@ -63,7 +61,7 @@
             <span>support@traumanwalt.com</span>
           </div>
         </div>
-        <p class="text-left text-sm">Copyright &copy; {{ copyrightYear }} Traumanwalt – eine Lösung von <a href="https://joswigsolutions.com/" target="_blank">Joswig Solutions</a>. All rights reserved.</p>
+        <p class="text-left text-sm">Copyright &copy; {{ copyrightYear }} Traumanwalt – eine Lösung von <a href="https://joswigsolutions.com/" target="_blank">Joswig Solutions</a>. Alle Rechte vorbehalten.</p>
       </footer>
     </div>
   </div>

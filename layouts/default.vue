@@ -36,9 +36,9 @@
       <footer class="border-t flex flex-col pt-4 md:pt-8 w-full">
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full mb-8 lg:mb-12">
           <div>
-            <img class="h-10 md:h-12 w-auto mb-1" src="@/assets/images/traumanwalt-logo.png" />
-            <p class="mb-2">In nur wenigen Klicks zum passenden Fachanwalt!</p>
-            <img class="h-10 md:h-12 w-auto" src="@/assets/images/serverstandort-deutschland.svg" />
+            <img class="h-10 w-auto mb-1" src="@/assets/images/traumanwalt-logo.png" />
+            <span class="block mb-2">In nur wenigen Klicks zum Fachanwalt Ihrer Träume!</span>
+            <img class="h-10 w-auto" src="@/assets/images/serverstandort-deutschland.svg" />
           </div>
           <div>
             <h3 class="text-lg mb-2">Für Anwälte</h3>
@@ -61,7 +61,7 @@
             <span>support@traumanwalt.com</span>
           </div>
         </div>
-        <p class="text-left text-sm">Copyright &copy; {{ copyrightYear }} Traumanwalt – eine Lösung von <a href="https://joswigsolutions.com/" target="_blank">Joswig Solutions</a>. Alle Rechte vorbehalten.</p>
+        <p class="text-gray-500 text-left text-sm">Copyright &copy; {{ copyrightYear }} Traumanwalt – eine Lösung von <a href="https://joswigsolutions.com/" target="_blank">Joswig Solutions</a>. Alle Rechte vorbehalten.</p>
       </footer>
     </div>
   </div>

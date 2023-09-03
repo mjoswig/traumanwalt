@@ -37,7 +37,7 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full mb-8 lg:mb-12">
           <div>
             <img class="h-10 w-auto mb-1" src="@/assets/images/traumanwalt-logo.png" />
-            <span class="block mb-2">In nur wenigen Klicks zum Fachanwalt Ihrer Träume!</span>
+            <span class="block mb-2">Mit nur wenigen Klicks zum Fachanwalt Ihrer Träume!</span>
             <img class="h-10 w-auto" src="@/assets/images/serverstandort-deutschland.svg" />
           </div>
           <div>
@@ -45,7 +45,7 @@
             <ul class="flex flex-col space-y-2">
               <li><nuxt-link to="/">Anmelden</nuxt-link></li>
               <li><nuxt-link to="/">Registrieren</nuxt-link></li>
-              <li><nuxt-link to="/">Mitgliedschaft</nuxt-link></li>
+              <li><nuxt-link to="/mitgliedschaft">Mitgliedschaft</nuxt-link></li>
             </ul>
           </div>
           <div>
@@ -138,20 +138,12 @@ h6 {
 }
 
 a {
-  color: #4477ce;
+  color: #008abd;
 
   &:hover {
     @apply underline;
-    color: #8cabff;
+    color: #00aff0;
   }
-}
-
-.text-brand {
-  color: #512b81;
-}
-
-.bg-brand {
-  background-color: #35155d;
 }
 
 .wrapper {

@@ -117,7 +117,7 @@ export default {
       return this.subscriptionInterval === 'month' ? 'Monat' : 'Jahr'
     },
     subscriptionPrice() {
-      return this.subscriptionInterval === 'month' ? '29,90 €' : '299,00 €'
+      return this.subscriptionInterval === 'month' ? '49,90 €' : '499,00 €'
     }
   }
 }

@@ -47,10 +47,15 @@ export default {
 
 <style lang="postcss" scoped>
 .btn-bg-brand {
-  background-color: #4477ce;
+  @apply text-white rounded-full;
+  background: #00aff0;
+  background: -webkit-linear-gradient(top left, #00aff0, #008abd);
+  background: -moz-linear-gradient(top left, #00aff0, #008abd);
+  background: linear-gradient(to bottom right, #00aff0, #008abd);
+}
 
-  &:hover {
-    background-color: #8cabff;
-  }
+.btn-bg-brand.btn-disabled {
+  background: gray;
+  cursor: not-allowed;
 }
 </style>

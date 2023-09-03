@@ -11,7 +11,7 @@
               <nuxt-link to="/" class="hidden lg:inline-block">Anwälte finden</nuxt-link>
               <nuxt-link to="/" class="hidden lg:inline-block">Rechtstipps</nuxt-link>
               <nuxt-link to="/">Login</nuxt-link>
-              <Btn>Sie sind Anwalt?</Btn>
+              <Btn @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
             </div>
             <div class="lg:hidden mt-1">
               <svg v-show="!showMobileMenu" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" @click="showMobileMenu = true">
@@ -27,7 +27,7 @@
           <nuxt-link to="/">Anwälte finden</nuxt-link>
           <nuxt-link to="/">Rechtstipps</nuxt-link>
           <nuxt-link to="/" class="md:hidden">Login</nuxt-link>
-          <Btn class="w-fit md:hidden">Sie sind Anwalt?</Btn>
+          <Btn class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
         </div>
       </header>
       <main class="mb-8 md:mb-12">
@@ -51,8 +51,8 @@
           <div>
             <h3 class="text-lg mb-2">Rechtliches</h3>
             <ul class="flex flex-col space-y-2">
-              <li><nuxt-link to="/impressum">Impressum</nuxt-link></li>
               <li><nuxt-link to="/agb">AGB</nuxt-link></li>
+              <li><nuxt-link to="/impressum">Impressum</nuxt-link></li>
               <li><nuxt-link to="/datenschutz">Datenschutz</nuxt-link></li>
             </ul>
           </div>
@@ -91,6 +91,7 @@ html {
   font-size: 18px;
   line-height: 1.5;
   word-spacing: 1px;
+  word-break: break-word;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;

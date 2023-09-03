@@ -80,6 +80,11 @@ export default {
       if (year === 2023) return year
       return `2023-${year}`
     }
+  },
+  watch: {
+    $route() {
+      this.showMobileMenu = false
+    }
   }
 }
 </script>

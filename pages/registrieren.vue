@@ -5,7 +5,7 @@
       <p class="text-center text-lg lg:text-xl">Überzeugen Sie sich selbst mit einem 30-tägigen Testzugang. Sie können diesen jederzeit kündigen.</p>
       <form class="grid md:grid-cols-2 gap-0 md:gap-8 mt-4 md:mt-8" @submit.prevent>
         <div>
-          <div class="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8">
+          <div class="grid lg:grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8">
             <fieldset>
               <label class="font-bold block">Anrede</label>
               <select class="border px-2 py-1 rounded-md w-full" v-model="salutation">
@@ -28,20 +28,20 @@
               <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihr Nachname" v-model="lastName" required />
             </fieldset>
           </div>
-          <div class="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8">
+          <div class="grid lg:grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8">
             <fieldset>
               <label class="font-bold block">Adresse</label>
-              <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre Straße und Hausnummer" v-model="addressLine" required />
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="Straße und Hausnummer" v-model="addressLine" required />
             </fieldset>
             <fieldset>
               <label class="font-bold block">Postleitzahl</label>
-              <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre PLZ" v-model="postalCode" required />
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="PLZ" v-model="postalCode" required />
             </fieldset>
           </div>
           <div class="grid grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8">
             <fieldset>
               <label class="font-bold block">Stadt</label>
-              <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre Stadt" v-model="city" required />
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="Stadt" v-model="city" required />
             </fieldset>
             <fieldset>
               <label class="font-bold block">Land</label>

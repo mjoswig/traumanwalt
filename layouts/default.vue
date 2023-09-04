@@ -30,7 +30,8 @@
           <nuxt-link to="/">Rechtstipps</nuxt-link>
           <nuxt-link v-if="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>
           <nuxt-link v-if="isLoggedIn" to="/konto/logout" class="md:hidden">Logout</nuxt-link>
-          <Btn class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
+          <Btn v-if="!isLoggedIn" class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
+          <Btn v-if="isLoggedIn" class="w-fit md:hidden" @click="$router.push('/konto')">Ihr Konto</Btn>
         </div>
       </header>
       <main class="mb-8 md:mb-12">

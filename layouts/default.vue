@@ -59,7 +59,7 @@
           <div>
             <h3 class="text-lg mb-2">Für Anwälte</h3>
             <ul class="flex flex-col space-y-2">
-              <li><nuxt-link to="/">Anmelden</nuxt-link></li>
+              <li><nuxt-link to="/login">Anmelden</nuxt-link></li>
               <li><nuxt-link to="/registrieren">Registrieren</nuxt-link></li>
               <li><nuxt-link to="/mitgliedschaft">Mitgliedschaft</nuxt-link></li>
             </ul>

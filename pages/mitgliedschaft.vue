@@ -5,18 +5,18 @@
         <h1 class="text-center md:text-left mb-2">Jetzt Traumanwalt werden und neue Mandanten gewinnen</h1>
         <p class="block text-center md:text-left text-lg lg:text-xl mb-4">Präsentieren Sie sich mit einem professionellen Anwaltsprofil und stärken Sie Ihre Sichtbarkeit bei Google. Es rechnet sich schon mit einem Mandat!</p>
         <form class="flex flex-col items-center md:items-start" @submit.prevent>
-          <fieldset class="flex space-x-3 sm:text-lg mb-3">
+          <fieldset class="flex flex-col sm:flex-row sm:space-x-3 sm:text-lg mb-3">
             <div>
               <input type="radio" name="year" value="year" v-model="subscriptionInterval" />
-              <label for="year">jährlich (17% sparen)</label>
+              <label for="year">499,99 € jährlich (17% sparen)</label>
             </div>
             <div>
               <input type="radio" name="month" value="month" v-model="subscriptionInterval" />
-              <label for="month">monatlich</label>
+              <label for="month">49,99 € monatlich</label>
             </div>
           </fieldset>
-          <div class="flex flex-col space-y-2 md:flex-row items-center md:space-x-4 md:space-y-0 mb-2">
-            <Btn @click="$router.push('/')">Jetzt registrieren – <span>{{ subscriptionPrice }}<span class="ml-1 text-xs">/ {{ subscriptionIntervalLabel }}</span></span></Btn>
+          <div class="flex flex-col space-y-2 md:flex-row items-center md:space-x-4 md:space-y-0 mb-3">
+            <Btn @click="$router.push('/')">Jetzt 30 Tage kostenlos testen</Btn>
           </div>
           <span class="text-gray-500 text-center text-sm">Alle Preise verstehen sich zzgl. MwSt. Keine festen Verträge, jederzeit kündbar.</span>
         </form>
@@ -110,14 +110,6 @@ export default {
   data() {
     return {
       subscriptionInterval: 'year'
-    }
-  },
-  computed: {
-    subscriptionIntervalLabel() {
-      return this.subscriptionInterval === 'month' ? 'Monat' : 'Jahr'
-    },
-    subscriptionPrice() {
-      return this.subscriptionInterval === 'month' ? '49,90 €' : '499,00 €'
     }
   }
 }

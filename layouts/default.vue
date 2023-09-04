@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!isLoggedIn || isLoggedIn && !$route.path.startsWith('/konto')" class="flex justify-center">
+    <div v-if="showPublicLayout" class="flex justify-center">
       <div class="p-4 sm:p-8 wrapper flex flex-col w-full">
         <header class="mb-8 md:mb-12">
           <div class="flex items-center justify-between">
@@ -82,7 +82,7 @@
         </footer>
       </div>
     </div>
-    <div v-if="isLoggedIn && $route.path.startsWith('/konto')">
+    <div v-if="!showPublicLayout">
       <div class="md:flex flex-wrap text-gray-700 w-full h-screen">
         <div class="w-full md:w-1/3 lg:w-1/5 p-4 shadow-lg">
           <div class="flex items-center justify-between">
@@ -166,6 +166,9 @@ export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn && this.$store.state.userData
+    },
+    showPublicLayout() {
+      return !this.isLoggedIn || this.isLoggedIn && (this.$route.path === '/konto/bestaetigen' || !this.$route.path.startsWith('/konto'))
     },
     copyrightYear() {
       const year = new Date().getFullYear()

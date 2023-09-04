@@ -7,16 +7,16 @@
         <form class="flex flex-col items-center md:items-start" @submit.prevent>
           <fieldset class="flex flex-col sm:flex-row sm:space-x-3 sm:text-lg mb-3">
             <div>
-              <input type="radio" name="year" value="year" v-model="subscriptionInterval" />
+              <input type="radio" name="interval" value="year" v-model="subscriptionInterval" />
               <label for="year">499,99 € jährlich (17% sparen)</label>
             </div>
             <div>
-              <input type="radio" name="month" value="month" v-model="subscriptionInterval" />
+              <input type="radio" name="interval" value="month" v-model="subscriptionInterval" />
               <label for="month">49,99 € monatlich</label>
             </div>
           </fieldset>
           <div class="flex flex-col space-y-2 md:flex-row items-center md:space-x-4 md:space-y-0 mb-3">
-            <Btn @click="$router.push('/')">Jetzt 30 Tage kostenlos testen</Btn>
+            <Btn @click="$router.push('/registrieren')">Jetzt 30 Tage kostenlos testen</Btn>
           </div>
           <span class="text-gray-500 text-center text-sm">Alle Preise verstehen sich zzgl. MwSt. Keine festen Verträge, jederzeit kündbar.</span>
         </form>

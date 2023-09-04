@@ -1,5 +1,5 @@
 <template>
-  <button class="font-bold text-white rounded-md shadow-md px-4 py-2 flex justify-center focus:outline-none" :class="buttonClasses" @click="onClick">
+  <button class="font-bold text-white rounded-full shadow-md px-4 py-2 flex justify-center focus:outline-none" :class="buttonClasses" @click="onClick">
     <div class="flex items-center gap-2">
       <img src="@/assets/images/icons/spinner.svg" v-show="isLoading" />
       <slot />
@@ -47,7 +47,7 @@ export default {
 
 <style lang="postcss" scoped>
 .btn-bg-brand {
-  @apply text-white rounded-full;
+  @apply text-white;
   background: #00aff0;
   background: -webkit-linear-gradient(top left, #00aff0, #008abd);
   background: -moz-linear-gradient(top left, #00aff0, #008abd);

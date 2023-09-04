@@ -10,7 +10,7 @@
         <fieldset class="mb-4 md:mb-8">
           <label class="font-bold block">Passwort</label>
           <PasswordInput v-model="password" required />
-          <p class="mt-2 text-right"><nuxt-link to="/passwort-zuruecksetzen">Passwort vergessen?</nuxt-link></p>
+          <p class="mt-2 text-right"><nuxt-link to="/passwort-anfordern">Passwort vergessen?</nuxt-link></p>
         </fieldset>
         <fieldset>
           <Btn class="w-full" :is-loading="isSigningIn" @click="signInUser">Einloggen</Btn>

@@ -31,9 +31,7 @@ router.post('/update', async (req, res) => {
 // get user by firebase uid
 router.get('/:firebase_uid', async (req, res) => {
   const users = await db.query(`
-    SELECT
-      id,
-      email
+    SELECT *
     FROM users
     WHERE firebase_uid = $1
   `, [ req.params.firebase_uid ])

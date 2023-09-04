@@ -13,7 +13,13 @@
               <nuxt-link v-if="!$store.getters.isLoggedIn" to="/login">Login</nuxt-link>
               <nuxt-link v-if="$store.getters.isLoggedIn" to="/konto/logout">Logout</nuxt-link>
               <Btn v-if="!isLoggedIn" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
-              <Btn v-if="isLoggedIn" @click="$router.push('/konto')">Ihr Konto</Btn>
+              <Btn v-if="isLoggedIn" @click="$router.push('/konto')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                Ihr Konto
+              </Btn>
             </div>
             <div class="lg:hidden mt-1">
               <svg v-show="!showMobileMenu" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" @click="showMobileMenu = true">
@@ -31,7 +37,13 @@
           <nuxt-link v-if="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>
           <nuxt-link v-if="isLoggedIn" to="/konto/logout" class="md:hidden">Logout</nuxt-link>
           <Btn v-if="!isLoggedIn" class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
-          <Btn v-if="isLoggedIn" class="w-fit md:hidden" @click="$router.push('/konto')">Ihr Konto</Btn>
+          <Btn v-if="isLoggedIn" class="w-fit md:hidden" @click="$router.push('/konto')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+              <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+            </svg>
+            Ihr Konto
+          </Btn>
         </div>
       </header>
       <main class="mb-8 md:mb-12">

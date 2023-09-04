@@ -1,4 +1,7 @@
 export default {
+  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
+  ssr: true,
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Traumanwalt - Anwalt suchen und finden',
@@ -63,6 +66,7 @@ export default {
     ],
     '@nuxtjs/axios',
     '@nuxtjs/google-gtag',
+    '@nuxtjs/pwa',
     '@nuxtjs/sitemap',
     '@nuxtjs/toast'
   ],
@@ -95,5 +99,24 @@ export default {
   toast: {
     position: 'top-center',
     duration: 2000
+  },
+
+  // PWA Configuration
+  pwa: {
+    // disable the modules you don't need
+    meta: false,
+    icon: false,
+    // if you omit a module key form configuration sensible defaults will be applied
+    // manifest: false,
+
+    workbox: {
+      importScripts: [
+        // ...
+        '/firebase-auth-sw.js'
+      ],
+      // by default the workbox module will not install the service worker in dev environment to avoid conflicts with HMR
+      // only set this true for testing and remember to always clear your browser cache in development
+      dev: process.env.NODE_ENV === 'development',
+    }
   }
 }

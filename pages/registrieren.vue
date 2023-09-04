@@ -69,7 +69,7 @@
             <label>Ich akzeptiere die <nuxt-link to="/agb">AGB</nuxt-link> und <nuxt-link to="/datenschutz">Datenschutzerklärung</nuxt-link> von Traumanwalt.</label>
           </fieldset>
           <fieldset>
-            <Btn class="w-full sm:w-fit" :is-loading="isSigningUp" :is-disabled="!hasEnteredValidRegistrationData" @click="signUpUser">Registrieren</Btn>
+            <Btn class="w-full sm:w-fit" :is-loading="isSigningUp" :is-disabled="!hasEnteredValidRegistrationData" @click="signUpUser">Kostenlos registrieren</Btn>
           </fieldset>
         </div>
       </form>
@@ -139,7 +139,7 @@ export default {
 
         // send verification email
         await this.$fire.auth.currentUser.sendEmailVerification({
-          url: 'https://traumanwalt.com/dashboard'
+          url: 'https://traumanwalt.com/konto'
         })
 
         // create user data
@@ -162,7 +162,7 @@ export default {
         )
 
         window.setTimeout(() => {
-          window.location.href = '/dashboard'
+          window.location.href = '/konto'
           this.isSigningUp = false
         }, 1000)
       } catch (e) {

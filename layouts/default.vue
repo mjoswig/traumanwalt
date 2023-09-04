@@ -10,8 +10,10 @@
             <div class="hidden md:flex items-center space-x-6 sm:space-x-8 sm:text-lg">
               <nuxt-link to="/" class="hidden lg:inline-block">Anwälte finden</nuxt-link>
               <nuxt-link to="/" class="hidden lg:inline-block">Rechtstipps</nuxt-link>
-              <nuxt-link to="/">Login</nuxt-link>
-              <Btn @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
+              <nuxt-link v-if="!$store.getters.isLoggedIn" to="/login">Login</nuxt-link>
+              <nuxt-link v-if="$store.getters.isLoggedIn" to="/konto/logout">Logout</nuxt-link>
+              <Btn v-if="!isLoggedIn" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
+              <Btn v-if="isLoggedIn" @click="$router.push('/konto')">Ihr Konto</Btn>
             </div>
             <div class="lg:hidden mt-1">
               <svg v-show="!showMobileMenu" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" @click="showMobileMenu = true">
@@ -26,7 +28,8 @@
         <div class="bg-gray-100 p-4 flex-col space-y-4 rounded-md shadow-sm mt-4" :class="{ 'flex lg:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
           <nuxt-link to="/">Anwälte finden</nuxt-link>
           <nuxt-link to="/">Rechtstipps</nuxt-link>
-          <nuxt-link to="/" class="md:hidden">Login</nuxt-link>
+          <nuxt-link v-if="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>
+          <nuxt-link v-if="isLoggedIn" to="/konto/logout" class="md:hidden">Logout</nuxt-link>
           <Btn class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
         </div>
       </header>
@@ -69,12 +72,16 @@
 
 <script>
 export default {
+  middleware: ['auth'],
   data() {
     return {
       showMobileMenu: false
     }
   },
   computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn && this.$store.state.userData
+    },
     copyrightYear() {
       const year = new Date().getFullYear()
       if (year === 2023) return year

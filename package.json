@@ -1,6 +1,6 @@
 {
   "name": "traumanwalt",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -12,6 +12,7 @@
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/firebase": "^8.2.2",
     "@nuxtjs/google-gtag": "^1.0.4",
+    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/toast": "^3.3.1",
     "@trevoreyre/autocomplete-vue": "^2.4.1",

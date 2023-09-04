@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const user = require('../user')
+const db = require('../db')
 
 // create new user
 router.post('/create', async (req, res) => {
@@ -15,6 +16,28 @@ router.post('/create', async (req, res) => {
     req.body.country
   )
   return res.status(200).send(response)
+})
+
+// update user
+router.post('/update', async (req, res) => {
+  try {
+    await user.update(req.body.email, req.body.firebase_uid)
+    return res.status(200).send(true)
+  } catch (e) {
+    return res.status(400).send(e)
+  }
+})
+
+// get user by firebase uid
+router.get('/:firebase_uid', async (req, res) => {
+  const users = await db.query(`
+    SELECT
+      id,
+      email
+    FROM users
+    WHERE firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  return res.status(200).send(users.rows[0])
 })
 
 module.exports = router

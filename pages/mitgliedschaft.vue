@@ -91,7 +91,7 @@
           </svg>
         </div>
         <div>
-          <h3 class="text-lg mb-1">Kanzleiprofil</h3>
+          <h3 class="text-lg mb-1">Kostenloses Kanzleiprofil</h3>
           <p>Mehr als ein Anwaltsprofil? Kein Problem – mit unserem Kanzleiprofil, welches Sie selbst verwalten können.</p>
         </div>
       </div>

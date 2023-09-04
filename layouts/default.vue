@@ -87,7 +87,7 @@
         <div class="w-full md:w-1/3 lg:w-1/5 p-4 shadow-lg">
           <div class="flex items-center justify-between">
             <nuxt-link class="w-64" to="/konto">
-              <img class="w-44 sm:w-56 h-auto" src="@/assets/images/traumanwalt-logo.png" />
+              <img class="w-40 sm:w-56 h-auto" src="@/assets/images/traumanwalt-logo.png" />
             </nuxt-link>
             <div class="md:hidden">
               <svg v-show="!showMobileMenu" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" @click="showMobileMenu = true">
@@ -98,10 +98,10 @@
               </svg>
             </div>
           </div>
-          <ul class="admin-sidebar text-lg flex flex-col space-y-3 md:space-y-6 mt-5 md:mt-8" :class="{ 'hidden md:block': !showMobileMenu }">
+          <ul class="admin-sidebar md:text-lg flex flex-col space-y-3 md:space-y-6 mt-5 md:mt-8" :class="{ 'hidden md:block': !showMobileMenu }">
             <li>
               <nuxt-link to="/konto" class="flex items-center space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-speedometer2 h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
                   <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
                   <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
                 </svg>
@@ -110,7 +110,7 @@
             </li>
             <li>
               <nuxt-link to="/konto" class="flex items-center space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
                   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
                 </svg>
                 <span>Mein Profil</span>
@@ -118,7 +118,7 @@
             </li>
             <li>
               <nuxt-link to="/konto" class="flex items-center space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-left-text h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
                   <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                   <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
                 </svg>
@@ -127,7 +127,7 @@
             </li>
             <li>
               <nuxt-link to="/settings" class="flex items-center space-x-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pencil h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
                   <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                 </svg>
                 <span>Rechtstipps</span>
@@ -136,7 +136,7 @@
             <li>
               <nuxt-link to="/konto/logout" class="flex items-center space-x-3">
                 <span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-return-right h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
   						      <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
 						      </svg>
                 </span>

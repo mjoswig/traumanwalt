@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: true,
@@ -92,7 +94,18 @@ export default {
 
   // Sitemap Configuration
   sitemap: {
-    hostname: 'https://traumanwalt.com'
+    hostname: 'https://traumanwalt.com',
+    routes: async () => {
+      let routes = []
+
+      const { data: legalFields } = await axios.get('https://traumanwalt.com/api/legal-fields')
+      routes.push(...legalFields.map(lf => `/anwaelte/${lf.slug}`))
+
+      const { data: cities } = await axios.get('https://traumanwalt.com/api/cities')
+      routes.push(...cities.map(c => `/anwaelte/${c.slug}`))
+
+      return routes
+    }
   },
 
   // Toast Configuration

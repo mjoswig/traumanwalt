@@ -9,7 +9,7 @@
             </div>
             <div class="flex items-center space-x-8">
               <div class="hidden md:flex items-center space-x-6 sm:space-x-8 sm:text-lg">
-                <nuxt-link to="/" class="hidden lg:inline-block">Anwälte finden</nuxt-link>
+                <nuxt-link to="/anwaelte" class="hidden lg:inline-block">Anwälte finden</nuxt-link>
                 <nuxt-link to="/" class="hidden lg:inline-block">Rechtstipps</nuxt-link>
                 <nuxt-link v-if="!$store.getters.isLoggedIn" to="/login">Login</nuxt-link>
                 <nuxt-link v-if="$store.getters.isLoggedIn" to="/konto/logout">Logout</nuxt-link>
@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="bg-gray-100 p-4 flex-col space-y-4 rounded-md shadow-sm mt-4" :class="{ 'flex lg:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
-            <nuxt-link to="/">Anwälte finden</nuxt-link>
+            <nuxt-link to="/anwaelte">Anwälte finden</nuxt-link>
             <nuxt-link to="/">Rechtstipps</nuxt-link>
             <nuxt-link v-if="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>
             <nuxt-link v-if="isLoggedIn" to="/konto/logout" class="md:hidden">Logout</nuxt-link>
@@ -54,7 +54,7 @@
           <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full mb-8 lg:mb-12">
             <div>
               <img class="h-10 w-auto mb-1" src="@/assets/images/traumanwalt-logo.png" />
-              <span class="block mb-2">Mit nur wenigen Klicks zum Fachanwalt Ihrer Träume!</span>
+              <span class="block mb-2">Mit nur wenigen Klicks zum Rechtsanwalt Ihrer Träume!</span>
               <img class="h-10 w-auto" src="@/assets/images/serverstandort-deutschland.svg" />
             </div>
             <div>

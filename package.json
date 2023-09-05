@@ -1,6 +1,6 @@
 {
   "name": "traumanwalt",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "private": true,
   "scripts": {
     "dev": "nuxt",

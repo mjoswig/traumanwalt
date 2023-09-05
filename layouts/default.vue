@@ -14,7 +14,7 @@
                 <nuxt-link v-show="!$store.getters.isLoggedIn" to="/login">Login</nuxt-link>
                 <nuxt-link v-show="$store.getters.isLoggedIn" to="/konto/logout">Logout</nuxt-link>
                 <Btn v-show="!isLoggedIn" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
-                <Btn v-show="isLoggedIn" @click="goToAccountPage">
+                <Btn v-show="isLoggedIn" @click="$router.push('/konto')">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                     <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
@@ -38,7 +38,7 @@
             <nuxt-link v-show="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>
             <nuxt-link v-show="isLoggedIn" to="/konto/logout" class="md:hidden">Logout</nuxt-link>
             <Btn v-show="!isLoggedIn" class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
-            <Btn v-show="isLoggedIn" class="w-fit md:hidden" @click="goToAccountPage">
+            <Btn v-show="isLoggedIn" class="w-fit md:hidden" @click="$router.push('/konto')">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                 <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
@@ -233,16 +233,10 @@ export default {
       this.showMobileMenu = false
     }
   },
-  methods: {
-    goToAccountPage() {
-      this.$router.push('/konto')
-    }
-  },
   created() {
-    const self = this
-    setTimeout(() => {
-      self.isLoading = false
-    }, 1000)
+    this.$nextTick(() => {
+      this.isLoading = false
+    })
   }
 }
 </script>

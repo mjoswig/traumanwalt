@@ -234,7 +234,7 @@ export default {
   },
   methods: {
     goToAccountPage() {
-      window.location.href = '/konto'
+      this.$router.push('/konto')
     }
   }
 }

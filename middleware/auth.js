@@ -22,7 +22,7 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     // redirect user to settings page when trial has expired
     const trialExpirationDate = new Date(userData.trial_expires_at)
     const trialDaysRemaining = Math.ceil(Math.round(trialExpirationDate - new Date()) / (24 * 60 * 60 * 1000))
-    if (!onVisitorPage && route.path !== '/konto/logout' && trialDaysRemaining <= 0 && !userData.subscribed) {
+    if (!onVisitorPage && route.path !== '/konto/einstellungen' && route.path !== '/konto/logout' && trialDaysRemaining <= 0 && !userData.subscribed) {
       return redirect('/konto/einstellungen')
     }
 

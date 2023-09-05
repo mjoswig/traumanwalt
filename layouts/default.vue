@@ -1,5 +1,5 @@
 <template>
-  <v-app v-if="!isLoading">
+  <div>
     <div v-show="showPublicLayout" class="flex justify-center">
       <div class="p-4 sm:p-8 wrapper flex flex-col w-full">
         <header class="mb-8 md:mb-12">
@@ -184,7 +184,7 @@
         </div>
       </div>
     </div>
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -192,13 +192,12 @@ export default {
   middleware: ['auth'],
   data() {
     return {
-      isLoading: true,
       showMobileMenu: false
     }
   },
   computed: {
     isLoggedIn() {
-      return this.$store.getters.isLoggedIn && this.$store.state.userData
+      return this.$store.getters.isLoggedIn
     },
     showPublicLayout() {
       return (
@@ -238,12 +237,8 @@ export default {
       this.$router.push('/konto')
     }
   },
-  mounted() {
-    console.log('default.vue', this.$store.getters.isLoggedIn, this.$store.state)
-    const self = this
-    window.setTimeout(function() {
-      self.isLoading = false
-    }, 1000)
+  created() {
+    console.log(this.$store.getters.isLoggedIn, this.$store.state)
   }
 }
 </script>

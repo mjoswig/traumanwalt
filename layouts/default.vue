@@ -240,7 +240,7 @@ export default {
   },
   created() {
     const self = this
-    this.setTimeout(() => {
+    setTimeout(() => {
       self.isLoading = false
     }, 1000)
   }

@@ -9,13 +9,15 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     return redirect('/login')
   } else {
     const emailVerified = store.state.authUser.emailVerified
-    if (!emailVerified && !onVisitorPage && route.path !== '/konto/logout' && route.path !== '/konto/bestaetigen') {
-      return redirect('/konto/bestaetigen')
-    }
 
     // redirect user to account page if he is logged in and wants to access certain pages
     if (onLoginPage || (emailVerified && route.path === '/konto/bestaetigen')) {
       return redirect('/konto')
+    }
+
+    // redirect user to email confirmation page if he tries to access an account page with an unconfirmed email
+    if (!emailVerified && !onVisitorPage && route.path !== '/konto/logout' && route.path !== '/konto/bestaetigen') {
+      return redirect('/konto/bestaetigen')
     }
 
     // fetch account data related to the user

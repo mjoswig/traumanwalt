@@ -8,6 +8,11 @@
         <div>
           <h2 class="mb-2">{{ getFullName(attorney) }}</h2>
           <span class="text-lg">{{ getBusinessAddress(attorney) }}</span>
+          <div class="flex flex-wrap mt-4">
+            <span class="border border-blue-500 text-blue-500 px-2 py-1 rounded-md text-sm mr-2" v-for="(legalField, index) in attorney.legal_fields" :key="index">
+              {{ getLegalFieldName(legalField, attorney) }}
+            </span>
+          </div>
         </div>
       </article>
     </section>
@@ -24,10 +29,10 @@ export default {
     },
     getFullName(attorney) {
       let fullName = []
-      if (attorney.salutation === 'Herr') {
-        fullName.push('Rechtsanwalt')
-      } else {
+      if (attorney.salutation === 'Frau') {
         fullName.push('Rechtsanwältin')
+      } else {
+        fullName.push('Rechtsanwalt')
       }
       fullName.push(attorney.first_name)
       fullName.push(attorney.last_name)
@@ -39,6 +44,13 @@ export default {
       businessAddress.push(attorney.postal_code)
       businessAddress.push(attorney.city)
       return businessAddress.join(', ')
+    },
+    getLegalFieldName(legalField, attorney) {
+      if (legalField.specialized) {
+        const preposition = attorney.salutation === 'Frau' ? 'Fachanwältin' : 'Fachanwalt'
+        return `${preposition} ${legalField.name}`
+      }
+      return legalField.name
     }
   }
 }

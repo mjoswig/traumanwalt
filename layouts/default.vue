@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="isLoading">
     <div v-show="showPublicLayout" class="flex justify-center">
       <div class="p-4 sm:p-8 wrapper flex flex-col w-full">
         <header class="mb-8 md:mb-12">
@@ -196,6 +196,7 @@ export default {
   middleware: ['auth'],
   data() {
     return {
+      isLoading: false,
       showMobileMenu: false
     }
   },
@@ -242,7 +243,10 @@ export default {
     }
   },
   created() {
-    console.log(1, this.$store.getters.isLoggedIn, this.$store.state)
+    console.log(2)
+    this.$nextTick(() => {
+      this.loading = false
+    })
   }
 }
 </script>

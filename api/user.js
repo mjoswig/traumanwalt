@@ -9,15 +9,18 @@ async function create(firebaseUid, salutation, academicTitle, firstName, lastNam
     locale: 'de'
   })
 
+  const trialExpiresAt = new Date()
+  trialExpiresAt.setDate(trialExpiresAt.getDate() + 30)
+
   await db.query(`
     INSERT INTO users(
       firebase_uid, username, salutation, academic_title, first_name, last_name,
-      address_line, postal_code, city, country
+      address_line, postal_code, city, country, trial_expires_at
     )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
   `, [
     firebaseUid, username, salutation, academicTitle, firstName, lastName,
-    addressLine, postalCode, city, country
+    addressLine, postalCode, city, country, trialExpiresAt
   ])
 
   return {

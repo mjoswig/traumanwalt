@@ -118,6 +118,15 @@
             </li>
             <li>
               <nuxt-link to="/konto" class="flex items-center space-x-3">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-building h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
+                  <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+                  <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/>
+                </svg>
+                <span>Kanzleiprofil</span>
+              </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link to="/konto" class="flex items-center space-x-3">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-left-text h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
                   <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                   <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
@@ -163,6 +172,12 @@
           </ul>
         </div>
         <div class="w-full md:w-2/3 lg:w-4/5">
+          <div v-if="trialDaysRemaining > 0" class="text-orange-700 px-4 text-sm sm:text-base sm:px-8 py-3" style="background-color: rgb(255, 245, 236);">
+            Ihre kostenlose Testphase endet in <b>{{ trialDaysRemaining }} Tag{{ trialDaysRemaining !== 1 ? 'en': '' }}</b>. <nuxt-link to="/konto">Bitte klicken Sie hier</nuxt-link>, um Traumanwalt-Mitglied zu werden.
+          </div>
+          <div v-if="trialDaysRemaining <= 0" class="bg-red-100 text-red-700 px-4 text-sm sm:text-base sm:px-8 py-3">
+            Ihre Testphase ist abgelaufen und wir haben Ihr Profil vorübergehend deaktiviert. <nuxt-link to="/konto">Bitte klicken Sie hier</nuxt-link>, um Mitglied zu werden.
+          </div>
           <div class="px-4 py-6 sm:p-8">
             <Nuxt />
           </div>
@@ -186,6 +201,11 @@ export default {
     },
     showPublicLayout() {
       return !this.isLoggedIn || this.isLoggedIn && (this.$route.path === '/konto/bestaetigen' || !this.$route.path.startsWith('/konto'))
+    },
+    trialDaysRemaining() {
+      if (!this.$store.state.userData) return 0
+      const trialExpirationDate = new Date(this.$store.state.userData.trial_expires_at)
+      return Math.ceil(Math.round(trialExpirationDate - new Date()) / (24 * 60 * 60 * 1000))
     },
     copyrightYear() {
       const year = new Date().getFullYear()

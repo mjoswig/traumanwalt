@@ -1,13 +1,18 @@
 <template>
   <div>
-    <h2>Anwaltssuche</h2>
-    <section class="flex space-x-8">
-    </section>
+    <h1 class="mb-8">Anwaltssuche</h1>
+    <AttorneySearch :attorneys="attorneys" />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AnwaelteIndexPage'
+  name: 'AnwaelteIndexPage',
+  async asyncData({ app }) {
+    const attorneys = await app.$axios.$get('/api/attorneys')
+    return {
+      attorneys
+    }
+  }
 }
 </script>

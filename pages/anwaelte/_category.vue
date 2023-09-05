@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h2 v-if="category.type === 'legal_fields'">Anwälte für {{ category.value.name }}</h2>
-    <h2 v-if="category.type === 'cities'">Anwälte in {{ category.value.name }}</h2>
+    <div>
+      <h1 v-if="category.type === 'legal_fields'">Anwälte für {{ category.value.name }}</h1>
+      <h1 v-if="category.type === 'cities'">Anwälte in {{ category.value.name }}</h1>
+    </div>
     <section>
     </section>
   </div>

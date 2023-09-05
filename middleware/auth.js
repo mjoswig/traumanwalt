@@ -1,5 +1,5 @@
 const authMiddleware = async ({ app, redirect, route, store }) => {
-  const loggedIn = store.getters.isLoggedIn
+  const loggedIn = store.getters.isLoggedIn || store.state.authUser
   const onLoginPage = route.path === '/login' || route.path === '/registrieren' || route.path === '/passwort-anfordern'
   const onVisitorPage = !route.path.startsWith('/konto')
 

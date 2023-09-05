@@ -57,7 +57,7 @@
           </svg>
         </div>
         <div>
-          <h3 class="text-lg mb-1">Fachbeiträge</h3>
+          <h3 class="text-lg mb-1">Rechtstipps</h3>
           <p>Veröffentlichen Sie Fachbeiträge zu Ihren Schwerpunkten und erlangen Sie so mehr Sichtbarkeit für Ihr Anwaltsprofil.</p>
         </div>
       </div>

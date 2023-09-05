@@ -4,9 +4,6 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: true,
 
-  // Set universal mode
-  mode: 'universal',
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Traumanwalt - Anwalt suchen und finden',

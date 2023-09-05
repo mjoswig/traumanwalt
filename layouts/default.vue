@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isLoading">
+  <v-app v-if="!isLoading">
     <div v-show="showPublicLayout" class="flex justify-center">
       <div class="p-4 sm:p-8 wrapper flex flex-col w-full">
         <header class="mb-8 md:mb-12">
@@ -184,7 +184,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -238,11 +238,12 @@ export default {
       this.$router.push('/konto')
     }
   },
-  created() {
+  mounted() {
     console.log('default.vue', this.$store.getters.isLoggedIn, this.$store.state)
-    this.$nextTick(function() {
-      this.isLoading = false
-    })
+    const self = this
+    window.setTimeout(function() {
+      self.isLoading = false
+    }, 1000)
   }
 }
 </script>

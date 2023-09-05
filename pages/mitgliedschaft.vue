@@ -22,7 +22,7 @@
         </form>
       </div>
       <div class="hidden lg:flex justify-center w-1/3">
-        <img class="h-72 w-72" src="@/assets/images/traumanwalt-mitgliedschaft.png" />
+        <img class="h-72 w-72" src="@/assets/images/traumanwalt-werden-illustration.png" />
       </div>
     </div>
     <h2 class="mb-6 md:mb-8">Was Sie bei uns bekommen:</h2>

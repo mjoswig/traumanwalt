@@ -3,7 +3,7 @@
     <section class="flex flex-col space-y-8">
       <article class="border flex flex-col space-y-4 md:flex-row md:space-x-8 md:space-y-0 p-4 lg:p-8 rounded-lg" v-for="(attorney, index) in attorneys" :key="index">
         <div>
-          <img class="bg-cover border-4 border-white h-28 w-28 sm:h-48 sm:w-48 rounded-full" :style="`background-image: url(${getAvatarUrl(attorney)});`" />
+          <img class="bg-cover border-4 border-white h-28 w-28 sm:h-48 sm:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(attorney)});`" />
         </div>
         <div>
           <h2 class="mb-2">{{ getFullName(attorney) }}</h2>
@@ -24,8 +24,8 @@ export default {
   name: 'AttorneySearch',
   props: ['attorneys'],
   methods: {
-    getAvatarUrl(attorney) {
-      return attorney.avatar_url || require('@/assets/images/avatar-default.jpeg')
+    getPhotoUrl(attorney) {
+      return attorney.photo_url || require('@/assets/images/photo-default.jpeg')
     },
     getFullName(attorney) {
       let fullName = []

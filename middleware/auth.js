@@ -4,9 +4,8 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
   const onVisitorPage = !route.path.startsWith('/konto')
 
   if (!loggedIn) {
-    if (onVisitorPage) return
     // redirect user to login page if he is not logged in and tries to access an internal page
-    return redirect('/login')
+    if (!onVisitorPage) return redirect('/login')
   } else {
     const emailVerified = store.state.authUser.emailVerified
 

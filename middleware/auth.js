@@ -24,6 +24,14 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     // update user data
     store.commit('SET_USER_DATA', userData)
 
+    // redirect user to settings page when trial has expired
+    const trialExpirationDate = new Date(userData.trial_expires_at)
+    const trialDaysRemaining = Math.ceil(Math.round(trialExpirationDate - new Date()) / (24 * 60 * 60 * 1000))
+
+    if (!onVisitorPage && route.path !== '/konto/logout' && trialDaysRemaining <= 0 && !userData.subscribed) {
+      return redirect('/konto/einstellungen')
+    }
+
     // synchronize firebase email with database email
     if (emailVerified && userData.email !== store.state.authUser.email) {
       await app.$axios.$post('/api/users/update', {

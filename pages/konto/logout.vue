@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'LogoutPage',
+  name: 'KontoLogoutPage',
   head() {
     return {
       title: 'Logout - Traumanwalt'

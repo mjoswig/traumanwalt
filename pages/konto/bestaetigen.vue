@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'BestaetigenPage',
+  name: 'KontoBestaetigenPage',
   head() {
     return {
       title: 'Konto bestätigen - Traumanwalt'

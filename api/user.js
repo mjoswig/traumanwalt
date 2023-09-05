@@ -5,7 +5,8 @@ const db = require('./db')
 async function create(firebaseUid, salutation, academicTitle, firstName, lastName, addressLine, postalCode, city, country) {
   const username = slugify(`${firstName} ${lastName}`, {
     remove: /[*+~.()'"!:@]/g,
-    lower: true
+    lower: true,
+    locale: 'de'
   })
 
   await db.query(`

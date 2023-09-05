@@ -20,6 +20,7 @@
       <div class="bg-cover h-56 sm:h-72 md:h-96 rounded-t-md md:rounded-none xl:rounded-r-md w-full" :style="`background-image: url(${require('@/assets/images/traumanwalt-home-1.jpeg')}); background-position: center 0; min-width: 40vw;`">
       </div>
     </section>
+    {{ cities2 }}
     <section class="mb-12">
       <h2 class="mb-6">Anwälte nach Rechtsgebiet</h2>
       <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -55,9 +56,11 @@ export default {
   async asyncData({ app }) {
     const legalFields = await app.$axios.$get('/api/legal-fields')
     const cities = await app.$axios.$get('/api/cities')
+    const cities2 = await app.$axios.$get('/api/cities/popular')
     return {
       legalFields,
       cities,
+      cities2,
       popularCities: cities.filter(city => city.popular)
     }
   },

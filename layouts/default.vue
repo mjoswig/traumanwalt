@@ -192,7 +192,7 @@ export default {
   middleware: ['auth'],
   data() {
     return {
-      isLoading: false,
+      isLoading: true,
       showMobileMenu: false
     }
   },
@@ -240,7 +240,7 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      this.loading = false
+      this.isLoading = false
     })
   }
 }

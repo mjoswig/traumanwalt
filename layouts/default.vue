@@ -239,9 +239,10 @@ export default {
     }
   },
   created() {
-    this.$nextTick(() => {
-      this.isLoading = false
-    })
+    const self = this
+    this.setTimeout(() => {
+      self.isLoading = false
+    }, 1000)
   }
 }
 </script>

@@ -24,7 +24,7 @@
       <h2 class="mb-6">Anwälte nach Rechtsgebiet</h2>
       <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <li class="border-b pb-2 break-words" v-for="(legalField, index) in legalFields" :key="index">
-          <nuxt-link :to="`/anwaelte/${legalField.slug}`">Anwalt {{ legalField.name }} ({{ legalField.attorney_count }})</nuxt-link>
+          <nuxt-link :to="`/anwaelte/${legalField.slug}`">Anwalt {{ legalField.name }}</nuxt-link>
         </li>
       </ul>
     </section>

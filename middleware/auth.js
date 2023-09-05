@@ -13,11 +13,6 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
       return redirect('/konto/bestaetigen')
     }
 
-    if (onLoginPage || (emailVerified && route.path === '/konto/bestaetigen')) {
-      // redirect user to account page if he is logged in and wants to access certain pages
-      return redirect('/konto')
-    }
-
     // fetch account data related to the user
     let userData = await app.$axios.$get(`/api/users/${store.state.authUser.uid}`)
 
@@ -27,9 +22,13 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     // redirect user to settings page when trial has expired
     const trialExpirationDate = new Date(userData.trial_expires_at)
     const trialDaysRemaining = Math.ceil(Math.round(trialExpirationDate - new Date()) / (24 * 60 * 60 * 1000))
-
     if (!onVisitorPage && route.path !== '/konto/logout' && trialDaysRemaining <= 0 && !userData.subscribed) {
       return redirect('/konto/einstellungen')
+    }
+
+    // redirect user to account page if he is logged in and wants to access certain pages
+    if (onLoginPage || (emailVerified && route.path === '/konto/bestaetigen')) {
+      return redirect('/konto')
     }
 
     // synchronize firebase email with database email

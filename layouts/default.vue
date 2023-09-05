@@ -236,6 +236,9 @@ export default {
     goToAccountPage() {
       this.$router.push('/konto')
     }
+  },
+  created() {
+    console.log('default.vue', this.$store.getters.isLoggedIn, this.$store.state)
   }
 }
 </script>

@@ -27,8 +27,10 @@
     "stripe": "^13.4.0",
     "uuidv4": "^6.2.13",
     "vue": "^2.7.10",
+    "vue-phone-number-input": "^1.12.13",
     "vue-server-renderer": "^2.7.10",
-    "vue-template-compiler": "^2.7.10"
+    "vue-template-compiler": "^2.7.10",
+    "vue-wysiwyg": "^1.7.2"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^5.3.3",

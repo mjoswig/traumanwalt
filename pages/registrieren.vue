@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center justify-center">
     <div class="w-full">
       <h1 class="text-center mb-2">Jetzt Traumanwalt kostenlos testen</h1>
-      <p class="text-center text-lg lg:text-xl">Überzeugen Sie sich selbst mit einem 30-tägigen Testzugang. Sie können diesen jederzeit kündigen.</p>
+      <p class="text-center text-lg lg:text-xl">Überzeugen Sie sich selbst mit einem 30-tägigen Testzugang. Keine Zahlungsinformationen erforderlich.</p>
       <form class="grid md:grid-cols-2 gap-0 md:gap-8 mt-4 md:mt-8" @submit.prevent>
         <div>
           <div class="grid lg:grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8">

@@ -29,7 +29,9 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '@/plugins/firebase-storage' },
-    { src: '@/plugins/autocomplete-vue' }
+    { src: '@/plugins/autocomplete-vue' },
+    { src: '@/plugins/vue-phone-number-input' },
+    { src: '@/plugins/vue-wysiwyg' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -37,9 +37,9 @@
         </div>
       </form>
     </AccountSection>
-    <AccountSection heading="Kontaktdaten">
+    <AccountSection heading="Kontaktdaten" class="mb-4">
       <form @submit.prevent>
-        <div class="grid grid-cols md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div class="grid grid-cols md:grid-cols-2 gap-4">
           <fieldset>
             <label class="font-bold">Adresse</label>
             <input class="border px-2 py-1 rounded-md w-full" placeholder="Straße und Hausnummer" v-model="contactDetailsForm.address_line" />
@@ -58,11 +58,65 @@
               <option v-for="(country, index) in countries" :key="index" :value="index">{{ country }}</option>
             </select>
           </fieldset>
+          <fieldset>
+            <label class="font-bold">Festnetznummer (optional)</label>
+            <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Festnetznummer', example: 'Beispiel:' }" v-model="contactDetailsForm.landline_number" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">Mobilnummer (optional)</label>
+            <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Mobilnummer', example: 'Beispiel:' }" v-model="contactDetailsForm.mobile_number" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">E-Mail (optional)</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre E-Mail" type="email" v-model="contactDetailsForm.contact_email" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">Webseite (optional)</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre Webseite" type="url" v-model="contactDetailsForm.website_url" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">LinkedIn (optional)</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.linkedin.com/in/max-mustermann-123456789/" type="url" v-model="contactDetailsForm.linkedin_url" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">XING (optional)</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.xing.com/profile/Max_Mustermann/" type="url" v-model="contactDetailsForm.xing_url" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">Facebook (optional)</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.facebook.com/max.mustermann/" type="url" v-model="contactDetailsForm.facebook_url" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">Twitter (optional)</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="https://twitter.com/max_mustermann" type="url" v-model="contactDetailsForm.twitter_url" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">Instagram (optional)</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.instagram.com/max_mustermann/" type="url" v-model="contactDetailsForm.instagram_url" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">YouTube (optional)</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.youtube.com/@Max_Mustermann" type="url" v-model="contactDetailsForm.youtube_url" />
+          </fieldset>
         </div>
         <div class="flex justify-end mt-5">
           <Btn :is-loading="contactDetailsForm.isLoading" @click="saveContactDetails">Speichern</Btn>
         </div>
       </form>
+    </AccountSection>
+    <AccountSection heading="Über mich" class="mb-4">
+      <form @submit.prevent>
+        <wysiwyg placeholder="Schreiben Sie ein paar Worte über sich selbst..." v-model="aboutForm.about" />
+        <div class="flex justify-end mt-5">
+          <Btn :is-loading="aboutForm.isLoading" @click="saveAbout">Speichern</Btn>
+        </div>
+      </form>
+    </AccountSection>
+    <AccountSection heading="Rechtsgebiete" class="mb-4">
+    </AccountSection>
+    <AccountSection heading="Sprachen" class="mb-4">
+    </AccountSection>
+    <AccountSection heading="Mitgliedschaften">
     </AccountSection>
   </div>
 </template>
@@ -89,6 +143,20 @@ export default {
         postal_code: this.$store.state.userData.postal_code,
         city: this.$store.state.userData.city,
         country: this.$store.state.userData.country,
+        landline_number: this.$store.state.userData.landline_number,
+        mobile_number: this.$store.state.userData.mobile_number,
+        contact_email: this.$store.state.userData.contact_email,
+        website_url: this.$store.state.userData.website_url,
+        linkedin_url: this.$store.state.userData.linkedin_url,
+        xing_url: this.$store.state.userData.xing_url,
+        facebook_url: this.$store.state.userData.facebook_url,
+        twitter_url: this.$store.state.userData.twitter_url,
+        instagram_url: this.$store.state.userData.instagram_url,
+        youtube_url: this.$store.state.userData.youtube_url,
+        isLoading: false
+      },
+      aboutForm: {
+        about: this.$store.state.userData.about,
         isLoading: false
       }
     }
@@ -111,6 +179,15 @@ export default {
       })
       this.$toast.success('Ihr Kontaktdaten wurden erfolgreich gespeichert!')
       this.contactDetailsForm.isLoading = false
+    },
+    async saveAbout() {
+      this.aboutForm.isLoading = true
+      await this.$axios.$post('/api/users/update', {
+        ...this.$store.state.userData,
+        ...this.aboutForm
+      })
+      this.$toast.success('Ihr Daten wurden erfolgreich gespeichert!')
+      this.aboutForm.isLoading = false
     }
   }
 }

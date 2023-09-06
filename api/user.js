@@ -45,8 +45,19 @@ async function update(userData, firebaseUid) {
       address_line = $8,
       postal_code = $9,
       city = $10,
-      country = $11
-    WHERE firebase_uid = $12
+      country = $11,
+      landline_number = $12,
+      mobile_number = $13,
+      contact_email = $14,
+      website_url = $15,
+      linkedin_url = $16,
+      xing_url = $17,
+      facebook_url = $18,
+      twitter_url = $19,
+      instagram_url = $20,
+      youtube_url = $21,
+      about = $22
+    WHERE firebase_uid = $23
   `, [
     userData.email,
     userData.salutation,
@@ -59,6 +70,17 @@ async function update(userData, firebaseUid) {
     userData.postal_code,
     userData.city,
     userData.country,
+    userData.landline_number,
+    userData.mobile_number,
+    userData.contact_email,
+    userData.website_url,
+    userData.linkedin_url,
+    userData.xing_url,
+    userData.facebook_url,
+    userData.twitter_url,
+    userData.instagram_url,
+    userData.youtube_url,
+    userData.about,
     firebaseUid
   ])
 }

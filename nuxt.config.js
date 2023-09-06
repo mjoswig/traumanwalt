@@ -105,7 +105,11 @@ export default {
       routes.push(...cities.map(c => `/anwaelte/${c.slug}`))
 
       return routes
-    }
+    },
+    exclude: [
+      '/konto',
+      '/konto/**'
+    ]
   },
 
   // Toast Configuration

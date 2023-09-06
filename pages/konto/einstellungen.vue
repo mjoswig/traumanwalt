@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { EmailAuthProvider } from 'firebase/auth'
+
 export default {
   name: 'KontoEinstellungenPage',
   head() {

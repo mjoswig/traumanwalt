@@ -27,12 +27,12 @@
       <form v-if="!hasSubscribed" class="flex flex-col" @submit.prevent>
         <fieldset class="flex flex-col sm:flex-row sm:space-x-3 mb-3">
           <div>
-            <input type="radio" name="interval" value="year" v-model="subscriptionInterval" />
-            <label for="year" @click="subscriptionInterval = 'year'">499,00 € jährlich (<span class="font-semibold text-blue-500">17% sparen</span>)</label>
+            <input type="radio" name="interval" value="year" v-model="membershipForm.subscriptionInterval" />
+            <label for="year" @click="membershipForm.subscriptionInterval = 'year'">499,00 € jährlich (<span class="font-semibold text-blue-500">17% sparen</span>)</label>
           </div>
           <div>
-            <input type="radio" name="interval" value="month" v-model="subscriptionInterval" />
-            <label for="month" @click="subscriptionInterval = 'month'">49,99 € monatlich</label>
+            <input type="radio" name="interval" value="month" v-model="membershipForm.subscriptionInterval" />
+            <label for="month" @click="membershipForm.subscriptionInterval = 'month'">49,99 € monatlich</label>
           </div>
         </fieldset>
         <Btn class="w-fit mb-3" :is-loading="membershipForm.isLoading" @click="payMembershipFee">Jetzt abonnieren</Btn>
@@ -112,7 +112,7 @@ export default {
       const response = await this.$axios.$post(`/api/stripe/membership/subscribe`, {
         uid: this.$store.state.userData.id,
         email: this.$store.state.userData.email,
-        subscription_interval: this.subscriptionInterval
+        subscription_interval: this.membershipForm.subscriptionInterval
       })
       this.membershipForm.isLoading = false
       window.location.href = response.url

@@ -34,6 +34,9 @@ router.post('/membership/subscribe', async (req, res) => {
         user_id: req.body.uid
       }
     },
+    automatic_tax: {
+      enabled: true,
+    },
     billing_address_collection: 'required',
     success_url: 'https://traumanwalt.com/konto/einstellungen?subscribed=1',
     cancel_url: 'https://traumanwalt.com/konto/einstellungen'

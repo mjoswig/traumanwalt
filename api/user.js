@@ -9,17 +9,19 @@ async function create(firebaseUid, salutation, academicTitle, firstName, lastNam
     locale: 'de'
   })
 
+  const jobTitle = salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
+
   const trialExpiresAt = new Date()
   trialExpiresAt.setDate(trialExpiresAt.getDate() + 30)
 
   await db.query(`
     INSERT INTO users(
-      firebase_uid, slug, salutation, academic_title, first_name, last_name,
+      firebase_uid, slug, salutation, job_title, academic_title, first_name, last_name,
       address_line, postal_code, city, country, trial_expires_at
     )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
   `, [
-    firebaseUid, slug, salutation, academicTitle, firstName, lastName,
+    firebaseUid, slug, salutation, jobTitle, academicTitle, firstName, lastName,
     addressLine, postalCode, city, country, trialExpiresAt
   ])
 
@@ -39,8 +41,12 @@ async function update(userData, firebaseUid) {
       academic_title = $4,
       first_name = $5,
       last_name = $6,
-      suffix_title = $7
-    WHERE firebase_uid = $8
+      suffix_title = $7,
+      address_line = $8,
+      postal_code = $9,
+      city = $10,
+      country = $11
+    WHERE firebase_uid = $12
   `, [
     userData.email,
     userData.salutation,
@@ -49,6 +55,10 @@ async function update(userData, firebaseUid) {
     userData.first_name,
     userData.last_name,
     userData.suffix_title,
+    userData.address_line,
+    userData.postal_code,
+    userData.city,
+    userData.country,
     firebaseUid
   ])
 }

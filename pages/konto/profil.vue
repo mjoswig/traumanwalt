@@ -38,16 +38,43 @@
       </form>
     </AccountSection>
     <AccountSection heading="Kontaktdaten">
-
+      <form @submit.prevent>
+        <div class="grid grid-cols md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <fieldset>
+            <label class="font-bold">Adresse</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="Straße und Hausnummer" v-model="contactDetailsForm.address_line" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">Postleitzahl</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="PLZ" v-model="contactDetailsForm.postal_code" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">Stadt</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="Stadt" v-model="contactDetailsForm.city" />
+          </fieldset>
+          <fieldset>
+            <label class="font-bold">Land</label>
+            <select class="border px-2 py-1 rounded-md w-full" v-model="contactDetailsForm.country">
+              <option v-for="(country, index) in countries" :key="index" :value="index">{{ country }}</option>
+            </select>
+          </fieldset>
+        </div>
+        <div class="flex justify-end mt-5">
+          <Btn :is-loading="contactDetailsForm.isLoading" @click="saveContactDetails">Speichern</Btn>
+        </div>
+      </form>
     </AccountSection>
   </div>
 </template>
 
 <script>
+import countryData from '@/assets/json/countries.json'
+
 export default {
   name: 'KontoProfilPage',
   data() {
     return {
+      countries: countryData.countries,
       personalDetailsForm: {
         salutation: this.$store.state.userData.salutation,
         job_title: this.$store.state.userData.job_title,
@@ -56,6 +83,13 @@ export default {
         last_name: this.$store.state.userData.last_name,
         suffix_title: this.$store.state.userData.suffix_title,
         isLoading: false
+      },
+      contactDetailsForm: {
+        address_line: this.$store.state.userData.address_line,
+        postal_code: this.$store.state.userData.postal_code,
+        city: this.$store.state.userData.city,
+        country: this.$store.state.userData.country,
+        isLoading: false
       }
     }
   },
@@ -63,11 +97,20 @@ export default {
     async savePersonalDetails() {
       this.personalDetailsForm.isLoading = true
       await this.$axios.$post('/api/users/update', {
-        ...this.personalDetailsForm,
-        firebase_uid: this.$store.state.userData.firebase_uid
+        ...this.$store.state.userData,
+        ...this.personalDetailsForm
       })
       this.$toast.success('Ihr persönlichen Daten wurden erfolgreich gespeichert!')
       this.personalDetailsForm.isLoading = false
+    },
+    async saveContactDetails() {
+      this.contactDetailsForm.isLoading = true
+      await this.$axios.$post('/api/users/update', {
+        ...this.$store.state.userData,
+        ...this.contactDetailsForm
+      })
+      this.$toast.success('Ihr Kontaktdaten wurden erfolgreich gespeichert!')
+      this.contactDetailsForm.isLoading = false
     }
   }
 }

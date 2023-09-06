@@ -21,7 +21,7 @@ router.post('/create', async (req, res) => {
 // update user
 router.post('/update', async (req, res) => {
   try {
-    await user.update(req.body.email, req.body.firebase_uid)
+    await user.update(req.body, req.body.firebase_uid)
     return res.status(200).send(true)
   } catch (e) {
     return res.status(400).send(e)

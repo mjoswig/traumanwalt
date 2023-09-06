@@ -3,7 +3,7 @@
     <h1 class="mb-6">Willkommen, {{ fullName }}!</h1>
     <div class="grid gap-4">
       <AccountSection heading="Besucher Ihres Profils">
-        <p>Es sind derzeit keine Daten verfügbar.</p>
+        <p>Es sind derzeit keine Besucherdaten zu Ihrem Profil verfügbar.</p>
       </AccountSection>
     </div>
   </div>

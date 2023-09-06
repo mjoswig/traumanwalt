@@ -29,13 +29,28 @@ async function create(firebaseUid, salutation, academicTitle, firstName, lastNam
 }
 
 // update user
-async function update(email, firebaseUid) {
+async function update(userData, firebaseUid) {
   await db.query(`
     UPDATE users
     SET
-      email = $1
-    WHERE firebase_uid = $2
-  `, [ email, firebaseUid ])
+      email = $1,
+      salutation = $2,
+      job_title = $3,
+      academic_title = $4,
+      first_name = $5,
+      last_name = $6,
+      suffix_title = $7
+    WHERE firebase_uid = $8
+  `, [
+    userData.email,
+    userData.salutation,
+    userData.job_title,
+    userData.academic_title,
+    userData.first_name,
+    userData.last_name,
+    userData.suffix_title,
+    firebaseUid
+  ])
 }
 
 // upgrade user to subscribed account

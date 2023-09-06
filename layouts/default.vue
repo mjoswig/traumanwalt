@@ -98,7 +98,16 @@
               </svg>
             </div>
           </div>
-          <ul class="admin-sidebar md:text-lg flex flex-col space-y-3 md:space-y-6 mt-5 md:mt-8" :class="{ 'hidden md:block': !showMobileMenu }">
+          <ul class="admin-sidebar md:text-lg flex flex-col space-y-3 md:space-y-6 mt-3 md:mt-6" :class="{ 'hidden md:block': !showMobileMenu }">
+            <li class="flex flex-row space-x-2 md:flex-col md:space-x-0 md:space-y-2 xl:flex-row xl:space-x-2 xl:space-y-0 items-center md:items-start xl:items-center">
+              <div>
+                <img class="bg-cover border h-10 w-10 md:h-12 md:w-12 rounded-full" :style="`background-image: url(${photoUrl});`" />
+              </div>
+              <div>
+                <b class="block text-base" style="margin-bottom: -6px; margin-top: 2px;">{{ fullName }}</b>
+                <nuxt-link class="text-sm" :to="profileUrl">Zum Anwaltsprofil</nuxt-link>
+              </div>
+            </li>
             <li v-show="!trialExpired || hasSubscribed">
               <nuxt-link to="/konto" class="flex items-center space-x-3">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-speedometer2 h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
@@ -224,6 +233,20 @@ export default {
     hasSubscribed() {
       if (!this.$store.state.userData) return false
       return this.$store.state.userData.subscribed
+    },
+    photoUrl() {
+      if (!this.$store.state.userData) return null
+      return this.$store.state.userData.photo_url || require('@/assets/images/photo-default.jpeg')
+    },
+    profileUrl() {
+      if (!this.$store.state.userData) return '/konto'
+      return `/${this.$store.state.userData.slug}`
+    },
+    fullName() {
+      if (!this.$store.state.userData) return
+      const firstName = this.$store.state.userData.first_name
+      const lastName = this.$store.state.userData.last_name
+      return `${firstName} ${lastName}`
     },
     copyrightYear() {
       const year = new Date().getFullYear()

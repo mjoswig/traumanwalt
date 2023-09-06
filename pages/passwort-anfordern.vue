@@ -43,7 +43,7 @@ export default {
           this.isResetting = true
 
           await this.$fire.auth.sendPasswordResetEmail(this.email)
-          this.$toast.success(`Sent password reset email to ${this.email}`)
+          this.$toast.success(`Wir haben Ihnen eine E-Mail an ${this.email} mit Anweisungen zur Änderung Ihres Passwortes geschickt!`)
 
           this.email = ''
           this.isResetting = false

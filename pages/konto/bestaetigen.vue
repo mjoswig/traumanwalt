@@ -32,7 +32,7 @@ export default {
         await this.$fire.auth.currentUser.sendEmailVerification({
           url: 'https://traumanwalt.com/bestaetigen'
         })
-        this.$toast.success(`Wir haben Ihnen eine Bestätigungsnachricht an ${this.$fire.auth.currentUser.email} geschickt`)
+        this.$toast.success(`Wir haben Ihnen eine Bestätigungsnachricht an ${this.$fire.auth.currentUser.email} geschickt!`)
         this.isResending = false
       } catch (e) {
         this.$toast.error(e)

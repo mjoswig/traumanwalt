@@ -4,7 +4,7 @@
       <h2 class="text-center">Login</h2>
       <form class="mt-4 md:mt-8" @submit.prevent>
         <fieldset class="mb-4 md:mb-8">
-          <label class="font-bold block">E-Mail-Adresse</label>
+          <label class="font-bold block">E-Mail</label>
           <input class="border px-2 py-1 rounded-md w-full" type="email" v-model="email" required />
         </fieldset>
         <fieldset class="mb-4 md:mb-8">

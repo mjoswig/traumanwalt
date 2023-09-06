@@ -173,7 +173,7 @@
         </div>
         <div class="w-full md:w-2/3 lg:w-4/5">
           <div v-show="!trialExpired && !hasSubscribed" class="text-orange-700 px-4 text-sm sm:text-base sm:px-8 py-3" style="background-color: rgb(255, 245, 236);">
-            Ihre kostenlose Testphase endet in <b>{{ trialDaysRemaining }} Tag{{ trialDaysRemaining !== 1 ? 'en': '' }}</b>. <nuxt-link to="/konto">Bitte klicken Sie hier</nuxt-link>, um Traumanwalt-Mitglied zu werden.
+            Ihre kostenlose Testphase endet in <b>{{ trialDaysRemaining }} Tag{{ trialDaysRemaining !== 1 ? 'en': '' }}</b>. <nuxt-link to="/konto/einstellungen">Bitte klicken Sie hier</nuxt-link>, um Mitglied zu werden.
           </div>
           <div v-show="trialExpired && !hasSubscribed" class="bg-red-100 text-red-700 px-4 text-sm sm:text-base sm:px-8 py-3">
             Ihre kostenlose Testphase ist abgelaufen. Bitte schließen Sie eine Mitgliedschaft ab, um Ihr Traumanwalt-Profil zu reaktivieren.

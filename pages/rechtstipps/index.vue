@@ -4,3 +4,14 @@
     <p class="text-xl">Hier finden Sie gut verständliche Rechtstipps zu allen wichtigen Rechtsgebieten.</p>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'RechtstippsIndexPage',
+  head() {
+    return {
+      title: 'Rechtstipps - Traumanwalt'
+    }
+  }
+}
+</script>

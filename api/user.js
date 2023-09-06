@@ -38,7 +38,29 @@ async function update(email, firebaseUid) {
   `, [ email, firebaseUid ])
 }
 
+// upgrade user to subscribed account
+async function subscribeToMembership(userId) {
+  await db.query(`
+    UPDATE users
+    SET
+      subscribed = TRUE
+    WHERE id = $1
+  `, [ userId ])
+}
+
+// downgrade user to unsubscribed account
+async function unsubscribeFromMembership(userId) {
+  await db.query(`
+    UPDATE users
+    SET
+      subscribed = FALSE
+    WHERE id = $1
+  `, [ userId ])
+}
+
 module.exports = {
   create,
-  update
+  update,
+  subscribeToMembership,
+  unsubscribeFromMembership
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-8">Anwaltssuche</h1>
+    <h1 class="mb-6">Anwaltssuche</h1>
     <AttorneySearch :attorneys="attorneys" />
   </div>
 </template>

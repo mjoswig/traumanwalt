@@ -3,7 +3,7 @@ const db = require('./db')
 
 // create user
 async function create(firebaseUid, salutation, academicTitle, firstName, lastName, addressLine, postalCode, city, country) {
-  const username = slugify(`${firstName} ${lastName}`, {
+  const slug = slugify(`${firstName} ${lastName}`, {
     remove: /[*+~.()'"!:@]/g,
     lower: true,
     locale: 'de'
@@ -14,12 +14,12 @@ async function create(firebaseUid, salutation, academicTitle, firstName, lastNam
 
   await db.query(`
     INSERT INTO users(
-      firebase_uid, username, salutation, academic_title, first_name, last_name,
+      firebase_uid, slug, salutation, academic_title, first_name, last_name,
       address_line, postal_code, city, country, trial_expires_at
     )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
   `, [
-    firebaseUid, username, salutation, academicTitle, firstName, lastName,
+    firebaseUid, slug, salutation, academicTitle, firstName, lastName,
     addressLine, postalCode, city, country, trialExpiresAt
   ])
 

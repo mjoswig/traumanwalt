@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h1>Willkommen, {{ fullName }}!</h1>
+    <h1 class="mb-6">Willkommen, {{ fullName }}!</h1>
+    <div class="grid gap-4">
+      <AccountSection heading="Besucher Ihres Profils">
+        <p>Es sind derzeit keine Daten verfügbar.</p>
+      </AccountSection>
+    </div>
   </div>
 </template>
 

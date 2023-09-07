@@ -1,6 +1,6 @@
 {
   "name": "traumanwalt",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -17,6 +17,7 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/toast": "^3.3.1",
     "@trevoreyre/autocomplete-vue": "^2.4.1",
+    "browser-image-compression": "^2.0.2",
     "core-js": "^3.25.3",
     "cors": "^2.8.5",
     "emailjs": "^4.0.2",

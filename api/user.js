@@ -85,6 +85,25 @@ async function update(userData, firebaseUid) {
   ])
 }
 
+// update languages
+async function updateLanguages(languages, userId) {
+  await db.query(`
+    DELETE FROM user_languages
+    WHERE user_id = $1
+  `, [ userId ])
+
+  for (const language of languages) {
+    try {
+      if (language.checked) {
+        await db.query(`
+          INSERT INTO user_languages(user_id, language_id)
+          VALUES($1, $2)
+        `, [ userId, language.id ])
+      }
+    } catch {}
+  }
+}
+
 // update legal fields
 async function updateLegalFields(legalFields, userId) {
   await db.query(`
@@ -125,6 +144,7 @@ async function unsubscribeFromMembership(userId) {
 module.exports = {
   create,
   update,
+  updateLanguages,
   updateLegalFields,
   subscribeToMembership,
   unsubscribeFromMembership

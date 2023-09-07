@@ -60,4 +60,25 @@ router.post('/:firebase_uid/legal-fields/update', async (req, res) => {
   return res.status(200).send(true)
 })
 
+// get languages by user
+router.get('/:firebase_uid/languages', async (req, res) => {
+  const users = await db.query(`
+    SELECT
+      languages.id AS id,
+      languages.name AS name
+    FROM languages
+    LEFT JOIN user_languages ON user_languages.language_id = languages.id
+    LEFT JOIN users ON users.id = user_languages.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  return res.status(200).send(users.rows)
+})
+
+// update languages for user
+router.post('/:firebase_uid/languages/update', async (req, res) => {
+  const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
+  await user.updateLanguages(Object.values(req.body.languages), userResults.rows[0].id)
+  return res.status(200).send(true)
+})
+
 module.exports = router

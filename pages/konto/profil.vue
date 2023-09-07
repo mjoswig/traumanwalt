@@ -116,9 +116,11 @@
       <form class="flex flex-col space-y-4" @submit.prevent>
         <div v-for="(userLegalField, index) in legalFieldsForm.userLegalFields" :key="index">
           <div class="flex lg:items-center space-x-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash-fill hover:text-red-500 cursor-pointer mt-1 lg:mt-0" viewBox="0 0 16 16" @click="removeLegalField(index)">
-              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-            </svg>
+            <div class="mt-1 lg:mt-0">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-trash-fill hover:text-red-500 cursor-pointer h-5 w-5" viewBox="0 0 16 16" @click="removeLegalField(index)">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+              </svg>
+            </div>
             <div class="flex flex-col space-y-2 lg:flex-row lg:space-x-4 lg:space-y-0">
               <div>
                 <select class="border px-2 py-1 rounded-md w-full" v-model="userLegalField.id">
@@ -127,7 +129,7 @@
                 </select>
               </div>
               <div class="flex items-center space-x-2 mt-2">
-                <input class="h-5 w-5" type="checkbox" v-model="userLegalField.specialized" />
+                <input class="h-4 w-4" type="checkbox" v-model="userLegalField.specialized" />
                 <label>Fachanwaltschaft</label>
               </div>
             </div>
@@ -146,6 +148,19 @@
       </form>
     </AccountSection>
     <AccountSection heading="Sprachen" class="mb-4">
+      <form @submit.prevent>
+        <fieldset class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          <div class="flex items-start space-x-2" v-for="(language, index) in allLanguages" :key="index">
+            <div>
+              <input class="mt-1 h-4 w-4" type="checkbox" v-model="languagesForm.userLanguages['lang-' + language.id].checked" />
+            </div>
+            <label>{{ language.name }}</label>
+          </div>
+        </fieldset>
+        <div class="flex justify-end mt-5">
+          <Btn :is-loading="languagesForm.isLoading" @click="saveLanguages">Speichern</Btn>
+        </div>
+      </form>
     </AccountSection>
     <AccountSection heading="Mitgliedschaften">
     </AccountSection>
@@ -158,10 +173,14 @@ import countryData from '@/assets/json/countries.json'
 export default {
   name: 'KontoProfilPage',
   async asyncData({ app, store }) {
+    const allLanguages = await app.$axios.$get('/api/languages')
     const allLegalFields = await app.$axios.$get('/api/legal-fields')
+    const userLanguages = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/languages`)
     const userLegalFields = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/legal-fields`)
     return {
+      allLanguages,
       allLegalFields,
+      userLanguages,
       countries: countryData.countries,
       personalDetailsForm: {
         salutation: store.state.userData.salutation,
@@ -194,7 +213,11 @@ export default {
         isLoading: false
       },
       legalFieldsForm: {
-        userLegalFields: userLegalFields,
+        userLegalFields,
+        isLoading: false
+      },
+      languagesForm: {
+        userLanguages: {},
         isLoading: false
       }
     }
@@ -243,7 +266,31 @@ export default {
     },
     removeLegalField(index) {
       this.legalFieldsForm.userLegalFields = this.legalFieldsForm.userLegalFields.filter((ulf, ulfIndex) => ulfIndex !== index)
+    },
+    async saveLanguages() {
+      this.languagesForm.isLoading = true
+      await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/languages/update`, {
+        languages: this.languagesForm.userLanguages
+      })
+      this.$toast.success('Ihre Sprachen wurden erfolgreich gespeichert!')
+      this.languagesForm.isLoading = false
+    },
+    generateUserLanguages() {
+      const userLanguages = {}
+      this.allLanguages.forEach(lang => {
+        const userLanguage = this.userLanguages.find(ul => ul.id === lang.id)
+        userLanguages['lang-' + lang.id] = {
+          id: lang.id,
+          name: lang.name,
+          checked: userLanguage ? true : false
+        }
+      })
+      this.languagesForm.userLanguages = userLanguages
+      this.languagesForm.userLanguages = JSON.parse(JSON.stringify(this.languagesForm.userLanguages))
     }
+  },
+  created() {
+    this.generateUserLanguages()
   }
 }
 </script>

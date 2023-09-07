@@ -38,4 +38,26 @@ router.get('/:firebase_uid', async (req, res) => {
   return res.status(200).send(users.rows[0])
 })
 
+// get legal fields by user
+router.get('/:firebase_uid/legal-fields', async (req, res) => {
+  const users = await db.query(`
+    SELECT
+      legal_fields.id AS id,
+      legal_fields.name AS name,
+      user_legal_fields.specialized AS specialized
+    FROM legal_fields
+    LEFT JOIN user_legal_fields ON user_legal_fields.legal_field_id = legal_fields.id
+    LEFT JOIN users ON users.id = user_legal_fields.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  return res.status(200).send(users.rows)
+})
+
+// update legal fields for user
+router.post('/:firebase_uid/legal-fields/update', async (req, res) => {
+  const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
+  await user.updateLegalFields(req.body.legal_fields, userResults.rows[0].id)
+  return res.status(200).send(true)
+})
+
 module.exports = router

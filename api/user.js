@@ -85,6 +85,23 @@ async function update(userData, firebaseUid) {
   ])
 }
 
+// update legal fields
+async function updateLegalFields(legalFields, userId) {
+  await db.query(`
+    DELETE FROM user_legal_fields
+    WHERE user_id = $1
+  `, [ userId ])
+
+  for (const legalField of legalFields) {
+    try {
+      await db.query(`
+        INSERT INTO user_legal_fields(user_id, legal_field_id, specialized)
+        VALUES($1, $2, $3)
+      `, [ userId, legalField.id, legalField.specialized ])
+    } catch {}
+  }
+}
+
 // upgrade user to subscribed account
 async function subscribeToMembership(userId) {
   await db.query(`
@@ -108,6 +125,7 @@ async function unsubscribeFromMembership(userId) {
 module.exports = {
   create,
   update,
+  updateLegalFields,
   subscribeToMembership,
   unsubscribeFromMembership
 }

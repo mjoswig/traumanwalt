@@ -106,22 +106,22 @@
     </AccountSection>
     <AccountSection heading="Über mich" class="mb-4">
       <form @submit.prevent>
-        <wysiwyg class="w-full" placeholder="Schreiben Sie ein paar Worte über sich selbst..." v-model="aboutForm.about" />
+        <wysiwyg class="w-full" placeholder="Schreiben Sie ein paar Worte über sich selbst und Ihrer Tätigkeit als Anwalt..." v-model="aboutForm.about" />
         <div class="flex justify-end mt-5">
           <Btn :is-loading="aboutForm.isLoading" @click="saveAbout">Speichern</Btn>
         </div>
       </form>
     </AccountSection>
-    <AccountSection heading="Rechtsgebiete" class="mb-4">
+    <AccountSection :heading="`Rechtsgebiete (${legalFieldsForm.userLegalFields.length}/10)`" class="mb-4">
       <form class="flex flex-col space-y-4" @submit.prevent>
         <div v-for="(userLegalField, index) in legalFieldsForm.userLegalFields" :key="index">
           <div class="flex lg:items-center space-x-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash-fill cursor-pointer mt-1 lg:mt-0" viewBox="0 0 16 16" @click="removeLegalField(userLegalField.legal_field_id)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash-fill hover:text-red-500 cursor-pointer mt-1 lg:mt-0" viewBox="0 0 16 16" @click="removeLegalField(index)">
               <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
             </svg>
             <div class="flex flex-col space-y-2 lg:flex-row lg:space-x-4 lg:space-y-0">
               <div>
-                <select class="border px-2 py-1 rounded-md w-full" v-model="userLegalField.legal_field_id">
+                <select class="border px-2 py-1 rounded-md w-full" v-model="userLegalField.id">
                   <option :value="null">Bitte auswählen...</option>
                   <option v-for="(lf, index) in allLegalFields" :key="index" :value="lf.id">{{ lf.name }}</option>
                 </select>
@@ -133,7 +133,13 @@
             </div>
           </div>
         </div>
-        <a class="block cursor-pointer" @click="addLegalField">Rechtsgebiet hinzufügen</a>
+        <a v-show="legalFieldsForm.userLegalFields.length < 10" class="cursor-pointer flex items-center space-x-2" @click="addLegalField">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>
+          <span>Rechtsgebiet hinzufügen</span>
+        </a>
         <div class="flex justify-end">
           <Btn :is-loading="legalFieldsForm.isLoading" @click="saveLegalFields">Speichern</Btn>
         </div>
@@ -151,47 +157,44 @@ import countryData from '@/assets/json/countries.json'
 
 export default {
   name: 'KontoProfilPage',
-  async asyncData({ app }) {
+  async asyncData({ app, store }) {
     const allLegalFields = await app.$axios.$get('/api/legal-fields')
+    const userLegalFields = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/legal-fields`)
     return {
-      allLegalFields
-    }
-  },
-  data() {
-    return {
+      allLegalFields,
       countries: countryData.countries,
       personalDetailsForm: {
-        salutation: this.$store.state.userData.salutation,
-        job_title: this.$store.state.userData.job_title,
-        academic_title: this.$store.state.userData.academic_title,
-        first_name: this.$store.state.userData.first_name,
-        last_name: this.$store.state.userData.last_name,
-        suffix_title: this.$store.state.userData.suffix_title,
+        salutation: store.state.userData.salutation,
+        job_title: store.state.userData.job_title,
+        academic_title: store.state.userData.academic_title,
+        first_name: store.state.userData.first_name,
+        last_name: store.state.userData.last_name,
+        suffix_title: store.state.userData.suffix_title,
         isLoading: false
       },
       contactDetailsForm: {
-        address_line: this.$store.state.userData.address_line,
-        postal_code: this.$store.state.userData.postal_code,
-        city: this.$store.state.userData.city,
-        country: this.$store.state.userData.country,
-        landline_number: this.$store.state.userData.landline_number,
-        mobile_number: this.$store.state.userData.mobile_number,
-        contact_email: this.$store.state.userData.contact_email,
-        website_url: this.$store.state.userData.website_url,
-        linkedin_url: this.$store.state.userData.linkedin_url,
-        xing_url: this.$store.state.userData.xing_url,
-        facebook_url: this.$store.state.userData.facebook_url,
-        twitter_url: this.$store.state.userData.twitter_url,
-        instagram_url: this.$store.state.userData.instagram_url,
-        youtube_url: this.$store.state.userData.youtube_url,
+        address_line: store.state.userData.address_line,
+        postal_code: store.state.userData.postal_code,
+        city: store.state.userData.city,
+        country: store.state.userData.country,
+        landline_number: store.state.userData.landline_number,
+        mobile_number: store.state.userData.mobile_number,
+        contact_email: store.state.userData.contact_email,
+        website_url: store.state.userData.website_url,
+        linkedin_url: store.state.userData.linkedin_url,
+        xing_url: store.state.userData.xing_url,
+        facebook_url: store.state.userData.facebook_url,
+        twitter_url: store.state.userData.twitter_url,
+        instagram_url: store.state.userData.instagram_url,
+        youtube_url: store.state.userData.youtube_url,
         isLoading: false
       },
       aboutForm: {
-        about: this.$store.state.userData.about,
+        about: store.state.userData.about,
         isLoading: false
       },
       legalFieldsForm: {
-        userLegalFields: [],
+        userLegalFields: userLegalFields,
         isLoading: false
       }
     }
@@ -226,17 +229,20 @@ export default {
     },
     async saveLegalFields() {
       this.legalFieldsForm.isLoading = true
+      await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/legal-fields/update`, {
+        legal_fields: this.legalFieldsForm.userLegalFields
+      })
       this.$toast.success('Ihre Rechtsgebiete wurden erfolgreich gespeichert!')
       this.legalFieldsForm.isLoading = false
     },
     addLegalField() {
       this.legalFieldsForm.userLegalFields.push({
-        legal_field_id: null,
+        id: null,
         specialized: false
       })
     },
-    removeLegalField(id) {
-      this.legalFieldsForm.userLegalFields = this.legalFieldsForm.userLegalFields.filter(ulf => ulf.legal_field_id !== id)
+    removeLegalField(index) {
+      this.legalFieldsForm.userLegalFields = this.legalFieldsForm.userLegalFields.filter((ulf, ulfIndex) => ulfIndex !== index)
     }
   }
 }

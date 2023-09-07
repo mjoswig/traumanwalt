@@ -333,6 +333,20 @@ a {
   max-width: 1400px;
 }
 
+.editr {
+  & .vw-btn-separator {
+    display: none;
+  }
+
+  & ul {
+    @apply list-disc;
+  }
+
+  & ol {
+    @apply list-decimal;
+  }
+}
+
 @media (max-width: 1280px) {
   h1 {
     @apply text-3xl;

@@ -106,13 +106,38 @@
     </AccountSection>
     <AccountSection heading="Über mich" class="mb-4">
       <form @submit.prevent>
-        <wysiwyg placeholder="Schreiben Sie ein paar Worte über sich selbst..." v-model="aboutForm.about" />
+        <wysiwyg class="w-full" placeholder="Schreiben Sie ein paar Worte über sich selbst..." v-model="aboutForm.about" />
         <div class="flex justify-end mt-5">
           <Btn :is-loading="aboutForm.isLoading" @click="saveAbout">Speichern</Btn>
         </div>
       </form>
     </AccountSection>
     <AccountSection heading="Rechtsgebiete" class="mb-4">
+      <form class="flex flex-col space-y-4" @submit.prevent>
+        <div v-for="(userLegalField, index) in legalFieldsForm.userLegalFields" :key="index">
+          <div class="flex lg:items-center space-x-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash-fill cursor-pointer mt-1 lg:mt-0" viewBox="0 0 16 16" @click="removeLegalField(userLegalField.legal_field_id)">
+              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+            </svg>
+            <div class="flex flex-col space-y-2 lg:flex-row lg:space-x-4 lg:space-y-0">
+              <div>
+                <select class="border px-2 py-1 rounded-md w-full" v-model="userLegalField.legal_field_id">
+                  <option :value="null">Bitte auswählen...</option>
+                  <option v-for="(lf, index) in allLegalFields" :key="index" :value="lf.id">{{ lf.name }}</option>
+                </select>
+              </div>
+              <div class="flex items-center space-x-2 mt-2">
+                <input class="h-5 w-5" type="checkbox" v-model="userLegalField.specialized" />
+                <label>Fachanwaltschaft</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="block cursor-pointer" @click="addLegalField">Rechtsgebiet hinzufügen</a>
+        <div class="flex justify-end">
+          <Btn :is-loading="legalFieldsForm.isLoading" @click="saveLegalFields">Speichern</Btn>
+        </div>
+      </form>
     </AccountSection>
     <AccountSection heading="Sprachen" class="mb-4">
     </AccountSection>
@@ -126,6 +151,12 @@ import countryData from '@/assets/json/countries.json'
 
 export default {
   name: 'KontoProfilPage',
+  async asyncData({ app }) {
+    const allLegalFields = await app.$axios.$get('/api/legal-fields')
+    return {
+      allLegalFields
+    }
+  },
   data() {
     return {
       countries: countryData.countries,
@@ -158,6 +189,10 @@ export default {
       aboutForm: {
         about: this.$store.state.userData.about,
         isLoading: false
+      },
+      legalFieldsForm: {
+        userLegalFields: [],
+        isLoading: false
       }
     }
   },
@@ -188,6 +223,20 @@ export default {
       })
       this.$toast.success('Ihr Daten wurden erfolgreich gespeichert!')
       this.aboutForm.isLoading = false
+    },
+    async saveLegalFields() {
+      this.legalFieldsForm.isLoading = true
+      this.$toast.success('Ihre Rechtsgebiete wurden erfolgreich gespeichert!')
+      this.legalFieldsForm.isLoading = false
+    },
+    addLegalField() {
+      this.legalFieldsForm.userLegalFields.push({
+        legal_field_id: null,
+        specialized: false
+      })
+    },
+    removeLegalField(id) {
+      this.legalFieldsForm.userLegalFields = this.legalFieldsForm.userLegalFields.filter(ulf => ulf.legal_field_id !== id)
     }
   }
 }

@@ -81,4 +81,19 @@ router.post('/:firebase_uid/languages/update', async (req, res) => {
   return res.status(200).send(true)
 })
 
+// get law firm that user is associated with
+router.get('/:firebase_uid/law-firm', async (req, res) => {
+  const users = await db.query(`
+    SELECT
+      law_firms.id AS id,
+      law_firms.name AS name,
+      law_firms.admin_id AS admin_id
+    FROM law_firms
+    LEFT JOIN law_firm_users ON law_firm_users.law_firm_id = law_firms.id
+    LEFT JOIN users ON users.id = law_firm_users.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  return res.status(200).send(users.rows[0])
+})
+
 module.exports = router

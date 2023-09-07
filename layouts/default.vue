@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isLoading">
+  <div v-if="!isLoggedIn || !showPublicLayout || (isLoggedIn && showPublicLayout && !isLoading)">
     <div v-show="showPublicLayout" class="flex justify-center">
       <div class="p-4 sm:p-8 wrapper flex flex-col w-full">
         <header class="mb-8 md:mb-12">

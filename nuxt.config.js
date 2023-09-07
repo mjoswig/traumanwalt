@@ -137,5 +137,14 @@ export default {
       // only set this true for testing and remember to always clear your browser cache in development
       dev: process.env.NODE_ENV === 'development',
     }
+  },
+
+  /*
+   ** modifying the loading indicator for spa  - https://nuxtjs.org/docs/2.x/features/loading
+   */
+   loadingIndicator: {
+    name: 'circle',
+    color: '#00aff0',
+    background: 'rgb(237, 242, 247)'
   }
 }

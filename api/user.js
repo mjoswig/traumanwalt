@@ -56,8 +56,9 @@ async function update(userData, firebaseUid) {
       twitter_url = $19,
       instagram_url = $20,
       youtube_url = $21,
-      about = $22
-    WHERE firebase_uid = $23
+      about = $22,
+      memberships = $23
+    WHERE firebase_uid = $24
   `, [
     userData.email,
     userData.salutation,
@@ -81,6 +82,7 @@ async function update(userData, firebaseUid) {
     userData.instagram_url,
     userData.youtube_url,
     userData.about,
+    userData.memberships,
     firebaseUid
   ])
 }

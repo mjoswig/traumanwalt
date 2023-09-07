@@ -352,6 +352,15 @@ a {
   }
 }
 
+.vue-tags-input {
+  max-width: 100% !important;
+}
+
+.vue-tags-input .ti-tag,
+.vue-tags-input .ti-selected-item {
+  background: #00aff0 !important;
+}
+
 @media (max-width: 1280px) {
   h1 {
     @apply text-3xl;

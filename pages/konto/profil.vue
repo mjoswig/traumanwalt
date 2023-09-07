@@ -163,6 +163,12 @@
       </form>
     </AccountSection>
     <AccountSection heading="Mitgliedschaften">
+      <no-ssr>
+        <vue-tags-input class="w-full" placeholder="Mitgliedschaft eingeben und mit Enter bestätigen" v-model="membershipsForm.membership" :tags="membershipsForm.userMemberships" @tags-changed="newUserMemberships => membershipsForm.userMemberships = newUserMemberships" />
+      </no-ssr>
+      <div class="flex justify-end mt-5">
+        <Btn :is-loading="membershipsForm.isLoading" @click="saveMemberships">Speichern</Btn>
+      </div>
     </AccountSection>
   </div>
 </template>
@@ -218,6 +224,11 @@ export default {
       },
       languagesForm: {
         userLanguages: {},
+        isLoading: false
+      },
+      membershipsForm: {
+        membership: '',
+        userMemberships: store.state.userData.memberships ? store.state.userData.memberships.split(';') : [],
         isLoading: false
       }
     }
@@ -287,6 +298,16 @@ export default {
       })
       this.languagesForm.userLanguages = userLanguages
       this.languagesForm.userLanguages = JSON.parse(JSON.stringify(this.languagesForm.userLanguages))
+    },
+    async saveMemberships() {
+      this.membershipsForm.isLoading = true
+      const memberships = this.membershipsForm.userMemberships.map(m => m.text)
+      await this.$axios.$post('/api/users/update', {
+        ...this.$store.state.userData,
+        memberships: memberships.join(';')
+      })
+      this.$toast.success('Ihre Mitgliedschaften wurden erfolgreich gespeichert!')
+      this.membershipsForm.isLoading = false
     }
   },
   created() {

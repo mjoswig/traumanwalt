@@ -160,8 +160,7 @@
             <img class="bg-cover border h-28 w-28 sm:h-44 sm:w-44 rounded-full" :style="`background-image: url(${aboutForm.logo_url || require('@/assets/images/logo-default.jpeg')});`" />
           </div>
           <div class="flex flex-col space-y-4">
-            <div>
-              {{ lawFirm.about }}
+            <div v-html="lawFirm.about">
             </div>
             <div>
               <h3 class="text-gray-500">Kanzleikollegen</h3>

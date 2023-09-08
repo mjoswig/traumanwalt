@@ -3,11 +3,17 @@ const db = require('./db')
 
 // create user
 async function create(firebaseUid, salutation, academicTitle, firstName, lastName, addressLine, postalCode, city, country) {
-  const slug = slugify(`${firstName} ${lastName}`, {
+  let slug = slugify(`${firstName} ${lastName}`, {
     remove: /[*+~.()'"!:@]/g,
     lower: true,
     locale: 'de'
   })
+
+  const userResults = await db.query('SELECT slug FROM users WHERE slug ILIKE $1', [ slug ])
+  if (userResults.rows.length) {
+    const slugIndex = userResults.rows.length
+    slug += `-${slugIndex}`
+  }
 
   const jobTitle = salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
 
@@ -32,36 +38,50 @@ async function create(firebaseUid, salutation, academicTitle, firstName, lastNam
 
 // update user
 async function update(userData, firebaseUid) {
+  let slug = slugify(`${userData.first_name} ${userData.last_name}`, {
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+    locale: 'de'
+  })
+
+  const userResults = await db.query('SELECT slug FROM users WHERE slug ILIKE $1', [ slug ])
+  if (userResults.rows.length) {
+    const slugIndex = userResults.rows.length
+    slug += `-${slugIndex}`
+  }
+
   await db.query(`
     UPDATE users
     SET
       email = $1,
-      salutation = $2,
-      job_title = $3,
-      academic_title = $4,
-      first_name = $5,
-      last_name = $6,
-      suffix_title = $7,
-      address_line = $8,
-      postal_code = $9,
-      city = $10,
-      country = $11,
-      landline_number = $12,
-      mobile_number = $13,
-      contact_email = $14,
-      website_url = $15,
-      linkedin_url = $16,
-      xing_url = $17,
-      facebook_url = $18,
-      twitter_url = $19,
-      instagram_url = $20,
-      youtube_url = $21,
-      about = $22,
-      memberships = $23,
-      photo_url = $24
-    WHERE firebase_uid = $25
+      slug = $2,
+      salutation = $3,
+      job_title = $4,
+      academic_title = $5,
+      first_name = $6,
+      last_name = $7,
+      suffix_title = $8,
+      address_line = $9,
+      postal_code = $10,
+      city = $11,
+      country = $12,
+      landline_number = $13,
+      mobile_number = $14,
+      contact_email = $15,
+      website_url = $16,
+      linkedin_url = $17,
+      xing_url = $18,
+      facebook_url = $19,
+      twitter_url = $20,
+      instagram_url = $21,
+      youtube_url = $22,
+      about = $23,
+      memberships = $24,
+      photo_url = $25
+    WHERE firebase_uid = $26
   `, [
     userData.email,
+    slug,
     userData.salutation,
     userData.job_title,
     userData.academic_title,
@@ -91,16 +111,24 @@ async function update(userData, firebaseUid) {
 
 // create user's law firm
 async function createLawFirm(lawFirmName, userId) {
-  const lawFirmSlug = slugify(lawFirmName, {
+  let slug = slugify(lawFirmName, {
     remove: /[*+~.()'"!:@]/g,
     lower: true,
     locale: 'de'
   })
+
+  const lawFirmResults = await db.query('SELECT slug FROM law_firms WHERE slug ILIKE $1', [ slug ])
+  if (lawFirmResults.rows.length) {
+    const slugIndex = lawFirmResults.rows.length
+    slug += `-${slugIndex}`
+  }
+
   const lawFirm = await db.query(`
     INSERT INTO law_firms(name, slug, admin_id)
     VALUES($1, $2, $3)
     RETURNING id
-  `, [ lawFirmName, lawFirmSlug, userId ])
+  `, [ lawFirmName, slug, userId ])
+
   await db.query(`
     INSERT INTO law_firm_users(law_firm_id, user_id)
     VALUES($1, $2)
@@ -109,29 +137,43 @@ async function createLawFirm(lawFirmName, userId) {
 
 // update user's law firm
 async function updateLawFirm(lawFirmData) {
+  let slug = slugify(lawFirmData.name, {
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+    locale: 'de'
+  })
+
+  const lawFirmResults = await db.query('SELECT slug FROM law_firms WHERE slug ILIKE $1', [ slug ])
+  if (lawFirmResults.rows.length) {
+    const slugIndex = lawFirmResults.rows.length
+    slug += `-${slugIndex}`
+  }
+
   await db.query(`
     UPDATE law_firms
     SET
       name = $1,
-      about = $2,
-      logo_url = $3,
-      address_line = $4,
-      postal_code = $5,
-      city = $6,
-      country = $7,
-      landline_number = $8,
-      mobile_number = $9,
-      contact_email = $10,
-      website_url = $11,
-      linkedin_url = $12,
-      xing_url = $13,
-      facebook_url = $14,
-      twitter_url = $15,
-      instagram_url = $16,
-      youtube_url = $17
-    WHERE law_firms.id = $18
+      slug = $2,
+      about = $3,
+      logo_url = $4,
+      address_line = $5,
+      postal_code = $6,
+      city = $7,
+      country = $8,
+      landline_number = $9,
+      mobile_number = $10,
+      contact_email = $11,
+      website_url = $12,
+      linkedin_url = $13,
+      xing_url = $14,
+      facebook_url = $15,
+      twitter_url = $16,
+      instagram_url = $17,
+      youtube_url = $18
+    WHERE law_firms.id = $19
   `, [
     lawFirmData.name,
+    slug,
     lawFirmData.about,
     lawFirmData.logo_url,
     lawFirmData.address_line,

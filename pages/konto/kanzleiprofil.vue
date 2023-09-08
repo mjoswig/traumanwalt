@@ -7,7 +7,7 @@
       </fieldset>
     </AccountSection>
     <div v-if="lawFirm">
-      <AccountSection heading="Über die Kanzlei">
+      <AccountSection heading="Über die Kanzlei" class="mb-4">
         <form @submit.prevent>
           <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-8 lg:space-y-0">
             <div>
@@ -48,11 +48,80 @@
           </div>
         </form>
       </AccountSection>
+      <AccountSection heading="Kontaktdaten">
+        <form @submit.prevent>
+          <div class="grid grid-cols md:grid-cols-2 gap-4">
+            <fieldset>
+              <label class="font-bold">Adresse</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="Straße und Hausnummer" v-model="contactDetailsForm.address_line" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">Postleitzahl</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="PLZ" v-model="contactDetailsForm.postal_code" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">Stadt</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="Stadt" v-model="contactDetailsForm.city" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">Land</label>
+              <select class="border px-2 py-1 rounded-md w-full" v-model="contactDetailsForm.country">
+                <option :value="null">Bitte auswählen...</option>
+                <option v-for="(country, index) in countries" :key="index" :value="index">{{ country }}</option>
+              </select>
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">Festnetznummer (optional)</label>
+              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Festnetznummer der Kanzlei', example: 'Beispiel:' }" v-model="contactDetailsForm.landline_number" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">Mobilnummer (optional)</label>
+              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Mobilnummer der Kanzlei', example: 'Beispiel:' }" v-model="contactDetailsForm.mobile_number" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">E-Mail (optional)</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="E-Mail der Kanzlei" type="email" v-model="contactDetailsForm.contact_email" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">Webseite (optional)</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="Webseite der Kanzlei" type="url" v-model="contactDetailsForm.website_url" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">LinkedIn (optional)</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.linkedin.com/company/kanzlei-mustermann/" type="url" v-model="contactDetailsForm.linkedin_url" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">XING (optional)</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.xing.com/pages/Kanzlei_Mustermann/" type="url" v-model="contactDetailsForm.xing_url" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">Facebook (optional)</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.facebook.com/kanzlei.mustermann/" type="url" v-model="contactDetailsForm.facebook_url" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">Twitter (optional)</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="https://twitter.com/kanzlei_mustermann" type="url" v-model="contactDetailsForm.twitter_url" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">Instagram (optional)</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.instagram.com/kanzlei_mustermann/" type="url" v-model="contactDetailsForm.instagram_url" />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold">YouTube (optional)</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="https://www.youtube.com/@Kanzlei_Mustermann" type="url" v-model="contactDetailsForm.youtube_url" />
+            </fieldset>
+          </div>
+          <div class="flex justify-end mt-5">
+            <Btn :is-loading="contactDetailsForm.isLoading" @click="saveContactDetails">Speichern</Btn>
+          </div>
+        </form>
+      </AccountSection>
     </div>
   </div>
 </template>
 
 <script>
+import countryData from '@/assets/json/countries.json'
 import imageCompression from 'browser-image-compression'
 
 export default {
@@ -61,6 +130,7 @@ export default {
     const lawFirm = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/law-firm`)
     return {
       lawFirm,
+      countries: countryData.countries,
       createForm: {
       },
       aboutForm: {
@@ -68,6 +138,23 @@ export default {
         name: lawFirm.name,
         about: lawFirm.about,
         isUploadingLogo: false,
+        isLoading: false
+      },
+      contactDetailsForm: {
+        address_line: lawFirm.address_line,
+        postal_code: lawFirm.postal_code,
+        city: lawFirm.city,
+        country: lawFirm.country,
+        landline_number: lawFirm.landline_number,
+        mobile_number: lawFirm.mobile_number,
+        contact_email: lawFirm.contact_email,
+        website_url: lawFirm.website_url,
+        linkedin_url: lawFirm.linkedin_url,
+        xing_url: lawFirm.xing_url,
+        facebook_url: lawFirm.facebook_url,
+        twitter_url: lawFirm.twitter_url,
+        instagram_url: lawFirm.instagram_url,
+        youtube_url: lawFirm.youtube_url,
         isLoading: false
       }
     }
@@ -127,8 +214,17 @@ export default {
         ...this.lawFirm,
         ...this.aboutForm
       })
-      this.$toast.success('Ihr Daten wurden erfolgreich gespeichert!')
+      this.$toast.success('Ihre Daten wurden erfolgreich gespeichert!')
       this.aboutForm.isLoading = false
+    },
+    async saveContactDetails() {
+      this.contactDetailsForm.isLoading = true
+      await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/law-firm/update`, {
+        ...this.lawFirm,
+        ...this.contactDetailsForm
+      })
+      this.$toast.success('Ihre Kontaktdaten wurden erfolgreich gespeichert!')
+      this.contactDetailsForm.isLoading = false
     }
   }
 }

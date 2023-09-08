@@ -61,6 +61,14 @@
         </div>
       </form>
     </AccountSection>
+    <AccountSection heading="Über mich" class="mb-4">
+      <form @submit.prevent>
+        <wysiwyg class="w-full" placeholder="Schreiben Sie ein paar Worte über sich selbst und Ihrer Tätigkeit als Anwalt..." v-model="aboutForm.about" />
+        <div class="flex justify-end mt-5">
+          <Btn :is-loading="aboutForm.isLoading" @click="saveAbout">Speichern</Btn>
+        </div>
+      </form>
+    </AccountSection>
     <AccountSection heading="Kontaktdaten" class="mb-4">
       <form @submit.prevent>
         <div class="grid grid-cols md:grid-cols-2 gap-4">
@@ -79,6 +87,7 @@
           <fieldset>
             <label class="font-bold">Land</label>
             <select class="border px-2 py-1 rounded-md w-full" v-model="contactDetailsForm.country">
+              <option :value="null">Bitte auswählen...</option>
               <option v-for="(country, index) in countries" :key="index" :value="index">{{ country }}</option>
             </select>
           </fieldset>
@@ -125,14 +134,6 @@
         </div>
         <div class="flex justify-end mt-5">
           <Btn :is-loading="contactDetailsForm.isLoading" @click="saveContactDetails">Speichern</Btn>
-        </div>
-      </form>
-    </AccountSection>
-    <AccountSection heading="Über mich" class="mb-4">
-      <form @submit.prevent>
-        <wysiwyg class="w-full" placeholder="Schreiben Sie ein paar Worte über sich selbst und Ihrer Tätigkeit als Anwalt..." v-model="aboutForm.about" />
-        <div class="flex justify-end mt-5">
-          <Btn :is-loading="aboutForm.isLoading" @click="saveAbout">Speichern</Btn>
         </div>
       </form>
     </AccountSection>

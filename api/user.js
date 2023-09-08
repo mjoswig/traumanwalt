@@ -90,18 +90,46 @@ async function update(userData, firebaseUid) {
 }
 
 // update user's law firm
-async function updateLawFirm(lawFirmData, userId) {
+async function updateLawFirm(lawFirmData) {
   await db.query(`
     UPDATE law_firms
     SET
       name = $1,
       about = $2,
-      logo_url = $3
-    WHERE law_firms.id = $4
+      logo_url = $3,
+      address_line = $4,
+      postal_code = $5,
+      city = $6,
+      country = $7,
+      landline_number = $8,
+      mobile_number = $9,
+      contact_email = $10,
+      website_url = $11,
+      linkedin_url = $12,
+      xing_url = $13,
+      facebook_url = $14,
+      twitter_url = $15,
+      instagram_url = $16,
+      youtube_url = $17
+    WHERE law_firms.id = $18
   `, [
     lawFirmData.name,
     lawFirmData.about,
     lawFirmData.logo_url,
+    lawFirmData.address_line,
+    lawFirmData.postal_code,
+    lawFirmData.city,
+    lawFirmData.country,
+    lawFirmData.landline_number,
+    lawFirmData.mobile_number,
+    lawFirmData.contact_email,
+    lawFirmData.website_url,
+    lawFirmData.linkedin_url,
+    lawFirmData.xing_url,
+    lawFirmData.facebook_url,
+    lawFirmData.twitter_url,
+    lawFirmData.instagram_url,
+    lawFirmData.youtube_url,
     lawFirmData.id
   ])
 }

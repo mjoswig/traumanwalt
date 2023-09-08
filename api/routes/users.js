@@ -89,6 +89,20 @@ router.get('/:firebase_uid/law-firm', async (req, res) => {
       law_firms.name AS name,
       law_firms.about AS about,
       law_firms.logo_url AS logo_url,
+      law_firms.address_line AS address_line,
+      law_firms.postal_code AS postal_code,
+      law_firms.city AS city,
+      law_firms.country AS country,
+      law_firms.landline_number AS landline_number,
+      law_firms.mobile_number AS mobile_number,
+      law_firms.contact_email AS contact_email,
+      law_firms.website_url AS website_url,
+      law_firms.linkedin_url AS linkedin_url,
+      law_firms.xing_url AS xing_url,
+      law_firms.facebook_url AS facebook_url,
+      law_firms.twitter_url AS twitter_url,
+      law_firms.instagram_url AS instagram_url,
+      law_firms.youtube_url AS youtube_url,
       law_firms.admin_id AS admin_id
     FROM law_firms
     LEFT JOIN law_firm_users ON law_firm_users.law_firm_id = law_firms.id
@@ -100,8 +114,7 @@ router.get('/:firebase_uid/law-firm', async (req, res) => {
 
 // update law firm
 router.post('/:firebase_uid/law-firm/update', async (req, res) => {
-  const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
-  await user.updateLawFirm(req.body, userResults.rows[0].id)
+  await user.updateLawFirm(req.body)
   return res.status(200).send(true)
 })
 

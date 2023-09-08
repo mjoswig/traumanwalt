@@ -89,6 +89,24 @@ async function update(userData, firebaseUid) {
   ])
 }
 
+// create user's law firm
+async function createLawFirm(lawFirmName, userId) {
+  const lawFirmSlug = slugify(lawFirmName, {
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+    locale: 'de'
+  })
+  const lawFirm = await db.query(`
+    INSERT INTO law_firms(name, slug, admin_id)
+    VALUES($1, $2, $3)
+    RETURNING id
+  `, [ lawFirmName, lawFirmSlug, userId ])
+  await db.query(`
+    INSERT INTO law_firm_users(law_firm_id, user_id)
+    VALUES($1, $2)
+  `, [ lawFirm.rows[0].id, userId ])
+}
+
 // update user's law firm
 async function updateLawFirm(lawFirmData) {
   await db.query(`
@@ -132,6 +150,14 @@ async function updateLawFirm(lawFirmData) {
     lawFirmData.youtube_url,
     lawFirmData.id
   ])
+}
+
+// delete user's law firm
+async function deleteLawFirm(userId) {
+  await db.query(`
+    DELETE FROM law_firms
+    WHERE law_firms.admin_id = $1
+  `, [ userId ])
 }
 
 // update languages
@@ -193,7 +219,9 @@ async function unsubscribeFromMembership(userId) {
 module.exports = {
   create,
   update,
+  createLawFirm,
   updateLawFirm,
+  deleteLawFirm,
   updateLanguages,
   updateLegalFields,
   subscribeToMembership,

@@ -1,6 +1,16 @@
 const router = require('express').Router()
 const db = require('../db')
 
+// get all law firms
+router.get('/', async (req, res) => {
+  const lawFirms = await db.query(`
+    SELECT id, name
+    FROM law_firms
+    ORDER BY name ASC
+  `)
+  return res.status(200).send(lawFirms.rows)
+})
+
 // get users associated with law firm
 router.get('/:slug/users', async (req, res) => {
   const users = await db.query(`

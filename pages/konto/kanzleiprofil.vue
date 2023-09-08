@@ -2,9 +2,34 @@
   <div>
     <h1 class="mb-6">Kanzleiprofil</h1>
     <AccountSection v-if="!lawFirm" heading="Neues Kanzleiprofil" class="mb-4">
-      <fieldset>
-        <input class="border px-2 py-1 rounded-md w-full" placeholder="Kanzleiname eingeben" />
-      </fieldset>
+      <p class="mb-4">Bitte prüfen Sie vor der Erstellung eines neuen Kanzleiprofils, ob bereits ein bestehendes Profil Ihrer Kanzlei existiert.</p>
+      <form @submit.prevent>
+        <fieldset class="flex flex-col lg:flex-row lg:space-x-4 mb-4">
+          <div>
+            <input type="radio" :value="true" v-model="createForm.joinLawFirm" />
+            <label @click="createForm.joinLawFirm = true">Kanzleiprofil beitreten</label>
+          </div>
+          <div>
+            <input type="radio" :value="false" v-model="createForm.joinLawFirm" />
+            <label @click="createForm.joinLawFirm = false">Kanzleiprofil erstellen</label>
+          </div>
+        </fieldset>
+        <fieldset v-show="createForm.joinLawFirm" class="mb-7">
+          <label class="font-bold">Kanzleiname</label>
+          <select class="border px-2 py-1 rounded-md w-full" v-model="createForm.lawFirmId">
+            <option :value="null">Bitte auswählen...</option>
+            <option v-for="(lawFirm, index) in lawFirms" :key="index" :value="lawFirm.id">{{ lawFirm.name }}</option>
+          </select>
+        </fieldset>
+        <fieldset v-show="!createForm.joinLawFirm" class="mb-7">
+          <label class="font-bold">Kanzleiname</label>
+          <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihr Kanzleiname" v-model="createForm.lawFirmName" />
+        </fieldset>
+        <div class="flex justify-end">
+          <Btn v-show="createForm.joinLawFirm" :is-disabled="!createForm.lawFirmId" :is-loading="createForm.isLoading" @click="joinLawFirm">Kanzleiprofil beitreten</Btn>
+          <Btn v-show="!createForm.joinLawFirm" :is-disabled="!createForm.lawFirmName.length" :is-loading="createForm.isLoading" @click="createLawFirm">Kanzleiprofil erstellen</Btn>
+        </div>
+      </form>
     </AccountSection>
     <div v-if="lawFirm">
       <AccountSection v-if="isLawFirmAdmin" heading="Über die Kanzlei" class="mb-4">
@@ -155,8 +180,8 @@
         </div>
       </AccountSection>
       <div class="flex justify-end mt-5">
-        <Btn v-if="!isLawFirmAdmin" type="danger">Kanzlei verlassen</Btn>
-        <Btn v-if="isLawFirmAdmin" type="danger">Kanzlei löschen</Btn>
+        <Btn v-if="!isLawFirmAdmin" type="danger" @click="leaveLawFirm">Kanzlei verlassen</Btn>
+        <Btn v-if="isLawFirmAdmin" type="danger" @click="deleteLawFirm">Kanzlei löschen</Btn>
       </div>
     </div>
   </div>
@@ -170,12 +195,18 @@ export default {
   name: 'KontoKanzleiprofilPage',
   async asyncData({ app, store }) {
     const lawFirm = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/law-firm`)
+    const lawFirms = await app.$axios.$get('/api/law-firms')
     const lawFirmUsers = await app.$axios.$get(`/api/law-firms/${lawFirm.slug}/users`)
     return {
       lawFirm,
+      lawFirms,
       lawFirmUsers,
       countries: countryData.countries,
       createForm: {
+        lawFirmId: null,
+        lawFirmName: '',
+        joinLawFirm: true,
+        isLoading: false
       },
       aboutForm: {
         logo_url: lawFirm.logo_url,
@@ -282,6 +313,39 @@ export default {
         this.lawFirmUsers = await this.$axios.$get(`/api/law-firms/${this.lawFirm.slug}/users`)
         this.$toast.success('Das Kanzleimitglied wurde erfolgreich entfernt!')
       }
+    },
+    async deleteLawFirm() {
+      if (window.confirm('Möchten Sie Ihr Kanzleiprofil wirklich löschen? Ihr Profil kann nicht wiederhergestellt werden.')) {
+        await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/law-firm/delete`)
+        this.$toast.success('Ihr Kanzleiprofil wurde erfolgreich gelöscht!')
+        window.location.href = '/konto/kanzleiprofil'
+      }
+    },
+    async leaveLawFirm() {
+      if (window.confirm('Möchten Sie die Kanzlei wirklich verlassen?')) {
+        await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/law-firm/leave`, {
+          user_id: this.$store.state.userData.id
+        })
+        window.location.href = '/konto/kanzleiprofil'
+      }
+    },
+    async joinLawFirm() {
+      this.createForm.isLoading = true
+      await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/law-firm/join`, {
+        law_firm_id: this.createForm.lawFirmId
+      })
+      this.createForm.isLoading = false
+      this.$toast.success('Sie sind dem ausgewählten Kanzleiprofil erfolgreich beigetreten!')
+      window.location.href = '/konto/kanzleiprofil'
+    },
+    async createLawFirm() {
+      this.createForm.isLoading = true
+      await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/law-firm/create`, {
+        name: this.createForm.lawFirmName
+      })
+      this.createForm.isLoading = false
+      this.$toast.success('Ihr Kanzleiprofil wurde erfolgreich erstellt!')
+      window.location.href = '/konto/kanzleiprofil'
     }
   }
 }

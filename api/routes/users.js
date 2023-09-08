@@ -135,9 +135,23 @@ router.get('/:firebase_uid/law-firm', async (req, res) => {
   return res.status(200).send(users.rows[0])
 })
 
+// create law firm
+router.post('/:firebase_uid/law-firm/create', async (req, res) => {
+  const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
+  await user.createLawFirm(req.body.name, userResults.rows[0].id)
+  return res.status(200).send(true)
+})
+
 // update law firm
 router.post('/:firebase_uid/law-firm/update', async (req, res) => {
   await user.updateLawFirm(req.body)
+  return res.status(200).send(true)
+})
+
+// delete law firm
+router.post('/:firebase_uid/law-firm/delete', async (req, res) => {
+  const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
+  await user.deleteLawFirm(userResults.rows[0].id)
   return res.status(200).send(true)
 })
 
@@ -153,6 +167,34 @@ router.post('/:firebase_uid/law-firm/users/remove', async (req, res) => {
     DELETE FROM law_firm_users
     WHERE law_firm_id = $1 AND user_id = $2
   `, [ lawFirmResults.rows[0].id, req.body.user_id ])
+  return res.status(200).send(true)
+})
+
+// join law firm
+router.post('/:firebase_uid/law-firm/join', async (req, res) => {
+  const userResults = await db.query(`
+    SELECT id
+    FROM users
+    WHERE firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  await db.query(`
+    INSERT INTO law_firm_users(law_firm_id, user_id)
+    VALUES($1, $2)
+  `, [ req.body.law_firm_id, userResults.rows[0].id ])
+  return res.status(200).send(true)
+})
+
+// leave law firm
+router.post('/:firebase_uid/law-firm/leave', async (req, res) => {
+  const userResults = await db.query(`
+    SELECT id
+    FROM users
+    WHERE firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  await db.query(`
+    DELETE FROM law_firm_users
+    WHERE user_id = $1
+  `, [ userResults.rows[0].id ])
   return res.status(200).send(true)
 })
 

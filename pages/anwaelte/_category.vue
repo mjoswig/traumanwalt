@@ -23,7 +23,7 @@ export default {
         let category = null;
         const legalFields = await app.$axios.$get(`/api/legal-fields/${params.category}`);
         if (legalFields.length) {
-            const attorneys = await app.$axios.$get(`/api/legal-fields/${params.category}/attorneys`);
+            const attorneys = await app.$axios.$get(`/api/legal-fields/${params.category}/users`);
             category = {
                 value: legalFields[0],
                 type: 'legal_fields',

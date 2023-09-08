@@ -21,8 +21,8 @@ router.get('/:slug', async (req, res) => {
   return res.status(200).send(result.rows)
 })
 
-// get attorneys by legal field
-router.get('/:slug/attorneys', async (req, res) => {
+// get users by legal field
+router.get('/:slug/users', async (req, res) => {
   const attorneys = await db.query(`
     SELECT
       salutation, first_name, last_name,

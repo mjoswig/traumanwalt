@@ -48,7 +48,7 @@
           </div>
         </form>
       </AccountSection>
-      <AccountSection heading="Kontaktdaten">
+      <AccountSection heading="Kontaktdaten der Kanzlei">
         <form @submit.prevent>
           <div class="grid grid-cols md:grid-cols-2 gap-4">
             <fieldset>
@@ -116,6 +116,8 @@
           </div>
         </form>
       </AccountSection>
+      <AccountSection v-if="isLawFirmAdmin" heading="Anwälte der Kanzlei" class="mt-4">
+      </AccountSection>
     </div>
   </div>
 </template>
@@ -155,6 +157,10 @@ export default {
         twitter_url: lawFirm.twitter_url,
         instagram_url: lawFirm.instagram_url,
         youtube_url: lawFirm.youtube_url,
+        isLoading: false
+      },
+      usersForm: {
+        users: lawFirm.users,
         isLoading: false
       }
     }

@@ -9,7 +9,7 @@
 export default {
   name: 'AnwaelteIndexPage',
   async asyncData({ app }) {
-    const attorneys = await app.$axios.$get('/api/attorneys')
+    const attorneys = await app.$axios.$get('/api/users')
     return {
       attorneys
     }

@@ -109,6 +109,7 @@ router.get('/:firebase_uid/law-firm', async (req, res) => {
     SELECT
       law_firms.id AS id,
       law_firms.name AS name,
+      law_firms.slug AS slug,
       law_firms.about AS about,
       law_firms.logo_url AS logo_url,
       law_firms.address_line AS address_line,
@@ -137,6 +138,21 @@ router.get('/:firebase_uid/law-firm', async (req, res) => {
 // update law firm
 router.post('/:firebase_uid/law-firm/update', async (req, res) => {
   await user.updateLawFirm(req.body)
+  return res.status(200).send(true)
+})
+
+// remove user from law firm
+router.post('/:firebase_uid/law-firm/users/remove', async (req, res) => {
+  const lawFirmResults = await db.query(`
+    SELECT law_firms.id AS id
+    FROM law_firms
+    LEFT JOIN users ON users.id = law_firms.admin_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  await db.query(`
+    DELETE FROM law_firm_users
+    WHERE law_firm_id = $1 AND user_id = $2
+  `, [ lawFirmResults.rows[0].id, req.body.user_id ])
   return res.status(200).send(true)
 })
 

@@ -5,7 +5,11 @@ const db = require('../db')
 router.get('/:slug/users', async (req, res) => {
   const users = await db.query(`
     SELECT
-      users.id AS id
+      users.id AS id,
+      users.slug AS slug,
+      users.first_name AS first_name,
+      users.last_name AS last_name,
+      users.photo_url AS photo_url
     FROM users
     LEFT JOIN law_firm_users ON law_firm_users.user_id = users.id
     LEFT JOIN law_firms ON law_firms.id = law_firm_users.law_firm_id

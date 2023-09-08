@@ -7,7 +7,7 @@
       </fieldset>
     </AccountSection>
     <div v-if="lawFirm">
-      <AccountSection heading="Über die Kanzlei" class="mb-4">
+      <AccountSection v-if="isLawFirmAdmin" heading="Über die Kanzlei" class="mb-4">
         <form @submit.prevent>
           <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-8 lg:space-y-0">
             <div>
@@ -48,7 +48,7 @@
           </div>
         </form>
       </AccountSection>
-      <AccountSection heading="Kontaktdaten der Kanzlei">
+      <AccountSection v-if="isLawFirmAdmin" heading="Kontaktdaten der Kanzlei">
         <form @submit.prevent>
           <div class="grid grid-cols md:grid-cols-2 gap-4">
             <fieldset>
@@ -116,8 +116,48 @@
           </div>
         </form>
       </AccountSection>
-      <AccountSection v-if="isLawFirmAdmin" heading="Anwälte der Kanzlei" class="mt-4">
+      <AccountSection v-if="isLawFirmAdmin" heading="Kanzleikollegen" class="mt-4">
+        <p>Hier können Sie alle Mitglieder sehen, die dem Kanzleiprofil beigetreten sind. Als Administrator können Sie unbefugte Mitglieder entfernen.</p>
+        <div class="flex flex-wrap">
+          <div class="flex flex-col items-center justify-between mr-4 mt-4" v-for="(user, index) in lawFirmUsers" :key="index">
+            <div class="flex flex-col items-center">
+              <img class="h-20 w-20 rounded-full mb-2" :src="user.photo_url || require('@/assets/images/photo-default.jpeg')" />
+              <nuxt-link :to="`/anwalt/${user.slug}`" class="block font-bold">{{ user.first_name }} {{ user.last_name }}</nuxt-link>
+              <span class="block text-gray-500">{{ user.id === lawFirm.admin_id ? 'Administrator' : 'Kanzleimitglied' }}</span>
+            </div>
+            <a v-if="isLawFirmAdmin && user.id !== lawFirm.admin_id" class="cursor-pointer text-sm" @click="removeUser(user.id)">Entfernen</a>
+          </div>
+        </div>
       </AccountSection>
+      <AccountSection v-if="!isLawFirmAdmin" :heading="lawFirm.name">
+        <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-8 lg:space-y-0">
+          <div>
+            <img class="bg-cover border h-28 w-28 sm:h-44 sm:w-44 rounded-full" :style="`background-image: url(${aboutForm.logo_url || require('@/assets/images/logo-default.jpeg')});`" />
+          </div>
+          <div class="flex flex-col space-y-4">
+            <div>
+              {{ lawFirm.about }}
+            </div>
+            <div>
+              <h3 class="text-gray-500">Kanzleikollegen</h3>
+              <div class="flex flex-wrap">
+                <div class="flex flex-col items-center justify-between mr-4 mt-4" v-for="(user, index) in lawFirmUsers" :key="index">
+                  <div class="flex flex-col items-center">
+                    <img class="h-20 w-20 rounded-full mb-2" :src="user.photo_url || require('@/assets/images/photo-default.jpeg')" />
+                    <nuxt-link :to="`/anwalt/${user.slug}`" class="block font-bold">{{ user.first_name }} {{ user.last_name }}</nuxt-link>
+                    <span class="block text-gray-500">{{ user.id === lawFirm.admin_id ? 'Administrator' : 'Kanzleimitglied' }}</span>
+                  </div>
+                  <a v-if="isLawFirmAdmin && user.id !== lawFirm.admin_id" class="cursor-pointer text-sm" @click="removeUser(user.id)">Entfernen</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </AccountSection>
+      <div class="flex justify-end mt-5">
+        <Btn v-if="!isLawFirmAdmin" type="danger">Kanzlei verlassen</Btn>
+        <Btn v-if="isLawFirmAdmin" type="danger">Kanzlei löschen</Btn>
+      </div>
     </div>
   </div>
 </template>
@@ -130,8 +170,10 @@ export default {
   name: 'KontoKanzleiprofilPage',
   async asyncData({ app, store }) {
     const lawFirm = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/law-firm`)
+    const lawFirmUsers = await app.$axios.$get(`/api/law-firms/${lawFirm.slug}/users`)
     return {
       lawFirm,
+      lawFirmUsers,
       countries: countryData.countries,
       createForm: {
       },
@@ -231,6 +273,15 @@ export default {
       })
       this.$toast.success('Ihre Kontaktdaten wurden erfolgreich gespeichert!')
       this.contactDetailsForm.isLoading = false
+    },
+    async removeUser(userId) {
+      if (window.confirm('Möchten Sie das Mitglied wirklich von Ihrem Kanzleiprofil entfernen?')) {
+        await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/law-firm/users/remove`, {
+          user_id: userId
+        })
+        this.lawFirmUsers = await this.$axios.$get(`/api/law-firms/${this.lawFirm.slug}/users`)
+        this.$toast.success('Das Kanzleimitglied wurde erfolgreich entfernt!')
+      }
     }
   }
 }

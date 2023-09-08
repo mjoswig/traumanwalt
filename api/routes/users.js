@@ -87,6 +87,8 @@ router.get('/:firebase_uid/law-firm', async (req, res) => {
     SELECT
       law_firms.id AS id,
       law_firms.name AS name,
+      law_firms.about AS about,
+      law_firms.logo_url AS logo_url,
       law_firms.admin_id AS admin_id
     FROM law_firms
     LEFT JOIN law_firm_users ON law_firm_users.law_firm_id = law_firms.id
@@ -94,6 +96,13 @@ router.get('/:firebase_uid/law-firm', async (req, res) => {
     WHERE users.firebase_uid = $1
   `, [ req.params.firebase_uid ])
   return res.status(200).send(users.rows[0])
+})
+
+// update law firm
+router.post('/:firebase_uid/law-firm/update', async (req, res) => {
+  const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
+  await user.updateLawFirm(req.body, userResults.rows[0].id)
+  return res.status(200).send(true)
 })
 
 module.exports = router

@@ -89,6 +89,23 @@ async function update(userData, firebaseUid) {
   ])
 }
 
+// update user's law firm
+async function updateLawFirm(lawFirmData, userId) {
+  await db.query(`
+    UPDATE law_firms
+    SET
+      name = $1,
+      about = $2,
+      logo_url = $3
+    WHERE law_firms.id = $4
+  `, [
+    lawFirmData.name,
+    lawFirmData.about,
+    lawFirmData.logo_url,
+    lawFirmData.id
+  ])
+}
+
 // update languages
 async function updateLanguages(languages, userId) {
   await db.query(`
@@ -148,6 +165,7 @@ async function unsubscribeFromMembership(userId) {
 module.exports = {
   create,
   update,
+  updateLawFirm,
   updateLanguages,
   updateLegalFields,
   subscribeToMembership,

@@ -106,7 +106,7 @@
                 </div>
                 <div>
                   <b class="block text-base" style="margin-bottom: -6px; margin-top: 2px;">{{ fullName }}</b>
-                  <nuxt-link class="text-sm" :to="profileUrl">Zum Anwaltsprofil</nuxt-link>
+                  <nuxt-link class="text-sm" :to="profileUrl">Mein Anwaltsprofil</nuxt-link>
                 </div>
               </li>
               <li v-show="!trialExpired || hasSubscribed">
@@ -123,7 +123,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
                   </svg>
-                  <span>Mein Profil</span>
+                  <span>Anwaltsprofil</span>
                 </nuxt-link>
               </li>
               <li v-show="!trialExpired || hasSubscribed">
@@ -245,7 +245,7 @@ export default {
     },
     profileUrl() {
       if (!this.$store.state.userData) return '/konto'
-      return `/${this.$store.state.userData.slug}`
+      return `/anwalt/${this.$store.state.userData.slug}`
     },
     fullName() {
       if (!this.$store.state.userData) return

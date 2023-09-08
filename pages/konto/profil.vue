@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-6">Mein Profil</h1>
+    <h1 class="mb-6">Anwaltsprofil</h1>
     <AccountSection heading="Persönliche Daten" class="mb-4">
       <form class="flex flex-col space-y-4 lg:flex-row lg:space-x-8 lg:space-y-0" @submit.prevent>
         <fieldset>

@@ -1,4 +1,4 @@
-const { SMTPClient } = require('emailjs')
+import { SMTPClient } from 'emailjs'
 
 // initialize email client
 const smtpClient = new SMTPClient({

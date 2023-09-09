@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const user = require('../user')
-//const email = require('../email')
+const email = require('../email')
 const db = require('../db')
 
 // get users

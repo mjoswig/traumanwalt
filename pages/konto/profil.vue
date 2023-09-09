@@ -268,7 +268,7 @@ export default {
         ...this.$store.state.userData,
         ...this.personalDetailsForm
       })
-      this.$toast.success('Ihr persönlichen Daten wurden erfolgreich gespeichert!')
+      this.$toast.success('Ihre persönlichen Daten wurden erfolgreich gespeichert!')
       this.personalDetailsForm.isLoading = false
     },
     async saveContactDetails() {
@@ -277,7 +277,7 @@ export default {
         ...this.$store.state.userData,
         ...this.contactDetailsForm
       })
-      this.$toast.success('Ihr Kontaktdaten wurden erfolgreich gespeichert!')
+      this.$toast.success('Ihre Kontaktdaten wurden erfolgreich gespeichert!')
       this.contactDetailsForm.isLoading = false
     },
     async saveAbout() {
@@ -286,7 +286,7 @@ export default {
         ...this.$store.state.userData,
         ...this.aboutForm
       })
-      this.$toast.success('Ihr Daten wurden erfolgreich gespeichert!')
+      this.$toast.success('Ihre Daten wurden erfolgreich gespeichert!')
       this.aboutForm.isLoading = false
     },
     async saveLegalFields() {

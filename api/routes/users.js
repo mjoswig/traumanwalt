@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const user = require('../user')
+const email = require('../email')
 const db = require('../db')
 
 // get users
@@ -195,6 +196,31 @@ router.post('/:firebase_uid/law-firm/leave', async (req, res) => {
     DELETE FROM law_firm_users
     WHERE user_id = $1
   `, [ userResults.rows[0].id ])
+  return res.status(200).send(true)
+})
+
+// send review invitation
+router.post('/:firebase_uid/reviews/invite', async (req, res) => {
+  const userResults = await db.query(`
+    SELECT id, slug, salutation, first_name, last_name
+    FROM users
+    WHERE firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  const user = userResults.rows[0]
+  const jobTitle = user.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
+  const inviteUrl = `https://traumanwalt.com/anwalt/${user.slug}/bewerten`
+
+  const emailArgs = {
+    from: `Traumanwalt <${process.env.EMAIL_USER}>`,
+    subject: 'Bitte bewerten Sie mich'
+  }
+
+  for (let emailAddress of req.body.emails) {
+    emailArgs.text = `Sie wurden von ${jobTitle} ${user.first_name} ${user.last_name} eingeladen, eine Bewertung auf Traumanwalt zu verfassen.\n\nLink: ${inviteUrl}\n\nMit freundlichen Grüßen,\n\nIhr Traumanwalt Team`
+    emailArgs.to = emailAddress
+    email.send(emailArgs)
+  }
+
   return res.status(200).send(true)
 })
 

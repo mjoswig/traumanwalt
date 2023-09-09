@@ -3,7 +3,7 @@
     <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between sm:space-y-0 mb-6">
       <h1>Bewertungen</h1>
       <div class="flex justify-end mb-4">
-        <Btn @click="$router.push('/konto/bewertungen/einladung')">Mandanten einladen</Btn>
+        <Btn @click="$router.push('/konto/bewertungen/einladen')">Mandanten einladen</Btn>
       </div>
     </div>
     <AccountSection v-if="!reviews.length">
@@ -13,7 +13,7 @@
       <AccountSection v-for="(review, index) in reviews" :key="index">
         <div class="flex flex-col space-y-2 xl:flex-row xl:items-center xl:space-x-2 xl:space-y-0 mb-2">
           <star-rating :read-only="true" :show-rating="false" :star-size="30" v-model="review.rating" />
-          <h2 class="text-lg" style="margin-top: 4px;">{{ review.heading }}</h2>
+          <h2 class="text-lg" style="margin-top: 4px;">{{ review.title }}</h2>
         </div>
         <span class="block text-gray-500 text-sm mb-2">von <b>{{ review.author || 'Anonym' }}</b> am {{ $moment(review.created_at).format('DD.MM.YYYY') }}</span>
         <p class="mb-4">„{{ review.description }}“</p>

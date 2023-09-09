@@ -31,6 +31,7 @@ export default {
     { src: '@/plugins/firebase-storage' },
     { src: '@/plugins/autocomplete-vue' },
     { src: '@/plugins/rating', ssr: false },
+    { src: '@/plugins/vue-good-table', ssr: false },
     { src: '@/plugins/vue-phone-number-input' },
     { src: '@/plugins/vue-tags-input', ssr: false },
     { src: '@/plugins/vue-wysiwyg' }

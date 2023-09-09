@@ -207,7 +207,7 @@ router.get('/:firebase_uid/reviews', async (req, res) => {
       reviews.id AS id,
       reviews.author AS author,
       reviews.rating AS rating,
-      reviews.heading AS heading,
+      reviews.title AS title,
       reviews.description AS description,
       reviews.comment AS comment,
       reviews.created_at AS created_at

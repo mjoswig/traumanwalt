@@ -1,6 +1,6 @@
 {
   "name": "traumanwalt",
-  "version": "1.9.8",
+  "version": "1.9.9",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -31,6 +31,7 @@
     "stripe": "^13.4.0",
     "uuidv4": "^6.2.13",
     "vue": "^2.7.10",
+    "vue-good-table": "^2.21.11",
     "vue-phone-number-input": "^1.12.13",
     "vue-server-renderer": "^2.7.10",
     "vue-star-rating": "^1.7.0",

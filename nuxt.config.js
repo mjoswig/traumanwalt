@@ -30,6 +30,7 @@ export default {
   plugins: [
     { src: '@/plugins/firebase-storage' },
     { src: '@/plugins/autocomplete-vue' },
+    { src: '@/plugins/rating', ssr: false },
     { src: '@/plugins/vue-phone-number-input' },
     { src: '@/plugins/vue-tags-input', ssr: false },
     { src: '@/plugins/vue-wysiwyg' }
@@ -42,6 +43,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/moment'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

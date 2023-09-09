@@ -12,6 +12,11 @@
 <script>
 export default {
   name: 'KontoIndexPage',
+  head() {
+    return {
+      title: 'Startseite - Traumanwalt'
+    }
+  },
   computed: {
     fullName() {
       if (!this.$store.state.userData) return

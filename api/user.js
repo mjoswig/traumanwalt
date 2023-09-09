@@ -238,6 +238,19 @@ async function updateLegalFields(legalFields, userId) {
   }
 }
 
+// update review
+async function updateReview(reviewData) {
+  await db.query(`
+    UPDATE reviews
+    SET
+      comment = $1
+    WHERE id = $2
+  `, [
+    reviewData.comment,
+    reviewData.id
+  ])
+}
+
 // upgrade user to subscribed account
 async function subscribeToMembership(userId) {
   await db.query(`
@@ -266,6 +279,7 @@ module.exports = {
   deleteLawFirm,
   updateLanguages,
   updateLegalFields,
+  updateReview,
   subscribeToMembership,
   unsubscribeFromMembership
 }

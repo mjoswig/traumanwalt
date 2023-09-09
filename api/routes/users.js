@@ -199,6 +199,24 @@ router.post('/:firebase_uid/law-firm/leave', async (req, res) => {
   return res.status(200).send(true)
 })
 
+// get reviews by user
+router.get('/:firebase_uid/reviews', async (req, res) => {
+  const reviews = await db.query(`
+    SELECT
+      reviews.id AS id,
+      reviews.author AS author,
+      reviews.rating AS rating,
+      reviews.heading AS heading,
+      reviews.description AS description,
+      reviews.comment AS comment,
+      reviews.created_at AS created_at
+    FROM reviews
+    LEFT JOIN users ON users.id = reviews.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  return res.status(200).send(reviews.rows)
+})
+
 // send review invitation
 router.post('/:firebase_uid/reviews/invite', async (req, res) => {
   const userResults = await db.query(`
@@ -219,6 +237,12 @@ router.post('/:firebase_uid/reviews/invite', async (req, res) => {
     })
   }
 
+  return res.status(200).send(true)
+})
+
+// update review
+router.post('/:firebase_uid/reviews/update', async (req, res) => {
+  await user.updateReview(req.body)
   return res.status(200).send(true)
 })
 

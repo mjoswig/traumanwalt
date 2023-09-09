@@ -27,6 +27,11 @@
 <script>
 export default {
   name: 'KontoBewertungenEinladungPage',
+  head() {
+    return {
+      title: 'Zu Bewertung einladen - Traumanwalt'
+    }
+  },
   data() {
     return {
       email: '',

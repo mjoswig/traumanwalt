@@ -6,6 +6,11 @@
 
 <script>
 export default {
-  name: 'KontoRechtstippsPage'
+  name: 'KontoRechtstippsPage',
+  head() {
+    return {
+      title: 'Rechtstipps - Traumanwalt'
+    }
+  }
 }
 </script>

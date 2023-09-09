@@ -6,6 +6,11 @@
 
 <script>
 export default {
-  name: 'KontoNachrichtenPage'
+  name: 'KontoNachrichtenPage',
+  head() {
+    return {
+      title: 'Nachrichten - Traumanwalt'
+    }
+  }
 }
 </script>

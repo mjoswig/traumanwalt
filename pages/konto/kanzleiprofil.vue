@@ -192,6 +192,11 @@ import imageCompression from 'browser-image-compression'
 
 export default {
   name: 'KontoKanzleiprofilPage',
+  head() {
+    return {
+      title: 'Kanzleiprofil - Traumanwalt'
+    }
+  },
   async asyncData({ app, store }) {
     const lawFirm = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/law-firm`)
     const lawFirms = await app.$axios.$get('/api/law-firms')

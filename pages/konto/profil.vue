@@ -204,6 +204,11 @@ import imageCompression from 'browser-image-compression'
 
 export default {
   name: 'KontoProfilPage',
+  head() {
+    return {
+      title: 'Anwaltsprofil - Traumanwalt'
+    }
+  },
   async asyncData({ app, store }) {
     const allLanguages = await app.$axios.$get('/api/languages')
     const allLegalFields = await app.$axios.$get('/api/legal-fields')

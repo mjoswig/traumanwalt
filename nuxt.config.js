@@ -101,11 +101,11 @@ export default {
     routes: async () => {
       let routes = []
 
-      const { data: legalFields } = await axios.get('https://traumanwalt.com/api/legal-fields')
+      /*const { data: legalFields } = await axios.get('https://traumanwalt.com/api/legal-fields')
       routes.push(...legalFields.map(lf => `/anwaelte/${lf.slug}`))
 
       const { data: cities } = await axios.get('https://traumanwalt.com/api/cities')
-      routes.push(...cities.map(c => `/anwaelte/${c.slug}`))
+      routes.push(...cities.map(c => `/anwaelte/${c.slug}`))*/
 
       return routes
     },

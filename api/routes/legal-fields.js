@@ -26,7 +26,7 @@ router.get('/:slug/users', async (req, res) => {
   const attorneys = await db.query(`
     SELECT
       salutation, first_name, last_name,
-      address_line, postal_code, city,
+      photo_url, address_line, postal_code, city,
       jsonb_agg(
         jsonb_build_object(
           'name', legal_fields.name,
@@ -39,7 +39,7 @@ router.get('/:slug/users', async (req, res) => {
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
     WHERE legal_fields.slug = $1
-    GROUP BY salutation, first_name, last_name, address_line, postal_code, city
+    GROUP BY salutation, first_name, last_name, photo_url, address_line, postal_code, city
   `, [ req.params.slug ])
   return res.status(200).send(attorneys.rows)
 })

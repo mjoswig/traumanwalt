@@ -9,7 +9,7 @@
           <h2 class="mb-2">{{ getFullName(attorney) }}</h2>
           <span class="text-lg">{{ getBusinessAddress(attorney) }}</span>
           <div class="flex flex-wrap mt-4">
-            <span class="border border-blue-500 text-blue-500 px-2 py-1 rounded-md text-sm mr-2" v-for="(legalField, index) in attorney.legal_fields" :key="index">
+            <span class="border border-blue-500 text-blue-500 px-2 py-1 rounded-md text-sm mr-2" v-for="(legalField, index) in attorney.legal_fields.filter(lf => lf.id)" :key="index">
               {{ getLegalFieldName(legalField, attorney) }}
             </span>
           </div>

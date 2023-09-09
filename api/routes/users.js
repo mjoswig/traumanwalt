@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   const users = await db.query(`
     SELECT
       salutation, first_name, last_name,
-      address_line, postal_code, city,
+      photo_url, address_line, postal_code, city,
       jsonb_agg(
         jsonb_build_object(
           'name', legal_fields.name,
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
-    GROUP BY salutation, first_name, last_name, address_line, postal_code, city
+    GROUP BY salutation, first_name, last_name, photo_url, address_line, postal_code, city
   `)
   return res.status(200).send(users.rows)
 })

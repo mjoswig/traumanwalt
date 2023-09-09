@@ -24,6 +24,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/assets/css/tooltip.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -31,6 +32,7 @@ export default {
     { src: '@/plugins/firebase-storage' },
     { src: '@/plugins/autocomplete-vue' },
     { src: '@/plugins/rating', ssr: false },
+    { src: '@/plugins/v-tooltip', ssr: false },
     { src: '@/plugins/vue-good-table', ssr: false },
     { src: '@/plugins/vue-phone-number-input' },
     { src: '@/plugins/vue-tags-input', ssr: false },

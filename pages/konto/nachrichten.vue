@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Nachrichten</h1>
+    <h1>Meine Nachrichten</h1>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   name: 'KontoNachrichtenPage',
   head() {
     return {
-      title: 'Nachrichten - Traumanwalt'
+      title: 'Meine Nachrichten - Traumanwalt'
     }
   }
 }

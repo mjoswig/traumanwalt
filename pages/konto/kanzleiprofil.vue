@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-6">Kanzleiprofil</h1>
+    <h1 class="mb-6">Mein Kanzleiprofil</h1>
     <AccountSection v-if="!lawFirm" heading="Neues Kanzleiprofil" class="mb-4">
       <p class="mb-4">Bitte prüfen Sie vor der Erstellung eines neuen Kanzleiprofils, ob bereits ein bestehendes Profil Ihrer Kanzlei existiert.</p>
       <form @submit.prevent>
@@ -194,7 +194,7 @@ export default {
   name: 'KontoKanzleiprofilPage',
   head() {
     return {
-      title: 'Kanzleiprofil - Traumanwalt'
+      title: 'Mein Kanzleiprofil - Traumanwalt'
     }
   },
   async asyncData({ app, store }) {

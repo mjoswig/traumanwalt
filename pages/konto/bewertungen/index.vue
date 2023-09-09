@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 mb-6">
+    <div class="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between sm:space-y-0 mb-6">
       <h1>Bewertungen</h1>
-      <div class="flex justify-end">
+      <div class="flex justify-end mb-4">
         <Btn @click="$router.push('/konto/bewertungen/einladung')">Mandanten einladen</Btn>
       </div>
     </div>
@@ -26,6 +26,9 @@
           <Btn type="light" :is-loading="isSendingComment['review-' + review.id]" @click="sendComment(review)">Kommentar absenden</Btn>
         </div>
       </AccountSection>
+      <div class="text-center" v-if="reviews.length > 0 && reviews.length < reviews[0].total_count">
+        <a class="cursor-pointer" @click="loadMore">Mehr laden</a>
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +42,9 @@ export default {
     }
   },
   async asyncData({ app, store }) {
-    const reviews = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/reviews`)
+    const page = 1
+    const pageLength = 10
+    const reviews = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/reviews?page=${page}&page_length=${pageLength}`)
 
     let reviewComments = {}
     let isSendingComment = {}
@@ -49,6 +54,8 @@ export default {
     })
 
     return {
+      page,
+      pageLength,
       reviews,
       reviewComments,
       isSendingComment
@@ -64,6 +71,11 @@ export default {
       this.$toast.success('Ihre Kommentar wurde erfolgreich gesendet!')
       this.isSendingComment['review-' + review.id] = false
       window.location.href = '/konto/bewertungen'
+    },
+    async loadMore() {
+      this.page++
+      const reviews = await this.$axios.$get(`/api/users/${this.$store.state.userData.firebase_uid}/reviews?page=${this.page}&page_length=${this.pageLength}`)
+      this.reviews.push(...reviews)
     }
   }
 }

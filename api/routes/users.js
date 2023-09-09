@@ -203,6 +203,7 @@ router.post('/:firebase_uid/law-firm/leave', async (req, res) => {
 router.get('/:firebase_uid/reviews', async (req, res) => {
   const reviews = await db.query(`
     SELECT
+      count(*) OVER() AS total_count,
       reviews.id AS id,
       reviews.author AS author,
       reviews.rating AS rating,
@@ -213,7 +214,9 @@ router.get('/:firebase_uid/reviews', async (req, res) => {
     FROM reviews
     LEFT JOIN users ON users.id = reviews.user_id
     WHERE users.firebase_uid = $1
-  `, [ req.params.firebase_uid ])
+    ORDER BY reviews.created_at DESC
+    LIMIT $2 OFFSET $3
+  `, [ req.params.firebase_uid, req.query.page_length, (req.query.page - 1) * req.query.page_length ])
   return res.status(200).send(reviews.rows)
 })
 

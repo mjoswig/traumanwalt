@@ -1,4 +1,5 @@
 // import packages
+require('fix-esm').register()
 const express = require('express')
 const cors = require('cors')
 

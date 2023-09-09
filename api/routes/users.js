@@ -210,15 +210,13 @@ router.post('/:firebase_uid/reviews/invite', async (req, res) => {
   const jobTitle = user.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
   const inviteUrl = `https://traumanwalt.com/anwalt/${user.slug}/bewerten`
 
-  const emailArgs = {
-    from: `Traumanwalt <${process.env.EMAIL_USER}>`,
-    subject: 'Bitte bewerten Sie mich'
-  }
-
   for (let emailAddress of req.body.emails) {
-    emailArgs.text = `Sie wurden von ${jobTitle} ${user.first_name} ${user.last_name} eingeladen, eine Bewertung auf Traumanwalt zu verfassen.\n\nLink: ${inviteUrl}\n\nMit freundlichen Grüßen,\n\nIhr Traumanwalt Team`
-    emailArgs.to = emailAddress
-    email.send(emailArgs)
+    await email.send({
+      from: '"Traumanwalt" <support@traumanwalt.com>',
+      to: emailAddress,
+      subject: 'Bitte bewerten Sie mich',
+      text: `Sie wurden von ${jobTitle} ${user.first_name} ${user.last_name} eingeladen, eine Bewertung auf Traumanwalt zu verfassen.\n\nLink: ${inviteUrl}\n\nMit freundlichen Grüßen,\n\nIhr Traumanwalt Team`
+    })
   }
 
   return res.status(200).send(true)

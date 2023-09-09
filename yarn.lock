@@ -4868,11 +4868,6 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
-emailjs@^3.8.0:
-  version "3.8.1"
-  resolved "https://registry.yarnpkg.com/emailjs/-/emailjs-3.8.1.tgz#aef20e8168122507fb31595111bc265c27ef4cac"
-  integrity sha512-AOpQyi1op250n66ocgFQRkmsMcYAylmbBBfIQrwqv6OxuDSDG4Mr/7gROkKc7nNjLt0WycPRLRxiX1+XAhZJuQ==
-
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
@@ -7654,6 +7649,11 @@ node-res@^5.0.1:
     mime-types "^2.1.19"
     on-finished "^2.3.0"
     vary "^1.1.2"
+
+nodemailer@^6.9.5:
+  version "6.9.5"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.5.tgz#eaeae949c62ec84ef1e9128df89fc146a1017aca"
+  integrity sha512-/dmdWo62XjumuLc5+AYQZeiRj+PRR8y8qKtFCOyuOl1k/hckZd8durUUHs/ucKx6/8kN+wFxqKJlQ/LK/qR5FA==
 
 normalize-path@^2.1.1:
   version "2.1.1"

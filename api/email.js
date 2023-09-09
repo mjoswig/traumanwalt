@@ -1,18 +1,19 @@
-const { SMTPClient } = require('emailjs')
+const nodemailer = require('nodemailer')
 
 // initialize email client
-const smtpClient = new SMTPClient({
-  user: process.env.EMAIL_USER,
-  password: process.env.EMAIL_PASSWORD,
+const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
-  ssl: true
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD
+  }
 })
 
 // send email
-function send(params) {
-  smtpClient.send(params, (err, message) => {
-    console.log(err || message)
-  })
+async function send(params) {
+  await transporter.sendMail(params)
 }
 
 module.exports = {

@@ -259,16 +259,16 @@ async function createLegalGuide(guideData, userId) {
     locale: 'de'
   })
 
-  const guideResults = await db.query('SELECT slug FROM law_firms WHERE slug ILIKE $1', [ slug ])
+  const guideResults = await db.query('SELECT slug FROM legal_guides WHERE slug ILIKE $1', [ slug ])
   if (guideResults.rows.length) {
     const slugIndex = guideResults.rows.length
     slug += `-${slugIndex}`
   }
 
   await db.query(`
-    INSERT INTO legal_guides(title, slug, content, published, user_id)
-    VALUES($1, $2, $3, $4, $5)
-  `, [ guideData.title, slug, guideData.content, guideData.published, userId ])
+    INSERT INTO legal_guides(title, slug, thumbnail_url, content, published, user_id)
+    VALUES($1, $2, $3, $4, $5, $6)
+  `, [ guideData.title, slug, guideData.thumbnail_url, guideData.content, guideData.published, userId ])
 }
 
 // update user's legal guide
@@ -279,7 +279,7 @@ async function updateLegalGuide(guideData, userId) {
     locale: 'de'
   })
 
-  const guideResults = await db.query('SELECT slug FROM law_firms WHERE slug ILIKE $1', [ slug ])
+  const guideResults = await db.query('SELECT slug FROM legal_guides WHERE slug ILIKE $1', [ slug ])
   if (guideResults.rows.length) {
     const slugIndex = guideResults.rows.length
     slug += `-${slugIndex}`
@@ -287,9 +287,9 @@ async function updateLegalGuide(guideData, userId) {
 
   await db.query(`
     UPDATE legal_guides
-    SET title = $1, slug = $2, content = $3, published = $4
-    WHERE id = $5 AND user_id = $6
-  `, [ guideData.title, slug, guideData.content, guideData.published, guideData.id, userId ])
+    SET title = $1, slug = $2, thumbnail_url = $3, content = $4, published = $5
+    WHERE id = $6 AND user_id = $7
+  `, [ guideData.title, slug, guideData.thumbnail_url, guideData.content, guideData.published, guideData.id, userId ])
 }
 
 // delete user's legal guide

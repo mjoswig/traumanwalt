@@ -10,8 +10,6 @@
       <vue-good-table
         :columns="columns"
         :rows="rows"
-        :line-numbers="true"
-        :sort-options="{ enabled: false }"
         compact-mode
       >
         <template slot="table-row" slot-scope="props">
@@ -78,7 +76,8 @@ export default {
         },
         {
           label: 'Aktionen',
-          field: 'actions'
+          field: 'actions',
+          sortable: false
         },
         {
           label: 'Titelbild',

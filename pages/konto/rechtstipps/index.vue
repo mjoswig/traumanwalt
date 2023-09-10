@@ -16,7 +16,7 @@
       >
         <template slot="table-row" slot-scope="props">
           <div v-if="props.column.field == 'actions'" class="flex space-x-4 justify-end sm:justify-start">
-            <nuxt-link :to="`/rechtstipps/${props.row.slug}`" class="cursor-pointer" v-tooltip="'Tipp ansehen'">
+            <nuxt-link v-if="props.row.published" :to="`/rechtstipps/${props.row.slug}`" class="cursor-pointer" v-tooltip="'Tipp ansehen'">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
@@ -35,6 +35,9 @@
           </div>
           <span v-else-if="props.column.field == 'created_at'">
             {{ $moment(props.formattedRow[props.column.field]).format('DD.MM.YYYY, HH:mm') }}
+          </span>
+          <span v-else-if="props.column.field == 'published'">
+            {{ props.row.published ? 'Veröffentlicht' : 'Entwurf' }}
           </span>
           <span v-else>
             {{ props.formattedRow[props.column.field] }}
@@ -70,11 +73,24 @@ export default {
           field: 'views'
         },
         {
+          label: 'Status',
+          field: 'published'
+        },
+        {
           label: 'Aktionen',
           field: 'actions'
         }
       ],
       rows: legalGuides
+    }
+  },
+  methods: {
+    async deleteGuide(id) {
+      if (window.confirm('Möchten Sie diesen Rechtstipp wirklich löschen? Der Tipp kann nicht wiederhergestellt werden.')) {
+        await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/legal-guides/${id}/delete`)
+        this.$toast.success('Ihr Rechtstipp wurde erfolgreich gelöscht!')
+        window.location.href = '/konto/rechtstipps'
+      }
     }
   }
 }

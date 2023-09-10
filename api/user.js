@@ -251,6 +251,14 @@ async function updateReview(reviewData) {
   ])
 }
 
+// delete user's legal guide
+async function deleteLegalGuide(legalGuideId, userId) {
+  await db.query(`
+    DELETE FROM legal_guides
+    WHERE legal_guides.id = $1 AND legal_guides.user_id = $2
+  `, [ legalGuideId, userId ])
+}
+
 // upgrade user to subscribed account
 async function subscribeToMembership(userId) {
   await db.query(`
@@ -280,6 +288,7 @@ module.exports = {
   updateLanguages,
   updateLegalFields,
   updateReview,
+  deleteLegalGuide,
   subscribeToMembership,
   unsubscribeFromMembership
 }

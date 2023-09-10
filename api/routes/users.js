@@ -255,7 +255,9 @@ router.get('/:firebase_uid/legal-guides', async (req, res) => {
     SELECT
       legal_guides.id AS id,
       legal_guides.title AS title,
+      legal_guides.slug AS slug,
       legal_guides.views AS views,
+      legal_guides.published AS published,
       legal_guides.created_at AS created_at
     FROM legal_guides
     LEFT JOIN users ON users.id = legal_guides.user_id
@@ -263,6 +265,20 @@ router.get('/:firebase_uid/legal-guides', async (req, res) => {
     ORDER BY legal_guides.created_at DESC
   `, [ req.params.firebase_uid ])
   return res.status(200).send(legalGuides.rows)
+})
+
+// create legal guide for user
+router.post('/:firebase_uid/legal-guides/create', async (req, res) => {
+  const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
+  await user.createLegalGuide(req.body, userResults.rows[0].id)
+  return res.status(200).send(true)
+})
+
+// delete legal guide for user
+router.post('/:firebase_uid/legal-guides/:id/delete', async (req, res) => {
+  const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
+  await user.deleteLegalGuide(req.params.id, userResults.rows[0].id)
+  return res.status(200).send(true)
 })
 
 module.exports = router

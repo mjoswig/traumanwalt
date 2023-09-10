@@ -11,7 +11,7 @@
         <fieldset class="mb-4">
           <label class="font-bold">Inhalt</label>
           <wysiwyg class="mb-1 w-full" placeholder="Schreiben Sie über einen interessanten Fall oder ein Rechtsthema, welches potentielle Mandanten interessieren könnte..." v-model="content" />
-          <span class="text-gray-500 text-sm"><b>Wortanzahl:</b> {{ content.length ? content.split(' ').length : 0 }}</span>
+          <span class="text-gray-500 text-sm"><b>Wortanzahl:</b> {{ wordCount }}</span>
         </fieldset>
         <fieldset>
           <label class="font-bold">Status</label>
@@ -20,6 +20,9 @@
             <option :value="true">Veröffentlicht</option>
           </select>
         </fieldset>
+        <div class="flex justify-end mt-5">
+          <Btn :is-disabled="!canSubmit" :is-loading="isLoading" @click="submitGuide">{{ published ? 'Veröffentlichen' : 'Speichern' }}</Btn>
+        </div>
       </form>
     </AccountSection>
   </div>
@@ -33,11 +36,37 @@ export default {
       title: 'Rechtstipp bearbeiten - Traumanwalt'
     }
   },
-  async asyncData({ app, store }) {
+  async asyncData({ app, params, redirect, store }) {
+    const legalGuide = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/legal-guides/${params.id}`)
+    if (!legalGuide) redirect('/konto/rechtstipps')
     return {
-      title: '',
-      content: '',
-      published: false
+      id: legalGuide.id,
+      title: legalGuide.title,
+      content: legalGuide.content,
+      published: legalGuide.published,
+      isLoading: false
+    }
+  },
+  computed: {
+    wordCount() {
+      if (!this.content) return 0
+      return this.content.length ? this.content.split(' ').length : 0
+    },
+    canSubmit() {
+      return !this.published || this.wordCount > 1000
+    }
+  },
+  methods: {
+    async submitGuide() {
+      this.isLoading = true
+      await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/legal-guides/update`, {
+        id: this.id,
+        title: this.title,
+        content: this.content,
+        published: this.published
+      })
+      this.$toast.success(`Ihr Rechtstipp wurde erfolgreich ${this.published ? 'veröffentlicht' : 'gespeichert'}!`)
+      this.isLoading = false
     }
   }
 }

@@ -55,6 +55,11 @@ export default {
   methods: {
     async submitGuide() {
       this.isLoading = true
+      await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/legal-guides/create`, {
+        title: this.title,
+        content: this.content,
+        published: this.published
+      })
       this.$toast.success(`Ihr Rechtstipp wurde erfolgreich ${this.published ? 'veröffentlicht' : 'gespeichert'}!`)
       this.isLoading = false
     }

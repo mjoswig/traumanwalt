@@ -251,6 +251,47 @@ async function updateReview(reviewData) {
   ])
 }
 
+// create user's legal guide
+async function createLegalGuide(guideData, userId) {
+  let slug = slugify(guideData.title, {
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+    locale: 'de'
+  })
+
+  const guideResults = await db.query('SELECT slug FROM law_firms WHERE slug ILIKE $1', [ slug ])
+  if (guideResults.rows.length) {
+    const slugIndex = guideResults.rows.length
+    slug += `-${slugIndex}`
+  }
+
+  await db.query(`
+    INSERT INTO legal_guides(title, slug, content, published, user_id)
+    VALUES($1, $2, $3, $4, $5)
+  `, [ guideData.title, slug, guideData.content, guideData.published, userId ])
+}
+
+// update user's legal guide
+async function updateLegalGuide(guideData, userId) {
+  let slug = slugify(guideData.title, {
+    remove: /[*+~.()'"!:@]/g,
+    lower: true,
+    locale: 'de'
+  })
+
+  const guideResults = await db.query('SELECT slug FROM law_firms WHERE slug ILIKE $1', [ slug ])
+  if (guideResults.rows.length) {
+    const slugIndex = guideResults.rows.length
+    slug += `-${slugIndex}`
+  }
+
+  await db.query(`
+    UPDATE legal_guides
+    SET title = $1, slug = $2, content = $3, published = $4
+    WHERE id = $5 AND user_id = $6
+  `, [ guideData.title, slug, guideData.content, guideData.published, guideData.id, userId ])
+}
+
 // delete user's legal guide
 async function deleteLegalGuide(legalGuideId, userId) {
   await db.query(`
@@ -288,6 +329,8 @@ module.exports = {
   updateLanguages,
   updateLegalFields,
   updateReview,
+  createLegalGuide,
+  updateLegalGuide,
   deleteLegalGuide,
   subscribeToMembership,
   unsubscribeFromMembership

@@ -274,6 +274,28 @@ router.post('/:firebase_uid/legal-guides/create', async (req, res) => {
   return res.status(200).send(true)
 })
 
+// update legal guide for user
+router.post('/:firebase_uid/legal-guides/update', async (req, res) => {
+  const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
+  await user.updateLegalGuide(req.body, userResults.rows[0].id)
+  return res.status(200).send(true)
+})
+
+// get legal guide by user
+router.get('/:firebase_uid/legal-guides/:id', async (req, res) => {
+  const guideResults = await db.query(`
+    SELECT
+      legal_guides.id AS id,
+      legal_guides.title AS title,
+      legal_guides.content AS content,
+      legal_guides.published AS published
+    FROM legal_guides
+    LEFT JOIN users ON users.id = legal_guides.user_id
+    WHERE users.firebase_uid = $1 AND legal_guides.id = $2
+  `, [ req.params.firebase_uid, req.params.id ])
+  return res.status(200).send(guideResults.rows[0])
+})
+
 // delete legal guide for user
 router.post('/:firebase_uid/legal-guides/:id/delete', async (req, res) => {
   const userResults = await db.query('SELECT id FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])

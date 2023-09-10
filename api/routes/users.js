@@ -305,4 +305,38 @@ router.post('/:firebase_uid/legal-guides/:id/delete', async (req, res) => {
   return res.status(200).send(true)
 })
 
+// get profile views by user
+router.get('/:firebase_uid/profile-views', async (req, res) => {
+  let result = await db.query(`
+    SELECT count, profile_views.created_at
+    FROM profile_views
+    LEFT JOIN users ON users.id = profile_views.user_id
+    WHERE users.firebase_uid = $1 AND profile_views.created_at > (CURRENT_DATE - INTERVAL '12 MONTHS')
+    ORDER BY profile_views.created_at ASC
+    LIMIT 12
+  `, [ req.params.firebase_uid ])
+  return res.status(200).send(result.rows)
+})
+
+// get profile views by user's law firm
+router.get('/:firebase_uid/profile-views/law-firm', async (req, res) => {
+  const lawFirmResults = await db.query(`
+    SELECT law_firms.id AS id
+    FROM law_firms
+    LEFT JOIN law_firm_users ON law_firm_users.law_firm_id = law_firms.id
+    LEFT JOIN users ON users.id = law_firm_users.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+
+  let result = await db.query(`
+    SELECT count, profile_views.created_at
+    FROM profile_views
+    WHERE profile_views.law_firm_id = $1 AND profile_views.created_at > (CURRENT_DATE - INTERVAL '12 MONTHS')
+    ORDER BY profile_views.created_at ASC
+    LIMIT 12
+  `, [ lawFirmResults.rows[0].id ])
+
+  return res.status(200).send(result.rows)
+})
+
 module.exports = router

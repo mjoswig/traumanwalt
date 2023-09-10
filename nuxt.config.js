@@ -126,6 +126,12 @@ export default {
     duration: 2000
   },
 
+  // Moment Configuration
+  moment: {
+    defaultLocale: 'de',
+    locales: ['de']
+  },
+
   // PWA Configuration
   pwa: {
     // disable the modules you don't need

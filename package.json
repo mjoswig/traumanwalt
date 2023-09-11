@@ -1,6 +1,6 @@
 {
   "name": "traumanwalt",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -24,7 +24,6 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "firebase": "^10.3.1",
-    "fix-esm": "^1.0.1",
     "imap-simple": "^5.1.0",
     "lodash": "^4.17.21",
     "mailparser": "^3.6.5",

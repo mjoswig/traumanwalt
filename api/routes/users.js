@@ -305,6 +305,46 @@ router.post('/:firebase_uid/legal-guides/:id/delete', async (req, res) => {
   return res.status(200).send(true)
 })
 
+// get stats by user
+router.get('/:firebase_uid/stats', async (req, res) => {
+  const profileViewResults = await db.query(`
+    SELECT SUM(count) AS count
+    FROM profile_views
+    LEFT JOIN users ON users.id = profile_views.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+
+  const reviewResults = await db.query(`
+    SELECT count(*) OVER() AS count
+    FROM reviews
+    LEFT JOIN users ON users.id = reviews.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+
+  const conversationResults = await db.query(`
+    SELECT count(*) OVER() AS count
+    FROM conversations
+    LEFT JOIN users ON users.id = conversations.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+
+  const legalGuideResults = await db.query(`
+    SELECT SUM(views) AS count
+    FROM legal_guides
+    LEFT JOIN users ON users.id = legal_guides.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+
+  const stats = {
+    profile_views: profileViewResults.rows[0] ? profileViewResults.rows[0].count : 0,
+    reviews: reviewResults.rows[0] ? reviewResults.rows[0].count : 0,
+    conversations: conversationResults.rows[0] ? conversationResults.rows[0].count : 0,
+    legal_guide_views: legalGuideResults.rows[0] ? legalGuideResults.rows[0].count : 0
+  }
+
+  return res.status(200).send(stats)
+})
+
 // get profile views by user
 router.get('/:firebase_uid/profile-views', async (req, res) => {
   let result = await db.query(`

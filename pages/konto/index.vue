@@ -5,19 +5,19 @@
       <AccountSection heading="Ihr Traumanwalt-Konto">
         <div class="grid grid-cols-2 gap-4">
           <div class="border p-4 rounded-md text-center">
-            <b class="block text-2xl">0</b>
+            <b class="block text-2xl">{{ stats.profile_views }}</b>
             <span class="text-gray-500">Klicks auf Anwaltsprofil</span>
           </div>
           <div class="border p-4 rounded-md text-center">
-            <b class="block text-2xl">0</b>
+            <b class="block text-2xl">{{ stats.reviews }}</b>
             <span class="text-gray-500">Bewertungen erhalten</span>
           </div>
           <div class="border p-4 rounded-md text-center">
-            <b class="block text-2xl">0</b>
+            <b class="block text-2xl">{{ stats.conversations }}</b>
             <span class="text-gray-500">Nachrichten erhalten</span>
           </div>
           <div class="border p-4 rounded-md text-center">
-            <b class="block text-2xl">0</b>
+            <b class="block text-2xl">{{ stats.legal_guide_views }}</b>
             <span class="text-gray-500">Klicks auf Rechtstipps</span>
           </div>
         </div>
@@ -53,11 +53,14 @@ export default {
     }
   },
   async asyncData({ app, store }) {
+    const stats = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/stats`)
+
     const profileViews = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/profile-views`)
+    const fromDate = profileViews[0] ? profileViews[0].created_at : new Date()
 
     let chartLabels = []
     for (let i = 0; i <= 12; i++) {
-      chartLabels.push(app.$moment(profileViews[0].created_at).add(i, 'months').format('MMMM YYYY'))
+      chartLabels.push(app.$moment(fromDate).add(i, 'months').format('MMMM YYYY'))
     }
 
     const profileViewsData = []
@@ -67,6 +70,7 @@ export default {
     }
 
     return {
+      stats,
       profileViews,
       chartData: {
         labels: chartLabels,

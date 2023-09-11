@@ -44,10 +44,12 @@ async function update(userData, firebaseUid) {
     locale: 'de'
   })
 
-  const userResults = await db.query('SELECT slug FROM users WHERE slug ILIKE $1', [ slug ])
-  if (userResults.rows.length) {
-    const slugIndex = userResults.rows.length
-    slug += `-${slugIndex}`
+  if (slug.indexOf(userData.slug) === -1) {
+    const userResults = await db.query('SELECT slug FROM users WHERE slug ILIKE $1', [ slug ])
+    if (userResults.rows.length) {
+      const slugIndex = userResults.rows.length
+      slug += `-${slugIndex}`
+    }
   }
 
   await db.query(`
@@ -143,10 +145,12 @@ async function updateLawFirm(lawFirmData) {
     locale: 'de'
   })
 
-  const lawFirmResults = await db.query('SELECT slug FROM law_firms WHERE slug ILIKE $1', [ slug ])
-  if (lawFirmResults.rows.length) {
-    const slugIndex = lawFirmResults.rows.length
-    slug += `-${slugIndex}`
+  if (slug.indexOf(lawFirmData.slug) === -1) {
+    const lawFirmResults = await db.query('SELECT slug FROM law_firms WHERE slug ILIKE $1', [ slug ])
+    if (lawFirmResults.rows.length) {
+      const slugIndex = lawFirmResults.rows.length
+      slug += `-${slugIndex}`
+    }
   }
 
   await db.query(`
@@ -279,10 +283,12 @@ async function updateLegalGuide(guideData, userId) {
     locale: 'de'
   })
 
-  const guideResults = await db.query('SELECT slug FROM legal_guides WHERE slug ILIKE $1', [ slug ])
-  if (guideResults.rows.length) {
-    const slugIndex = guideResults.rows.length
-    slug += `-${slugIndex}`
+  if (slug.indexOf(guideData.slug) === -1) {
+    const guideResults = await db.query('SELECT slug FROM legal_guides WHERE slug ILIKE $1', [ slug ])
+    if (guideResults.rows.length) {
+      const slugIndex = guideResults.rows.length
+      slug += `-${slugIndex}`
+    }
   }
 
   await db.query(`

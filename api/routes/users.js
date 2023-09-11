@@ -365,11 +365,16 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
       count(*) OVER() AS total_count,
       conversations.id AS id,
       conversations.subject AS subject,
-      conversations.from AS from
+      conversations.from AS from,
+      conversations.unread_messages AS unread_messages,
+      conversations.created_at AS created_at,
+      MAX(conversation_messages.created_at) AS last_message_created_at
     FROM conversations
+    LEFT JOIN conversation_messages ON conversation_messages.conversation_id = conversations.id
     LEFT JOIN users ON users.id = conversations.user_id
     WHERE users.firebase_uid = $1
-    ORDER BY conversations.created_at DESC
+    GROUP BY conversations.id, conversations.from, conversations.unread_messages, conversations.created_at
+    ORDER BY conversations.unread_messages DESC, conversations.created_at DESC
     LIMIT $2 OFFSET $3
   `, [ req.params.firebase_uid, req.query.page_length, (req.query.page - 1) * req.query.page_length ])
   return res.status(200).send(conversations.rows)

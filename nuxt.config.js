@@ -34,7 +34,6 @@ export default {
     { src: '@/plugins/rating', ssr: false },
     { src: '@/plugins/v-tooltip', ssr: false },
     { src: '@/plugins/vue-chart', ssr: false },
-    { src: '@/plugins/vue-good-table', ssr: false },
     { src: '@/plugins/vue-phone-number-input' },
     { src: '@/plugins/vue-tags-input', ssr: false },
     { src: '@/plugins/vue-wysiwyg' }

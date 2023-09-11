@@ -253,10 +253,12 @@ router.post('/:firebase_uid/reviews/update', async (req, res) => {
 router.get('/:firebase_uid/legal-guides', async (req, res) => {
   const legalGuides = await db.query(`
     SELECT
+      count(*) OVER() AS total_count,
       legal_guides.id AS id,
       legal_guides.title AS title,
       legal_guides.thumbnail_url AS thumbnail_url,
       legal_guides.slug AS slug,
+      legal_guides.content AS content,
       legal_guides.views AS views,
       legal_guides.published AS published,
       legal_guides.created_at AS created_at
@@ -264,7 +266,8 @@ router.get('/:firebase_uid/legal-guides', async (req, res) => {
     LEFT JOIN users ON users.id = legal_guides.user_id
     WHERE users.firebase_uid = $1
     ORDER BY legal_guides.created_at DESC
-  `, [ req.params.firebase_uid ])
+    LIMIT $2 OFFSET $3
+  `, [ req.params.firebase_uid, req.query.page_length, (req.query.page - 1) * req.query.page_length ])
   return res.status(200).send(legalGuides.rows)
 })
 

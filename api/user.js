@@ -306,6 +306,23 @@ async function deleteLegalGuide(legalGuideId, userId) {
   `, [ legalGuideId, userId ])
 }
 
+// mark conversation as read
+async function markConversationAsRead(conversationId) {
+  await db.query(`
+    UPDATE conversations
+    SET unread_messages = FALSE
+    WHERE id = $1
+  `, [ conversationId ])
+}
+
+// reply to a conversation
+async function replyToConversation(message, conversation) {
+  await db.query(`
+    INSERT INTO conversation_messages(text, sent, conversation_id)
+    VALUES($1, $2, $3)
+  `, [ message.text, message.sent, conversation.id ])
+}
+
 // upgrade user to subscribed account
 async function subscribeToMembership(userId) {
   await db.query(`
@@ -338,6 +355,8 @@ module.exports = {
   createLegalGuide,
   updateLegalGuide,
   deleteLegalGuide,
+  markConversationAsRead,
+  replyToConversation,
   subscribeToMembership,
   unsubscribeFromMembership
 }

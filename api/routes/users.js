@@ -383,4 +383,59 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
   return res.status(200).send(conversations.rows)
 })
 
+// get conversation messages
+router.get('/:firebase_uid/conversations/:id', async (req, res) => {
+  const conversationMessages = await db.query(`
+    SELECT
+      conversations.id AS id,
+      conversations.subject AS subject,
+      conversations.from AS from,
+      conversation_messages.text AS text,
+      conversation_messages.sent AS sent,
+      conversation_messages.created_at AS created_at
+    FROM conversation_messages
+    LEFT JOIN conversations ON conversations.id = conversation_messages.conversation_id
+    LEFT JOIN users ON users.id = conversations.user_id
+    WHERE users.firebase_uid = $1 AND conversations.id = $2
+    ORDER BY conversation_messages.created_at ASC
+  `, [ req.params.firebase_uid, req.params.id ])
+  return res.status(200).send(conversationMessages.rows)
+})
+
+// mark conversation as read
+router.post('/:firebase_uid/conversations/:id/read', async (req, res) => {
+  const conversationResults = await db.query(`
+    SELECT conversations.id AS id
+    FROM conversations
+    LEFT JOIN users ON users.id = conversations.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+  await user.markConversationAsRead(conversationResults.rows[0].id)
+  return res.status(200).send(true)
+})
+
+// reply to conversation
+router.post('/:firebase_uid/conversations/:id/reply', async (req, res) => {
+  const conversationResults = await db.query(`
+    SELECT
+      conversations.id AS id,
+      conversations.email AS email,
+      conversations.from AS from
+    FROM conversations
+    LEFT JOIN users ON users.id = conversations.user_id
+    WHERE users.firebase_uid = $1
+  `, [ req.params.firebase_uid ])
+
+  const message = {
+    text: req.body.text,
+    sent: true
+  }
+
+  const conversation = conversationResults.rows[0]
+
+  await user.replyToConversation(message, conversation)
+
+  return res.status(200).send(true)
+})
+
 module.exports = router

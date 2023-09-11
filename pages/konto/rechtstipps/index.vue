@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     getExcerpt(content) {
-      return content
+      return content.split(' ').slice(0, 55).join(' ') + '...'
     },
     async deleteGuide(guide) {
       if (window.confirm('Möchten Sie diesen Rechtstipp wirklich löschen? Der Tipp kann nicht wiederhergestellt werden.')) {

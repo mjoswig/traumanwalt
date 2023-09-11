@@ -14,7 +14,7 @@
           </div>
           <div class="border p-4 rounded-md text-center">
             <b class="block text-2xl">{{ stats.conversations }}</b>
-            <span class="text-gray-500">Nachricht{{ stats.conversations !== 1 ? 'en' : '' }} erhalten</span>
+            <span class="text-gray-500">Anfrage{{ stats.conversations !== 1 ? 'n' : '' }} erhalten</span>
           </div>
           <div class="border p-4 rounded-md text-center">
             <b class="block text-2xl">{{ stats.legal_guide_views }}</b>
@@ -22,11 +22,10 @@
           </div>
         </div>
       </AccountSection>
-      <AccountSection heading="Neuigkeiten von Traumanwalt">
+      <AccountSection heading="Wie gefällt Ihnen Traumanwalt?">
         <div class="border-l-4 pl-2">
-          <p class="mb-2">„Vielen Dank für Ihr Interesse an Traumanwalt. Wir möchten Ihnen mit unserer Plattform helfen neue Mandate online zu generieren.</p>
-          <p class="mb-2">Zukünftig werden Sie auch eigene Rechtsprodukte anbieten und honorierte Rechtsfragen beantworten können.</p>
-          <p>Wir freuen uns auf Ihr Feedback!“</p>
+          <p class="mb-2">„Vielen Dank für Ihr Interesse an Traumanwalt. Wir möchten Ihnen mit unserer Plattform helfen, online neue Mandate zu generieren.</p>
+          <p>Haben Sie Fragen oder Anmerkungen? Schreiben Sie uns, wir freuen uns über Ihr Feedback: <b>support@traumanwalt.com</b>“</p>
         </div>
         <div>
           <b class="text-gray-500">Manuel Joswig</b><br />
@@ -34,13 +33,12 @@
         </div>
       </AccountSection>
     </div>
-    <div class="grid grid-cols gap-4">
-      <AccountSection heading="Klickzahlen Anwaltsprofil">
-        <client-only>
-          <bar-chart :chart-data="chartData" :chart-options="chartOptions" :height="300"></bar-chart>
-        </client-only>
-      </AccountSection>
-    </div>
+    <section class="border border-transparent rounded-md shadow-md p-4">
+      <h2 class="text-gray-500 mb-4">Klickzahlen Anwaltsprofil</h2>
+      <client-only>
+        <bar-chart :chart-data="chartData" :chart-options="chartOptions" :height="300"></bar-chart>
+      </client-only>
+    </section>
   </div>
 </template>
 

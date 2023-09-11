@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:space-y-0 mb-6">
       <h1>Meine Bewertungen</h1>
-      <div class="flex justify-end mb-4 lg:mb-0">
+      <div class="flex justify-end mb-6 lg:mb-0">
         <Btn @click="$router.push('/konto/bewertungen/einladen')">Mandanten einladen</Btn>
       </div>
     </div>

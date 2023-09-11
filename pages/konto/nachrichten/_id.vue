@@ -4,8 +4,8 @@
     <div ref="chatBox" class="border p-4 flex flex-col space-y-4 overflow-y-scroll mb-3" style="height: 500px;">
       <div class="flex w-full" :class="{ 'justify-start': !message.sent, 'justify-end': message.sent }" v-for="(message, index) in conversationMessages" :key="index">
         <div class="w-full" style="max-width: 600px;">
-          <span class="block text-sm mb-1">{{ message.sent ? `Sie schrieben ` : `${message.from} schrieb ` }} am {{ $moment(message.created_at).format('DD.MM.YYYY, HH:mm') }}</span>
-          <div class="bg-gray-100 px-4 py-2 rounded-xl" :class="{ 'bg-blue-100': message.sent }">
+          <span class="block text-xs mb-1">{{ message.sent ? `Sie schrieben ` : `${message.from} schrieb ` }} am {{ $moment(message.created_at).format('DD.MM.YYYY, HH:mm') }}</span>
+          <div class="px-4 py-2 rounded-xl text-sm lg:text-base" :class="{ 'bg-blue-100': message.sent, 'bg-gray-100': !message.sent }">
             {{ message.text }}
           </div>
         </div>

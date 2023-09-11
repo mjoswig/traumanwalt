@@ -1,24 +1,44 @@
 <template>
   <div>
     <h1 class="mb-6">Willkommen, {{ fullName }}!</h1>
-    <div class="grid lg:grid-cols-2 gap-4">
-      <AccountSection heading="Klickzahlen Anwaltsprofil">
-        <p v-if="!profileViews.length">Es sind noch keine Besucherzahlen zu Ihrem Profil verfügbar.</p>
-        <ul class="flex flex-col space-y-4" v-if="profileViews.length">
-          <li class="border-l-4 pl-2 flex justify-between text-gray-500" v-for="(month, index) in getNextMonthsFromDate(profileViews[0].created_at)" :key="index">
-            <b>{{ month }}</b>
-            <span>{{ profileViews.find(pv => $moment(pv.created_at).format('MMMM YYYY') === month)?.count || 0 }}</span>
-          </li>
-        </ul>
+    <div class="grid xl:grid-cols-2 gap-4 mb-4">
+      <AccountSection heading="Ihr Traumanwalt-Konto">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="border p-4 rounded-md text-center">
+            <b class="block text-2xl">0</b>
+            <span class="text-gray-500">Klicks auf Anwaltsprofil</span>
+          </div>
+          <div class="border p-4 rounded-md text-center">
+            <b class="block text-2xl">0</b>
+            <span class="text-gray-500">Bewertungen erhalten</span>
+          </div>
+          <div class="border p-4 rounded-md text-center">
+            <b class="block text-2xl">0</b>
+            <span class="text-gray-500">Nachrichten erhalten</span>
+          </div>
+          <div class="border p-4 rounded-md text-center">
+            <b class="block text-2xl">0</b>
+            <span class="text-gray-500">Klicks auf Rechtstipps</span>
+          </div>
+        </div>
       </AccountSection>
-      <AccountSection heading="Klickzahlen Kanzleiprofil">
-        <p v-if="!profileViewsLawFirm.length">Es sind noch keine Besucherzahlen zu Ihrem Kanzleiprofil verfügbar.</p>
-        <ul class="flex flex-col space-y-4" v-if="profileViewsLawFirm.length">
-          <li class="border-l-4 pl-2 flex justify-between text-gray-500" v-for="(month, index) in getNextMonthsFromDate(profileViewsLawFirm[0].created_at)" :key="index">
-            <b>{{ month }}</b>
-            <span>{{ profileViewsLawFirm.find(pv => $moment(pv.created_at).format('MMMM YYYY') === month)?.count || 0 }}</span>
-          </li>
-        </ul>
+      <AccountSection heading="Neuigkeiten von Traumanwalt">
+        <div class="border-l-4 pl-2">
+          <p class="mb-2">„Vielen Dank für Ihr Interesse an Traumanwalt. Wir möchten Ihnen mit unserer Plattform helfen online neue Mandate zu generieren.</p>
+          <p class="mb-2">Zukünftig werden Sie auch eigene Rechtsprodukte anbieten und honorierte Rechtsfragen beantworten können.</p>
+          <p>Wir freuen uns auf Ihr Feedback!“</p>
+        </div>
+        <div>
+          Manuel Joswig<br />
+          <span class="text-xs">Geschäftsführer Joswig Solutions UG</span>
+        </div>
+      </AccountSection>
+    </div>
+    <div class="grid grid-cols gap-4">
+      <AccountSection heading="Klickzahlen Anwaltsprofil">
+        <client-only>
+          <bar-chart :chart-data="chartData" :chart-options="chartOptions" :height="300"></bar-chart>
+        </client-only>
       </AccountSection>
     </div>
   </div>
@@ -34,10 +54,37 @@ export default {
   },
   async asyncData({ app, store }) {
     const profileViews = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/profile-views`)
-    const profileViewsLawFirm = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/profile-views/law-firm`)
+
+    let chartLabels = []
+    for (let i = 0; i <= 12; i++) {
+      chartLabels.push(app.$moment(profileViews[0].created_at).add(i, 'months').format('MMMM YYYY'))
+    }
+
+    const profileViewsData = []
+    for (const label of chartLabels) {
+      const count = profileViews.find(pv => app.$moment(pv.created_at).format('MMMM YYYY') === label)?.count || 0
+      profileViewsData.push(count)
+    }
+
     return {
       profileViews,
-      profileViewsLawFirm
+      chartData: {
+        labels: chartLabels,
+        datasets: [{
+          label: 'Klicks',
+          data: profileViewsData,
+          backgroundColor: '#00aff0'
+        }]
+      },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          yAxes: [{
+            ticks: { min: 0 }
+          }]
+        }
+      }
     }
   },
   computed: {

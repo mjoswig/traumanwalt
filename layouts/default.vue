@@ -338,6 +338,10 @@ a {
   max-width: 1400px;
 }
 
+.text-brand {
+  color: #00aff0;
+}
+
 .editr {
   & .vw-btn-separator {
     display: none;

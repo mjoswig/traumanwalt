@@ -336,10 +336,10 @@ router.get('/:firebase_uid/stats', async (req, res) => {
   `, [ req.params.firebase_uid ])
 
   const stats = {
-    profile_views: profileViewResults.rows[0] ? profileViewResults.rows[0].count : 0,
-    reviews: reviewResults.rows[0] ? reviewResults.rows[0].count : 0,
-    conversations: conversationResults.rows[0] ? conversationResults.rows[0].count : 0,
-    legal_guide_views: legalGuideResults.rows[0] ? legalGuideResults.rows[0].count : 0
+    profile_views: profileViewResults.rows[0] ? parseInt(profileViewResults.rows[0].count) : 0,
+    reviews: reviewResults.rows[0] ? parseInt(reviewResults.rows[0].count) : 0,
+    conversations: conversationResults.rows[0] ? parseInt(conversationResults.rows[0].count) : 0,
+    legal_guide_views: legalGuideResults.rows[0] ? parseInt(legalGuideResults.rows[0].count) : 0
   }
 
   return res.status(200).send(stats)
@@ -356,6 +356,23 @@ router.get('/:firebase_uid/profile-views', async (req, res) => {
     LIMIT 12
   `, [ req.params.firebase_uid ])
   return res.status(200).send(result.rows)
+})
+
+// get conversations by user
+router.get('/:firebase_uid/conversations', async (req, res) => {
+  const conversations = await db.query(`
+    SELECT
+      count(*) OVER() AS total_count,
+      conversations.id AS id,
+      conversations.subject AS subject,
+      conversations.from AS from
+    FROM conversations
+    LEFT JOIN users ON users.id = conversations.user_id
+    WHERE users.firebase_uid = $1
+    ORDER BY conversations.created_at DESC
+    LIMIT $2 OFFSET $3
+  `, [ req.params.firebase_uid, req.query.page_length, (req.query.page - 1) * req.query.page_length ])
+  return res.status(200).send(conversations.rows)
 })
 
 module.exports = router

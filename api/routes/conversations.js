@@ -1,4 +1,4 @@
-var imaps = require('imap-simple')
+/*var imaps = require('imap-simple')
 const simpleParser = require('mailparser').simpleParser
 const _ = require('lodash')
 
@@ -26,4 +26,4 @@ imaps.connect({
       })
     })
   })
-})
+})*/

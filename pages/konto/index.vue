@@ -6,19 +6,19 @@
         <div class="grid grid-cols-2 gap-4">
           <div class="border p-4 rounded-md text-center">
             <b class="block text-2xl">{{ stats.profile_views }}</b>
-            <span class="text-gray-500">Klicks auf Anwaltsprofil</span>
+            <span class="text-gray-500">Klick{{ stats.profile_views !== 1 ? 's' : '' }} auf Anwaltsprofil</span>
           </div>
           <div class="border p-4 rounded-md text-center">
             <b class="block text-2xl">{{ stats.reviews }}</b>
-            <span class="text-gray-500">Bewertungen erhalten</span>
+            <span class="text-gray-500">Bewertung{{ stats.reviews !== 1 ? 'en' : '' }} erhalten</span>
           </div>
           <div class="border p-4 rounded-md text-center">
             <b class="block text-2xl">{{ stats.conversations }}</b>
-            <span class="text-gray-500">Nachrichten erhalten</span>
+            <span class="text-gray-500">Nachricht{{ stats.conversations !== 1 ? 'en' : '' }} erhalten</span>
           </div>
           <div class="border p-4 rounded-md text-center">
             <b class="block text-2xl">{{ stats.legal_guide_views }}</b>
-            <span class="text-gray-500">Klicks auf Rechtstipps</span>
+            <span class="text-gray-500">Klick{{ stats.legal_guide_views !== 1 ? 's' : '' }} auf Rechtstipps</span>
           </div>
         </div>
       </AccountSection>
@@ -29,7 +29,7 @@
           <p>Wir freuen uns auf Ihr Feedback!“</p>
         </div>
         <div>
-          Manuel Joswig<br />
+          <b class="text-gray-500">Manuel Joswig</b><br />
           <span class="text-xs">Geschäftsführer Joswig Solutions UG</span>
         </div>
       </AccountSection>

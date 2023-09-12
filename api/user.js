@@ -1,4 +1,5 @@
 const slugify = require('slugify')
+const email = require('./email')
 const db = require('./db')
 
 // create user
@@ -25,7 +26,7 @@ async function create(firebaseUid, salutation, academicTitle, firstName, lastNam
       firebase_uid, slug, salutation, job_title, academic_title, first_name, last_name,
       address_line, postal_code, city, country, trial_expires_at
     )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
   `, [
     firebaseUid, slug, salutation, jobTitle, academicTitle, firstName, lastName,
     addressLine, postalCode, city, country, trialExpiresAt
@@ -316,11 +317,20 @@ async function markConversationAsRead(conversationId) {
 }
 
 // reply to a conversation
-async function replyToConversation(message, conversation) {
+async function replyToConversation(message, conversation, user) {
   await db.query(`
     INSERT INTO conversation_messages(text, sent, conversation_id)
     VALUES($1, $2, $3)
   `, [ message.text, message.sent, conversation.id ])
+
+  if (message.sent) {
+    await email.send({
+      from: `"Traumanwalt" <support+${conversation.uuid}@traumanwalt.com>`,
+      to: conversation.from_email,
+      subject: `Neue Nachricht von ${user.job_title} ${user.first_name} ${user.last_name}`,
+      html: `${message.text}<br />----------<br />Antworten auf diese E-Mail werden automatisch an ${user.job_title} ${user.first_name} ${user.last_name} weitergeleitet. Sie haben diese Nachricht erhalten, weil Sie eine Anfrage über Traumanwalt gesendet haben.`
+    })
+  }
 }
 
 // upgrade user to subscribed account

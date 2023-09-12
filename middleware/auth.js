@@ -36,7 +36,8 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     if (emailVerified && userData.email !== store.state.authUser.email) {
       await app.$axios.$post('/api/users/update', {
         ...userData,
-        email: store.state.authUser.email
+        email: store.state.authUser.email,
+        contact_email: store.state.authUser.email
       })
     }
   }

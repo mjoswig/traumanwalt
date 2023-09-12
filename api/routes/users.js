@@ -368,7 +368,8 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
       count(*) OVER() AS total_count,
       conversations.id AS id,
       conversations.subject AS subject,
-      conversations.from AS from,
+      conversations.from_first_name AS from_first_name,
+      conversations.from_last_name AS from_last_name,
       conversations.unread_messages AS unread_messages,
       conversations.created_at AS created_at,
       MAX(conversation_messages.created_at) AS last_message_created_at
@@ -376,7 +377,7 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
     LEFT JOIN conversation_messages ON conversation_messages.conversation_id = conversations.id
     LEFT JOIN users ON users.id = conversations.user_id
     WHERE users.firebase_uid = $1
-    GROUP BY conversations.id, conversations.from, conversations.unread_messages, conversations.created_at
+    GROUP BY conversations.id, conversations.from_first_name, conversations.from_last_name, conversations.unread_messages, conversations.created_at
     ORDER BY conversations.unread_messages DESC, conversations.created_at DESC
     LIMIT $2 OFFSET $3
   `, [ req.params.firebase_uid, req.query.page_length, (req.query.page - 1) * req.query.page_length ])
@@ -389,7 +390,11 @@ router.get('/:firebase_uid/conversations/:id', async (req, res) => {
     SELECT
       conversations.id AS id,
       conversations.subject AS subject,
-      conversations.from AS from,
+      conversations.from_email AS from_email,
+      conversations.from_phone AS from_phone,
+      conversations.from_salutation AS from_salutation,
+      conversations.from_first_name AS from_first_name,
+      conversations.from_last_name AS from_last_name,
       conversation_messages.text AS text,
       conversation_messages.sent AS sent,
       conversation_messages.created_at AS created_at
@@ -419,8 +424,11 @@ router.post('/:firebase_uid/conversations/:id/reply', async (req, res) => {
   const conversationResults = await db.query(`
     SELECT
       conversations.id AS id,
-      conversations.email AS email,
-      conversations.from AS from
+      conversations.uuid AS uuid,
+      conversations.from_email AS from_email,
+      users.job_title AS user_job_title,
+      users.first_name AS user_first_name,
+      users.last_name AS user_last_name
     FROM conversations
     LEFT JOIN users ON users.id = conversations.user_id
     WHERE users.firebase_uid = $1
@@ -433,7 +441,13 @@ router.post('/:firebase_uid/conversations/:id/reply', async (req, res) => {
 
   const conversation = conversationResults.rows[0]
 
-  await user.replyToConversation(message, conversation)
+  const sender = {
+    job_title: conversationResults.rows[0].user_job_title,
+    first_name: conversationResults.rows[0].user_first_name,
+    last_name: conversationResults.rows[0].user_last_name
+  }
+
+  await user.replyToConversation(message, conversation, sender)
 
   return res.status(200).send(true)
 })

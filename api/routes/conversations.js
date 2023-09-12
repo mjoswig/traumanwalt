@@ -10,7 +10,7 @@ router.post('/webhook', upload.none(), async (req, res) => {
   const text = req.body.text
 
   let conversationId = null
-  if (email.indexOf('<') !== -1) {
+  if (to.indexOf('<') !== -1) {
     const conversation = to.split('<')[1].split('@')[0]
     conversationId = parseInt(conversation.split('c')[1])
   } else {
@@ -23,6 +23,12 @@ router.post('/webhook', upload.none(), async (req, res) => {
       INSERT INTO conversation_messages(text, sent, conversation_id)
       VALUES($1, $2, $3)
     `, [ text, false, conversationId ])
+
+    await db.query(`
+      UPDATE conversations
+      SET unread_messages = TRUE
+      WHERE id = $1
+    `, [ conversationId ])
 
     const userResults = await db.query(`
       SELECT

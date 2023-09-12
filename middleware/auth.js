@@ -22,6 +22,10 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     // fetch account data related to the user
     let userData = await app.$axios.$get(`/api/users/${store.state.authUser.uid}`)
 
+    // fetch number of unread conversations
+    const conversations = await app.$axios.$get(`/api/users/${store.state.authUser.uid}/conversations/unread`)
+    userData.unread_conversations = conversations.total_count || 0
+
     // update user data
     store.commit('SET_USER_DATA', userData)
 

@@ -384,6 +384,17 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
   return res.status(200).send(conversations.rows)
 })
 
+// get number of unread conversations
+router.get('/:firebase_uid/conversations/unread', async (req, res) => {
+  const conversationResults = await db.query(`
+    SELECT count(*) OVER() AS total_count
+    FROM conversations
+    LEFT JOIN users ON users.id = conversations.user_id
+    WHERE users.firebase_uid = $1 AND conversations.unread_messages IS TRUE
+  `, [ req.params.firebase_uid ])
+  return res.status(200).send(conversationResults.rows[0])
+})
+
 // get conversation messages
 router.get('/:firebase_uid/conversations/:id', async (req, res) => {
   const conversationMessages = await db.query(`

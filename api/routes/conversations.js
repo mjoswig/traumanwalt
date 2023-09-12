@@ -2,6 +2,7 @@ const router = require('express').Router()
 const multer = require('multer')
 const email = require('../email')
 const db = require('../db')
+const EmailReplyParser = require('email-reply-parser')
 
 const upload = multer()
 
@@ -19,10 +20,12 @@ router.post('/webhook', upload.none(), async (req, res) => {
   }
 
   if (conversationId) {
+    const emailReply = new EmailReplyParser().read(text)
+
     await db.query(`
       INSERT INTO conversation_messages(text, sent, conversation_id)
       VALUES($1, $2, $3)
-    `, [ text, false, conversationId ])
+    `, [ emailReply.getVisibleText(), false, conversationId ])
 
     await db.query(`
       UPDATE conversations

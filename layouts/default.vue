@@ -141,7 +141,7 @@
                     <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                     <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
                   </svg>
-                  <span>Nachrichten<span v-show="unreadConversations > 0"> ({{ unreadConversations }})</span></span>
+                  <span>Nachrichten</span>
                 </nuxt-link>
               </li>
               <li v-show="!trialExpired || hasSubscribed">
@@ -252,10 +252,6 @@ export default {
       const firstName = this.$store.state.userData.first_name
       const lastName = this.$store.state.userData.last_name
       return `${firstName} ${lastName}`
-    },
-    unreadConversations() {
-      if (!this.$store.state.userData) return false
-      return this.$store.state.userData.unread_conversations
     },
     copyrightYear() {
       const year = new Date().getFullYear()

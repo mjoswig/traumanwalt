@@ -159,7 +159,7 @@ export default {
     async sendReply() {
       this.isSending = true
       await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/conversations/${this.conversationId}/reply`, {
-        text: this.reply
+        text: this.reply.trim()
       })
       this.reply = ''
       this.conversationMessages = await this.$axios.$get(`/api/users/${this.$store.state.userData.firebase_uid}/conversations/${this.conversationId}`)

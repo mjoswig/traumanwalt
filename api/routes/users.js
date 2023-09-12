@@ -435,7 +435,6 @@ router.post('/:firebase_uid/conversations/:id/reply', async (req, res) => {
   const conversationResults = await db.query(`
     SELECT
       conversations.id AS id,
-      conversations.uuid AS uuid,
       conversations.from_email AS from_email,
       users.job_title AS user_job_title,
       users.first_name AS user_first_name,

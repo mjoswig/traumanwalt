@@ -325,9 +325,9 @@ async function replyToConversation(message, conversation, user) {
 
   if (message.sent) {
     await email.send({
-      from: `"Traumanwalt" <support+${conversation.uuid}@traumanwalt.com>`,
+      from: `"Traumanwalt" <support@traumanwalt.com>`,
       to: conversation.from_email,
-      subject: `Neue Nachricht von ${user.job_title} ${user.first_name} ${user.last_name}`,
+      subject: `[C-${conversation.id}] Neue Nachricht von ${user.job_title} ${user.first_name} ${user.last_name}`,
       html: `${message.text}<br />----------<br />Antworten auf diese E-Mail werden automatisch an ${user.job_title} ${user.first_name} ${user.last_name} weitergeleitet. Sie haben diese Nachricht erhalten, weil Sie eine Anfrage über Traumanwalt gesendet haben.`
     })
   }

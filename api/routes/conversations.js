@@ -53,7 +53,7 @@ router.post('/webhook', upload.none(), async (req, res) => {
         from: `"Traumanwalt" <support@traumanwalt.com>`,
         to: user.email,
         subject: `Neue Nachricht von ${recipientName}`,
-        text: `Hallo ${user.salutation} ${user.last_name},\n\nSie haben eine neue Nachricht von ${recipientName} auf Traumanwalt erhalten. Bitte melden Sie sich kurz auf traumanwalt.com an und antworten Sie auf die Nachricht.\n\nMit freundlichen Grüßen,\n\nIhr Traumanwalt Team`
+        text: `Hallo ${user.salutation} ${user.last_name},\n\nSie haben eine neue Nachricht von ${recipientName} erhalten. Bitte melden Sie sich kurz auf traumanwalt.com an und antworten Sie auf die Nachricht.\n\nMit freundlichen Grüßen,\n\nIhr Traumanwalt Team`
       })
     }
   }

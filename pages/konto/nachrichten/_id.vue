@@ -93,7 +93,7 @@ export default {
           Sehr geehrte${this.conversationMessages[0].from_salutation === 'Herr' ? 'r' : ''} ${this.conversationMessages[0].from_salutation} ${this.conversationMessages[0].from_last_name},<br /><br />
           vielen Dank für Ihre Anfrage. Ich habe mir Ihr Anliegen angesehen und möchte mit Ihnen persönlich über Ihren Fall sprechen.<br />
           Sie erreichen mich unter der Telefonnummer ${this.$store.state.userData.mobile_number || ''}. Ich freue mich auf Ihren Anruf.<br /><br />
-          Mit freundlichen Grüßen,<br />
+          Mit freundlichen Grüßen,<br /><br />
           ${this.$store.state.userData.job_title} ${this.$store.state.userData.first_name} ${this.$store.state.userData.last_name}
         `
       } else if (replyType === 'Kanzleitermin') {
@@ -107,7 +107,7 @@ export default {
             <li>${this.$moment().add(3, 'day').format('DD.MM.YYYY')}, 09:00 Uhr</li>
           </ul><br />
           Ich freue mich auf Ihre Rückmeldung.<br /><br />
-          Mit freundlichen Grüßen,<br />
+          Mit freundlichen Grüßen,<br /><br />
           ${this.$store.state.userData.job_title} ${this.$store.state.userData.first_name} ${this.$store.state.userData.last_name}
         `
       } else if (replyType === 'Unterlagen') {
@@ -121,21 +121,21 @@ export default {
           </ul><br />
           Bitte senden Sie mir die Unterlagen in einer separaten E-Mail an ${this.$store.state.userData.contact_email}.<br /><br />
           Ich freue mich auf Ihre Rückmeldung.<br /><br />
-          Mit freundlichen Grüßen,<br />
+          Mit freundlichen Grüßen,<br /><br />
           ${this.$store.state.userData.job_title} ${this.$store.state.userData.first_name} ${this.$store.state.userData.last_name}
         `
       } else if (replyType === 'Unterwegs') {
         this.reply = `
           Sehr geehrte${this.conversationMessages[0].from_salutation === 'Herr' ? 'r' : ''} ${this.conversationMessages[0].from_salutation} ${this.conversationMessages[0].from_last_name},<br /><br />
           vielen Dank für Ihre Anfrage. Ich bin momentan nicht im Büro, werde mich aber zeitnah bei Ihnen melden.<br /><br />
-          Mit freundlichen Grüßen,<br />
+          Mit freundlichen Grüßen,<br /><br />
           ${this.$store.state.userData.job_title} ${this.$store.state.userData.first_name} ${this.$store.state.userData.last_name}
         `
       } else if (replyType === 'Urlaub') {
         this.reply = `
           Sehr geehrte${this.conversationMessages[0].from_salutation === 'Herr' ? 'r' : ''} ${this.conversationMessages[0].from_salutation} ${this.conversationMessages[0].from_last_name},<br /><br />
           vielen Dank für Ihre Anfrage. Ich bin momentan im Urlaub und kann Ihre Anfrage derzeit nicht entgegennehmen. Ab dem tt.mm.jjjj bin ich wieder für Sie erreichbar und werde mich umgehend bei Ihnen melden.<br /><br />
-          Mit freundlichen Grüßen,<br />
+          Mit freundlichen Grüßen,<br /><br />
           ${this.$store.state.userData.job_title} ${this.$store.state.userData.first_name} ${this.$store.state.userData.last_name}
         `
       } else if (replyType === 'Bewertung') {
@@ -144,14 +144,14 @@ export default {
           vor kurzem haben Sie sich von mir juristisch beraten lassen. Hiermit lade ich Sie herzlich ein, mich auf traumanwalt.com zu bewerten:<br /><br />
           https://traumanwalt.com/anwalt/${this.$store.state.userData.slug}/bewerten<br /><br />
           Ich freue mich auf Ihre Rückmeldung.<br /><br />
-          Mit freundlichen Grüßen,<br />
+          Mit freundlichen Grüßen,<br /><br />
           ${this.$store.state.userData.job_title} ${this.$store.state.userData.first_name} ${this.$store.state.userData.last_name}
         `
       } else if (replyType === 'Anfrage ablehnen') {
         this.reply = `
           Sehr geehrte${this.conversationMessages[0].from_salutation === 'Herr' ? 'r' : ''} ${this.conversationMessages[0].from_salutation} ${this.conversationMessages[0].from_last_name},<br /><br />
           vielen Dank, dass Sie sich mit Ihrem Anliegen an mich gewendet haben. Leider kann ich aus zeitlichen Gründen Ihre Anfrage derzeit nicht bearbeiten. Das Team von Traumanwalt empfiehlt Ihnen auch gerne einen Anwalt über die E-Mail support@traumanwalt.com.<br /><br />
-          Ich bitte um Ihr Verständnis und verbleibe mit freundlichen Grüßen,<br />
+          Ich bitte um Ihr Verständnis und verbleibe mit freundlichen Grüßen,<br /><br />
           ${this.$store.state.userData.job_title} ${this.$store.state.userData.first_name} ${this.$store.state.userData.last_name}
         `
       }

@@ -325,7 +325,7 @@ async function replyToConversation(message, conversation, user) {
 
   if (message.sent) {
     await email.send({
-      from: '"Traumanwalt" <support@traumanwalt.com>',
+      from: `"Traumanwalt" <c${conversation.id}@parse.traumanwalt.com>`,
       replyTo: `"Traumanwalt" <c${conversation.id}@parse.traumanwalt.com>`,
       to: conversation.from_email,
       subject: `Neue Nachricht von ${user.job_title} ${user.first_name} ${user.last_name}`,

@@ -1,7 +1,10 @@
 const router = require('express').Router()
+const multer = require('multer')
 const email = require('../email')
 
-router.post('/webhook', async (req, res) => {
+const upload = multer()
+
+router.post('/webhook', upload.none(), async (req, res) => {
   const from = req.body.from
   const text = req.body.text
   const subject = req.body.subject

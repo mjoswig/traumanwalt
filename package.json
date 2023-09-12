@@ -1,6 +1,6 @@
 {
   "name": "traumanwalt",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -27,6 +27,7 @@
     "imap-simple": "^5.1.0",
     "lodash": "^4.17.21",
     "mailparser": "^3.6.5",
+    "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.5",
     "nuxt": "^2.15.8",
     "pg": "^8.11.3",

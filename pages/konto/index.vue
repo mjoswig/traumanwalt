@@ -24,7 +24,7 @@
       </AccountSection>
       <AccountSection heading="Wie gefällt Ihnen Traumanwalt?">
         <div class="border-l-4 pl-2">
-          <p class="mb-2">„Vielen Dank für Ihr Interesse an Traumanwalt. Wir möchten Ihnen mit unserer Plattform helfen neue Mandate online zu generieren.</p>
+          <p class="mb-2">„Vielen Dank für Ihr Interesse an Traumanwalt. Wir möchten Ihnen mit unserer Plattform helfen, Ihre Kanzlei zu vermarkten und neue Mandate online zu generieren.</p>
           <p>Haben Sie Fragen oder Anmerkungen? Schreiben Sie uns, wir freuen uns über Ihr Feedback: <b>support@traumanwalt.com</b>“</p>
         </div>
         <div>

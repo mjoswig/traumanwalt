@@ -319,10 +319,10 @@ router.get('/:firebase_uid/stats', async (req, res) => {
   `, [ req.params.firebase_uid ])
 
   const stats = {
-    profile_views: profileViewResults.rows[0] ? parseInt(profileViewResults.rows[0].count) : 0,
-    reviews: reviewResults.rows[0] ? parseInt(reviewResults.rows[0].count) : 0,
-    conversations: conversationResults.rows[0] ? parseInt(conversationResults.rows[0].count) : 0,
-    legal_guide_views: legalGuideResults.rows[0] ? parseInt(legalGuideResults.rows[0].count) : 0
+    profile_views: profileViewResults.rows[0] ? parseInt(profileViewResults.rows[0].count || 0) : 0,
+    reviews: reviewResults.rows[0] ? parseInt(reviewResults.rows[0].count || 0) : 0,
+    conversations: conversationResults.rows[0] ? parseInt(conversationResults.rows[0].count || 0) : 0,
+    legal_guide_views: legalGuideResults.rows[0] ? parseInt(legalGuideResults.rows[0].count || 0) : 0
   }
 
   return res.status(200).send(stats)

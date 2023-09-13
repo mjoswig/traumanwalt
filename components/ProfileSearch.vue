@@ -1,15 +1,15 @@
 <template>
   <div>
-    <section class="flex flex-col space-y-8">
-      <article class="border flex flex-col space-y-4 md:flex-row md:space-x-8 md:space-y-0 p-4 lg:p-8 rounded-lg" v-for="(profile, index) in profiles" :key="index">
+    <section class="flex flex-col space-y-4 md:space-y-8">
+      <article class="border flex flex-col space-y-2 sm:flex-row sm:space-x-8 sm:space-y-0 p-4 lg:p-8 rounded-lg" v-for="(profile, index) in profiles" :key="index">
         <div>
-          <img class="bg-cover border h-28 w-28 sm:h-48 sm:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(profile)});`" />
+          <img class="bg-cover border h-28 w-28 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(profile)});`" />
         </div>
         <div>
-          <h2 class="mb-2">{{ getFullName(profile) }}</h2>
-          <span class="text-lg">{{ getBusinessAddress(profile) }}</span>
-          <div class="flex flex-wrap mt-4">
-            <span class="border border-blue-500 text-blue-500 px-2 py-1 rounded-md text-sm mr-2" v-for="(legalField, index) in profile.legal_fields.filter(lf => lf.id)" :key="index">
+          <h2 class="text-base md:text-2xl md:mb-2">{{ getFullName(profile) }}</h2>
+          <span class="text-sm md:text-lg">{{ getBusinessAddress(profile) }}</span>
+          <div class="flex flex-wrap md:mt-2">
+            <span class="tag border px-2 py-1 rounded-md text-xs md:text-sm mr-2 mt-2" v-for="(legalField, index) in profile.legal_fields.filter(lf => lf.id)" :key="index">
               {{ getLegalFieldName(legalField, profile) }}
             </span>
           </div>

@@ -35,13 +35,13 @@
     </div>
     <form @submit.prevent>
       <div class="flex flex-wrap mb-1">
-        <span class="filter border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Rückruf')">Rückruf</span>
-        <span class="filter border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Kanzleitermin')">Kanzleitermin</span>
-        <span class="filter border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Unterlagen')">Unterlagen</span>
-        <span class="filter border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Unterwegs')">Unterwegs</span>
-        <span class="filter border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Urlaub')">Urlaub</span>
-        <span class="filter border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Bewertung')">Bewertung</span>
-        <span class="filter border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Anfrage ablehnen')">Anfrage ablehnen</span>
+        <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Rückruf')">Rückruf</span>
+        <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Kanzleitermin')">Kanzleitermin</span>
+        <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Unterlagen')">Unterlagen</span>
+        <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Unterwegs')">Unterwegs</span>
+        <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Urlaub')">Urlaub</span>
+        <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Bewertung')">Bewertung</span>
+        <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Anfrage ablehnen')">Anfrage ablehnen</span>
       </div>
       <fieldset>
         <wysiwyg class="w-full" placeholder="Ihre Nachricht" v-model="reply" />

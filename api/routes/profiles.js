@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
       photo_url, address_line, postal_code, city,
       jsonb_agg(
         jsonb_build_object(
+          'id', legal_fields.id,
           'name', legal_fields.name,
           'slug', legal_fields.slug,
           'specialized', user_legal_fields.specialized

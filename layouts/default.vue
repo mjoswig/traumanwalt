@@ -342,14 +342,9 @@ a {
   color: #00aff0;
 }
 
-.filter {
-  @apply cursor-pointer;
-  border-color: #00aff0;
-  color: #00aff0;
-
-  &:hover {
-    @apply bg-gray-100;
-  }
+.tag {
+  border-color: #008abd;
+  color: #008abd;
 }
 
 .editr {

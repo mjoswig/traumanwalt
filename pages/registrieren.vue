@@ -4,7 +4,7 @@
       <h1 class="text-center mb-2">Jetzt Mandant werden und beraten lassen</h1>
       <p class="text-center text-lg lg:text-xl">Registrieren Sie sich kostenlos und buchen Sie unsere Rechtsprodukte.</p>
       <form class="mt-4 md:mt-8" @submit.prevent>
-        <div class="grid lg:grid-cols-3 gap-2 md:gap-4 mb-2 md:mb-4">
+        <div class="grid lg:grid-cols-3 gap-4 mb-4">
           <fieldset>
             <label class="font-bold block">Anrede</label>
             <select class="border px-2 py-1 rounded-md w-full" v-model="salutation">
@@ -21,10 +21,10 @@
             <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihr Nachname" v-model="lastName" required />
           </fieldset>
         </div>
-        <div class="grid lg:grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8">
+        <div class="grid lg:grid-cols-2 gap-4 mb-5 md:mb-8">
           <fieldset>
             <label class="font-bold block">E-Mail</label>
-            <input class="border px-2 py-1 rounded-md w-full" style="height: 40px;" placeholder="Ihre E-Mail-Adresse" type="email" v-model="email" required />
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre E-Mail-Adresse" type="email" v-model="email" required />
           </fieldset>
           <fieldset>
             <label class="font-bold block">Telefonnummer</label>
@@ -137,5 +137,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+input[type="text"], input[type="email"], select {
+  height: 40px;
+}
 </style>

@@ -5,7 +5,7 @@
       <p class="text-center text-lg lg:text-xl">Überzeugen Sie sich selbst mit einem 30-tägigen Testzugang. Keine Zahlungsinformationen erforderlich.</p>
       <form class="grid md:grid-cols-2 gap-0 md:gap-8 mt-4 md:mt-8" @submit.prevent>
         <div>
-          <div class="grid lg:grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8">
+          <div class="grid lg:grid-cols-2 gap-4 mb-4 md:mb-8">
             <fieldset>
               <label class="font-bold block">Anrede</label>
               <select class="border px-2 py-1 rounded-md w-full" v-model="salutation">
@@ -28,7 +28,7 @@
               <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihr Nachname" v-model="lastName" required />
             </fieldset>
           </div>
-          <div class="grid lg:grid-cols-2 gap-2 md:gap-4 mb-4 md:mb-8">
+          <div class="grid lg:grid-cols-2 gap-4 mb-4 md:mb-8">
             <fieldset>
               <label class="font-bold block">Adresse</label>
               <input class="border px-2 py-1 rounded-md w-full" placeholder="Straße und Hausnummer" v-model="addressLine" required />
@@ -52,15 +52,21 @@
           </div>
         </div>
         <div>
-          <fieldset class="mb-4 md:mb-8">
-            <label class="font-bold block">E-Mail</label>
-            <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre E-Mail-Adresse für den Zugang" type="email" v-model="email" required />
-          </fieldset>
+          <div class="grid lg:grid-cols-2 gap-4 mb-4 md:mb-8">
+            <fieldset>
+              <label class="font-bold block">E-Mail</label>
+              <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre E-Mail-Adresse" type="email" v-model="email" required />
+            </fieldset>
+            <fieldset>
+              <label class="font-bold block">Telefonnummer</label>
+              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Telefonnummer', example: 'Beispiel:' }" v-model="phone" />
+            </fieldset>
+          </div>
           <fieldset class="mb-4 md:mb-8">
             <label class="font-bold block">Passwort</label>
             <PasswordInput v-model="password" required />
           </fieldset>
-          <fieldset class="mb-4 md:mb-8">
+          <fieldset class="mb-5 md:mb-8">
             <label class="font-bold block">Passwort bestätigen</label>
             <PasswordInput v-model="confirmPassword" required />
           </fieldset>
@@ -175,5 +181,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+input[type="text"], input[type="email"], select {
+  height: 40px;
+}
 </style>

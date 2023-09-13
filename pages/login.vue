@@ -54,7 +54,7 @@ export default {
 
         // redirect user to dashboard page
         window.setTimeout(() => {
-          window.location.href = '/konto'
+          window.location.href = '/konto/anwalt'
           this.isSigningIn = false
         }, 1000)
       } catch (e) {

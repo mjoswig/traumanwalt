@@ -16,7 +16,7 @@
             </div>
           </fieldset>
           <div class="flex flex-col space-y-2 md:flex-row items-center md:space-x-4 md:space-y-0 mb-3">
-            <Btn @click="$router.push('/registrieren')">Jetzt 30 Tage kostenlos testen</Btn>
+            <Btn @click="$router.push('/traumanwalt-werden')">Jetzt 30 Tage kostenlos testen</Btn>
           </div>
           <span class="text-gray-500 text-center text-sm">Alle Preise verstehen sich zzgl. MwSt. Keine festen Verträge, jederzeit kündbar.</span>
         </form>

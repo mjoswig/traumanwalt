@@ -63,7 +63,7 @@ export default {
   },
   async asyncData({ app, params, redirect, store }) {
     const conversationMessages = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/conversations/${params.id}`)
-    if (!conversationMessages || !conversationMessages.length) redirect('/konto/nachrichten')
+    if (!conversationMessages || !conversationMessages.length) redirect('/konto/anwalt/nachrichten')
     return {
       conversationId: params.id,
       conversationMessages,

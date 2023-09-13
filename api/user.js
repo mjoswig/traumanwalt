@@ -3,7 +3,7 @@ const email = require('./email')
 const db = require('./db')
 
 // create user
-async function create(firebaseUid, salutation, academicTitle, firstName, lastName, addressLine, postalCode, city, country) {
+async function create(firebaseUid, salutation, academicTitle, firstName, lastName, addressLine, postalCode, city, country, mobileNumber, isClient) {
   let slug = slugify(`${firstName} ${lastName}`, {
     remove: /[*+~.()'"!:@]/g,
     lower: true,
@@ -16,20 +16,23 @@ async function create(firebaseUid, salutation, academicTitle, firstName, lastNam
     slug += `-${slugIndex}`
   }
 
-  const jobTitle = salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
-
-  const trialExpiresAt = new Date()
-  trialExpiresAt.setDate(trialExpiresAt.getDate() + 30)
+  let jobTitle = null
+  let trialExpiresAt = null
+  if (!isClient) {
+    jobTitle = salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
+    trialExpiresAt = new Date()
+    trialExpiresAt.setDate(trialExpiresAt.getDate() + 30)
+  }
 
   await db.query(`
     INSERT INTO users(
       firebase_uid, slug, salutation, job_title, academic_title, first_name, last_name,
-      address_line, postal_code, city, country, trial_expires_at
+      address_line, postal_code, city, country, mobile_number, trial_expires_at, client
     )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
   `, [
     firebaseUid, slug, salutation, jobTitle, academicTitle, firstName, lastName,
-    addressLine, postalCode, city, country, trialExpiresAt
+    addressLine, postalCode, city, country, mobileNumber, trialExpiresAt, isClient
   ])
 
   return {

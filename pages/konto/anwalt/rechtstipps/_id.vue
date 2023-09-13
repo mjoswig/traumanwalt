@@ -54,7 +54,7 @@ export default {
   },
   async asyncData({ app, params, redirect, store }) {
     const legalGuide = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/legal-guides/${params.id}`)
-    if (!legalGuide) redirect('/konto/rechtstipps')
+    if (!legalGuide) redirect('/konto/anwalt/rechtstipps')
     return {
       legalGuide,
       id: legalGuide.id,

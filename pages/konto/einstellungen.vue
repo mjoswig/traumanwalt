@@ -23,7 +23,7 @@
         <Btn :is-loading="resetPasswordForm.isLoading" @click="resetPassword">Passwort zurücksetzen</Btn>
       </div>
     </AccountSection>
-    <AccountSection heading="Mitgliedschaft">
+    <AccountSection v-show="!isClient" heading="Mitgliedschaft">
       <form v-if="!hasSubscribed" class="flex flex-col" @submit.prevent>
         <fieldset class="flex flex-col sm:flex-row sm:space-x-3 mb-3">
           <div>
@@ -70,6 +70,10 @@ export default {
     }
   },
   computed: {
+    isClient() {
+      if (!this.$store.state.userData) return false
+      return this.$store.state.userData.client
+    },
     currentEmail() {
       if (!this.$fire.auth.currentUser) return null
       return this.$fire.auth.currentUser.email

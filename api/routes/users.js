@@ -14,7 +14,9 @@ router.post('/create', async (req, res) => {
     req.body.address_line,
     req.body.postal_code,
     req.body.city,
-    req.body.country
+    req.body.country,
+    req.body.mobile_number,
+    req.body.client
   )
   return res.status(200).send(response)
 })

@@ -113,7 +113,7 @@ export default {
       })
       this.$toast.success(`Ihr Rechtstipp wurde erfolgreich ${this.published ? 'veröffentlicht' : 'gespeichert'}!`)
       this.isLoading = false
-      window.location.href = '/konto/rechtstipps'
+      window.location.href = '/konto/anwalt/rechtstipps'
     }
   }
 }

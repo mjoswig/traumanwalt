@@ -322,7 +322,7 @@ export default {
       if (window.confirm('Möchten Sie Ihr Kanzleiprofil wirklich löschen? Ihr Profil kann nicht wiederhergestellt werden.')) {
         await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/law-firm/delete`)
         this.$toast.success('Ihr Kanzleiprofil wurde erfolgreich gelöscht!')
-        window.location.href = '/konto/kanzleiprofil'
+        window.location.href = '/konto/anwalt/kanzleiprofil'
       }
     },
     async leaveLawFirm() {
@@ -330,7 +330,7 @@ export default {
         await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/law-firm/leave`, {
           user_id: this.$store.state.userData.id
         })
-        window.location.href = '/konto/kanzleiprofil'
+        window.location.href = '/konto/anwalt/kanzleiprofil'
       }
     },
     async joinLawFirm() {
@@ -340,7 +340,7 @@ export default {
       })
       this.createForm.isLoading = false
       this.$toast.success('Sie sind dem ausgewählten Kanzleiprofil erfolgreich beigetreten!')
-      window.location.href = '/konto/kanzleiprofil'
+      window.location.href = '/konto/anwalt/kanzleiprofil'
     },
     async createLawFirm() {
       this.createForm.isLoading = true
@@ -349,7 +349,7 @@ export default {
       })
       this.createForm.isLoading = false
       this.$toast.success('Ihr Kanzleiprofil wurde erfolgreich erstellt!')
-      window.location.href = '/konto/kanzleiprofil'
+      window.location.href = '/konto/anwalt/kanzleiprofil'
     }
   }
 }

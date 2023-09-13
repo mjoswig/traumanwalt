@@ -7,12 +7,17 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     // redirect user to login page if he is not logged in and tries to access an internal page
     if (!onVisitorPage) return redirect('/login')
   } else {
-    // fetch account data related to the user
-    let userData = await app.$axios.$get(`/api/users/${store.state.authUser.uid}`)
+    // check if email is verified
     const emailVerified = store.state.authUser.emailVerified
 
+    // fetch account data related to the user
+    let userData = await app.$axios.$get(`/api/users/${store.state.authUser.uid}`)
+
+    // update user data
+    store.commit('SET_USER_DATA', userData)
+
     // redirect user to account page if he is logged in and wants to access certain pages
-    if (onLoginPage || (emailVerified && (route.path === '/konto' || route.path === '/konto/bestaetigen'))) {
+    if (onLoginPage || userData.client && route.path.startsWith('/konto/anwalt') || !userData.client && route.path.startsWith('/konto/mandant') || (emailVerified && (route.path === '/konto' || route.path === '/konto/bestaetigen'))) {
       if (userData.client) return redirect('/konto/mandant')
       return redirect('/konto/anwalt')
     }
@@ -21,9 +26,6 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     if (!emailVerified && !onVisitorPage && route.path !== '/konto/logout' && route.path !== '/konto/bestaetigen') {
       return redirect('/konto/bestaetigen')
     }
-
-    // update user data
-    store.commit('SET_USER_DATA', userData)
 
     // redirect user to settings page when trial has expired
     if (userData.trial_expires_at) {

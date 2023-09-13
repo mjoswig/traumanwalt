@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="mb-6">Anwaltssuche</h1>
-    <AttorneySearch :attorneys="attorneys" />
+    <ProfileSearch :profiles="profiles" />
   </div>
 </template>
 
@@ -9,9 +9,9 @@
 export default {
   name: 'AnwaelteIndexPage',
   async asyncData({ app }) {
-    const attorneys = await app.$axios.$get('/api/users')
+    const profiles = await app.$axios.$get('/api/profiles')
     return {
-      attorneys
+      profiles
     }
   }
 }

@@ -1,31 +1,11 @@
 const router = require('express').Router()
 const db = require('../db')
 
-// get legal fields
+// get profiles
 router.get('/', async (req, res) => {
-  const result = await db.query(`
-    SELECT id, name, slug
-    FROM legal_fields
-    ORDER BY slug ASC
-  `)
-  return res.status(200).send(result.rows)
-})
-
-// get legal field
-router.get('/:slug', async (req, res) => {
-  const result = await db.query(`
-    SELECT name, slug
-    FROM legal_fields
-    WHERE slug = $1
-  `, [ req.params.slug ])
-  return res.status(200).send(result.rows)
-})
-
-// get profiles by legal field
-router.get('/:slug/profiles', async (req, res) => {
   const profiles = await db.query(`
     SELECT
-      salutation, first_name, last_name,
+      salutation, job_title, academic_title, first_name, last_name, suffix_title,
       photo_url, address_line, postal_code, city,
       jsonb_agg(
         jsonb_build_object(
@@ -38,9 +18,8 @@ router.get('/:slug/profiles', async (req, res) => {
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
-    WHERE legal_fields.slug = $1
-    GROUP BY salutation, first_name, last_name, photo_url, address_line, postal_code, city
-  `, [ req.params.slug ])
+    GROUP BY salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city
+  `)
   return res.status(200).send(profiles.rows)
 })
 

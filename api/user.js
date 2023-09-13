@@ -24,16 +24,29 @@ async function create(firebaseUid, salutation, academicTitle, firstName, lastNam
     trialExpiresAt.setDate(trialExpiresAt.getDate() + 30)
   }
 
-  await db.query(`
+  const newUserResults = await db.query(`
     INSERT INTO users(
       firebase_uid, slug, salutation, job_title, academic_title, first_name, last_name,
       address_line, postal_code, city, country, mobile_number, trial_expires_at, client
     )
     VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    RETURNING id
   `, [
     firebaseUid, slug, salutation, jobTitle, academicTitle, firstName, lastName,
     addressLine, postalCode, city, country, mobileNumber, trialExpiresAt, isClient
   ])
+
+  if (!isClient) {
+    await createConversation({
+      subject: 'Willkommen auf Traumanwalt',
+      text: `Hallo ${salutation} ${lastName}, ich begrüße Sie im Namen des Teams recht herzlich auf unserer Plattform. Antworten Sie gerne auf diese Nachricht, falls Sie Feedback haben.`,
+      from_email: 'manuel.joswig@traumanwalt.com',
+      from_phone: '+491727636181',
+      from_salutation: 'Herr',
+      from_first_name: 'Manuel',
+      from_last_name: 'Joswig'
+    }, newUserResults.rows[0].id)
+  }
 
   return {
     success: true
@@ -310,6 +323,20 @@ async function deleteLegalGuide(legalGuideId, userId) {
   `, [ legalGuideId, userId ])
 }
 
+// create user's legal guide
+async function createConversation(conversation, userId) {
+  const conversationResults = await db.query(`
+    INSERT INTO conversations(subject, from_email, from_phone, from_salutation, from_first_name, from_last_name, user_id)
+    VALUES($1, $2, $3, $4, $5, $6, $7)
+    RETURNING id
+  `, [ conversation.subject, conversation.from_email, conversation.from_phone, conversation.from_salutation, conversation.from_first_name, conversation.from_last_name, userId ])
+
+  await db.query(`
+    INSERT INTO conversation_messages(text, sent, conversation_id)
+    VALUES($1, $2, $3)
+  `, [ conversation.text, false, conversationResults.rows[0].id ])
+}
+
 // mark conversation as read
 async function markConversationAsRead(conversationId) {
   await db.query(`
@@ -369,6 +396,7 @@ module.exports = {
   createLegalGuide,
   updateLegalGuide,
   deleteLegalGuide,
+  createConversation,
   markConversationAsRead,
   replyToConversation,
   subscribeToMembership,

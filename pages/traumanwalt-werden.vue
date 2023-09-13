@@ -105,6 +105,7 @@ export default {
       city: '',
       country: 'DE',
       email: '',
+      phone: '',
       password: '',
       confirmPassword: '',
       acceptTerms: false,
@@ -123,6 +124,7 @@ export default {
         && this.country !== ''
         && this.email !== ''
         && this.email.indexOf('@') !== -1
+        && this.phone !== ''
         && this.password !== ''
         && this.password === this.confirmPassword
         && this.acceptTerms
@@ -159,6 +161,7 @@ export default {
           postal_code: this.postalCode,
           city: this.city,
           country: this.country,
+          mobile_number: this.phone,
           client: false
         })
 

@@ -1,11 +1,19 @@
 <template>
   <div>
-    <h1 v-if="category.type === 'legal_fields'">Anwälte für {{ category.value.name }}</h1>
-    <h1 v-if="category.type === 'cities'">Anwälte in {{ category.value.name }}</h1>
-    <div>
-      <p v-if="!category.profiles.length" class="mt-4">Wir haben keine Anwälte in dieser Kategorie gefunden. Sie sind Anwalt und möchten mehr Mandanten gewinnen? <nuxt-link to="/mitgliedschaft">Werden Sie jetzt Traumanwalt</nuxt-link>.</p>
-      <ProfileSearch v-if="category.profiles.length" :profiles="category.profiles" class="mt-6 md:mt-8" />
+    <div class="md:text-center">
+      <h1 v-if="category.type === 'legal_fields'">Anwälte für {{ category.value.name }}</h1>
+      <h1 v-if="category.type === 'cities'">Anwälte in {{ category.value.name }}</h1>
+      <div v-if="!category.profiles.length" class="text-lg mt-4">
+        <p class="mb-2">Wir haben keine Anwälte in dieser Kategorie gefunden.</p>
+        <p class="mb-6"><nuxt-link to="/anwaelte">Zurück zum Anwaltsverzeichnis</nuxt-link></p>
+        <div class="hidden md:flex md:justify-center mb-6">
+          <img class="h-24 w-auto" src="@/assets/images/icons/traumanwalt-icon-alt.png" />
+        </div>
+        <h2 class="text-xl xl:text-2xl mb-2">Sie sind Anwalt und möchten auf dieser Seite gelistet werden?</h2>
+        <p>Stärken Sie Ihre Sichtbarkeit bei Google und <nuxt-link to="/mitgliedschaft">werden Sie Traumanwalt</nuxt-link>.</p>
+      </div>
     </div>
+    <ProfileSearch v-if="category.profiles.length" :profiles="category.profiles" class="mt-6 md:mt-8" />
   </div>
 </template>
 

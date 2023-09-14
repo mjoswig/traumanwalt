@@ -3,9 +3,9 @@
     <div class="flex space-x-4 justify-between items-center lg:mb-12">
       <div class="mb-8 md:mb-12 lg:mb-0 lg:w-1/2">
         <h1 class="text-left mb-2">Traumanwalt werden und online neue Mandanten gewinnen</h1>
-        <p class="block text-left text-lg lg:text-xl mb-3">Präsentieren Sie sich mit einem professionellen Anwaltsprofil und stärken Sie Ihre Sichtbarkeit bei Google. Es rechnet sich schon mit einem Mandat!</p>
+        <p class="block text-left text-lg lg:text-xl mb-3 xl:mb-5">Präsentieren Sie sich mit einem professionellen Anwaltsprofil und stärken Sie Ihre Sichtbarkeit bei Google. Es rechnet sich schon mit einem Mandat!</p>
         <form class="flex flex-col items-center md:items-start" @submit.prevent>
-          <fieldset class="flex flex-col xl:flex-row xl:space-x-3 text-lg w-full mb-3">
+          <fieldset class="flex flex-col xl:flex-row xl:space-x-4 lg:text-lg w-full mb-4 xl:mb-6">
             <div>
               <input type="radio" name="interval" value="year" v-model="subscriptionInterval" />
               <label for="year" @click="subscriptionInterval = 'year'">499,00 € jährlich (<span class="font-semibold text-blue-500">17% sparen</span>)</label>

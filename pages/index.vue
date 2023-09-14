@@ -20,6 +20,49 @@
       <div class="bg-cover h-56 sm:h-72 md:h-96 rounded-t-md md:rounded-none xl:rounded-r-md w-full" :style="`background-image: url(${require('@/assets/images/traumanwalt-home-1.jpeg')}); background-position: center 0; min-width: 40vw;`">
       </div>
     </section>
+    <section class="grid grid-cols lg:grid-cols-2 gap-8 mb-12">
+      <div>
+        <h2 class="mb-6">Fragen Sie einen Traumanwalt</h2>
+        <div class="grid grid-cols gap-4">
+          <div>
+            <h3 class="text-xl mb-1">1. Kostenloses Konto erstellen</h3>
+            <p>Sie müssen sich <nuxt-link to="/mandant-werden">als Mandant registrieren</nuxt-link>, um Fragen einstellen zu können.</p>
+          </div>
+          <div>
+            <h3 class="text-xl mb-1">2. Frage stellen</h3>
+            <p>Nutzen Sie das Formular, um Ihre Frage zu formulieren.</p>
+          </div>
+          <div>
+            <h3 class="text-xl mb-1">3. Bezahlung</h3>
+            <p>Für Rechtsfragen rufen wir einen Pauschalpreis von 149,00 € inkl. MwSt. ab. Sie können mittels Visa, Mastercard, Apple Pay, Google Pay, PayPal, giropay, Sofort oder Klarna bezahlen.</p>
+          </div>
+          <div>
+            <h3 class="text-xl mb-1">4. Hilfe bekommen</h3>
+            <p>In der Regel erhalten Sie innerhalb von 24 Stunden eine Antwort. Sollte Ihre Frage 7 Tage lang unbeantwortet bleiben, bekommen Sie Ihr Geld erstattet.</p>
+          </div>
+        </div>
+      </div>
+      <form class="bg-gray-100 p-4 rounded-md grid gap-4" @submit.prevent>
+        <fieldset>
+          <label class="font-bold block">Titel Ihrer Frage</label>
+          <input class="border px-2 py-1 rounded-md w-full" placeholder="Aussagekräftiger Titel" />
+        </fieldset>
+        <fieldset>
+          <label class="font-bold block">Rechtsgebiet (optional)</label>
+          <select class="border rounded-t-md sm:rounded-none sm:rounded-l-md px-2 py-1 w-full">
+            <option value="">Rechtsgebiet auswählen</option>
+            <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
+          </select>
+        </fieldset>
+        <fieldset>
+          <label class="font-bold block">Details Ihrer Frage</label>
+          <wysiwyg class="bg-white w-full" placeholder="Schildern Sie hier Ihren Fall..." />
+        </fieldset>
+        <fieldset class="flex justify-end mt-1">
+          <Btn :is-disabled="true" class="w-full md:w-fit">Weiter zur Zahlung – 149,00 €</Btn>
+        </fieldset>
+      </form>
+    </section>
     <section class="mb-12">
       <h2 class="mb-6">Anwälte nach Rechtsgebiet</h2>
       <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">

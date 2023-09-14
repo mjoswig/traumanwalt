@@ -13,7 +13,7 @@
             <h3 class="text-lg lg:text-xl">{{ service.name }}</h3>
           </div>
           <div>
-            <span class="block text-gray-500 lg:text-lg mb-3">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(service.price) }} zzgl. MwSt.</span>
+            <span class="block text-gray-500 lg:text-lg mb-3">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(service.price) }} inkl. MwSt.</span>
             <Btn :is-disabled="true" class="w-full">Jetzt beraten lassen</Btn>
           </div>
         </div>

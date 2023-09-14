@@ -5,7 +5,7 @@
       Sie haben noch keine Nachrichten erhalten.
     </AccountSection>
     <div v-if="conversations.length" class="flex flex-col space-y-4">
-      <nuxt-link :to="`/konto/anwalt/nachrichten/${conversation.id}`" class="text-gray-700 hover:text-gray-700 hover:no-underline" :class="{ 'font-bold': conversation.unread_messages }" v-for="(conversation, index) in conversations" :key="index">
+      <nuxt-link :to="`/konto/nachrichten/${conversation.id}`" class="text-gray-700 hover:text-gray-700 hover:no-underline" :class="{ 'font-bold': conversation.unread_messages }" v-for="(conversation, index) in conversations" :key="index">
         <AccountSection class="hover:bg-blue-100 flex flex-col space-y-2 lg:flex-row lg:space-y-0 w-full">
           <div class="text-sm flex items-center justify-between space-x-4 w-full lg:hidden">
             <svg v-if="conversation.unread_messages" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">

@@ -36,17 +36,15 @@ async function create(firebaseUid, salutation, academicTitle, firstName, lastNam
     addressLine, postalCode, city, country, mobileNumber, trialExpiresAt, isClient
   ])
 
-  if (!isClient) {
-    await createConversation({
-      subject: 'Willkommen auf Traumanwalt',
-      text: `Hallo ${salutation} ${lastName}, ich begrüße Sie im Namen des Teams recht herzlich auf unserer Plattform. Antworten Sie gerne auf diese Nachricht, falls Sie Feedback haben.`,
-      from_email: 'manuel.joswig@traumanwalt.com',
-      from_phone: '+491727636181',
-      from_salutation: 'Herr',
-      from_first_name: 'Manuel',
-      from_last_name: 'Joswig'
-    }, newUserResults.rows[0].id)
-  }
+  await createConversation({
+    subject: 'Willkommen auf Traumanwalt',
+    text: `Hallo ${salutation} ${lastName}, ich begrüße Sie im Namen des Teams recht herzlich auf unserer Plattform. Antworten Sie mir gerne auf diese Nachricht, falls Sie Fragen oder Anmerkungen haben.`,
+    from_email: 'manuel.joswig@traumanwalt.com',
+    from_phone: '+491727636181',
+    from_salutation: 'Herr',
+    from_first_name: 'Manuel',
+    from_last_name: 'Joswig'
+  }, newUserResults.rows[0].id)
 
   return {
     success: true

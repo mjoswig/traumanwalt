@@ -110,7 +110,7 @@
                 </div>
               </li>
               <li v-show="!trialExpired || hasSubscribed">
-                <nuxt-link to="/konto" class="flex items-center space-x-3" :class="{ 'font-bold': $route.path === '/konto' }">
+                <nuxt-link to="/konto" class="flex items-center space-x-3" :class="{ 'font-bold': $route.path === '/konto/anwalt' || $route.path === '/konto/mandant' }">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-speedometer2 h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
                     <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
                     <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
@@ -135,8 +135,8 @@
                   <span>Kanzleiprofil</span>
                 </nuxt-link>
               </li>
-              <li v-show="!isClient && (!trialExpired || hasSubscribed)">
-                <nuxt-link to="/konto/anwalt/nachrichten" class="flex items-center space-x-3" :class="{ 'font-bold': $route.path.startsWith('/konto/anwalt/nachrichten') }">
+              <li v-show="isClient || (!isClient && (!trialExpired || hasSubscribed))">
+                <nuxt-link to="/konto/nachrichten" class="flex items-center space-x-3" :class="{ 'font-bold': $route.path.startsWith('/konto/nachrichten') }">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-chat-left-text h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                     <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>

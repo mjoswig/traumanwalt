@@ -34,7 +34,7 @@
       </div>
     </div>
     <form @submit.prevent>
-      <div class="flex flex-wrap mb-1">
+      <div v-if="!isClient" class="flex flex-wrap mb-1">
         <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Rückruf')">Rückruf</span>
         <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Kanzleitermin')">Kanzleitermin</span>
         <span class="tag hover:bg-gray-100 cursor-pointer border px-3 py-1 rounded-2xl text-sm mr-1 mb-1" @click="generateReply('Unterlagen')">Unterlagen</span>
@@ -63,7 +63,7 @@ export default {
   },
   async asyncData({ app, params, redirect, store }) {
     const conversationMessages = await app.$axios.$get(`/api/users/${store.state.userData.firebase_uid}/conversations/${params.id}`)
-    if (!conversationMessages || !conversationMessages.length) redirect('/konto/anwalt/nachrichten')
+    if (!conversationMessages || !conversationMessages.length) redirect('/konto/nachrichten')
     return {
       conversationId: params.id,
       conversationMessages,
@@ -72,6 +72,10 @@ export default {
     }
   },
   computed: {
+    isClient() {
+      if (!this.$store.state.userData) return false
+      return this.$store.state.userData.client
+    },
     conversationSubject() {
       return this.conversationMessages[0].subject
     },

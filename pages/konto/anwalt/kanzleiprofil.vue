@@ -97,11 +97,11 @@
             </fieldset>
             <fieldset>
               <label class="font-bold">Festnetznummer (optional)</label>
-              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Festnetznummer der Kanzlei', example: 'Beispiel:' }" v-model="contactDetailsForm.landline_number" />
+              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Festnetznummer der Kanzlei', example: 'Beispiel:' }" default-country-code="DE" valid-color="green" v-model="contactDetailsForm.landlineNumberInput" @update="value => contactDetailsForm.landline_number = value.formattedNumber" />
             </fieldset>
             <fieldset>
               <label class="font-bold">Mobilnummer (optional)</label>
-              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Mobilnummer der Kanzlei', example: 'Beispiel:' }" v-model="contactDetailsForm.mobile_number" />
+              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Mobilnummer der Kanzlei', example: 'Beispiel:' }" default-country-code="DE" valid-color="green" v-model="contactDetailsForm.mobileNumberInput" @update="value => contactDetailsForm.mobile_number = value.formattedNumber" />
             </fieldset>
             <fieldset>
               <label class="font-bold">E-Mail (optional)</label>
@@ -226,6 +226,8 @@ export default {
         country: lawFirm.country,
         landline_number: lawFirm.landline_number,
         mobile_number: lawFirm.mobile_number,
+        landlineNumberInput: lawFirm.landline_number,
+        mobileNumberInput: lawFirm.mobile_number,
         contact_email: lawFirm.contact_email,
         website_url: lawFirm.website_url,
         linkedin_url: lawFirm.linkedin_url,

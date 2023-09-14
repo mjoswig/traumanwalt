@@ -59,7 +59,7 @@
             </fieldset>
             <fieldset>
               <label class="font-bold block">Telefonnummer</label>
-              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Telefonnummer', example: 'Beispiel:' }" v-model="phone" />
+              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Telefonnummer', example: 'Beispiel:' }" default-country-code="DE" valid-color="green" v-model="phoneInput" @update="value => phone = value.formattedNumber" />
             </fieldset>
           </div>
           <fieldset class="mb-4 md:mb-8">
@@ -106,6 +106,7 @@ export default {
       country: 'DE',
       email: '',
       phone: '',
+      phoneInput: '',
       password: '',
       confirmPassword: '',
       acceptTerms: false,

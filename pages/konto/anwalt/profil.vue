@@ -93,11 +93,11 @@
           </fieldset>
           <fieldset>
             <label class="font-bold">Festnetznummer (optional)</label>
-            <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Festnetznummer', example: 'Beispiel:' }" v-model="contactDetailsForm.landline_number" />
+            <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Festnetznummer', example: 'Beispiel:' }" default-country-code="DE" valid-color="green" v-model="contactDetailsForm.landlineNumberInput" @update="value => contactDetailsForm.landline_number = value.formattedNumber" />
           </fieldset>
           <fieldset>
             <label class="font-bold">Mobilnummer (optional)</label>
-            <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Mobilnummer', example: 'Beispiel:' }" v-model="contactDetailsForm.mobile_number" />
+            <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Mobilnummer', example: 'Beispiel:' }" default-country-code="DE" valid-color="green" v-model="contactDetailsForm.mobileNumberInput" @update="value => contactDetailsForm.mobile_number = value.formattedNumber" />
           </fieldset>
           <fieldset>
             <label class="font-bold">E-Mail (optional)</label>
@@ -237,6 +237,8 @@ export default {
         country: store.state.userData.country,
         landline_number: store.state.userData.landline_number,
         mobile_number: store.state.userData.mobile_number,
+        landlineNumberInput: store.state.userData.landline_number,
+        mobileNumberInput: store.state.userData.mobile_number,
         contact_email: store.state.userData.contact_email,
         website_url: store.state.userData.website_url,
         linkedin_url: store.state.userData.linkedin_url,

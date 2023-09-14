@@ -29,8 +29,8 @@
       <form class="grid gap-4" @submit.prevent>
         <h2>Was ist Ihre Frage?</h2>
         <fieldset>
-          <label class="font-bold block">Titel Ihrer Frage</label>
-          <input class="border px-2 py-1 rounded-md w-full" placeholder="Aussagekräftiger Titel" v-model="questionForm.title" />
+          <label class="font-bold block">Betreff</label>
+          <input class="border px-2 py-1 rounded-md w-full" placeholder="Betreff Ihrer Frage" v-model="questionForm.subject" />
         </fieldset>
         <fieldset>
           <label class="font-bold block">Rechtsgebiet (optional)</label>
@@ -40,13 +40,13 @@
           </select>
         </fieldset>
         <fieldset>
-          <label class="font-bold block">Beschreibung</label>
-          <wysiwyg class="bg-white w-full" placeholder="Bitte schildern Sie hier Ihren Fall..." />
+          <label class="font-bold block">Ihr Anliegen</label>
+          <wysiwyg class="bg-white w-full" placeholder="Bitte schildern Sie hier Ihren Fall..." v-model="questionForm.description" />
         </fieldset>
         <fieldset class="flex items-end justify-end mt-1">
           <div class="flex flex-col md:items-end w-full">
             <Btn :is-disabled="!isClient" class="w-full md:w-fit">Weiter zur Zahlung – 149,00 €</Btn>
-            <p v-if="!isClient" class="mt-2 text-sm">Sie müssen als Mandant angemeldet sein. Noch kein Konto? <nuxt-link to="/mandant-werden">Jetzt registrieren</nuxt-link>.</p>
+            <p v-if="!isClient" class="mt-3 text-sm">Sie müssen als Mandant angemeldet sein. Noch kein Konto? <nuxt-link to="/mandant-werden">Jetzt registrieren</nuxt-link>.</p>
           </div>
         </fieldset>
       </form>
@@ -82,7 +82,7 @@ export default {
     return {
       legalServices,
       questionForm: {
-        title: '',
+        subject: '',
         legalField: '',
         description: ''
       }

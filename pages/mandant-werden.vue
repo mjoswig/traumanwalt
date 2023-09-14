@@ -40,7 +40,7 @@
           </fieldset>
         </div>
         <div>
-          <fieldset class="mb-4 md:mb-8">
+          <fieldset class="mb-4 md:mb-7">
             <input class="h-4 w-4" type="checkbox" v-model="acceptTerms" required />
             <label>Ich akzeptiere die <nuxt-link to="/agb">AGB</nuxt-link> und <nuxt-link to="/datenschutz">Datenschutzerklärung</nuxt-link> von Traumanwalt.</label>
           </fieldset>

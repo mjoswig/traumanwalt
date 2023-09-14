@@ -5,7 +5,7 @@
       <p class="text-xl">Lassen Sie sich online zu festen Preisen von einem Rechtsanwalt beraten.</p>
     </section>
     <section>
-      <h2 class="mb-6">Rechtsdienstleistungen</h2>
+      <h2 class="mb-6">Beratungsleistungen</h2>
       <div class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         <div class="border flex flex-col justify-between p-4 rounded-md space-y-1" v-for="(service, index) in legalServices" :key="index">
           <div>

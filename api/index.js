@@ -9,8 +9,8 @@ const db = require('./db')
 const conversationRoutes = require('./routes/conversations')
 const lawFirmRoutes = require('./routes/law-firms')
 const legalFieldRoutes = require('./routes/legal-fields')
+const legalServiceRoutes = require('./routes/legal-services')
 const profileRoutes = require('./routes/profiles')
-const profileViewRoutes = require('./routes/profile-views')
 const stripeRoutes = require('./routes/stripe')
 const userRoutes = require('./routes/users')
 
@@ -28,8 +28,8 @@ app.use(cors({ origin: true }))
 app.use('/api/conversations', conversationRoutes)
 app.use('/api/law-firms', lawFirmRoutes)
 app.use('/api/legal-fields', legalFieldRoutes)
+app.use('/api/legal-services', legalServiceRoutes)
 app.use('/api/profiles', profileRoutes)
-app.use('/api/profile-views', profileViewRoutes)
 app.use('/api/stripe', stripeRoutes)
 app.use('/api/users', userRoutes)
 
@@ -97,6 +97,35 @@ app.post('/api/legal-guides/:slug/views/update', async (req, res) => {
     WHERE slug = $1
   `, [ req.params.slug ])
   return res.status(200).send(true)
+})
+
+
+// update profile views with new count
+app.post('/api/profile-views/update', async (req, res) => {
+  let results = await db.query(`
+    SELECT profile_views.id
+    FROM profile_views
+    LEFT JOIN users ON users.id = profile_views.user_id
+    WHERE users.slug = $1 AND profile_views.created_at >= NOW() - INTERVAL '1 MONTH'
+  `, [ req.body.slug ])
+
+  if (results.rows.length) {
+    await db.query(`
+      UPDATE profile_views
+      SET count = count + 1
+      WHERE profile_views.id = ${results.rows[0].id}
+    `)
+  } else {
+    const userResults = await db.query(`
+      SELECT users.id
+      FROM users
+      WHERE users.slug = $1
+    `, [ req.body.slug ])
+    results = await db.query(`
+      INSERT INTO profile_views(user_id) VALUES($1)
+    `, [ userResults.rows[0].id ])
+  }
+  return res.status(200).send(results.rows[0])
 })
 
 module.exports = app

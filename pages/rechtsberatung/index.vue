@@ -6,10 +6,16 @@
     </section>
     <section>
       <h2 class="mb-6">Rechtsdienstleistungen</h2>
-      <div class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        <div class="border p-4 rounded-md" v-for="(service, index) in legalServices" :key="index">
-          <h3>{{ service.name }}</h3>
-          <p v-if="service.excerpt" class="mt-2">{{ service.excerpt }}</p>
+      <div class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+        <div class="border flex flex-col justify-between p-4 rounded-md space-y-1" v-for="(service, index) in legalServices" :key="index">
+          <div>
+            <img v-if="service.thumbnail_url" class="h-20 w-auto mb-3" :src="service.thumbnail_url" />
+            <h3 class="text-lg lg:text-xl">{{ service.name }}</h3>
+          </div>
+          <div>
+            <span class="block text-gray-500 lg:text-lg mb-3">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(service.price) }} zzgl. MwSt.</span>
+            <Btn :is-disabled="true" class="w-full">Jetzt beraten lassen</Btn>
+          </div>
         </div>
       </div>
     </section>

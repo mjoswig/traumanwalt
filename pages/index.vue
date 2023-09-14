@@ -20,52 +20,6 @@
       <div class="bg-cover h-56 sm:h-72 md:h-96 rounded-t-md md:rounded-none xl:rounded-r-md w-full" :style="`background-image: url(${require('@/assets/images/traumanwalt-home-1.jpeg')}); background-position: center 0; min-width: 40vw;`">
       </div>
     </section>
-    <section class="grid grid-cols lg:grid-cols-2 gap-8 mb-12">
-      <div>
-        <h2 class="mb-6">Fragen Sie einen Anwalt</h2>
-        <div class="grid grid-cols gap-4">
-          <div>
-            <h3 class="text-xl mb-1">1. Kostenloses Konto erstellen</h3>
-            <p>Sie müssen sich <nuxt-link to="/mandant-werden">als Mandant registrieren</nuxt-link>, um Fragen einstellen zu dürfen.</p>
-          </div>
-          <div>
-            <h3 class="text-xl mb-1">2. Frage stellen</h3>
-            <p>Loggen Sie sich <nuxt-link to="/login">hier</nuxt-link> ein. Nutzen Sie dann das Formular, um Ihre Frage zu formulieren. Versuchen Sie keine Details auszulassen, um eine bessere Antwort zu erhalten.</p>
-          </div>
-          <div>
-            <h3 class="text-xl mb-1">3. Bezahlung</h3>
-            <p>Für Rechtsfragen rufen wir einen Pauschalpreis von 149,00 € inkl. MwSt. ab. Darin inbegriffen ist eine Rückfrage. Sie können mittels Visa, Mastercard, Apple Pay, Google Pay, PayPal, giropay, Sofort oder Klarna bezahlen.</p>
-          </div>
-          <div>
-            <h3 class="text-xl mb-1">4. Hilfe bekommen</h3>
-            <p>In der Regel erhalten Sie innerhalb von 24 Stunden eine Antwort. Sollte Ihre Frage 7 Tage lang unbeantwortet bleiben, bekommen Sie Ihr Geld erstattet.</p>
-          </div>
-        </div>
-      </div>
-      <form class="bg-gray-100 p-4 rounded-md grid gap-4" @submit.prevent>
-        <fieldset>
-          <label class="font-bold block">Titel Ihrer Frage</label>
-          <input class="border px-2 py-1 rounded-md w-full" placeholder="Aussagekräftiger Titel" v-model="questionForm.title" />
-        </fieldset>
-        <fieldset>
-          <label class="font-bold block">Rechtsgebiet (optional)</label>
-          <select class="border rounded-t-md sm:rounded-none sm:rounded-l-md px-2 py-1 w-full" v-model="questionForm.legalField">
-            <option value="">Rechtsgebiet auswählen</option>
-            <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
-          </select>
-        </fieldset>
-        <fieldset>
-          <label class="font-bold block">Beschreibung</label>
-          <wysiwyg class="bg-white w-full" placeholder="Bitte schildern Sie hier Ihren Fall..." />
-        </fieldset>
-        <fieldset class="flex items-end justify-end mt-1">
-          <div class="flex flex-col md:items-end w-full">
-            <Btn :is-disabled="!isClient" class="w-full md:w-fit">Weiter zur Zahlung – 149,00 €</Btn>
-            <p v-if="!isClient" class="mt-2 text-sm">Sie müssen als Mandant angemeldet sein. Noch kein Konto? <nuxt-link to="/mandant-werden">Jetzt registrieren</nuxt-link>.</p>
-          </div>
-        </fieldset>
-      </form>
-    </section>
     <section class="mb-12">
       <h2 class="mb-6">Anwälte nach Rechtsgebiet</h2>
       <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -79,6 +33,14 @@
       <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <li class="border-b pb-2 break-words" v-for="(city, index) in popularCities" :key="index">
           <nuxt-link :to="`/anwaelte/${city.slug}`">Anwalt {{ city.name }}</nuxt-link>
+        </li>
+      </ul>
+    </section>
+    <section class="mb-12">
+      <h2 class="mb-6">Rechtsdienstleistungen</h2>
+      <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <li class="border-b pb-2 break-words" v-for="(legalService, index) in legalServices" :key="index">
+          <nuxt-link :to="`/rechtsberatung/${legalService.slug}`">{{ legalService.name }}</nuxt-link>
         </li>
       </ul>
     </section>
@@ -100,16 +62,13 @@ export default {
   name: 'IndexPage',
   async asyncData({ app }) {
     const legalFields = await app.$axios.$get('/api/legal-fields')
+    const legalServices = await app.$axios.$get('/api/legal-services')
     const cities = await app.$axios.$get('/api/cities')
     return {
       legalFields,
       cities,
       popularCities: cities.filter(city => city.popular),
-      questionForm: {
-        title: '',
-        legalField: '',
-        description: ''
-      }
+      legalServices
     }
   },
   data() {
@@ -118,10 +77,6 @@ export default {
     }
   },
   computed: {
-    isClient() {
-      if (!this.$store.state.userData) return false
-      return this.$store.state.userData.client
-    },
     searchedCity() {
       if (!this.searchedCityName) return null
       return this.cities.find(city => city.name === this.searchedCityName)

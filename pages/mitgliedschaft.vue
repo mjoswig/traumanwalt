@@ -57,7 +57,7 @@
         </div>
         <div>
           <h3 class="text-lg mb-1">Rechtsfragen beantworten</h3>
-          <p>Über Traumanwalt können Mandanten Rechtsfragen stellen. Verdienen Sie 100 € pro beantworteter Frage!</p>
+          <p>Über Traumanwalt können Mandanten Ihnen Rechtsfragen stellen. Verdienen Sie 100 € pro beantworteter Frage!</p>
         </div>
       </div>
       <div class="flex flex-col space-y-2 lg:space-y-0 lg:flex-row lg:space-x-4 border bg-white p-4 rounded-md shadow-md">

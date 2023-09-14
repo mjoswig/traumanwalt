@@ -33,7 +33,7 @@
         </div>
         <div class="flex flex-col space-y-6 lg:flex-row lg:space-y-0">
           <div class="lg:w-96 lg:mr-8">
-            <img class="bg-cover bg-center border h-44 w-full sm:h-64 lg:h-44 lg:w-96 rounded-lg" :style="`background-image: url(${legalGuide.thumbnail_url || $store.state.userData.photo_url});`" />
+            <img class="bg-cover bg-center border h-48 w-full sm:h-64 lg:h-48 lg:w-96 rounded-lg" :style="`background-image: url(${legalGuide.thumbnail_url || $store.state.userData.photo_url});`" />
           </div>
           <div class="w-full">
             <h2 class="mb-2"><span class="text-gray-400" v-if="!legalGuide.published">Entwurf: </span>{{ legalGuide.title }}</h2>

@@ -82,8 +82,17 @@ app.get('/api/languages', async (req, res) => {
 // get legal guides
 app.get('/api/legal-guides', async (req, res) => {
   const result = await db.query(`
-    SELECT title, slug, thumbnail_url, content
+    SELECT
+      legal_guides.title AS title,
+      legal_guides.slug AS slug,
+      legal_guides.thumbnail_url AS thumbnail_url,
+      legal_guides.content AS content,
+      users.salutation AS user_salutation,
+      users.first_name AS user_first_name,
+      users.last_name AS user_last_name,
+      users.photo_url AS user_photo_url
     FROM legal_guides
+    LEFT JOIN users ON users.id = legal_guides.user_id
     WHERE published IS TRUE
   `)
   return res.status(200).send(result.rows)

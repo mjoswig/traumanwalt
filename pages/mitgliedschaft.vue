@@ -2,10 +2,10 @@
   <div>
     <div class="flex space-x-4 items-center lg:mb-12">
       <div class="mb-8 md:mb-12 lg:mb-0 lg:w-3/4">
-        <h1 class="text-center md:text-left mb-2">Jetzt Traumanwalt werden und neue Mandanten gewinnen</h1>
-        <p class="block text-center md:text-left text-lg lg:text-xl mb-4">Präsentieren Sie sich mit einem professionellen Anwaltsprofil und stärken Sie Ihre Sichtbarkeit bei Google. Es rechnet sich schon mit einem Mandat!</p>
+        <h1 class="text-left mb-2">Jetzt Traumanwalt werden und neue Mandanten gewinnen</h1>
+        <p class="block text-left text-lg lg:text-xl mb-3">Präsentieren Sie sich mit einem professionellen Anwaltsprofil und stärken Sie Ihre Sichtbarkeit bei Google. Es rechnet sich schon mit einem Mandat!</p>
         <form class="flex flex-col items-center md:items-start" @submit.prevent>
-          <fieldset class="flex flex-col sm:flex-row sm:space-x-3 sm:text-lg mb-3">
+          <fieldset class="flex flex-col sm:flex-row sm:space-x-3 text-lg w-full mb-3">
             <div>
               <input type="radio" name="interval" value="year" v-model="subscriptionInterval" />
               <label for="year" @click="subscriptionInterval = 'year'">499,00 € jährlich (<span class="font-semibold text-blue-500">17% sparen</span>)</label>
@@ -16,7 +16,7 @@
             </div>
           </fieldset>
           <Btn class="w-full md:w-fit mb-3" @click="$router.push('/traumanwalt-werden')">Jetzt 30 Tage kostenlos testen</Btn>
-          <span class="text-gray-500 text-center text-sm">Alle Preise verstehen sich zzgl. MwSt. Keine festen Verträge, jederzeit kündbar.</span>
+          <span class="text-gray-500 text-sm">Alle Preise verstehen sich zzgl. MwSt. Keine festen Verträge, jederzeit kündbar.</span>
         </form>
       </div>
       <div class="hidden lg:flex justify-center w-1/3">

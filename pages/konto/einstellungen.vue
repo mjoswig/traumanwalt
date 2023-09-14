@@ -18,14 +18,14 @@
       </form>
     </AccountSection>
     <AccountSection heading="Passwort" class="mb-4">
-      <p class="mb-3">Bitte klicken Sie auf "Passwort zurücksetzen", um eine E-Mail an <b>{{ currentEmail }}</b> mit Anweisungen zur Änderung Ihres Passwortes zu erhalten.</p>
-      <div class="flex justify-end mt-3">
+      <p class="mb-4">Bitte klicken Sie auf "Passwort zurücksetzen", um eine E-Mail an <b>{{ currentEmail }}</b> mit Anweisungen zur Änderung Ihres Passwortes zu erhalten.</p>
+      <div class="flex justify-end">
         <Btn :is-loading="resetPasswordForm.isLoading" @click="resetPassword">Passwort zurücksetzen</Btn>
       </div>
     </AccountSection>
     <AccountSection v-show="!isClient" heading="Mitgliedschaft">
       <form v-if="!hasSubscribed" class="flex flex-col" @submit.prevent>
-        <fieldset class="flex flex-col sm:flex-row sm:space-x-3 mb-3">
+        <fieldset class="flex flex-col lg:flex-row lg:space-x-4 mb-4">
           <div>
             <input type="radio" name="interval" value="year" v-model="membershipForm.subscriptionInterval" />
             <label for="year" @click="membershipForm.subscriptionInterval = 'year'">499,00 € jährlich (<span class="font-semibold text-blue-500">17% sparen</span>)</label>
@@ -35,8 +35,8 @@
             <label for="month" @click="membershipForm.subscriptionInterval = 'month'">49,99 € monatlich</label>
           </div>
         </fieldset>
-        <Btn class="w-fit mb-3" :is-loading="membershipForm.isLoading" @click="payMembershipFee">Jetzt abonnieren</Btn>
-        <span class="text-gray-500 text-sm">Alle Preise verstehen sich zzgl. MwSt. Keine festen Verträge, jederzeit kündbar.</span>
+        <Btn class="w-fit mb-4" :is-loading="membershipForm.isLoading" @click="payMembershipFee">Jetzt abonnieren</Btn>
+        <span class="text-gray-500 text-sm">Alle Preise verstehen sich zzgl. MwSt. Keine Verträge, jederzeit kündbar.</span>
       </form>
       <Btn v-if="hasSubscribed" class="w-fit" type="light" @click="manageBilling">Abonnement verwalten</Btn>
     </AccountSection>

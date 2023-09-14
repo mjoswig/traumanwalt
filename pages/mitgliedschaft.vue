@@ -15,8 +15,8 @@
               <label for="month" @click="subscriptionInterval = 'month'">49,99 € monatlich</label>
             </div>
           </fieldset>
-          <Btn class="w-full md:w-fit mb-3" @click="$router.push('/traumanwalt-werden')">Jetzt 30 Tage kostenlos testen</Btn>
-          <span class="text-gray-500 text-sm">Alle Preise verstehen sich zzgl. MwSt. Keine festen Verträge, jederzeit kündbar.</span>
+          <Btn class="w-full md:w-fit mb-4 xl:mb-6" @click="$router.push('/traumanwalt-werden')">Jetzt 30 Tage kostenlos testen</Btn>
+          <span class="text-gray-500 text-sm lg:text-base">Alle Preise verstehen sich zzgl. MwSt. Keine Verträge, jederzeit kündbar.</span>
         </form>
       </div>
       <div class="hidden lg:flex justify-center w-1/2">

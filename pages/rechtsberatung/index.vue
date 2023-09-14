@@ -26,7 +26,8 @@
           </div>
         </div>
       </div>
-      <form class="bg-gray-100 p-4 rounded-md grid gap-4" @submit.prevent>
+      <form class="grid gap-4" @submit.prevent>
+        <h2>Was ist Ihre Frage?</h2>
         <fieldset>
           <label class="font-bold block">Titel Ihrer Frage</label>
           <input class="border px-2 py-1 rounded-md w-full" placeholder="Aussagekräftiger Titel" v-model="questionForm.title" />

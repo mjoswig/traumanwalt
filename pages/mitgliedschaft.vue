@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="flex space-x-4 items-center lg:mb-12">
-      <div class="mb-8 md:mb-12 lg:mb-0 lg:w-3/4">
-        <h1 class="text-left mb-2">Jetzt Traumanwalt werden und neue Mandanten gewinnen</h1>
+    <div class="flex space-x-4 justify-between items-center lg:mb-12">
+      <div class="mb-8 md:mb-12 lg:mb-0 lg:w-1/2">
+        <h1 class="text-left mb-2">Traumanwalt werden und online Mandanten gewinnen</h1>
         <p class="block text-left text-lg lg:text-xl mb-3">Präsentieren Sie sich mit einem professionellen Anwaltsprofil und stärken Sie Ihre Sichtbarkeit bei Google. Es rechnet sich schon mit einem Mandat!</p>
         <form class="flex flex-col items-center md:items-start" @submit.prevent>
-          <fieldset class="flex flex-col sm:flex-row sm:space-x-3 text-lg w-full mb-3">
+          <fieldset class="flex flex-col xl:flex-row xl:space-x-3 text-lg w-full mb-3">
             <div>
               <input type="radio" name="interval" value="year" v-model="subscriptionInterval" />
               <label for="year" @click="subscriptionInterval = 'year'">499,00 € jährlich (<span class="font-semibold text-blue-500">17% sparen</span>)</label>
@@ -19,8 +19,8 @@
           <span class="text-gray-500 text-sm">Alle Preise verstehen sich zzgl. MwSt. Keine festen Verträge, jederzeit kündbar.</span>
         </form>
       </div>
-      <div class="hidden lg:flex justify-center w-1/3">
-        <img class="h-72 w-72" src="@/assets/images/traumanwalt-werden-illustration.png" />
+      <div class="hidden lg:flex justify-center w-1/2">
+        <img class="h-auto w-80" src="@/assets/images/traumanwalt-werden-illustration.png" />
       </div>
     </div>
     <h2 class="mb-6 md:mb-8">Was Sie bei uns bekommen:</h2>

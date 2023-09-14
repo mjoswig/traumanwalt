@@ -237,7 +237,6 @@ router.get('/:firebase_uid/legal-guides', async (req, res) => {
       legal_guides.id AS id,
       legal_guides.title AS title,
       legal_guides.thumbnail_url AS thumbnail_url,
-      legal_guides.slug AS slug,
       legal_guides.content AS content,
       legal_guides.views AS views,
       legal_guides.published AS published,
@@ -271,6 +270,7 @@ router.get('/:firebase_uid/legal-guides/:id', async (req, res) => {
     SELECT
       legal_guides.id AS id,
       legal_guides.title AS title,
+      legal_guides.slug AS slug,
       legal_guides.thumbnail_url AS thumbnail_url,
       legal_guides.content AS content,
       legal_guides.published AS published

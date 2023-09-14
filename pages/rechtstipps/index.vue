@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="mb-12">
+    <section class="md:text-center mb-4 md:mb-12">
       <h1 class="mb-2">Rechtstipps von Traumanwälten</h1>
       <p class="text-xl">Hier finden Sie gut verständliche Rechtstipps zu allen wichtigen Rechtsgebieten.</p>
     </section>
@@ -13,7 +13,8 @@
           <div class="w-full">
             <h2 class="mb-2">{{ legalGuide.title }}</h2>
             <span class="text-gray-500">{{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }} von {{ getFullName(legalGuide) }}</span>
-            <p class="mt-4">{{ getExcerpt(legalGuide.content) }}</p>
+            <p class="my-4">{{ getExcerpt(legalGuide.content) }}</p>
+            <nuxt-link :to="`/rechtstipps/${legalGuide.slug}`">Weiterlesen</nuxt-link>
           </div>
         </div>
       </AccountSection>

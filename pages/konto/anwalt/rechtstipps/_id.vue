@@ -59,6 +59,7 @@ export default {
       legalGuide,
       id: legalGuide.id,
       title: legalGuide.title,
+      slug: legalGuide.slug,
       thumbnailUrl: legalGuide.thumbnail_url,
       content: legalGuide.content,
       published: legalGuide.published,
@@ -123,6 +124,7 @@ export default {
       await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/legal-guides/update`, {
         id: this.id,
         title: this.title,
+        slug: this.slug,
         thumbnail_url: this.thumbnailUrl,
         content: this.content,
         published: this.published

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="lg:text-center mb-8 md:mb-12">
+    <section class="md:text-center mb-8 md:mb-12">
       <h1 class="mb-2">Rechtsberatung von Traumanwälten</h1>
       <p class="text-xl">Lassen Sie sich online zu festen Preisen von einem Rechtsanwalt beraten.</p>
     </section>

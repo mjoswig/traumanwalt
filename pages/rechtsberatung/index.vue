@@ -17,8 +17,8 @@
             <p>Loggen Sie sich <nuxt-link to="/login">hier</nuxt-link> ein. Nutzen Sie dann das Formular, um Ihre Frage zu formulieren. Versuchen Sie keine Details auszulassen, um eine bessere Antwort zu erhalten.</p>
           </div>
           <div>
-            <h3 class="text-xl mb-1">3. Bezahlung</h3>
-            <p>Für Rechtsfragen rufen wir einen Pauschalpreis von 149,00 € inkl. MwSt. ab. Darin inbegriffen ist eine Rückfrage. Sie können mittels Visa, Mastercard, Apple Pay, Google Pay, PayPal, giropay, Sofort oder Klarna bezahlen.</p>
+            <h3 class="text-xl mb-1">3. Fixpreis bezahlen</h3>
+            <p>Für Rechtsfragen rufen wir einen Fixpreis von 149,00 € inkl. MwSt. ab. Darin inbegriffen ist eine Rückfrage. Sie können mittels Visa, Mastercard, Apple Pay, Google Pay, PayPal, giropay, Sofort oder Klarna bezahlen.</p>
           </div>
           <div>
             <h3 class="text-xl mb-1">4. Hilfe bekommen</h3>

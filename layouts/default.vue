@@ -344,8 +344,12 @@ a {
   max-width: 1400px;
 }
 
+.border-brand {
+  border-color: #008abd;
+}
+
 .text-brand {
-  color: #00aff0;
+  color: #008abd;
 }
 
 .tag {

@@ -109,6 +109,9 @@ export default {
       const { data: legalFields } = await axios.get('https://traumanwalt.com/api/legal-fields')
       routes.push(...legalFields.map(lf => `/anwaelte/${lf.slug}`))
 
+      const { data: legalGuides } = await axios.get('https://traumanwalt.com/api/legal-guides')
+      routes.push(...legalGuides.map(lg => `/rechtstipps/${lf.slug}`))
+
       const { data: cities } = await axios.get('https://traumanwalt.com/api/cities')
       routes.push(...cities.map(c => `/anwaelte/${c.slug}`))
 

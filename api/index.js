@@ -110,6 +110,7 @@ app.get('/api/legal-guides/:slug', async (req, res) => {
       legal_guides.slug AS slug,
       legal_guides.thumbnail_url AS thumbnail_url,
       legal_guides.content AS content,
+      users.slug AS user_slug,
       users.salutation AS user_salutation,
       users.first_name AS user_first_name,
       users.last_name AS user_last_name,

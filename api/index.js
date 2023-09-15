@@ -81,6 +81,12 @@ app.get('/api/languages', async (req, res) => {
 
 // get legal guides
 app.get('/api/legal-guides', async (req, res) => {
+  const queryArgs = []
+  if (req.query.page && req.query.page_length) {
+    queryArgs.push(req.query.page_length)
+    queryArgs.push((req.query.page - 1) * req.query.page_length)
+  }
+
   const result = await db.query(`
     SELECT
       count(*) OVER() AS total_count,
@@ -96,8 +102,8 @@ app.get('/api/legal-guides', async (req, res) => {
     LEFT JOIN users ON users.id = legal_guides.user_id
     WHERE published IS TRUE
     ORDER BY legal_guides.created_at DESC
-    LIMIT $1 OFFSET $2
-  `, [ req.query.page_length, (req.query.page - 1) * req.query.page_length ])
+    ${queryArgs.length === 2 ? 'LIMIT $1 OFFSET $2' : ''}
+  `, queryArgs)
   return res.status(200).send(result.rows)
 })
 

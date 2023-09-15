@@ -4,20 +4,21 @@
       <h1 class="mb-2">Rechtstipps von Traumanwälten</h1>
       <p class="text-xl">Hier finden Sie gut verständliche Rechtstipps zu allen wichtigen Rechtsgebieten.</p>
     </section>
-    <section class="flex flex-col space-y-4">
-      <AccountSection v-for="(legalGuide, index) in legalGuides" :key="index">
-        <div class="flex flex-col space-y-6 lg:flex-row lg:space-y-0">
-          <div class="lg:w-96 lg:mr-8">
-            <img class="bg-cover bg-center border h-48 w-full sm:h-64 lg:h-48 lg:w-96 rounded-lg" :style="`background-image: url(${legalGuide.thumbnail_url || legalGuide.user_photo_url});`" />
+    <section class="flex flex-col space-y-4 md:space-y-8">
+      <nuxt-link class="legal-guide" :to="`/rechtstipps/${legalGuide.slug}`" v-for="(legalGuide, index) in legalGuides" :key="index">
+        <AccountSection>
+          <div class="flex flex-col space-y-6 lg:flex-row lg:space-y-0">
+            <div class="lg:w-96 lg:mr-8">
+              <img class="bg-cover bg-center border h-48 w-full sm:h-64 lg:h-48 lg:w-96 rounded-lg" :style="`background-image: url(${legalGuide.thumbnail_url || legalGuide.user_photo_url});`" />
+            </div>
+            <div class="w-full">
+              <h2 class="mb-2">{{ legalGuide.title }}</h2>
+              <span class="text-gray-500">{{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }} von {{ getFullName(legalGuide) }}</span>
+              <p class="mt-4" v-html="getExcerpt(legalGuide.content)"></p>
+            </div>
           </div>
-          <div class="w-full">
-            <h2 class="mb-2">{{ legalGuide.title }}</h2>
-            <span class="text-gray-500">{{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }} von {{ getFullName(legalGuide) }}</span>
-            <p class="my-4">{{ getExcerpt(legalGuide.content) }}</p>
-            <nuxt-link :to="`/rechtstipps/${legalGuide.slug}`">Weiterlesen</nuxt-link>
-          </div>
-        </div>
-      </AccountSection>
+        </AccountSection>
+      </nuxt-link>
       <a class="cursor-pointer flex items-center space-x-2" v-show="legalGuides.length > 0 && legalGuides.length < legalGuides[0].total_count" @click="loadMore">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -70,3 +71,19 @@ export default {
   }
 }
 </script>
+
+<style lang="postcss" scoped>
+.legal-guide {
+  @apply text-current;
+
+  &:hover {
+    @apply no-underline;
+  }
+
+  & h2 {
+    &:hover {
+      @apply underline;
+    }
+  }
+}
+</style>

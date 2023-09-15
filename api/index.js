@@ -83,6 +83,7 @@ app.get('/api/languages', async (req, res) => {
 app.get('/api/legal-guides', async (req, res) => {
   const result = await db.query(`
     SELECT
+      count(*) OVER() AS total_count,
       legal_guides.title AS title,
       legal_guides.slug AS slug,
       legal_guides.thumbnail_url AS thumbnail_url,
@@ -94,8 +95,30 @@ app.get('/api/legal-guides', async (req, res) => {
     FROM legal_guides
     LEFT JOIN users ON users.id = legal_guides.user_id
     WHERE published IS TRUE
-  `)
+    ORDER BY legal_guides.created_at DESC
+    LIMIT $1 OFFSET $2
+  `, [ req.query.page_length, (req.query.page - 1) * req.query.page_length ])
   return res.status(200).send(result.rows)
+})
+
+// get legal guide
+app.get('/api/legal-guides/:slug', async (req, res) => {
+  const guideResults = await db.query(`
+    SELECT
+      legal_guides.id AS id,
+      legal_guides.title AS title,
+      legal_guides.slug AS slug,
+      legal_guides.thumbnail_url AS thumbnail_url,
+      legal_guides.content AS content,
+      users.salutation AS user_salutation,
+      users.first_name AS user_first_name,
+      users.last_name AS user_last_name,
+      users.photo_url AS user_photo_url
+    FROM legal_guides
+    LEFT JOIN users ON users.id = legal_guides.user_id
+    WHERE published IS TRUE AND legal_guides.slug = $1
+  `, [ req.params.slug ])
+  return res.status(200).send(guideResults.rows[0])
 })
 
 // update views of legal guide

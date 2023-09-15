@@ -38,7 +38,7 @@
           <div class="w-full">
             <h2 class="mb-2"><span class="text-gray-400" v-if="!legalGuide.published">Entwurf: </span>{{ legalGuide.title }}</h2>
             <span class="text-gray-500">{{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }} von {{ fullName }}</span>
-            <p class="mt-4">{{ getExcerpt(legalGuide.content) }}</p>
+            <p class="mt-4" v-html="getExcerpt(legalGuide.content)"></p>
           </div>
         </div>
       </AccountSection>

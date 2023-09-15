@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-6 xl:mb-8">{{ legalGuide.title }}</h1>
+    <h1 class="mb-6 xl:mb-7">{{ legalGuide.title }}</h1>
     <div v-if="legalGuide.thumbnail_url" class="w-full mb-6">
       <img class="bg-cover bg-center border rounded-lg h-48 sm:h-64 md:h-72 xl:h-96 w-full" :style="`background-image: url(${legalGuide.thumbnail_url});`" />
     </div>

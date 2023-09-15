@@ -1,8 +1,13 @@
 <template>
-  <div>
-    <section class="md:text-center mb-8 md:mb-12">
-      <h1 class="mb-2">Rechtsberatung von Traumanwälten</h1>
-      <p class="text-xl">Lassen Sie sich online zu festen Preisen von einem Rechtsanwalt beraten.</p>
+  <div class="-mt-4">
+    <section class="bg-gray-100 flex flex-col lg:flex-row items-center rounded-md shadow-sm mb-8 md:mb-12">
+      <div class="px-4 py-6 lg:p-8 w-full lg:w-2/5">
+        <h1 class="mb-2">Rechtsberatung von Traumanwälten</h1>
+        <p class="text-xl">Lassen Sie sich online zu festen Preisen von einem Rechtsanwalt beraten.</p>
+      </div>
+      <div class="pt-0 lg:pt-8 w-full lg:w-3/5">
+        <img src="@/assets/images/traumanwalt-rechtsberatung.png" />
+      </div>
     </section>
     <section class="grid grid-cols lg:grid-cols-2 gap-8 mb-12">
       <div>

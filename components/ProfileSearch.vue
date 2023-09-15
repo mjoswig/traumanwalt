@@ -2,14 +2,14 @@
   <div>
     <section class="flex flex-col space-y-4 md:space-y-8">
       <article class="border flex flex-col space-y-2 sm:flex-row sm:space-x-8 sm:space-y-0 p-4 lg:p-8 rounded-lg" v-for="(profile, index) in profiles" :key="index">
-        <div>
+        <div class="profile-photo">
           <img class="bg-cover border h-28 w-28 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(profile)});`" />
         </div>
-        <div>
+        <div class="w-full">
           <h2 class="text-base md:text-2xl md:mb-2">{{ getFullName(profile) }}</h2>
           <span class="text-sm md:text-lg">{{ getBusinessAddress(profile) }}</span>
-          <div class="flex flex-wrap md:mt-2">
-            <span class="tag border px-2 py-1 rounded-md text-xs md:text-sm mr-2 mt-2" v-for="(legalField, index) in profile.legal_fields.filter(lf => lf.id)" :key="index">
+          <div class="flex flex-wrap mt-2">
+            <span class="tag border px-2 py-1 rounded-md text-xs md:text-sm mr-1 lg:mr-2 mt-1 lg:mt-2" v-for="(legalField, index) in profile.legal_fields.filter(lf => lf.id)" :key="index">
               {{ getLegalFieldName(legalField, profile) }}
             </span>
           </div>
@@ -61,3 +61,15 @@ export default {
   }
 }
 </script>
+
+<style lang="postcss" scoped>
+.profile-photo img {
+  max-width: 215px;
+}
+
+@media (max-width: 768px) {
+  .profile-photo img {
+    max-width: 125px;
+  }
+}
+</style>

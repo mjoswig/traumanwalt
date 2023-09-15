@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
           'slug', legal_fields.slug,
           'specialized', user_legal_fields.specialized
         )
-        ORDER BY user_legal_fields.specialized DESC
+        ORDER BY user_legal_fields.specialized DESC, legal_fields.name ASC
       ) as legal_fields
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="md:text-center mb-6 md:mb-8">Anwaltssuche</h1>
+    <h1 class="md:text-center mb-6 md:mb-8">Anwaltsverzeichnis</h1>
     <ProfileSearch :profiles="profiles" />
   </div>
 </template>
@@ -10,7 +10,7 @@ export default {
   name: 'AnwaelteIndexPage',
   head() {
     return {
-      title: 'Anwaltssuche - Traumanwalt'
+      title: 'Anwaltsverzeichnis - Traumanwalt'
     }
   },
   async asyncData({ app }) {

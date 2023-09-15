@@ -12,7 +12,7 @@
           </div>
           <div>
             <nuxt-link :to="`/anwalt/${legalGuide.user_slug}`"><b>{{ getFullName }}</b></nuxt-link>
-            <span class="block text-gray-500">vom {{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }}</span>
+            <span class="block text-gray-500 text-sm">Veröffentlicht: {{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }}</span>
           </div>
         </div>
         <div v-html="legalGuide.content">

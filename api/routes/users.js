@@ -236,6 +236,7 @@ router.get('/:firebase_uid/legal-guides', async (req, res) => {
       count(*) OVER() AS total_count,
       legal_guides.id AS id,
       legal_guides.title AS title,
+      legal_guides.slug AS slug,
       legal_guides.thumbnail_url AS thumbnail_url,
       legal_guides.content AS content,
       legal_guides.views AS views,

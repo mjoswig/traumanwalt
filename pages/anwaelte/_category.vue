@@ -41,7 +41,7 @@ export default {
     if (!legalFields.length) {
       const cities = await app.$axios.$get(`/api/cities/${params.category}`)
       if (cities.length) {
-        const profiles = []
+        const profiles = await app.$axios.$get(`/api/cities/${params.category}/profiles`)
         category = {
           value: cities[0],
           type: 'cities',

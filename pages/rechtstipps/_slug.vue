@@ -19,8 +19,8 @@
         </div>
       </article>
       <div class="w-full lg:w-1/3">
-        <div class="sticky top-4 border border-brand p-4 rounded-md">
-          <h2 class="text-brand text-xl xl:text-2xl mb-2">Sie haben eine Rechtsfrage?</h2>
+        <div class="sticky top-4 border border-gray-300 p-4 rounded-md">
+          <h2 class="text-xl xl:text-2xl mb-2">Sie haben eine Rechtsfrage?</h2>
           <p class="text-lg mb-3">So einfach geht's auf Traumanwalt:</p>
           <ol class="flex flex-col space-y-2 list-decimal ml-5 mb-5">
             <li>Kostenloses Konto erstellen</li>

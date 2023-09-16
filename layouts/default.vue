@@ -291,7 +291,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  color: #2d3748;
+  color: #222222;
 }
 
 *,
@@ -332,11 +332,11 @@ h6 {
 }
 
 a {
-  color: #008abd;
+  color: #484848;
 
   &:hover {
     @apply underline;
-    color: #00aff0;
+    color: #767676;
   }
 }
 
@@ -344,17 +344,9 @@ a {
   max-width: 1400px;
 }
 
-.border-brand {
-  border-color: #008abd;
-}
-
-.text-brand {
-  color: #008abd;
-}
-
 .tag {
-  border-color: #008abd;
-  color: #008abd;
+  border-color: #484848;
+  color: #484848;
 }
 
 .editr {

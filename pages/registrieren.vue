@@ -57,10 +57,6 @@ export default {
 
 <style lang="postcss" scoped>
 .selected {
-  border-color: #008abd;
-
-  & label {
-    color: #008abd;
-  }
+  border-color: #484848;
 }
 </style>

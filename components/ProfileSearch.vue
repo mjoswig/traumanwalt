@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="flex flex-col space-y-4 md:space-y-8">
-      <article class="border flex flex-col space-y-2 sm:flex-row sm:space-x-8 sm:space-y-0 p-4 lg:p-8 rounded-lg" v-for="(profile, index) in profiles" :key="index">
+      <article class="border flex flex-col space-y-2 sm:flex-row sm:space-x-4 md:space-x-8 sm:space-y-0 p-4 lg:p-8 rounded-lg" v-for="(profile, index) in profiles" :key="index">
         <div class="profile-photo">
           <img class="bg-cover border h-28 w-28 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(profile)});`" />
         </div>

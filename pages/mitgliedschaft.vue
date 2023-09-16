@@ -8,7 +8,7 @@
           <fieldset class="flex flex-col xl:flex-row xl:space-x-4 lg:text-lg w-full mb-4 xl:mb-6">
             <div>
               <input type="radio" name="interval" value="year" v-model="subscriptionInterval" />
-              <label for="year" @click="subscriptionInterval = 'year'">499,00 € jährlich (<span class="font-semibold text-blue-500">17% sparen</span>)</label>
+              <label for="year" @click="subscriptionInterval = 'year'">499,00 € jährlich (<span class="font-semibold">17% sparen</span>)</label>
             </div>
             <div>
               <input type="radio" name="interval" value="month" v-model="subscriptionInterval" />

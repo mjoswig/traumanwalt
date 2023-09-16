@@ -6,18 +6,16 @@
     </section>
     <section class="flex flex-col space-y-4 md:space-y-8">
       <nuxt-link class="legal-guide" :to="`/rechtstipps/${legalGuide.slug}`" v-for="(legalGuide, index) in legalGuides" :key="index">
-        <AccountSection>
-          <div class="flex flex-col space-y-6 lg:flex-row lg:space-y-0">
-            <div class="lg:w-96 lg:mr-8">
-              <img class="bg-cover bg-center border h-48 w-full sm:h-64 lg:h-48 lg:w-96 rounded-lg" :style="`background-image: url(${legalGuide.thumbnail_url || legalGuide.user_photo_url});`" />
-            </div>
-            <div class="w-full">
-              <h2 class="mb-2">{{ legalGuide.title }}</h2>
-              <span class="text-gray-500">{{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }} von {{ getFullName(legalGuide) }}</span>
-              <p class="mt-4" v-html="getExcerpt(legalGuide.content)"></p>
-            </div>
+        <div class="border p-4 lg:p-6 rounded-md shadow-md flex flex-col space-y-4 lg:flex-row lg:space-y-0">
+          <div class="lg:w-96 lg:mr-6">
+            <img class="bg-cover bg-center border h-48 w-full sm:h-64 lg:h-48 lg:w-96 rounded-lg" :style="`background-image: url(${legalGuide.thumbnail_url || legalGuide.user_photo_url});`" />
           </div>
-        </AccountSection>
+          <div class="w-full">
+            <h2 class="mb-2">{{ legalGuide.title }}</h2>
+            <span class="text-gray-500">{{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }} von {{ getFullName(legalGuide) }}</span>
+            <p class="mt-2 lg:mt-4" v-html="getExcerpt(legalGuide.content)"></p>
+          </div>
+        </div>
       </nuxt-link>
       <a class="cursor-pointer flex items-center space-x-2" v-show="legalGuides.length > 0 && legalGuides.length < legalGuides[0].total_count" @click="loadMore">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">

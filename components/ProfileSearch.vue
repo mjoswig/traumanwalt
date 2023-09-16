@@ -1,7 +1,17 @@
 <template>
-  <div>
-    <section class="flex flex-col space-y-4 md:space-y-8">
-      <article class="border flex flex-col space-y-2 sm:flex-row sm:space-x-4 md:space-x-8 sm:space-y-0 p-4 lg:p-8 rounded-lg" v-for="(profile, index) in profiles" :key="index">
+  <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0">
+    <section class="w-full lg:w-1/5">
+      <div class="sticky top-4 border p-4 rounded-md">
+        <form @submit.prevent>
+          <label class="block font-bold text-base md:text-xl mb-1">Sortieren nach</label>
+          <select class="border rounded-md px-2 py-1 w-full">
+            <option value="">Keine Sortierung</option>
+          </select>
+        </form>
+      </div>
+    </section>
+    <section class="w-full lg:w-4/5 flex flex-col space-y-4">
+      <article class="flex flex-col space-y-2 sm:flex-row sm:space-x-4 lg:space-x-6 sm:space-y-0 p-4 lg:p-6 border rounded-md shadow-md" v-for="(profile, index) in profiles" :key="index">
         <div class="profile-photo">
           <img class="bg-cover border h-28 w-28 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(profile)});`" />
         </div>

@@ -28,7 +28,7 @@
       <div class="flex w-full" :class="{ 'justify-start': !message.sent, 'justify-end': message.sent }" v-for="(message, index) in conversationMessages" :key="index">
         <div class="w-full" style="max-width: 600px;">
           <span class="block text-xs mb-1">{{ message.sent ? `Sie schrieben ` : `${message.from_first_name} ${message.from_last_name} schrieb ` }} am {{ $moment(message.created_at).format('DD.MM.YYYY, HH:mm') }}</span>
-          <div class="px-4 py-2 rounded-2xl text-sm lg:text-base" :class="{ 'bg-blue-100': message.sent, 'bg-gray-100': !message.sent }" v-html="message.text">
+          <div class="px-4 py-2 rounded-2xl text-sm lg:text-base" :class="{ 'bg-blue-400 text-white': message.sent, 'bg-gray-100': !message.sent }" v-html="message.text">
           </div>
         </div>
       </div>

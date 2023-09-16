@@ -75,7 +75,7 @@ export default {
         datasets: [{
           label: 'Klicks',
           data: profileViewsData,
-          backgroundColor: '#00aff0'
+          backgroundColor: '#4285f4'
         }]
       },
       chartOptions: {

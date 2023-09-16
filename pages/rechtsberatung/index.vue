@@ -83,8 +83,10 @@ export default {
     }
   },
   async asyncData({ app }) {
+    const legalFields = await app.$axios.$get('/api/legal-fields')
     const legalServices = await app.$axios.$get('/api/legal-services')
     return {
+      legalFields,
       legalServices,
       questionForm: {
         subject: '',

@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="md:text-center">
-      <h1 v-if="category.type === 'legal_fields'">Anwälte für {{ category.value.name }}</h1>
-      <h1 v-if="category.type === 'cities'">Anwälte in {{ category.value.name }}</h1>
+      <h1 v-if="category.type === 'legal_fields'">Die besten Anwälte für {{ category.value.name }}</h1>
+      <h1 v-if="category.type === 'cities'">Die besten Anwälte in {{ category.value.name }}</h1>
       <div v-if="!category.profiles.length" class="text-lg mt-4">
         <p class="mb-2">Wir haben keine Anwälte in dieser Kategorie gefunden.</p>
         <p class="mb-6"><nuxt-link to="/anwaelte">Zurück zum Anwaltsverzeichnis</nuxt-link></p>

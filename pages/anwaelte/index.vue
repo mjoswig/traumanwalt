@@ -20,8 +20,7 @@ export default {
     return {
       page,
       pageLength,
-      profiles,
-      isLoading: true
+      profiles
     }
   },
   methods: {

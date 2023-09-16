@@ -25,6 +25,7 @@
           </div>
         </div>
       </article>
+      <InfiniteScroll :enough="page >= totalPages" @load-more="$emit('loadMore')" />
     </section>
   </div>
 </template>
@@ -32,7 +33,12 @@
 <script>
 export default {
   name: 'ProfileSearch',
-  props: ['profiles'],
+  props: ['profiles', 'page', 'pageLength'],
+  computed: {
+    totalPages() {
+      return Math.ceil(this.profiles[0].total_count / this.pageLength)
+    }
+  },
   methods: {
     getPhotoUrl(profile) {
       return profile.photo_url || require('@/assets/images/photo-default.jpeg')

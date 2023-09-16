@@ -78,7 +78,8 @@ export default {
     '@nuxtjs/google-gtag',
     '@nuxtjs/pwa',
     '@nuxtjs/sitemap',
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    '@forked-prs/nuxt-infinite-scroll-module'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -1,6 +1,6 @@
 {
   "name": "traumanwalt",
-  "version": "2.7.5",
+  "version": "2.7.6",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@forked-prs/nuxt-infinite-scroll-module": "^1.0.2",
     "@johmun/vue-tags-input": "^2.1.0",
     "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/firebase": "^8.2.2",

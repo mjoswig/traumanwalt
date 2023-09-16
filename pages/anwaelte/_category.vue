@@ -13,7 +13,7 @@
         <p>Stärken Sie Ihre Sichtbarkeit bei Google und <nuxt-link to="/mitgliedschaft">werden Sie Traumanwalt</nuxt-link>.</p>
       </div>
     </div>
-    <ProfileSearch v-if="category.profiles.length" :profiles="category.profiles" class="mt-6 md:mt-8" />
+    <ProfileSearch v-if="category.profiles.length" :profiles="category.profiles" class="mt-4 md:mt-12" />
   </div>
 </template>
 

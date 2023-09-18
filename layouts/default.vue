@@ -285,7 +285,6 @@ html {
   font-size: 18px;
   line-height: 1.5;
   word-spacing: 1px;
-  word-break: break-word;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;

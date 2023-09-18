@@ -49,8 +49,8 @@
           <div>
             <h3 class="mb-4">Rechtsgebiete</h3>
             <p v-if="!legalFields.length">{{ firstName }} {{ lastName }} hat keine Rechtsgebiete angegeben.</p>
-            <div v-if="legalFields.length" class="flex flex-wrap mb-2">
-              <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in legalFields" :key="index">
+            <div v-if="legalFields.length" class="mb-2">
+              <span class="inline-block bg-gray-100 px-2 py-1 rounded-md w-fit mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in legalFields" :key="index">
                 {{ getLegalFieldName(legalField, profile) }}
               </span>
             </div>
@@ -58,8 +58,8 @@
           <div>
             <h3 class="mb-4">Sprachen</h3>
             <p v-if="!languages.length">{{ firstName }} {{ lastName }} hat keine Sprachen angegeben.</p>
-            <div v-if="languages.length" class="flex flex-wrap mb-2">
-              <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(language, index) in languages" :key="index">
+            <div v-if="languages.length" class="mb-2">
+              <span class="inline-block bg-gray-100 px-2 py-1 rounded-md w-fit mr-1 mt-1 md:mr-2 md:mt-2" v-for="(language, index) in languages" :key="index">
                 {{ language.name }}
               </span>
             </div>

@@ -28,7 +28,7 @@
             <li>Fixpreis bezahlen</li>
             <li>Hilfe bekommen</li>
           </ol>
-          <Btn @click="$router.push('/rechtsberatung')">Jetzt beraten werden</Btn>
+          <Btn class="w-full" @click="$router.push('/rechtsberatung')">Jetzt beraten werden</Btn>
         </div>
       </div>
     </div>

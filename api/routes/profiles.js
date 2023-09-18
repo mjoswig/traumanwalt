@@ -41,7 +41,7 @@ router.get('/:slug', async (req, res) => {
     SELECT
       users.slug AS slug,
       salutation, job_title, academic_title, first_name, last_name, suffix_title,
-      photo_url, address_line, postal_code, city,
+      photo_url, address_line, postal_code, city, memberships,
       jsonb_agg(
         jsonb_build_object(
           'id', legal_fields.id,
@@ -55,7 +55,7 @@ router.get('/:slug', async (req, res) => {
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
     WHERE users.slug = $1
-    GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at
+    GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, memberships, users.created_at
   `, [ req.params.slug ])
   return res.status(200).send(profiles.rows[0])
 })

@@ -147,7 +147,7 @@
           <div class="flex flex-col items-center justify-between mr-4 mt-4" v-for="(user, index) in lawFirmUsers" :key="index">
             <div class="flex flex-col items-center">
               <img class="h-20 w-20 rounded-full mb-2" :src="user.photo_url || require('@/assets/images/photo-default.jpeg')" />
-              <nuxt-link :to="`/anwalt/${user.slug}`" class="block font-bold">{{ user.first_name }} {{ user.last_name }}</nuxt-link>
+              <nuxt-link :to="`/${user.slug}`" class="block font-bold">{{ user.first_name }} {{ user.last_name }}</nuxt-link>
               <span class="block text-gray-500">{{ user.id === lawFirm.admin_id ? 'Administrator' : 'Kanzleimitglied' }}</span>
             </div>
             <a v-if="isLawFirmAdmin && user.id !== lawFirm.admin_id" class="cursor-pointer text-sm" @click="removeUser(user.id)">Entfernen</a>
@@ -168,7 +168,7 @@
                 <div class="flex flex-col items-center justify-between mr-4 mt-4" v-for="(user, index) in lawFirmUsers" :key="index">
                   <div class="flex flex-col items-center">
                     <img class="h-20 w-20 rounded-full mb-2" :src="user.photo_url || require('@/assets/images/photo-default.jpeg')" />
-                    <nuxt-link :to="`/anwalt/${user.slug}`" class="block font-bold">{{ user.first_name }} {{ user.last_name }}</nuxt-link>
+                    <nuxt-link :to="`/${user.slug}`" class="block font-bold">{{ user.first_name }} {{ user.last_name }}</nuxt-link>
                     <span class="block text-gray-500">{{ user.id === lawFirm.admin_id ? 'Administrator' : 'Kanzleimitglied' }}</span>
                   </div>
                   <a v-if="isLawFirmAdmin && user.id !== lawFirm.admin_id" class="cursor-pointer text-sm" @click="removeUser(user.id)">Entfernen</a>

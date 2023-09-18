@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     inviteUrl() {
-      return `https://traumanwalt.com/anwalt/${this.$store.state.userData.slug}/bewerten`
+      return `https://traumanwalt.com/${this.$store.state.userData.slug}/bewerten`
     }
   },
   methods: {

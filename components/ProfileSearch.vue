@@ -11,26 +11,28 @@
       </div>
     </section>
     <section class="w-full lg:w-4/5 flex flex-col space-y-4">
-      <article class="flex flex-col space-y-2 sm:flex-row sm:space-x-4 lg:space-x-6 sm:space-y-0 p-4 lg:p-6 border rounded-md shadow-md" v-for="(profile, index) in profiles" :key="index">
-        <div class="profile-photo">
-          <img class="bg-cover border h-28 w-28 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(profile)});`" />
-        </div>
-        <div class="w-full">
-          <h2 class="text-base md:text-2xl md:mb-2">{{ getFullName(profile) }}</h2>
-          <div class="flex space-x-1 text-sm md:text-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
-              <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
-              <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-            </svg>
-            <span>{{ getBusinessAddress(profile) }}</span>
+      <nuxt-link class="profile-box" :to="`/${profile.slug}`" v-for="(profile, index) in profiles" :key="index">
+        <article class="flex flex-col space-y-2 sm:flex-row sm:space-x-4 lg:space-x-6 sm:space-y-0 p-4 lg:p-6 border rounded-md shadow-md">
+          <div class="profile-photo">
+            <img class="bg-cover border h-28 w-28 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(profile)});`" />
           </div>
-          <div class="flex flex-wrap text-xs md:text-base mt-2">
-            <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in profile.legal_fields" :key="index">
-              {{ getLegalFieldName(legalField, profile) }}
-            </span>
+          <div class="w-full">
+            <h2 class="text-base md:text-2xl md:mb-2">{{ getFullName(profile) }}</h2>
+            <div class="flex space-x-1 text-sm md:text-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+              </svg>
+              <span>{{ getBusinessAddress(profile) }}</span>
+            </div>
+            <div class="flex flex-wrap text-xs md:text-base mt-2">
+              <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in profile.legal_fields" :key="index">
+                {{ getLegalFieldName(legalField, profile) }}
+              </span>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </nuxt-link>
       <InfiniteScroll :enough="page >= totalPages" @load-more="$emit('loadMore')" />
     </section>
   </div>
@@ -85,6 +87,12 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.profile-box {
+  &:hover {
+    @apply text-current no-underline;
+  }
+}
+
 .profile-photo img {
   max-width: 215px;
 }

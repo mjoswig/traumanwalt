@@ -251,7 +251,7 @@ export default {
     },
     profileUrl() {
       if (!this.$store.state.userData) return '/konto'
-      return `/anwalt/${this.$store.state.userData.slug}`
+      return `/${this.$store.state.userData.slug}`
     },
     fullName() {
       if (!this.$store.state.userData) return

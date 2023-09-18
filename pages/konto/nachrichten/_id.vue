@@ -146,7 +146,7 @@ export default {
         this.reply = `
           Sehr geehrte${this.conversationMessages[0].from_salutation === 'Herr' ? 'r' : ''} ${this.conversationMessages[0].from_salutation} ${this.conversationMessages[0].from_last_name},<br /><br />
           vor kurzem haben Sie sich von mir juristisch beraten lassen. Hiermit lade ich Sie herzlich ein, mich auf traumanwalt.com zu bewerten:<br /><br />
-          https://traumanwalt.com/anwalt/${this.$store.state.userData.slug}/bewerten<br /><br />
+          https://traumanwalt.com/${this.$store.state.userData.slug}/bewerten<br /><br />
           Ich freue mich auf Ihre Rückmeldung.<br /><br />
           Mit freundlichen Grüßen,<br /><br />
           ${this.$store.state.userData.job_title} ${this.$store.state.userData.first_name} ${this.$store.state.userData.last_name}

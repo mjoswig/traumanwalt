@@ -209,7 +209,7 @@ router.post('/:firebase_uid/reviews/invite', async (req, res) => {
   `, [ req.params.firebase_uid ])
   const user = userResults.rows[0]
   const jobTitle = user.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
-  const inviteUrl = `https://traumanwalt.com/anwalt/${user.slug}/bewerten`
+  const inviteUrl = `https://traumanwalt.com/${user.slug}/bewerten`
 
   for (let emailAddress of req.body.emails) {
     await email.send({

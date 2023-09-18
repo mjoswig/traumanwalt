@@ -11,7 +11,7 @@
             <img class="bg-cover bg-center border h-12 w-12 sm:h-16 sm:w-16 rounded-full" :style="`background-image: url(${legalGuide.user_photo_url  || require('@/assets/images/photo-default.jpeg')});`" />
           </div>
           <div>
-            <nuxt-link :to="`/anwalt/${legalGuide.user_slug}`"><b>{{ getFullName }}</b></nuxt-link>
+            <nuxt-link :to="`/${legalGuide.user_slug}`"><b>{{ getFullName }}</b></nuxt-link>
             <span class="block text-gray-500 text-sm">Veröffentlicht: {{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }}</span>
           </div>
         </div>

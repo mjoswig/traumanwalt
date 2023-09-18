@@ -102,15 +102,15 @@
           <p v-if="!profile.law_firm">{{ firstName }} {{ lastName }} hat keine Kollegen angegeben.</p>
           <div class="pt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0" v-if="profile.law_firm">
             <div>
-              <div class="border bg-center bg-no-repeat h-28 w-28 rounded-md" :style="`background-image: url(${profile.law_firm.logo_url}); background-size: 100px;`" />
+              <div class="border bg-center bg-no-repeat h-32 w-32 rounded-md" :style="`background-image: url(${profile.law_firm.logo_url}); background-size: 125px;`" />
             </div>
             <div>
-              <b class="block text-lg">{{ profile.law_firm.name }}</b>
+              <b class="block md:text-lg">{{ profile.law_firm.name }}</b>
               <span class="block">{{ fullLawFirmAddress }}</span>
               <nuxt-link class="block font-bold" :to="`/kanzleien/${profile.law_firm.slug}`">Zum Kanzleiprofil</nuxt-link>
             </div>
           </div>
-          <div v-if="lawFirmColleagues.length" class="pt-8">
+          <div v-if="lawFirmColleagues.length" class="pt-6 md:pt-8">
             <h3 class="mb-6">Kollegen</h3>
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4" v-if="profile.law_firm">
               <div class="flex items-center space-x-4" v-for="(user, index) in lawFirmColleagues" :key="index">

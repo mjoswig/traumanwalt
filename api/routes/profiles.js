@@ -37,6 +37,14 @@ router.get('/', async (req, res) => {
 
 // get profile
 router.get('/:slug', async (req, res) => {
+  const languages = await db.query(`
+    SELECT name
+    FROM languages
+    LEFT JOIN user_languages ON user_languages.language_id = languages.id
+    LEFT JOIN users ON users.id = user_languages.user_id
+    WHERE users.slug = $1
+  `, [ req.params.slug ])
+
   const profiles = await db.query(`
     SELECT
       users.slug AS slug,
@@ -57,7 +65,16 @@ router.get('/:slug', async (req, res) => {
     WHERE users.slug = $1
     GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, memberships, users.created_at
   `, [ req.params.slug ])
-  return res.status(200).send(profiles.rows[0])
+
+  let profile = null
+  if (profiles.rows[0]) {
+    profile = {
+      ...profiles.rows[0],
+      languages: languages.rows
+    }
+  }
+
+  return res.status(200).send(profile)
 })
 
 module.exports = router

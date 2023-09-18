@@ -16,20 +16,30 @@
           <div v-html="profile.about"></div>
         </section>
         <hr />
-        <section class="flex flex-col space-y-4">
+        <section class="flex flex-col space-y-4 md:space-y-6">
           <h2>Kompetenzen</h2>
           <div>
-            <h3 class="mb-2">Fachanwaltschaft und Rechtsgebiete</h3>
+            <h3 class="mb-4">Fachanwaltschaft und Rechtsgebiete</h3>
             <p v-if="!legalFields.length">{{ firstName }} {{ lastName }} hat keine Rechtsgebiete angegeben.</p>
+            <div v-if="legalFields.length" class="flex flex-wrap text-sm md:text-base">
+              <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in legalFields" :key="index">
+                {{ getLegalFieldName(legalField, profile) }}
+              </span>
+            </div>
           </div>
           <div>
-            <h3 class="mb-2">Sprachen</h3>
+            <h3 class="mb-4">Sprachen</h3>
             <p v-if="!languages.length">{{ firstName }} {{ lastName }} hat keine Sprachen angegeben.</p>
+            <div v-if="languages.length" class="flex flex-wrap text-sm md:text-base">
+              <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(language, index) in languages" :key="index">
+                {{ language.name }}
+              </span>
+            </div>
           </div>
           <div>
-            <h3 class="mb-2">Mitgliedschaften</h3>
+            <h3 class="mb-4">Mitgliedschaften</h3>
             <p v-if="!memberships.length">{{ firstName }} {{ lastName }} hat keine Mitgliedschaften angegeben.</p>
-            <ul class="list-disc flex flex-col space-y-1 ml-5">
+            <ul class="list-disc flex flex-col space-y-2 ml-5">
               <li v-for="(membership, index) in memberships" :key="index">{{ membership }}</li>
             </ul>
           </div>
@@ -101,13 +111,22 @@ export default {
       return this.profile.photo_url || require('@/assets/images/photo-default.jpeg')
     },
     legalFields() {
-      return []
+      return this.profile.legal_fields
     },
     languages() {
-      return []
+      return this.profile.languages
     },
     memberships() {
       return this.profile.memberships ? this.profile.memberships.split(';') : []
+    }
+  },
+  methods: {
+    getLegalFieldName(legalField, profile) {
+      if (legalField.specialized) {
+        const preposition = profile.salutation === 'Frau' ? 'Fachanwältin' : 'Fachanwalt'
+        return `${preposition} ${legalField.name}`
+      }
+      return legalField.name
     }
   }
 }

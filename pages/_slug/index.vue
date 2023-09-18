@@ -4,8 +4,9 @@
       <div class="absolute top-0 left-0 h-full w-full opacity-40 bg-black rounded-md"></div>
       <img class="z-10 bg-cover border border-white h-36 w-36 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${photoUrl});`" />
       <div class="z-10 text-center text-white">
-        <span class="block text-lg xl:text-xl mb-1">{{ jobTitle }}</span>
+        <span class="block uppercase text-lg xl:text-xl mb-1">{{ jobTitle }}</span>
         <h1>{{ firstName }} {{ lastName }}</h1>
+        <span v-if="lawFirm.name" class="block text-base xl:text-lg mt-2">{{ lawFirm.name }}</span>
       </div>
     </div>
     <div class="flex flex-col space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0">
@@ -13,6 +14,14 @@
         <section v-if="phoneNumber || profile.contact_email || profile.website_url">
           <h2 class="mb-4">Kontakt</h2>
           <div class="flex flex-col space-y-2">
+            <div v-if="profile.address_line" class="flex space-x-2">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-door" style="margin-top: 3px;" viewBox="0 0 16 16">
+                  <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z"/>
+                </svg>
+              </div>
+              <span>{{ fullAddress }}</span>
+            </div>
             <div v-if="phoneNumber" class="flex space-x-2">
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone" style="margin-top: 3px;" viewBox="0 0 16 16">
@@ -87,6 +96,35 @@
           <h2 class="mb-4">Bewertungen</h2>
           <p>{{ firstName }} {{ lastName }} hat noch keine Bewertungen erhalten.</p>
         </section>
+        <hr />
+        <section v-if="profile.law_firm">
+          <h2 class="mb-4">Über die Kanzlei</h2>
+          <p v-if="!profile.law_firm">{{ firstName }} {{ lastName }} hat keine Kollegen angegeben.</p>
+          <div class="pt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0" v-if="profile.law_firm">
+            <div>
+              <div class="border bg-center bg-no-repeat h-28 w-28 rounded-md" :style="`background-image: url(${profile.law_firm.logo_url}); background-size: 100px;`" />
+            </div>
+            <div>
+              <b class="block text-lg">{{ profile.law_firm.name }}</b>
+              <span class="block">{{ fullLawFirmAddress }}</span>
+              <nuxt-link class="block font-bold" :to="`/kanzleien/${profile.law_firm.slug}`">Zum Kanzleiprofil</nuxt-link>
+            </div>
+          </div>
+          <div v-if="lawFirmColleagues.length" class="pt-8">
+            <h3 class="mb-6">Kollegen</h3>
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4" v-if="profile.law_firm">
+              <div class="flex items-center space-x-4" v-for="(user, index) in lawFirmColleagues" :key="index">
+                <div>
+                  <img class="bg-cover h-20 w-20 rounded-full mb-2" :style="`background-image: url(${user.photo_url || require('@/assets/images/photo-default.jpeg')});`" />
+                </div>
+                <div>
+                  <span class="block text-gray-500 text-sm">{{ user.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt' }}</span>
+                  <nuxt-link :to="`/${user.slug}`" class="block font-bold">{{ user.first_name }} {{ user.last_name }}</nuxt-link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </article>
       <div class="hidden lg:block w-full lg:w-1/3">
         <div class="sticky top-4 border border-gray-300 p-4 rounded-md">
@@ -144,6 +182,39 @@ export default {
     photoUrl() {
       return this.profile.photo_url || require('@/assets/images/photo-default.jpeg')
     },
+    lawFirm() {
+      return this.profile.law_firm
+    },
+    fullAddress() {
+      const fullAddress = []
+
+      const addressLine = this.profile.address_line
+      fullAddress.push(addressLine)
+
+      if (this.profile.postal_code || this.profile.city) {
+        const city = []
+        city.push(this.profile.postal_code)
+        city.push(this.profile.city)
+        fullAddress.push(city.join(' '))
+      }
+
+      return fullAddress.join(', ')
+    },
+    fullLawFirmAddress() {
+      const fullAddress = []
+
+      const addressLine = this.profile.law_firm.address_line
+      fullAddress.push(addressLine)
+
+      if (this.profile.law_firm.postal_code || this.profile.law_firm.city) {
+        const city = []
+        city.push(this.profile.law_firm.postal_code)
+        city.push(this.profile.law_firm.city)
+        fullAddress.push(city.join(' '))
+      }
+
+      return fullAddress.join(', ')
+    },
     phoneNumber() {
       return this.profile.landline_number || this.profile.mobile_number
     },
@@ -169,6 +240,10 @@ export default {
     },
     legalGuides() {
       return []
+    },
+    lawFirmColleagues() {
+      if (!this.lawFirm.users.length) return []
+      return this.lawFirm.users.filter(u => u.slug !== this.profile.slug)
     }
   },
   methods: {

@@ -203,8 +203,8 @@ app.post('/api/profile-views/update', async (req, res) => {
       WHERE users.slug = $1
     `, [ req.body.slug ])
     results = await db.query(`
-      INSERT INTO profile_views(user_id) VALUES($1)
-    `, [ userResults.rows[0].id ])
+      INSERT INTO profile_views(user_id, count) VALUES($1, $2)
+    `, [ userResults.rows[0].id, 1 ])
   }
   return res.status(200).send(results.rows[0])
 })

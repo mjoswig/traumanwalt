@@ -3,6 +3,7 @@
     <section>
       <h1>Rechtstipps von {{ fullName }}</h1>
       <p class="text-xl mt-4" v-if="!legalGuides.length">{{ fullName }} hat noch keine Rechtstipps veröffentlicht.</p>
+      <p class="text-xl mt-4" v-if="legalGuides.length">{{ fullName }} hat {{ totalGuides }} Rechtstipp{{ totalGuides !== 1 ? 's' : '' }} auf Traumanwalt geteilt.</p>
     </section>
     <section v-if="legalGuides.length" class="flex flex-col space-y-4 md:space-y-8 mt-4 md:mt-12">
       <nuxt-link class="legal-guide" :to="`/rechtstipps/${legalGuide.slug}`" v-for="(legalGuide, index) in legalGuides" :key="index">
@@ -46,6 +47,10 @@ export default {
     }
   },
   computed: {
+    totalGuides() {
+      if (!this.legalGuides.length) return 0
+      return parseInt(this.legalGuides[0].total_count)
+    },
     totalPages() {
       if (!this.legalGuides.length) return 0
       return Math.ceil(this.legalGuides[0].total_count / this.pageLength)
@@ -62,8 +67,8 @@ export default {
     },
     async loadMore() {
       this.page++
-      const legalGuides = await this.$axios.$get(`/api/legal-guides?page=${this.page}&page_length=${this.pageLength}`)
-      this.legalGuides.push(...legalGuides)
+      const legalGuides = await this.$axios.$get(`/api/profiles/${this.user.slug}/legal-guides?page=${this.page}&page_length=${this.pageLength}`)
+      this.legalGuides.push(...legalGuides.legal_guides)
 
       // filter out duplicates
       this.legalGuides = this.legalGuides.filter((v, i, a) => a.findIndex(v2 => (v2.slug === v.slug)) === i)

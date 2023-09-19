@@ -173,7 +173,7 @@ router.get('/:slug/legal-guides', async (req, res) => {
 
   const users = await db.query(`
     SELECT
-      salutation, job_title, first_name, last_name, photo_url
+      slug, salutation, job_title, first_name, last_name, photo_url
     FROM users
     WHERE users.slug = $1
   `, [ req.params.slug ])
@@ -201,6 +201,45 @@ router.get('/:slug/legal-guides', async (req, res) => {
   return res.status(200).send({
     user: users.rows[0],
     legal_guides: legalGuides.rows
+  })
+})
+
+// get reviews
+router.get('/:slug/reviews', async (req, res) => {
+  const queryArgs = []
+  if (req.query.page && req.query.page_length) {
+    queryArgs.push(req.query.page_length)
+    queryArgs.push((req.query.page - 1) * req.query.page_length)
+  }
+
+  const users = await db.query(`
+    SELECT
+      slug, salutation, job_title, first_name, last_name, photo_url
+    FROM users
+    WHERE users.slug = $1
+  `, [ req.params.slug ])
+
+  const reviews = await db.query(`
+    SELECT
+      count(*) OVER() AS total_count,
+      SUM(reviews.rating) OVER() AS total_sum,
+      reviews.id AS id,
+      reviews.author AS author,
+      reviews.rating AS rating,
+      reviews.title AS title,
+      reviews.description AS description,
+      reviews.comment AS comment,
+      reviews.created_at AS created_at
+    FROM reviews
+    LEFT JOIN users ON users.id = reviews.user_id
+    WHERE users.slug = $1
+    ORDER BY reviews.created_at DESC
+    ${queryArgs.length === 2 ? 'LIMIT $2 OFFSET $3' : ''}
+  `, [ req.params.slug, ...queryArgs ])
+
+  return res.status(200).send({
+    user: users.rows[0],
+    reviews: reviews.rows
   })
 })
 

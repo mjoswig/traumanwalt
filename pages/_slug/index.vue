@@ -114,7 +114,7 @@
               <span class="text-3xl lg:text-4xl">{{ (Math.round(averageRating * 100) / 100).toFixed(1).replace('.', ',') }}</span>
               <div>
                 <star-rating class="mb-1" :increment="0.1" :read-only="true" :show-rating="false" :star-size="30" v-model="averageRating" />
-                <span class="block" style="margin-left: 4px;">{{ reviewCount }} Bewertungen</span>
+                <span class="block" style="margin-left: 4px;">{{ reviewCount }} Bewertung{{ reviewCount !== 1 ? 'en' : '' }}</span>
               </div>
             </div>
             <div>
@@ -213,6 +213,12 @@ export default {
   async asyncData({ app, params, redirect }) {
     const profile = await app.$axios.$get(`/api/profiles/${params.slug}`)
     if (!profile) redirect('/anwaelte')
+
+    // count clicks on profile
+    await app.$axios.$post('/api/profile-views/update', {
+      slug: params.slug
+    })
+
     return {
       profile,
       showPhoneNumber: false
@@ -300,7 +306,7 @@ export default {
       return this.profile.reviews
     },
     reviewCount() {
-      return this.reviews[0] ? this.reviews[0].total_count : 0
+      return this.reviews[0] ? parseInt(this.reviews[0].total_count) : 0
     },
     averageRating() {
       return this.reviews[0] ? (parseInt(this.reviews[0].total_sum) / parseInt(this.reviews[0].total_count)) : 0

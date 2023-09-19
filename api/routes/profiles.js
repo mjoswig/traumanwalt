@@ -57,6 +57,23 @@ router.get('/:slug', async (req, res) => {
     WHERE users.slug = $1
   `, [ req.params.slug ])
 
+  const legalGuides = await db.query(`
+    SELECT
+      legal_guides.id AS id,
+      legal_guides.title AS title,
+      legal_guides.slug AS slug,
+      legal_guides.thumbnail_url AS thumbnail_url,
+      legal_guides.content AS content,
+      legal_guides.views AS views,
+      legal_guides.published AS published,
+      legal_guides.created_at AS created_at
+    FROM legal_guides
+    LEFT JOIN users ON users.id = legal_guides.user_id
+    WHERE users.slug = $1
+    ORDER BY legal_guides.created_at DESC
+    LIMIT 2
+  `, [ req.params.slug ])
+
   const lawFirm = await db.query(`
     SELECT
       law_firms.name AS name,
@@ -120,7 +137,8 @@ router.get('/:slug', async (req, res) => {
         users: lawFirmUsers
       },
       languages: languages.rows,
-      legal_fields: legalFields.rows
+      legal_fields: legalFields.rows,
+      legal_guides: legalGuides.rows
     }
   }
 

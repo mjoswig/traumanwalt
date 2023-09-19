@@ -87,9 +87,19 @@
           </div>
         </section>
         <hr v-if="legalGuides.length" />
-        <section v-if="legalGuides.length">
-          <h2 class="mb-4">Rechtstipps</h2>
-          <p>{{ firstName }} {{ lastName }} hat noch keine Rechtstipps veröffentlicht.</p>
+        <section v-if="legalGuides.length" class="flex flex-col space-y-4 md:space-y-6">
+          <h2>Rechtstipps</h2>
+          <p v-if="!legalGuides.length">{{ firstName }} {{ lastName }} hat noch keine Rechtstipps veröffentlicht.</p>
+          <div v-if="legalGuides.length" class="grid md:grid-cols-2 gap-4">
+            <nuxt-link class="legal-guide" :to="`/rechtstipps/${legalGuide.slug}`" v-for="(legalGuide, index) in legalGuides" :key="index">
+              <div class="border rounded-md shadow-md p-4 lg:p-6 h-full w-full">
+                <h3 class="mb-2">{{ legalGuide.title }}</h3>
+                <span class="text-gray-500">Veröffentlicht: {{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm') }}</span>
+                <p class="mt-2 lg:mt-4" v-html="getExcerpt(legalGuide.content)"></p>
+              </div>
+            </nuxt-link>
+          </div>
+          <nuxt-link v-if="legalGuides.length" class="pt-1" :to="`/${profile.slug}/rechtstipps`">Alle Rechtstipps von {{ firstName }} {{ lastName }}</nuxt-link>
         </section>
         <hr />
         <section>
@@ -107,7 +117,7 @@
             <div>
               <b class="block md:text-lg">{{ profile.law_firm.name }}</b>
               <span class="block">{{ fullLawFirmAddress }}</span>
-              <nuxt-link class="block font-bold" :to="`/kanzleien/${profile.law_firm.slug}`">Zum Kanzleiprofil</nuxt-link>
+              <nuxt-link :to="`/kanzleien/${profile.law_firm.slug}`">&rightarrow; Zum Kanzleiprofil</nuxt-link>
             </div>
           </div>
           <div v-if="lawFirmColleagues.length" class="pt-6 md:pt-8">
@@ -239,7 +249,7 @@ export default {
       return this.profile.memberships ? this.profile.memberships.split(';') : []
     },
     legalGuides() {
-      return []
+      return this.profile.legal_guides
     },
     lawFirmColleagues() {
       if (!this.lawFirm.users.length) return []
@@ -253,6 +263,11 @@ export default {
         return `${preposition} ${legalField.name}`
       }
       return legalField.name
+    },
+    getExcerpt(content) {
+      const words = content.split(' ')
+      if (words.length <= 25) return content
+      return words.slice(0, 25).join(' ') + '...'
     }
   }
 }
@@ -265,6 +280,20 @@ export default {
 
   &:hover {
     @apply text-white no-underline;
+  }
+}
+
+.legal-guide {
+  @apply text-current;
+
+  &:hover {
+    @apply no-underline;
+  }
+
+  & h2 {
+    &:hover {
+      @apply underline;
+    }
   }
 }
 </style>

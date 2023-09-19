@@ -6,24 +6,18 @@
     </section>
     <section class="flex flex-col space-y-4 md:space-y-8">
       <nuxt-link class="legal-guide" :to="`/rechtstipps/${legalGuide.slug}`" v-for="(legalGuide, index) in legalGuides" :key="index">
-        <div class="border p-4 lg:p-6 rounded-md shadow-md flex flex-col space-y-4 lg:flex-row lg:space-y-0">
-          <div class="lg:w-96 lg:mr-6">
-            <img class="bg-cover bg-center border h-48 w-full sm:h-64 lg:h-48 lg:w-96 rounded-lg" :style="`background-image: url(${legalGuide.thumbnail_url || legalGuide.user_photo_url});`" />
+        <div class="border rounded-md shadow-md flex flex-col space-y-4 lg:flex-row lg:space-y-0" style="min-height: 250px;">
+          <div class="lg:w-96">
+            <img class="bg-cover bg-center h-48 w-full sm:h-64 lg:h-full lg:w-96 rounded-t-lg lg:rounded-none lg:rounded-l-lg" :style="`background-image: url(${legalGuide.thumbnail_url || legalGuide.user_photo_url});`" />
           </div>
-          <div class="w-full">
+          <div class="px-4 pb-4 lg:p-6 w-full">
             <h2 class="mb-2">{{ legalGuide.title }}</h2>
             <span class="text-gray-500">{{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }} von {{ getFullName(legalGuide) }}</span>
             <p class="mt-2 lg:mt-4" v-html="getExcerpt(legalGuide.content)"></p>
           </div>
         </div>
       </nuxt-link>
-      <a class="cursor-pointer flex items-center space-x-2" v-show="legalGuides.length > 0 && legalGuides.length < legalGuides[0].total_count" @click="loadMore">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-          <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-        </svg>
-        <span>Ältere Rechtstipps laden</span>
-      </a>
+      <InfiniteScroll :enough="page >= totalPages" @load-more="loadMore" />
     </section>
   </div>
 </template>
@@ -46,6 +40,11 @@ export default {
       legalGuides
     }
   },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.legalGuides[0].total_count / this.pageLength)
+    }
+  },
   methods: {
     getFullName(legalGuide) {
       let fullName = []
@@ -59,12 +58,17 @@ export default {
       return fullName.join(' ')
     },
     getExcerpt(content) {
-      return content.split(' ').slice(0, 55).join(' ') + '...'
+      const words = content.split(' ')
+      if (words.length <= 55) return content
+      return words.slice(0, 55).join(' ') + '...'
     },
     async loadMore() {
       this.page++
       const legalGuides = await this.$axios.$get(`/api/legal-guides?page=${this.page}&page_length=${this.pageLength}`)
       this.legalGuides.push(...legalGuides)
+
+      // filter out duplicates
+      this.legalGuides = this.legalGuides.filter((v, i, a) => a.findIndex(v2 => (v2.slug === v.slug)) === i)
     }
   }
 }

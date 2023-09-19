@@ -76,6 +76,8 @@ router.get('/:slug', async (req, res) => {
 
   const reviews = await db.query(`
     SELECT
+      count(*) OVER() AS total_count,
+      SUM(reviews.rating) OVER() AS total_sum,
       reviews.author AS author,
       reviews.rating AS rating,
       reviews.title AS title,

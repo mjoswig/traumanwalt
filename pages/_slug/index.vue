@@ -104,19 +104,37 @@
         <hr />
         <section class="flex flex-col space-y-4 md:space-y-6">
           <h2>Bewertungen</h2>
+          <div class="flex justify-between">
+            <div class="flex flex-col space-y-1 sm:flex-row sm:space-x-2 sm:space-y-0">
+              <span class="text-3xl lg:text-4xl">{{ (Math.round(averageRating * 100) / 100).toFixed(1).replace('.', ',') }}</span>
+              <div>
+                <star-rating class="mb-1" :increment="0.1" :read-only="true" :show-rating="false" :star-size="30" v-model="averageRating" />
+                <span class="block" style="margin-left: 4px;">{{ reviewCount }} Bewertungen</span>
+              </div>
+            </div>
+            <div>
+              <Btn class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                </svg>
+                <span>Bewerten</span>
+              </Btn>
+            </div>
+          </div>
           <p v-if="!reviews.length">{{ firstName }} {{ lastName }} hat noch keine Bewertungen erhalten.</p>
           <div class="border border-transparent rounded-md shadow-md p-4" v-for="(review, index) in reviews" :key="index">
-            <div class="flex flex-col space-y-2 xl:flex-row xl:items-center xl:space-x-2 xl:space-y-0 mb-2">
+            <div class="flex flex-col space-y-1 xl:flex-row xl:items-center xl:space-x-2 xl:space-y-0 mb-2">
               <star-rating :read-only="true" :show-rating="false" :star-size="30" v-model="review.rating" />
-              <h2 class="text-lg" style="margin-top: 4px;">{{ review.title }}</h2>
+              <h3 class="text-lg" style="margin-top: 4px;">{{ review.title }}</h3>
             </div>
-            <span class="block text-gray-500 text-sm mb-2">von <b>{{ review.author || 'Anonym' }}</b> am {{ $moment(review.created_at).format('DD.MM.YYYY') }}</span>
-            <p class="mb-4">„{{ review.description }}“</p>
-            <div>
-              <h3 class="text-base mb-1">Kommentar von {{ firstName }} {{ lastName }}</h3>
+            <span class="block text-gray-500 mb-2">von <b>{{ review.author || 'Anonym' }}</b> am {{ $moment(review.created_at).format('DD.MM.YYYY') }}</span>
+            <p>„{{ review.description }}“</p>
+            <div v-if="review.comment" class="mt-4">
+              <h4 class="text-base mb-1">Kommentar von {{ firstName }} {{ lastName }}</h4>
               <p v-show="review.comment" class="border-l-4 pl-2">{{ review.comment }}</p>
             </div>
           </div>
+          <nuxt-link v-if="reviews.length" class="pt-1" :to="`/${profile.slug}/bewertungen`">&rightarrow; Alle Bewertungen für {{ firstName }} {{ lastName }}</nuxt-link>
         </section>
         <hr />
         <section v-if="profile.law_firm">
@@ -127,7 +145,7 @@
               <div class="border bg-center bg-no-repeat h-32 w-32 rounded-md" :style="`background-image: url(${profile.law_firm.logo_url}); background-size: 90%;`" />
             </div>
             <div>
-              <b class="block md:text-lg">{{ profile.law_firm.name }}</b>
+              <b class="block md:text-lg mt-1 sm:mt-0">{{ profile.law_firm.name }}</b>
               <span class="block">{{ fullLawFirmAddress }}</span>
               <nuxt-link :to="`/kanzleien/${profile.law_firm.slug}`">&rightarrow; Zum Kanzleiprofil</nuxt-link>
             </div>
@@ -265,6 +283,12 @@ export default {
     },
     reviews() {
       return this.profile.reviews
+    },
+    reviewCount() {
+      return this.reviews[0] ? this.reviews[0].total_count : 0
+    },
+    averageRating() {
+      return this.reviews[0] ? (parseInt(this.reviews[0].total_sum) / parseInt(this.reviews[0].total_count)) : 0
     },
     lawFirmColleagues() {
       if (!this.lawFirm.users.length) return []

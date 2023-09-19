@@ -1,11 +1,89 @@
 <template>
   <div>
-    <h2>xxx</h2>
+    <section>
+      <h1>Rechtstipps von {{ fullName }}</h1>
+      <p class="text-xl mt-4" v-if="!legalGuides.length">{{ fullName }} hat noch keine Rechtstipps veröffentlicht.</p>
+    </section>
+    <section v-if="legalGuides.length" class="flex flex-col space-y-4 md:space-y-8 mt-4 md:mt-12">
+      <nuxt-link class="legal-guide" :to="`/rechtstipps/${legalGuide.slug}`" v-for="(legalGuide, index) in legalGuides" :key="index">
+        <div class="border rounded-md shadow-md flex flex-col space-y-4 lg:flex-row lg:space-y-0" style="min-height: 250px;">
+          <div class="lg:w-96">
+            <img class="bg-cover bg-center h-48 w-full sm:h-64 lg:h-full lg:w-96 rounded-t-lg lg:rounded-none lg:rounded-l-lg" :style="`background-image: url(${legalGuide.thumbnail_url || user.photo_url});`" />
+          </div>
+          <div class="px-4 pb-4 lg:p-6 w-full">
+            <h2 class="mb-2">{{ legalGuide.title }}</h2>
+            <span class="text-gray-500">Veröffentlicht: {{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }}</span>
+            <p class="mt-2 lg:mt-4" v-html="getExcerpt(legalGuide.content)"></p>
+          </div>
+        </div>
+      </nuxt-link>
+      <InfiniteScroll :enough="page >= totalPages" @load-more="loadMore" />
+    </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ProfileLegalGuidesPage'
+  name: 'ProfileRechtstippsPage',
+  head() {
+    return {
+      title: `Rechtstipps von ${this.fullName} - Traumanwalt`
+    }
+  },
+  async asyncData({ app, params, redirect }) {
+    const page = 1
+    const pageLength = 10
+
+    const legalGuides = await app.$axios.$get(`/api/profiles/${params.slug}/legal-guides?page=${page}&page_length=${pageLength}`)
+    const user = legalGuides.user
+    if (!user) redirect('/anwaelte')
+
+    return {
+      page,
+      pageLength,
+      user: legalGuides.user,
+      legalGuides: legalGuides.legal_guides
+    }
+  },
+  computed: {
+    totalPages() {
+      if (!this.legalGuides.length) return 0
+      return Math.ceil(this.legalGuides[0].total_count / this.pageLength)
+    },
+    fullName() {
+      return `${this.user.first_name} ${this.user.last_name}`
+    }
+  },
+  methods: {
+    getExcerpt(content) {
+      const words = content.split(' ')
+      if (words.length <= 55) return content
+      return words.slice(0, 55).join(' ') + '...'
+    },
+    async loadMore() {
+      this.page++
+      const legalGuides = await this.$axios.$get(`/api/legal-guides?page=${this.page}&page_length=${this.pageLength}`)
+      this.legalGuides.push(...legalGuides)
+
+      // filter out duplicates
+      this.legalGuides = this.legalGuides.filter((v, i, a) => a.findIndex(v2 => (v2.slug === v.slug)) === i)
+    }
+  }
 }
 </script>
+
+<style lang="postcss" scoped>
+.legal-guide {
+  @apply text-current;
+
+  &:hover {
+    @apply no-underline;
+  }
+
+  & h2 {
+    &:hover {
+      @apply underline;
+    }
+  }
+}
+</style>

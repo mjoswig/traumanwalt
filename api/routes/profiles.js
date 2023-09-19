@@ -145,4 +145,45 @@ router.get('/:slug', async (req, res) => {
   return res.status(200).send(profile)
 })
 
+// get legal guides
+router.get('/:slug/legal-guides', async (req, res) => {
+  const queryArgs = []
+  if (req.query.page && req.query.page_length) {
+    queryArgs.push(req.query.page_length)
+    queryArgs.push((req.query.page - 1) * req.query.page_length)
+  }
+
+  const users = await db.query(`
+    SELECT
+      salutation, job_title, first_name, last_name, photo_url
+    FROM users
+    WHERE users.slug = $1
+  `, [ req.params.slug ])
+
+  const legalGuides = await db.query(`
+    SELECT
+      count(*) OVER() AS total_count,
+      legal_guides.id AS id,
+      legal_guides.title AS title,
+      legal_guides.slug AS slug,
+      legal_guides.thumbnail_url AS thumbnail_url,
+      legal_guides.content AS content,
+      legal_guides.views AS views,
+      legal_guides.published AS published,
+      legal_guides.created_at AS created_at,
+      users.first_name AS user_first_name,
+      users.last_name AS user_last_name
+    FROM legal_guides
+    LEFT JOIN users ON users.id = legal_guides.user_id
+    WHERE users.slug = $1
+    ORDER BY legal_guides.created_at DESC
+    ${queryArgs.length === 2 ? 'LIMIT $2 OFFSET $3' : ''}
+  `, [ req.params.slug, ...queryArgs ])
+
+  return res.status(200).send({
+    user: users.rows[0],
+    legal_guides: legalGuides.rows
+  })
+})
+
 module.exports = router

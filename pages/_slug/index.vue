@@ -99,7 +99,12 @@
               </div>
             </nuxt-link>
           </div>
-          <nuxt-link v-if="legalGuides.length" class="pt-1" :to="`/${profile.slug}/rechtstipps`">&rightarrow; Alle Rechtstipps von {{ firstName }} {{ lastName }}</nuxt-link>
+          <nuxt-link v-if="legalGuides.length" class="flex items-center space-x-2 pt-1" :to="`/${profile.slug}/rechtstipps`">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
+            <span>Alle Rechtstipps lesen</span>
+          </nuxt-link>
         </section>
         <hr />
         <section class="flex flex-col space-y-4 md:space-y-6">
@@ -134,7 +139,12 @@
               <p v-show="review.comment" class="border-l-4 pl-2">{{ review.comment }}</p>
             </div>
           </div>
-          <nuxt-link v-if="reviews.length" class="pt-1" :to="`/${profile.slug}/bewertungen`">&rightarrow; Alle Bewertungen für {{ firstName }} {{ lastName }}</nuxt-link>
+          <nuxt-link v-if="reviews.length" class="flex items-center space-x-2 pt-1" :to="`/${profile.slug}/bewertungen`">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
+            <span>Alle Bewertungen lesen</span>
+          </nuxt-link>
         </section>
         <hr />
         <section v-if="profile.law_firm">
@@ -147,7 +157,12 @@
             <div>
               <b class="block md:text-lg mt-1 sm:mt-0">{{ profile.law_firm.name }}</b>
               <span class="block">{{ fullLawFirmAddress }}</span>
-              <nuxt-link :to="`/kanzleien/${profile.law_firm.slug}`">&rightarrow; Zum Kanzleiprofil</nuxt-link>
+              <nuxt-link class="flex items-center space-x-2" :to="`/kanzleien/${profile.law_firm.slug}`">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+                <span>Zum Kanzleiprofil</span>
+              </nuxt-link>
             </div>
           </div>
           <div v-if="lawFirmColleagues.length" class="pt-6 md:pt-8">

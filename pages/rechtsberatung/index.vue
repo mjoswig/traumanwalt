@@ -51,7 +51,7 @@
         <fieldset class="flex items-end justify-end mt-1">
           <div class="flex flex-col md:items-end w-full">
             <Btn :is-disabled="!isClient" class="w-full md:w-fit">Weiter zur Zahlung – 149,00 €</Btn>
-            <p v-if="!isClient" class="mt-3 text-sm">Sie müssen als Mandant angemeldet sein. Noch kein Konto? <nuxt-link to="/mandant-werden">Jetzt registrieren</nuxt-link>.</p>
+            <p v-if="!isClient" class="mt-3 text-sm">Sie müssen als Mandant angemeldet sein. Noch kein Konto? <nuxt-link class="font-bold" to="/mandant-werden">Jetzt registrieren</nuxt-link>.</p>
           </div>
         </fieldset>
       </form>

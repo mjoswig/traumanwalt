@@ -4,7 +4,7 @@ const db = require('../db')
 // get all law firms
 router.get('/', async (req, res) => {
   const lawFirms = await db.query(`
-    SELECT id, name
+    SELECT id, name, slug
     FROM law_firms
     ORDER BY name ASC
   `)

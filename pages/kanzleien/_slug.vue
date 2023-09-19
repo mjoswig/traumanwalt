@@ -4,7 +4,7 @@
       <div class="absolute top-0 left-0 h-full w-full opacity-40 bg-black rounded-md"></div>
       <div class="bg-white z-10 bg-center bg-no-repeat h-36 w-36 md:h-48 md:w-48 rounded-md" :style="`background-image: url(${photoUrl}); background-size: 90%;`" />
       <div class="z-10 text-center text-white">
-        <span class="block uppercase text-lg xl:text-xl mb-1">Kanzlei</span>
+        <span class="block uppercase text-lg xl:text-xl my-1">Kanzlei</span>
         <h1>{{ lawFirm.name }}</h1>
       </div>
     </div>
@@ -78,6 +78,8 @@
 </template>
 
 <script>
+import parsePhoneNumber from 'libphonenumber-js'
+
 export default {
   name: 'LawFirmProfilePage',
   head() {
@@ -89,7 +91,8 @@ export default {
     const lawFirm = await app.$axios.$get(`/api/law-firms/${params.slug}`)
     if (!lawFirm) redirect('/kanzleien')
     return {
-      lawFirm
+      lawFirm,
+      showPhoneNumber: false
     }
   },
   computed: {

@@ -11,8 +11,8 @@
     </div>
     <div class="flex flex-col space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0">
       <article class="flex flex-col space-y-6 md:space-y-8 w-full lg:w-2/3">
-        <section v-if="phoneNumber || profile.contact_email || profile.website_url">
-          <h2 class="mb-4">Kontakt</h2>
+        <section class="flex flex-col space-y-4 md:space-y-6" v-if="phoneNumber || profile.contact_email || profile.website_url">
+          <h2>Kontakt</h2>
           <div class="flex flex-col space-y-2">
             <div v-if="profile.address_line" class="flex space-x-2">
               <div>
@@ -102,7 +102,7 @@
           <p v-if="!profile.law_firm">{{ firstName }} {{ lastName }} hat keine Kollegen angegeben.</p>
           <div class="pt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0" v-if="profile.law_firm">
             <div>
-              <div class="border bg-center bg-no-repeat h-32 w-32 rounded-md" :style="`background-image: url(${profile.law_firm.logo_url}); background-size: 125px;`" />
+              <div class="border bg-center bg-no-repeat h-32 w-32 rounded-md" :style="`background-image: url(${profile.law_firm.logo_url}); background-size: 90%;`" />
             </div>
             <div>
               <b class="block md:text-lg">{{ profile.law_firm.name }}</b>

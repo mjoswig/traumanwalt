@@ -74,6 +74,21 @@ router.get('/:slug', async (req, res) => {
     LIMIT 2
   `, [ req.params.slug ])
 
+  const reviews = await db.query(`
+    SELECT
+      reviews.author AS author,
+      reviews.rating AS rating,
+      reviews.title AS title,
+      reviews.description AS description,
+      reviews.comment AS comment,
+      reviews.created_at AS created_at
+    FROM reviews
+    LEFT JOIN users ON users.id = reviews.user_id
+    WHERE users.slug = $1
+    ORDER BY reviews.created_at DESC
+    LIMIT 3
+  `, [ req.params.slug ])
+
   const lawFirm = await db.query(`
     SELECT
       law_firms.name AS name,
@@ -138,7 +153,8 @@ router.get('/:slug', async (req, res) => {
       },
       languages: languages.rows,
       legal_fields: legalFields.rows,
-      legal_guides: legalGuides.rows
+      legal_guides: legalGuides.rows,
+      reviews: reviews.rows
     }
   }
 

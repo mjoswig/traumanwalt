@@ -99,12 +99,24 @@
               </div>
             </nuxt-link>
           </div>
-          <nuxt-link v-if="legalGuides.length" class="pt-1" :to="`/${profile.slug}/rechtstipps`">Alle Rechtstipps von {{ firstName }} {{ lastName }}</nuxt-link>
+          <nuxt-link v-if="legalGuides.length" class="pt-1" :to="`/${profile.slug}/rechtstipps`">&rightarrow; Alle Rechtstipps von {{ firstName }} {{ lastName }}</nuxt-link>
         </section>
         <hr />
-        <section>
-          <h2 class="mb-4">Bewertungen</h2>
-          <p>{{ firstName }} {{ lastName }} hat noch keine Bewertungen erhalten.</p>
+        <section class="flex flex-col space-y-4 md:space-y-6">
+          <h2>Bewertungen</h2>
+          <p v-if="!reviews.length">{{ firstName }} {{ lastName }} hat noch keine Bewertungen erhalten.</p>
+          <div class="border border-transparent rounded-md shadow-md p-4" v-for="(review, index) in reviews" :key="index">
+            <div class="flex flex-col space-y-2 xl:flex-row xl:items-center xl:space-x-2 xl:space-y-0 mb-2">
+              <star-rating :read-only="true" :show-rating="false" :star-size="30" v-model="review.rating" />
+              <h2 class="text-lg" style="margin-top: 4px;">{{ review.title }}</h2>
+            </div>
+            <span class="block text-gray-500 text-sm mb-2">von <b>{{ review.author || 'Anonym' }}</b> am {{ $moment(review.created_at).format('DD.MM.YYYY') }}</span>
+            <p class="mb-4">„{{ review.description }}“</p>
+            <div>
+              <h3 class="text-base mb-1">Kommentar von {{ firstName }} {{ lastName }}</h3>
+              <p v-show="review.comment" class="border-l-4 pl-2">{{ review.comment }}</p>
+            </div>
+          </div>
         </section>
         <hr />
         <section v-if="profile.law_firm">
@@ -250,6 +262,9 @@ export default {
     },
     legalGuides() {
       return this.profile.legal_guides
+    },
+    reviews() {
+      return this.profile.reviews
     },
     lawFirmColleagues() {
       if (!this.lawFirm.users.length) return []

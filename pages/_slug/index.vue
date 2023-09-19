@@ -2,7 +2,7 @@
   <div class="-mt-4">
     <div class="relative bg-cover p-4 md:p-8 flex flex-col items-center justify-center space-y-3 md:space-y-6 rounded-md mb-8 md:mb-12" :style="`background-image: url(${require('@/assets/images/traumanwalt-profile-cover.jpeg')});`">
       <div class="absolute top-0 left-0 h-full w-full opacity-40 bg-black rounded-md"></div>
-      <img class="z-10 bg-cover border border-white h-36 w-36 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${photoUrl});`" />
+      <div class="z-10 bg-cover border border-white h-36 w-36 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${photoUrl});`"></div>
       <div class="z-10 text-center text-white">
         <span class="block uppercase text-lg xl:text-xl my-1">{{ jobTitle }}</span>
         <h1>{{ firstName }} {{ lastName }}</h1>
@@ -146,10 +146,10 @@
             <span>Alle Bewertungen lesen</span>
           </nuxt-link>
         </section>
-        <hr />
-        <section v-if="profile.law_firm">
+        <hr v-if="profile.law_firm.name" />
+        <section v-if="profile.law_firm.name">
           <h2 class="mb-4">Über die Kanzlei</h2>
-          <p v-if="!profile.law_firm">{{ firstName }} {{ lastName }} hat keine Kollegen angegeben.</p>
+          <p v-if="!profile.law_firm.users.length">{{ firstName }} {{ lastName }} hat keine Kollegen angegeben.</p>
           <div class="pt-2 flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0" v-if="profile.law_firm">
             <div>
               <div class="border bg-center bg-no-repeat h-32 w-32 rounded-md" :style="`background-image: url(${profile.law_firm.logo_url}); background-size: 90%;`" />
@@ -170,7 +170,7 @@
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4" v-if="profile.law_firm">
               <div class="flex items-center space-x-4" v-for="(user, index) in lawFirmColleagues" :key="index">
                 <div>
-                  <img class="bg-cover h-20 w-20 rounded-full mb-2" :style="`background-image: url(${user.photo_url || require('@/assets/images/photo-default.jpeg')});`" />
+                  <div class="bg-cover h-20 w-20 rounded-full mb-2" :style="`background-image: url(${user.photo_url || require('@/assets/images/photo-default.jpeg')});`"></div>
                 </div>
                 <div>
                   <span class="block text-gray-500 text-sm">{{ user.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt' }}</span>

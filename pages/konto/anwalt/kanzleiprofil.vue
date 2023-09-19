@@ -39,7 +39,7 @@
               <div class="relative h-28 w-28 sm:h-44 sm:w-44">
                 <div v-show="aboutForm.isUploadingLogo" class="border-4 border-white absolute top-0 left-0 h-full w-full bg-gray-700 opacity-50 rounded-full"></div>
                 <img v-show="aboutForm.isUploadingLogo" class="absolute" style="top: calc(50% - 10px); left: calc(50% - 10px);" src="@/assets/images/icons/spinner-white.svg" />
-                <img class="bg-cover border h-28 w-28 sm:h-44 sm:w-44 rounded-full" :style="`background-image: url(${aboutForm.logo_url || require('@/assets/images/logo-default.jpeg')});`" />
+                <div class="bg-cover border h-28 w-28 sm:h-44 sm:w-44 rounded-full" :style="`background-image: url(${aboutForm.logo_url || require('@/assets/images/logo-default.jpeg')});`"></div>
                 <div class="absolute bg-gray-300 hover:bg-gray-400 p-2 rounded-full" style="bottom: 0; right: 0;">
                   <input ref="lgupload" name="logo-upload" type="file" accept=".jpg, .jpeg, .png" style="opacity: 0; position: absolute; left: 0; top: 0; width: 100%;" @change="updateLogo($event)" />
                   <label for="logo-upload">
@@ -156,8 +156,8 @@
       </AccountSection>
       <AccountSection v-if="!isLawFirmAdmin" :heading="lawFirm.name">
         <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-8 lg:space-y-0">
-          <div>
-            <img class="bg-cover border h-28 w-28 sm:h-44 sm:w-44 rounded-full" :style="`background-image: url(${aboutForm.logo_url || require('@/assets/images/logo-default.jpeg')});`" />
+          <div class="h-28 w-28 sm:h-44 sm:w-44">
+            <div class="border bg-white z-10 bg-center bg-no-repeat h-28 w-28 sm:h-44 sm:w-44 rounded-md" :style="`background-image: url(${aboutForm.logo_url || require('@/assets/images/logo-default.jpeg')}); background-size: 90%;`"></div>
           </div>
           <div class="flex flex-col space-y-4">
             <div v-html="lawFirm.about">
@@ -167,7 +167,7 @@
               <div class="flex flex-wrap">
                 <div class="flex flex-col items-center justify-between mr-4 mt-4" v-for="(user, index) in lawFirmUsers" :key="index">
                   <div class="flex flex-col items-center">
-                    <img class="h-20 w-20 rounded-full mb-2" :style="`background-image: url(${user.photo_url || require('@/assets/images/photo-default.jpeg')});`" />
+                    <div class="bg-cover h-20 w-20 rounded-full mb-2" :style="`background-image: url(${user.photo_url || require('@/assets/images/photo-default.jpeg')});`"></div>
                     <nuxt-link :to="`/${user.slug}`" class="block font-bold">{{ user.first_name }} {{ user.last_name }}</nuxt-link>
                     <span class="block text-gray-500">{{ user.id === lawFirm.admin_id ? 'Administrator' : 'Kanzleimitglied' }}</span>
                   </div>

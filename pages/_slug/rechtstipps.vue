@@ -8,7 +8,7 @@
       <nuxt-link class="legal-guide" :to="`/rechtstipps/${legalGuide.slug}`" v-for="(legalGuide, index) in legalGuides" :key="index">
         <div class="border rounded-md shadow-md flex flex-col space-y-4 lg:flex-row lg:space-y-0" style="min-height: 250px;">
           <div class="lg:w-96">
-            <img class="bg-cover bg-center h-48 w-full sm:h-64 lg:h-full lg:w-96 rounded-t-lg lg:rounded-none lg:rounded-l-lg" :style="`background-image: url(${legalGuide.thumbnail_url || user.photo_url});`" />
+            <div class="bg-cover bg-center h-48 w-full sm:h-64 lg:h-full lg:w-96 rounded-t-lg lg:rounded-none lg:rounded-l-lg" :style="`background-image: url(${legalGuide.thumbnail_url || user.photo_url});`"></div>
           </div>
           <div class="px-4 pb-4 lg:p-6 w-full">
             <h2 class="mb-2">{{ legalGuide.title }}</h2>

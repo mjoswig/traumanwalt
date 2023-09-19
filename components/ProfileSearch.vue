@@ -14,7 +14,7 @@
       <nuxt-link class="profile-box" :to="`/${profile.slug}`" v-for="(profile, index) in profiles" :key="index">
         <article class="flex flex-col space-y-2 sm:flex-row sm:space-x-4 lg:space-x-6 sm:space-y-0 p-4 lg:p-6 border rounded-md shadow-md">
           <div class="profile-photo">
-            <img class="bg-cover border h-28 w-28 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(profile)});`" />
+            <div class="bg-cover border h-28 w-28 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${getPhotoUrl(profile)});`"></div>
           </div>
           <div class="w-full">
             <h2 class="text-base md:text-2xl md:mb-2">{{ getFullName(profile) }}</h2>

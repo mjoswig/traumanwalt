@@ -3,7 +3,7 @@
     <h1 class="mb-6">{{ conversationSubject }}</h1>
     <div class="border-t border-l border-r flex space-x-4 px-4 py-2">
       <div>
-        <img class="bg-cover border h-10 w-10 md:h-12 md:w-12 rounded-full" :style="`background-image: url(${require('@/assets/images/photo-default.jpeg')});`" />
+        <div class="bg-cover border h-10 w-10 md:h-12 md:w-12 rounded-full" :style="`background-image: url(${require('@/assets/images/photo-default.jpeg')});`"></div>
       </div>
       <div>
         <b class="block">{{ conversationRecipientFullName }}</b>

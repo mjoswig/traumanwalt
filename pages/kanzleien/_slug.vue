@@ -21,7 +21,7 @@
           <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">
             <div class="flex items-center space-x-4" v-for="(user, index) in lawFirmColleagues" :key="index">
               <div>
-                <img class="bg-cover h-20 w-20 rounded-full mb-2" :style="`background-image: url(${user.photo_url || require('@/assets/images/photo-default.jpeg')});`" />
+                <div class="bg-cover h-20 w-20 rounded-full mb-2" :style="`background-image: url(${user.photo_url || require('@/assets/images/photo-default.jpeg')});`"></div>
               </div>
               <div>
                 <span class="block text-gray-500 text-sm">{{ user.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt' }}</span>

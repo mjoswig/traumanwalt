@@ -104,7 +104,7 @@
             <ul class="admin-sidebar md:text-lg flex flex-col space-y-3 md:space-y-6 mt-3 md:mt-6" :class="{ 'hidden md:block': !showMobileMenu }">
               <li v-show="!isClient" class="flex flex-row space-x-2 md:flex-col md:space-x-0 md:space-y-2 xl:flex-row xl:space-x-2 xl:space-y-0 items-center md:items-start xl:items-center">
                 <div>
-                  <img class="bg-cover border h-10 w-10 md:h-12 md:w-12 rounded-full" :style="`background-image: url(${photoUrl});`" />
+                  <div class="bg-cover border h-10 w-10 md:h-12 md:w-12 rounded-full" :style="`background-image: url(${photoUrl});`"></div>
                 </div>
                 <div>
                   <b class="block text-base" style="margin-bottom: -6px; margin-top: 2px;">{{ fullName }}</b>

@@ -7,7 +7,7 @@
           <div class="relative h-28 w-28 sm:h-44 sm:w-44">
             <div v-show="personalDetailsForm.isUploadingPhoto" class="border-4 border-white absolute top-0 left-0 h-full w-full bg-gray-700 opacity-50 rounded-full"></div>
             <img v-show="personalDetailsForm.isUploadingPhoto" class="absolute" style="top: calc(50% - 10px); left: calc(50% - 10px);" src="@/assets/images/icons/spinner-white.svg" />
-            <img class="bg-cover border h-28 w-28 sm:h-44 sm:w-44 rounded-full" :style="`background-image: url(${personalDetailsForm.photo_url || require('@/assets/images/photo-default.jpeg')});`" />
+            <div class="bg-cover border h-28 w-28 sm:h-44 sm:w-44 rounded-full" :style="`background-image: url(${personalDetailsForm.photo_url || require('@/assets/images/photo-default.jpeg')});`"></div>
             <div class="absolute bg-gray-300 hover:bg-gray-400 p-2 rounded-full" style="bottom: 0; right: 0;">
               <input ref="phupload" name="photo-upload" type="file" accept=".jpg, .jpeg, .png" style="opacity: 0; position: absolute; left: 0; top: 0; width: 100%;" @change="updatePhoto($event)" />
               <label for="photo-upload">

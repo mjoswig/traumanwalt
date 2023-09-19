@@ -2,13 +2,13 @@
   <div>
     <h1 class="mb-6 xl:mb-7">{{ legalGuide.title }}</h1>
     <div v-if="legalGuide.thumbnail_url" class="w-full mb-6">
-      <img class="bg-cover bg-center border rounded-lg h-48 sm:h-64 md:h-72 xl:h-96 w-full" :style="`background-image: url(${legalGuide.thumbnail_url});`" />
+      <div class="bg-cover bg-center border rounded-lg h-48 sm:h-64 md:h-72 xl:h-96 w-full" :style="`background-image: url(${legalGuide.thumbnail_url});`"></div>
     </div>
     <div class="flex flex-col space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0">
       <article class="w-full lg:w-2/3">
         <div class="border border-gray-300 flex items-center space-x-2 sm:space-x-4 p-2 rounded-lg text-sm sm:text-base mb-5">
           <div>
-            <img class="bg-cover bg-center border h-12 w-12 sm:h-16 sm:w-16 rounded-full" :style="`background-image: url(${legalGuide.user_photo_url  || require('@/assets/images/photo-default.jpeg')});`" />
+            <div class="bg-cover bg-center border h-12 w-12 sm:h-16 sm:w-16 rounded-full" :style="`background-image: url(${legalGuide.user_photo_url  || require('@/assets/images/photo-default.jpeg')});`"></div>
           </div>
           <div>
             <nuxt-link :to="`/${legalGuide.user_slug}`"><b>{{ getFullName }}</b></nuxt-link>

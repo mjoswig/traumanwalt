@@ -114,7 +114,7 @@
               <span class="text-3xl lg:text-4xl">{{ (Math.round(averageRating * 100) / 100).toFixed(1).replace('.', ',') }}</span>
               <div>
                 <star-rating class="mb-1" :increment="0.1" :read-only="true" :show-rating="false" :star-size="30" v-model="averageRating" />
-                <span class="block" style="margin-left: 4px;">{{ reviewCount }} Bewertung{{ reviewCount !== 1 ? 'en' : '' }}</span>
+                <nuxt-link :to="`/${profile.slug}/bewertungen`" class="block" style="margin-left: 4px;">{{ reviewCount }} Bewertung{{ reviewCount !== 1 ? 'en' : '' }}</nuxt-link>
               </div>
             </div>
             <div>

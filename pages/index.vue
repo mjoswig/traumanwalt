@@ -6,14 +6,14 @@
         <p class="text-xl mb-5">Unser Ziel ist es, Ihnen mit nur wenigen Klicks den perfekten Rechtsanwalt für Ihre individuellen Bedürfnisse zu präsentieren.</p>
         <form @submit.prevent>
           <fieldset class="search-widget flex flex-col sm:flex-row mb-4 md:mb-6">
-            <select class="border rounded-t-md sm:rounded-none sm:rounded-l-md p-2 w-full">
-              <option value="">Rechtsgebiet auswählen</option>
+            <select class="border rounded-t-md sm:rounded-none sm:rounded-l-md p-2 w-full" v-model="searchedLegalFieldSlug">
+              <option :value="null">Rechtsgebiet auswählen</option>
               <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
             <autocomplete base-class="city-search" placeholder="Ort eingeben" :search="searchCities" @submit="result => searchedCityName = result"></autocomplete>
           </fieldset>
           <div class="flex justify-end">
-            <Btn class="w-full sm:w-fit">Anwälte suchen</Btn>
+            <Btn class="w-full sm:w-fit" @click="showSearchResults">Anwälte suchen</Btn>
           </div>
         </form>
       </div>
@@ -73,7 +73,8 @@ export default {
   },
   data() {
     return {
-      searchedCityName: null
+      searchedCityName: null,
+      searchedLegalFieldSlug: null
     }
   },
   computed: {
@@ -89,6 +90,19 @@ export default {
       return cityNames.filter(cityName => {
         return cityName.toLowerCase().startsWith(input.toLowerCase())
       })
+    },
+    showSearchResults() {
+      if (this.searchedCity) {
+        let url = `/anwaelte/${this.searchedCity.slug}`
+        if (this.searchedLegalFieldSlug) {
+          url += `?legal_field=${this.searchedLegalFieldSlug}`
+        }
+        this.$router.push(url)
+      } else if (this.searchedLegalFieldSlug) {
+        this.$router.push(`/anwaelte/${this.searchedLegalFieldSlug}`)
+      } else {
+        this.$router.push('/anwaelte')
+      }
     }
   }
 }

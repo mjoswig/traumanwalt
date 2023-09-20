@@ -89,19 +89,3 @@ export default {
   }
 }
 </script>
-
-<style lang="postcss" scoped>
-.legal-guide {
-  @apply text-current;
-
-  &:hover {
-    @apply no-underline;
-  }
-
-  & h2 {
-    &:hover {
-      @apply underline;
-    }
-  }
-}
-</style>

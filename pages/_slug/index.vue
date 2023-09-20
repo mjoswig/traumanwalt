@@ -187,13 +187,13 @@
           <form class="flex flex-col space-y-4" @submit.prevent>
             <fieldset>
               <label>Ihre Nachricht</label>
-              <textarea class="border px-2 py-1 rounded-md w-full" rows="5" placeholder="Bitte beschreiben Sie hier Ihre Situation bzw. Ihren rechtlichen Beratungsbedarf möglichst genau..." />
+              <textarea class="border px-2 py-1 rounded-md w-full" rows="5" placeholder="Bitte beschreiben Sie hier Ihre Situation bzw. Ihren rechtlichen Beratungsbedarf möglichst genau..." v-model="message" />
             </fieldset>
-            <Btn>Nachricht senden</Btn>
+            <Btn @click="processMessage">Nachricht senden</Btn>
           </form>
         </div>
       </div>
-      <nuxt-link :to="`/${profile.slug}/anfragen`" class="mobile-cta lg:hidden fixed bottom-0 left-0 font-bold shadow-md px-4 py-3 flex justify-center focus:outline-none w-full z-20">
+      <nuxt-link :to="`/${profile.slug}/nachricht`" class="mobile-cta lg:hidden fixed bottom-0 left-0 font-bold shadow-md px-4 py-3 flex justify-center focus:outline-none w-full z-20">
         Jetzt {{ salutation === 'Frau' ? 'Anwältin' : 'Anwalt' }} fragen
       </nuxt-link>
     </div>
@@ -221,7 +221,8 @@ export default {
 
     return {
       profile,
-      showPhoneNumber: false
+      showPhoneNumber: false,
+      message: ''
     }
   },
   computed: {
@@ -328,6 +329,9 @@ export default {
       const words = content.split(' ')
       if (words.length <= 25) return content
       return words.slice(0, 25).join(' ') + '...'
+    },
+    processMessage() {
+      this.$router.push(`/${this.profile.slug}/nachricht?message=${this.message}`)
     }
   }
 }

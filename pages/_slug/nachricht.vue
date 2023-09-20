@@ -89,15 +89,6 @@ export default {
     legalFields() {
       return this.profile.legal_fields
     }
-  },
-  methods: {
-    getLegalFieldName(legalField, profile) {
-      if (legalField.specialized) {
-        const preposition = profile.salutation === 'Frau' ? 'Fachanwältin' : 'Fachanwalt'
-        return `${preposition} ${legalField.name}`
-      }
-      return legalField.name
-    }
   }
 }
 </script>

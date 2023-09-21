@@ -2,7 +2,7 @@
   <div class="-mt-4">
     <div class="relative bg-cover p-4 md:p-8 flex flex-col items-center justify-center space-y-3 md:space-y-6 rounded-md mb-8 md:mb-12" :style="`background-image: url(${require('@/assets/images/traumanwalt-profile-cover.jpeg')});`">
       <div class="absolute top-0 left-0 h-full w-full opacity-40 bg-black rounded-md"></div>
-      <div class="z-10 bg-cover border border-white h-36 w-36 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${photoUrl});`"></div>
+      <div class="profile-photo z-10 bg-cover border border-white h-36 w-36 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${photoUrl});`"></div>
       <div class="z-10 text-center text-white">
         <span class="block uppercase text-lg xl:text-xl my-1">{{ jobTitle }}</span>
         <h1>{{ firstName }} {{ lastName }}</h1>
@@ -380,6 +380,10 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.profile-photo {
+  margin-top: 4px !important;
+}
+
 .mobile-cta {
   @apply text-white;
   background: #222222;
@@ -400,6 +404,12 @@ export default {
     &:hover {
       @apply underline;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-photo {
+    margin-top: 8px !important;
   }
 }
 </style>

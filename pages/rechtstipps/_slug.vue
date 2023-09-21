@@ -59,6 +59,10 @@ export default {
   async asyncData({ app, params, redirect }) {
     const legalGuide = await app.$axios.$get(`/api/legal-guides/${params.slug}`)
     if (!legalGuide) redirect('/rechtstipps')
+
+    // count clicks on guide
+    await app.$axios.$post(`/api/legal-guides/${params.slug}/views/update`)
+
     return {
       legalGuide,
       message: ''

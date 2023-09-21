@@ -2,7 +2,7 @@
   <div class="-mt-4">
     <div class="relative bg-cover p-4 md:p-8 flex flex-col items-center justify-center space-y-3 md:space-y-6 rounded-md mb-8 md:mb-12" :style="`background-image: url(${require('@/assets/images/traumanwalt-profile-cover.jpeg')});`">
       <div class="absolute top-0 left-0 h-full w-full opacity-40 bg-black rounded-md"></div>
-      <div class="bg-white z-10 bg-center bg-no-repeat h-36 w-36 md:h-48 md:w-48 rounded-md" :style="`background-image: url(${photoUrl}); background-size: 90%;`" />
+      <div class="law-firm-logo bg-white z-10 bg-center bg-no-repeat h-36 w-36 md:h-48 md:w-48 rounded-md" :style="`background-image: url(${photoUrl}); background-size: 90%;`" />
       <div class="z-10 text-center text-white">
         <span class="block uppercase text-lg xl:text-xl my-1">Kanzlei</span>
         <h1>{{ lawFirm.name }}</h1>
@@ -178,12 +178,22 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+.law-firm-logo {
+  margin-top: 4px !important;
+}
+
 .mobile-cta {
   @apply text-white;
   background: #222222;
 
   &:hover {
     @apply text-white no-underline;
+  }
+}
+
+@media (max-width: 768px) {
+  .law-firm-logo {
+    margin-top: 8px !important;
   }
 }
 </style>

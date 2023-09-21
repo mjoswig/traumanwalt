@@ -36,8 +36,8 @@
             <div class="bg-cover bg-center border h-48 w-full sm:h-64 lg:h-48 lg:w-96 rounded-lg" :style="`background-image: url(${legalGuide.thumbnail_url || $store.state.userData.photo_url});`"></div>
           </div>
           <div class="w-full">
-            <h2 class="mb-2"><span class="text-gray-400" v-if="!legalGuide.published">Entwurf: </span>{{ legalGuide.title }}</h2>
-            <span class="text-gray-500">{{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }} von {{ fullName }}</span>
+            <h2><span class="text-gray-400" v-if="!legalGuide.published">Entwurf: </span>{{ legalGuide.title }}</h2>
+            <span v-if="legalGuide.published" class="block mt-2 text-gray-500">Veröffentlicht: {{ $moment(legalGuide.created_at).format('DD.MM.YYYY, HH:mm')  }} &bullet; Aufrufe: {{ legalGuide.views }}</span>
             <p class="mt-4" v-html="getExcerpt(legalGuide.content)"></p>
           </div>
         </div>

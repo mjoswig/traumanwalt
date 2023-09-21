@@ -72,7 +72,7 @@
           </fieldset>
           <fieldset class="mb-4 md:mb-7">
             <input class="h-4 w-4" type="checkbox" v-model="acceptTerms" required />
-            <label>Ich akzeptiere die <nuxt-link to="/agb">AGB</nuxt-link> und <nuxt-link to="/datenschutz">Datenschutzerklärung</nuxt-link> von Traumanwalt.</label>
+            <label>Ich akzeptiere die <nuxt-link class="font-bold" to="/agb">AGB</nuxt-link> und <nuxt-link class="font-bold" to="/datenschutz">Datenschutzerklärung</nuxt-link> von Traumanwalt.</label>
           </fieldset>
           <fieldset>
             <Btn class="w-full sm:w-fit" :is-loading="isSigningUp" :is-disabled="!hasEnteredValidRegistrationData" @click="signUpUser">Kostenlos registrieren</Btn>

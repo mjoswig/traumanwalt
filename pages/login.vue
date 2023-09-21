@@ -16,7 +16,7 @@
           <Btn class="w-full" :is-loading="isSigningIn" @click="signInUser">Einloggen</Btn>
         </fieldset>
       </form>
-      <p class="mt-4">oder <nuxt-link to="/registrieren">kostenlos registrieren</nuxt-link></p>
+      <p class="mt-4">oder <nuxt-link class="font-bold" to="/registrieren">kostenlos registrieren</nuxt-link></p>
     </div>
   </div>
 </template>

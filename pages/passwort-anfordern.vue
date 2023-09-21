@@ -12,7 +12,7 @@
           <Btn class="w-full" :is-disabled="!isValidEmail" :is-loading="isResetting" @click="resetPassword">Bestätigen</Btn>
         </fieldset>
       </form>
-      <p class="mt-4">oder <nuxt-link to="/login">mit Zugangsdaten einloggen</nuxt-link></p>
+      <p class="mt-4">oder <nuxt-link class="font-bold" to="/login">mit Zugangsdaten einloggen</nuxt-link></p>
     </div>
   </div>
 </template>

@@ -68,7 +68,7 @@ export default {
             initialize: {
               onAuthStateChangedAction: 'onAuthStateChanged',
             },
-            ssr: false
+            ssr: true
           },
           storage: true
         }

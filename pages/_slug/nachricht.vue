@@ -48,7 +48,7 @@
           <h2 class="text-xl mb-2">Vielen Dank für Ihre Anfrage!</h2>
           <p class="mb-2">Ihre Nachricht wurde erfolgreich an {{ fullName }} weitergeleitet.</p>
           <p class="mb-2">Sie werden so bald wie möglich eine Rückmeldung erhalten.</p>
-          <nuxt-link class="font-bold" to="/anwaelte">Zurück zum Anwaltsverzeichnis</nuxt-link>
+          <nuxt-link class="font-bold" :to="`/${profile.slug}`">Zurück zum Anwaltsprofil</nuxt-link>
         </div>
       </div>
       <div class="bg-gray-100 border p-4 rounded-md flex flex-col items-center space-y-4 mb-6 lg:mb-0 w-full lg:w-1/3">

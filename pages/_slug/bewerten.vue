@@ -16,7 +16,7 @@
             <label class="font-bold block">Beschreiben Sie Ihre Erfahrung</label>
             <textarea class="border px-2 py-1 rounded-md w-full" rows="5" placeholder="Bitte beschreiben Sie hier Ihre Erfahrung mit dem Anwalt..." v-model="form.description" />
           </fieldset>
-          <fieldset>
+          <fieldset v-if="!isClient">
             <label class="font-bold block">Name (optional)</label>
             <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihr Vor- und Nachname" v-model="form.author" />
           </fieldset>
@@ -32,7 +32,7 @@
           <img class="h-auto w-24 mb-6 mt-2 lg:mt-0" src="@/assets/images/message-sent.png" />
           <h2 class="text-xl mb-2">Vielen Dank für Ihre Bewertung!</h2>
           <p class="mb-2">Ihre Bewertung für {{ fullName }} wurde erfolgreich eingereicht.</p>
-          <nuxt-link class="font-bold" to="/anwaelte">Zurück zum Anwaltsverzeichnis</nuxt-link>
+          <nuxt-link class="font-bold" :to="`/${profile.slug}`">Zurück zum Anwaltsprofil</nuxt-link>
         </div>
       </div>
       <div class="bg-gray-100 border p-4 rounded-md flex flex-col items-center space-y-4 mb-6 lg:mb-0 w-full lg:w-1/3">
@@ -57,7 +57,7 @@ export default {
       title: `Bewertung von ${this.fullName} - Traumanwalt`
     }
   },
-  async asyncData({ app, params, redirect }) {
+  async asyncData({ app, params, redirect, store }) {
     const profile = await app.$axios.$get(`/api/profiles/${params.slug}`)
     if (!profile) redirect('/anwaelte')
     return {
@@ -70,12 +70,16 @@ export default {
         rating: 0,
         title: '',
         description: '',
-        author: '',
+        author: store.state.userData && store.state.userData.client ? `${store.state.userData.first_name} ${store.state.userData.last_name}` : '',
         security_question_answer: ''
       }
     }
   },
   computed: {
+    isClient() {
+      if (!this.$store.state.userData) return false
+      return this.$store.state.userData.client
+    },
     securityQuestionResult() {
       return this.securityQuestionA + this.securityQuestionB
     },

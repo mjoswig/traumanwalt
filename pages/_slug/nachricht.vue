@@ -108,9 +108,6 @@ export default {
     fullName() {
       return `${this.profile.first_name} ${this.profile.last_name}`
     },
-    lawFirm() {
-      return this.profile.law_firm
-    },
     legalFields() {
       return this.profile.legal_fields
     },

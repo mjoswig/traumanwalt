@@ -257,6 +257,20 @@ async function updateLegalFields(legalFields, userId) {
   }
 }
 
+// create review
+async function createReview(reviewData, userId) {
+  await db.query(`
+    INSERT INTO reviews(rating, title, description, author, user_id)
+    VALUES($1, $2, $3, $4, $5)
+  `, [
+    reviewData.rating,
+    reviewData.title,
+    reviewData.description,
+    reviewData.author,
+    userId
+  ])
+}
+
 // update review
 async function updateReview(reviewData) {
   await db.query(`
@@ -392,6 +406,7 @@ module.exports = {
   deleteLawFirm,
   updateLanguages,
   updateLegalFields,
+  createReview,
   updateReview,
   createLegalGuide,
   updateLegalGuide,

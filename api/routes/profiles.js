@@ -329,7 +329,32 @@ router.get('/:slug/reviews', async (req, res) => {
   })
 })
 
-// contact profile
+// review user's profile
+router.post('/:slug/review', async (req, res) => {
+  // validate security question answer to prevent bot attacks
+  if (req.body.sqa + req.body.sqb !== req.body.sqn) return res.status(200).send(true)
+
+  const userResults = await db.query('SELECT id, email, salutation, last_name FROM users WHERE slug = $1', [ req.params.slug ])
+
+  await user.createReview({
+    rating: req.body.rating,
+    title: req.body.title,
+    description: req.body.description,
+    author: req.body.author
+  }, userResults.rows[0].id)
+
+  await email.send({
+    from: '"Traumanwalt" <support@traumanwalt.com>',
+    replyTo: `"Traumanwalt" <support@traumanwalt.com>`,
+    to: userResults.rows[0].email,
+    subject: 'Neue Bewertung',
+    html: `Hallo ${userResults.rows[0].salutation} ${userResults.rows[0].last_name},<br /><br />Sie haben eine neue Bewertung auf Traumanwalt erhalten. Bitte loggen Sie sich bei traumanwalt.com ein, um die Bewertung öffentlich zu kommentieren.<br /><br />Bewertung: ${req.body.rating} Sterne<br />Überschrift: ${req.body.title}<br />Beschreibung: ${req.body.description}<br />Name: ${req.body.author}<br /><br />Mit freundlichen Grüßen,<br /><br />Ihr Traumanwalt Team`
+  })
+
+  return res.status(200).send(true)
+})
+
+// contact user's profile
 router.post('/:slug/contact', async (req, res) => {
   // validate security question answer to prevent bot attacks
   if (req.body.sqa + req.body.sqb !== req.body.sqn) return res.status(200).send(true)
@@ -352,7 +377,7 @@ router.post('/:slug/contact', async (req, res) => {
     replyTo: `"Traumanwalt" <support@traumanwalt.com>`,
     to: userResults.rows[0].email,
     subject: 'Neue Anfrage',
-    html: `Hallo ${userResults.rows[0].salutation} ${userResults.rows[0].last_name},<br /><br />Sie haben eine neue Anfrage auf Traumanwalt erhalten. Bitte loggen Sie sich auf der Website ein und antworten Sie anschließend über das interne Nachrichtensystem.<br /><br />Name: ${req.body.salutation} ${req.body.first_name} ${req.body.last_name}<br />E-Mail: ${req.body.email}<br />Telefonnummer: ${req.body.phone}<br />Nachricht: ${req.body.message}<br /><br />Mit freundlichen Grüßen,<br /><br />Ihr Traumanwalt Team`
+    html: `Hallo ${userResults.rows[0].salutation} ${userResults.rows[0].last_name},<br /><br />Sie haben eine neue Anfrage auf Traumanwalt erhalten. Bitte loggen Sie sich bei traumanwalt.com ein und antworten Sie anschließend über das interne Nachrichtensystem.<br /><br />Name: ${req.body.salutation} ${req.body.first_name} ${req.body.last_name}<br />E-Mail: ${req.body.email}<br />Telefonnummer: ${req.body.phone}<br />Nachricht: ${req.body.message}<br /><br />Mit freundlichen Grüßen,<br /><br />Ihr Traumanwalt Team`
   })
 
   return res.status(200).send(true)

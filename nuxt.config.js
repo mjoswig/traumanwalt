@@ -143,7 +143,7 @@ export default {
           let routes = []
 
           const { data: legalFields } = await axios.get('https://traumanwalt.com/api/legal-fields')
-          const { data: cities } = await axios.get('https://traumanwalt.com/api/cities')
+          const { data: cities } = await axios.get('https://traumanwalt.com/api/cities/popular')
           legalFields.forEach(lf => {
             cities.forEach(c => {
               routes.push(`/anwaelte/${lf.slug}-${c.slug}`)
@@ -152,8 +152,7 @@ export default {
 
           return routes
         },
-        exclude: ['/**'],
-        gzip: true
+        exclude: ['/**']
       },
       {
         path: '/sitemap-legal-guides.xml',

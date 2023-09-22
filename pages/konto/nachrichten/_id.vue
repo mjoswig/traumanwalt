@@ -3,7 +3,7 @@
     <h1 class="mb-6">{{ conversationSubject }}</h1>
     <div class="border-t border-l border-r flex space-x-4 px-4 py-2">
       <div>
-        <div class="bg-cover border h-10 w-10 md:h-12 md:w-12 rounded-full" :style="`background-image: url(${require('@/assets/images/photo-default.jpeg')});`"></div>
+        <div class="bg-cover border h-10 w-10 md:h-12 md:w-12 rounded-full" :style="`background-image: url(${!isClient ? require('@/assets/images/photo-default.jpeg') : (conversationMessages[0].to_photo_url || require('@/assets/images/photo-default.jpeg'))});`"></div>
       </div>
       <div>
         <b class="block">{{ conversationRecipientFullName }}</b>
@@ -27,7 +27,7 @@
     <div ref="chatBox" class="border p-4 flex flex-col space-y-4 overflow-y-scroll mb-3" style="height: 500px;">
       <div class="flex w-full" :class="{ 'justify-start': !message.sent, 'justify-end': message.sent }" v-for="(message, index) in conversationMessages" :key="index">
         <div class="w-full" style="max-width: 600px;">
-          <span class="block text-xs mb-1">{{ message.sent ? `Sie schrieben ` : `${message.from_first_name} ${message.from_last_name} schrieb ` }} am {{ $moment(message.created_at).format('DD.MM.YYYY, HH:mm') }}</span>
+          <span class="block text-xs mb-1">{{ message.sent ? `${message.to_first_name} ${message.to_last_name} schrieb ` : `${message.from_first_name} ${message.from_last_name} schrieb ` }} am {{ $moment(message.created_at).format('DD.MM.YYYY, HH:mm') }}</span>
           <div class="px-4 py-2 rounded-2xl text-sm lg:text-base" :class="{ 'bg-blue-400 text-white': message.sent, 'bg-gray-100': !message.sent }" v-html="message.text">
           </div>
         </div>
@@ -80,12 +80,15 @@ export default {
       return this.conversationMessages[0].subject
     },
     conversationRecipientFullName() {
+      if (this.$store.state.userData && this.$store.state.userData.client) return `${this.conversationMessages[0].to_first_name} ${this.conversationMessages[0].to_last_name}`
       return `${this.conversationMessages[0].from_first_name} ${this.conversationMessages[0].from_last_name}`
     },
     conversationRecipientEmail() {
+      if (this.$store.state.userData && this.$store.state.userData.client) return this.conversationMessages[0].to_email
       return this.conversationMessages[0].from_email
     },
     conversationRecipientPhone() {
+      if (this.$store.state.userData && this.$store.state.userData.client) return this.conversationMessages[0].to_landline_phone || this.conversationMessages[0].to_mobile_phone
       return this.conversationMessages[0].from_phone
     }
   },
@@ -174,8 +177,10 @@ export default {
     //scroll to end of chat box
     this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight
 
-    // mark conversation as read
-    await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/conversations/${this.conversationId}/read`)
+    if (!this.$store.state.userData.client) {
+      // mark conversation as read
+      await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/conversations/${this.conversationId}/read`)
+    }
   }
 }
 </script>

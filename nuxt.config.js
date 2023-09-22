@@ -8,7 +8,7 @@ export default {
   head: {
     title: 'Traumanwalt - Anwalt suchen und finden',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'de'
     },
     meta: [
       { charset: 'utf-8' },
@@ -68,7 +68,7 @@ export default {
             initialize: {
               onAuthStateChangedAction: 'onAuthStateChanged',
             },
-            ssr: true
+            ssr: false
           },
           storage: true
         }

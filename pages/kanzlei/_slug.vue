@@ -131,7 +131,7 @@ export default {
   },
   async asyncData({ app, params, redirect }) {
     const lawFirm = await app.$axios.$get(`/api/law-firms/${params.slug}`)
-    if (!lawFirm) redirect('/kanzleien')
+    if (!lawFirm) redirect('/')
     return {
       lawFirm,
       showPhoneNumber: false

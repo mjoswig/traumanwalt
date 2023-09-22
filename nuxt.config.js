@@ -117,7 +117,7 @@ export default {
       routes.push(...cities.map(c => `/anwaelte/${c.slug}`))
 
       const { data: lawFirms } = await axios.get('https://traumanwalt.com/api/law-firms')
-      routes.push(...lawFirms.map(f => `/kanzleien/${f.slug}`))
+      routes.push(...lawFirms.map(f => `/kanzlei/${f.slug}`))
 
       const { data: profiles } = await axios.get('https://traumanwalt.com/api/profiles')
       routes.push(...profiles.map(p => `/${p.slug}`))

@@ -152,7 +152,8 @@ export default {
 
           return routes
         },
-        exclude: ['/**']
+        exclude: ['/**'],
+        gzip: true
       },
       {
         path: '/sitemap-legal-guides.xml',

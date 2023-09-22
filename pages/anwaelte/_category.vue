@@ -1,9 +1,10 @@
 <template>
   <div>
     <div class="md:text-center">
-      <h1 v-if="category.type === 'legal_fields'">Die besten Anwälte für {{ category.value.name }}</h1>
-      <h1 v-if="category.type === 'cities'">Die besten Anwälte in {{ category.value.name }}</h1>
-      <div v-if="!category.profiles.length" class="text-lg mt-4">
+      <h1 v-if="categories.length === 2">Die besten Anwälte für {{ categories[0].name }} in {{ categories[1].name }}</h1>
+      <h1 v-if="categories.length === 1 && categories[0].type === 'legal_field'">Die besten Anwälte für {{ categories[0].name }}</h1>
+      <h1 v-if="categories.length === 1 && categories[0].type === 'city'">Die besten Anwälte in {{ categories[0].name }}</h1>
+      <div v-if="!profiles.length" class="text-lg mt-4">
         <p class="mb-2">Wir haben keine Anwälte in dieser Kategorie gefunden.</p>
         <p class="mb-6"><nuxt-link to="/anwaelte">Zurück zum Anwaltsverzeichnis</nuxt-link></p>
         <div class="hidden md:flex md:justify-center mb-6">
@@ -13,7 +14,7 @@
         <p>Stärken Sie Ihre Sichtbarkeit bei Google und <nuxt-link to="/mitgliedschaft">werden Sie Traumanwalt</nuxt-link>.</p>
       </div>
     </div>
-    <ProfileSearch v-if="category.profiles.length" :profiles="category.profiles" :page="page" :page-length="pageLength" @loadMore="loadMore" class="mt-4 md:mt-12" />
+    <ProfileSearch v-if="profiles.length" :profiles="profiles" :page="page" :page-length="pageLength" @loadMore="loadMore" class="mt-4 md:mt-12" />
   </div>
 </template>
 
@@ -22,61 +23,38 @@ export default {
   name: 'AnwaelteCategoryPage',
   head() {
     return {
-      title: `Anwälte ${this.category.value.name} - Traumanwalt`
+      title: `${this.seoTitle} - Traumanwalt`
     }
   },
   async asyncData({ app, params, redirect }) {
-    let category = null
-
     const page = 1
     const pageLength = 10
-    const legalFields = await app.$axios.$get(`/api/legal-fields/${params.category}`)
+    const profiles = await app.$axios.$get(`/api/profiles/category/${params.category}`)
 
-    if (legalFields.length) {
-      const profiles = await app.$axios.$get(`/api/legal-fields/${params.category}/profiles?page=${page}&page_length=${pageLength}`)
-      category = {
-        slug: params.category,
-        value: legalFields[0],
-        type: 'legal_fields',
-        profiles
-      }
-    }
-
-    if (!legalFields.length) {
-      const cities = await app.$axios.$get(`/api/cities/${params.category}`)
-      if (cities.length) {
-        const profiles = await app.$axios.$get(`/api/cities/${params.category}/profiles?page=${page}&page_length=${pageLength}`)
-        category = {
-          slug: params.category,
-          value: cities[0],
-          type: 'cities',
-          profiles
-        }
-      }
-    }
-
-    if (!category) redirect('/anwaelte')
+    if (!profiles.categories) redirect('/anwaelte')
 
     return {
       page,
       pageLength,
-      category
+      profiles: profiles.profiles,
+      categories: profiles.categories,
+      slug: params.category
+    }
+  },
+  computed: {
+    seoTitle() {
+      if (this.categories.length === 1 && this.categories[0].type === 'legal_field') return `Anwälte für ${this.categories[0].name}`
+      if (this.categories.length === 1 && this.categories[0].type === 'city') return `Anwälte in ${this.categories[0].name}`
+      return `Anwälte für ${this.categories[0].name} in ${this.categories[1].name}`
     }
   },
   methods: {
     async loadMore() {
-      let profiles = []
-
-      if (this.category.type === 'legal_fields') {
-        profiles = await this.$axios.$get(`/api/legal-fields/${this.category.slug}/profiles?page=${++this.page}&page_length=${this.pageLength}`)
-      } else if (this.category.type === 'cities') {
-        profiles = await this.$axios.$get(`/api/cities/${this.category.slug}/profiles?page=${++this.page}&page_length=${this.pageLength}`)
-      }
-
-      this.category.profiles.push(...profiles)
+      const profiles = await this.$axios.$get(`/api/profiles/category/${this.slug}/?page=${++this.page}&page_length=${this.pageLength}`)
+      this.profiles.push(...profiles.profiles)
 
       // filter out duplicates
-      this.category.profiles = this.category.profiles.filter((v, i, a) => a.findIndex(v2 => (v2.slug === v.slug)) === i)
+      this.profiles = this.profiles.filter((v, i, a) => a.findIndex(v2 => (v2.slug === v.slug)) === i)
     }
   }
 }

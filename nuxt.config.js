@@ -103,30 +103,93 @@ export default {
 
   // Sitemap Configuration
   sitemap: {
+    path: '/sitemap.xml',
     hostname: 'https://traumanwalt.com',
-    routes: async () => {
-      let routes = []
+    sitemaps: [
+      {
+        path: '/sitemap-main.xml',
+        exclude: [
+          '/konto',
+          '/konto/**'
+        ]
+      },
+      {
+        path: '/sitemap-legal-fields.xml',
+        routes: async () => {
+          let routes = []
 
-      const { data: legalFields } = await axios.get('https://traumanwalt.com/api/legal-fields')
-      routes.push(...legalFields.map(lf => `/anwaelte/${lf.slug}`))
+          const { data: legalFields } = await axios.get('https://traumanwalt.com/api/legal-fields')
+          routes.push(...legalFields.map(lf => `/anwaelte/${lf.slug}`))
 
-      const { data: legalGuides } = await axios.get('https://traumanwalt.com/api/legal-guides')
-      routes.push(...legalGuides.map(lg => `/rechtstipps/${lg.slug}`))
+          return routes
+        },
+        exclude: ['/**']
+      },
+      {
+        path: '/sitemap-cities.xml',
+        routes: async () => {
+          let routes = []
 
-      const { data: cities } = await axios.get('https://traumanwalt.com/api/cities')
-      routes.push(...cities.map(c => `/anwaelte/${c.slug}`))
+          const { data: cities } = await axios.get('https://traumanwalt.com/api/cities')
+          routes.push(...cities.map(c => `/anwaelte/${c.slug}`))
 
-      const { data: lawFirms } = await axios.get('https://traumanwalt.com/api/law-firms')
-      routes.push(...lawFirms.map(f => `/kanzlei/${f.slug}`))
+          return routes
+        },
+        exclude: ['/**']
+      },
+      {
+        path: '/sitemap-legal-field-cities.xml',
+        routes: async () => {
+          let routes = []
 
-      const { data: profiles } = await axios.get('https://traumanwalt.com/api/profiles')
-      routes.push(...profiles.map(p => `/${p.slug}`))
+          const { data: legalFields } = await axios.get('https://traumanwalt.com/api/legal-fields')
+          const { data: cities } = await axios.get('https://traumanwalt.com/api/cities')
+          legalFields.forEach(lf => {
+            cities.forEach(c => {
+              routes.push(`/anwaelte/${lf.slug}-${c.slug}`)
+            })
+          })
 
-      return routes
-    },
-    exclude: [
-      '/konto',
-      '/konto/**'
+          return routes
+        },
+        exclude: ['/**']
+      },
+      {
+        path: '/sitemap-legal-guides.xml',
+        routes: async () => {
+          let routes = []
+
+          const { data: legalGuides } = await axios.get('https://traumanwalt.com/api/legal-guides')
+          routes.push(...legalGuides.map(lg => `/rechtstipps/${lg.slug}`))
+
+          return routes
+        },
+        exclude: ['/**']
+      },
+      {
+        path: '/sitemap-law-firms.xml',
+        routes: async () => {
+          let routes = []
+
+          const { data: lawFirms } = await axios.get('https://traumanwalt.com/api/law-firms')
+          routes.push(...lawFirms.map(f => `/kanzlei/${f.slug}`))
+
+          return routes
+        },
+        exclude: ['/**']
+      },
+      {
+        path: '/sitemap-attorneys.xml',
+        routes: async () => {
+          let routes = []
+
+          const { data: profiles } = await axios.get('https://traumanwalt.com/api/profiles')
+          routes.push(...profiles.map(p => `/${p.slug}`))
+
+          return routes
+        },
+        exclude: ['/**']
+      }
     ]
   },
 

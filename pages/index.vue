@@ -92,14 +92,12 @@ export default {
       })
     },
     showSearchResults() {
-      if (this.searchedCity) {
-        let url = `/anwaelte/${this.searchedCity.slug}`
-        if (this.searchedLegalFieldSlug) {
-          url += `?legal_field=${this.searchedLegalFieldSlug}`
-        }
-        this.$router.push(url)
+      if (this.searchedLegalFieldSlug && this.searchedCity) {
+        this.$router.push(`/anwaelte/${this.searchedLegalFieldSlug}-${this.searchedCity.slug}`)
       } else if (this.searchedLegalFieldSlug) {
         this.$router.push(`/anwaelte/${this.searchedLegalFieldSlug}`)
+      } else if (this.searchedCity) {
+        this.$router.push(`/anwaelte/${this.searchedCity.slug}`)
       } else {
         this.$router.push('/anwaelte')
       }

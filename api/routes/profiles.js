@@ -35,6 +35,89 @@ router.get('/', async (req, res) => {
   return res.status(200).send(profiles.rows)
 })
 
+// get profiles by category slug
+router.get('/category/:slug', async (req, res) => {
+  const queryArgs = []
+  let limitQuery = false
+  if (req.query.page && req.query.page_length) {
+    limitQuery = true
+    queryArgs.push(req.query.page_length)
+    queryArgs.push((req.query.page - 1) * req.query.page_length)
+  }
+
+  let queryCondition = ''
+  const categories = []
+
+  const legalField = await db.query(`
+    SELECT id, name, slug
+    FROM legal_fields
+    WHERE $1 LIKE '%' || slug || '%'
+  `, [ req.params.slug.toLowerCase() ])
+
+  const city = await db.query(`
+    SELECT id, name, slug
+    FROM cities
+    WHERE $1 LIKE '%' || slug || '%'
+  `, [ req.params.slug.toLowerCase() ])
+
+  if (legalField.rows.length && city.rows.length) {
+    queryCondition = `legal_fields.id = $${queryArgs.length + 1} AND users.city = $${queryArgs.length + 2}`
+    queryArgs.push(legalField.rows[0].id)
+    queryArgs.push(city.rows[0].name)
+    categories.push({
+      name: legalField.rows[0].name,
+      type: 'legal_field'
+    })
+    categories.push({
+      name: city.rows[0].name,
+      type: 'city'
+    })
+  } else if (legalField.rows.length && !city.rows.length) {
+    queryCondition = `legal_fields.id = $${queryArgs.length + 1}`
+    queryArgs.push(legalField.rows[0].id)
+    categories.push({
+      name: legalField.rows[0].name,
+      type: 'legal_field'
+    })
+  } else if (!legalField.rows.length && city.rows.length) {
+    queryCondition = `users.city = $${queryArgs.length + 1}`
+    queryArgs.push(city.rows[0].name)
+    categories.push({
+      name: city.rows[0].name,
+      type: 'city'
+    })
+  }
+
+  const profiles = await db.query(`
+    SELECT
+      count(*) OVER() AS total_count,
+      users.slug AS slug,
+      salutation, job_title, academic_title, first_name, last_name, suffix_title,
+      photo_url, address_line, postal_code, city,
+      jsonb_agg(
+        jsonb_build_object(
+          'id', legal_fields.id,
+          'name', legal_fields.name,
+          'slug', legal_fields.slug,
+          'specialized', user_legal_fields.specialized
+        )
+        ORDER BY user_legal_fields.specialized DESC, legal_fields.slug ASC
+      ) as legal_fields
+    FROM users
+    LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
+    LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
+    ${queryCondition ? `WHERE ${queryCondition}` : ''}
+    GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at
+    ORDER BY users.created_at DESC
+    ${limitQuery ? 'LIMIT $1 OFFSET $2' : ''}
+  `, queryArgs)
+
+  return res.status(200).send({
+    profiles: profiles.rows,
+    categories
+  })
+})
+
 // get profile
 router.get('/:slug', async (req, res) => {
   const languages = await db.query(`

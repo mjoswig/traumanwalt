@@ -135,7 +135,7 @@ export default {
         email: this.form.email,
         phone: this.form.phone,
         message: this.form.message,
-        recipient_id: this.$store.state.userData && this.$store.state.userData.client ? this.$store.state.userData.id : null,
+        from_id: this.$store.state.userData && this.$store.state.userData.client ? this.$store.state.userData.id : null,
         sqa: this.securityQuestionA,
         sqb: this.securityQuestionB,
         sqn: parseInt(this.form.security_question_answer)

@@ -338,10 +338,10 @@ async function deleteLegalGuide(legalGuideId, userId) {
 // create conversation for user
 async function createConversation(conversation, userId) {
   const conversationResults = await db.query(`
-    INSERT INTO conversations(subject, from_email, from_phone, from_salutation, from_first_name, from_last_name, recipient_id, user_id)
+    INSERT INTO conversations(subject, from_email, from_phone, from_salutation, from_first_name, from_last_name, from_id, to_id)
     VALUES($1, $2, $3, $4, $5, $6, $7, $8)
     RETURNING id
-  `, [ conversation.subject, conversation.from_email, conversation.from_phone, conversation.from_salutation, conversation.from_first_name, conversation.from_last_name, conversation.recipient_id, userId ])
+  `, [ conversation.subject, conversation.from_email, conversation.from_phone, conversation.from_salutation, conversation.from_first_name, conversation.from_last_name, conversation.from_id, userId ])
 
   await db.query(`
     INSERT INTO conversation_messages(text, sent, conversation_id)

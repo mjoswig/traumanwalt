@@ -369,7 +369,7 @@ router.post('/:slug/contact', async (req, res) => {
     from_salutation: req.body.salutation,
     from_first_name: req.body.first_name,
     from_last_name: req.body.last_name,
-    recipient_id: req.body.recipient_id
+    from_id: req.body.from_id
   }, userResults.rows[0].id)
 
   await email.send({

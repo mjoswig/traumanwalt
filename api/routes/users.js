@@ -308,7 +308,7 @@ router.get('/:firebase_uid/stats', async (req, res) => {
   const conversationResults = await db.query(`
     SELECT count(*) OVER() AS count
     FROM conversations
-    LEFT JOIN users ON users.id = conversations.user_id
+    LEFT JOIN users ON users.id = conversations.to_id
     WHERE users.firebase_uid = $1
   `, [ req.params.firebase_uid ])
 
@@ -361,8 +361,8 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
       MAX(conversation_messages.created_at) AS last_message_created_at
     FROM conversations
     LEFT JOIN conversation_messages ON conversation_messages.conversation_id = conversations.id
-    LEFT JOIN users ON users.id = conversations.user_id
-    WHERE ${user.client ? 'conversations.recipient_id = $1' : 'users.firebase_uid = $1'}
+    LEFT JOIN users ON users.id = conversations.to_id
+    WHERE ${user.client ? 'conversations.from_id = $1' : 'users.firebase_uid = $1'}
     GROUP BY conversations.id, conversations.from_first_name, conversations.from_last_name, users.first_name, users.last_name, conversations.unread_messages, conversations.created_at
     ORDER BY conversations.unread_messages DESC, conversations.created_at DESC
     LIMIT $2 OFFSET $3
@@ -375,7 +375,7 @@ router.get('/:firebase_uid/conversations/unread', async (req, res) => {
   const conversationResults = await db.query(`
     SELECT count(*) OVER() AS total_count
     FROM conversations
-    LEFT JOIN users ON users.id = conversations.user_id
+    LEFT JOIN users ON users.id = conversations.to_id
     WHERE users.firebase_uid = $1 AND conversations.unread_messages IS TRUE
   `, [ req.params.firebase_uid ])
   return res.status(200).send(conversationResults.rows[0])
@@ -406,8 +406,8 @@ router.get('/:firebase_uid/conversations/:id', async (req, res) => {
       conversation_messages.created_at AS created_at
     FROM conversation_messages
     LEFT JOIN conversations ON conversations.id = conversation_messages.conversation_id
-    LEFT JOIN users ON users.id = conversations.user_id
-    WHERE ${user.client ? 'conversations.recipient_id = $1' : 'users.firebase_uid = $1'} AND conversations.id = $2
+    LEFT JOIN users ON users.id = conversations.to_id
+    WHERE ${user.client ? 'conversations.from_id = $1' : 'users.firebase_uid = $1'} AND conversations.id = $2
     ORDER BY conversation_messages.created_at ASC
   `, [ user.client ? user.id : req.params.firebase_uid, req.params.id ])
 
@@ -419,7 +419,7 @@ router.post('/:firebase_uid/conversations/:id/read', async (req, res) => {
   const conversationResults = await db.query(`
     SELECT conversations.id AS id
     FROM conversations
-    LEFT JOIN users ON users.id = conversations.user_id
+    LEFT JOIN users ON users.id = conversations.to_id
     WHERE users.firebase_uid = $1
   `, [ req.params.firebase_uid ])
   await user.markConversationAsRead(conversationResults.rows[0].id)
@@ -436,7 +436,7 @@ router.post('/:firebase_uid/conversations/:id/reply', async (req, res) => {
       users.first_name AS user_first_name,
       users.last_name AS user_last_name
     FROM conversations
-    LEFT JOIN users ON users.id = conversations.user_id
+    LEFT JOIN users ON users.id = conversations.to_id
     WHERE users.firebase_uid = $1
   `, [ req.params.firebase_uid ])
 

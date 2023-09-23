@@ -41,7 +41,7 @@ router.post('/webhook', upload.none(), async (req, res) => {
         conversations.from_first_name AS from_first_name,
         conversations.from_last_name AS from_last_name
       FROM users
-      LEFT JOIN conversations ON conversations.user_id = users.id
+      LEFT JOIN conversations ON conversations.to_id = users.id
       WHERE conversations.id = $1
     `, [ conversationId ])
 

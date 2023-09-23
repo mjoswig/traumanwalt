@@ -9,8 +9,8 @@
             <star-rating :show-rating="false" :star-size="30" v-model="form.rating" />
           </fieldset>
           <fieldset>
-            <label class="font-bold block">Überschrift Ihrer Bewertung</label>
-            <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre Bewertung in Kurzfassung" v-model="form.title" />
+            <label class="font-bold block">Überschrift Ihrer Bewertung (optional)</label>
+            <input class="border px-2 py-1 rounded-md w-full" placeholder="Ihre Bewertung mit wenigen Worten" v-model="form.title" />
           </fieldset>
           <fieldset>
             <label class="font-bold block">Beschreiben Sie Ihre Erfahrung</label>
@@ -95,7 +95,6 @@ export default {
     canSend() {
       return (
         this.form.rating !== 0
-        && this.form.title !== ''
         && this.form.description !== ''
         && parseInt(this.form.security_question_answer) === this.securityQuestionResult
       )

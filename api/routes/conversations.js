@@ -29,7 +29,7 @@ router.post('/webhook', upload.none(), async (req, res) => {
 
     await db.query(`
       UPDATE conversations
-      SET unread_messages = TRUE
+      SET to_unread_messages = TRUE
       WHERE id = $1
     `, [ conversationId ])
 

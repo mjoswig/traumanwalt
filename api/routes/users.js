@@ -356,7 +356,8 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
       conversations.from_last_name AS from_last_name,
       users.first_name AS to_first_name,
       users.last_name AS to_last_name,
-      conversations.unread_messages AS unread_messages,
+      conversations.from_unread_messages AS from_unread_messages,
+      conversations.to_unread_messages AS to_unread_messages,
       conversations.created_at AS created_at,
       MAX(conversation_messages.created_at) AS last_message_created_at
     FROM conversations
@@ -364,21 +365,10 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
     LEFT JOIN users ON users.id = conversations.to_id
     WHERE ${user.client ? 'conversations.from_id = $1' : 'users.firebase_uid = $1'}
     GROUP BY conversations.id, conversations.from_first_name, conversations.from_last_name, users.first_name, users.last_name, conversations.unread_messages, conversations.created_at
-    ORDER BY conversations.unread_messages DESC, conversations.created_at DESC
+    ORDER BY ${user.client ? 'conversations.from_unread_messages DESC' : 'conversations.to_unread_messages DESC'}, conversations.created_at DESC
     LIMIT $2 OFFSET $3
   `, [ user.client ? user.id : req.params.firebase_uid, req.query.page_length, (req.query.page - 1) * req.query.page_length ])
   return res.status(200).send(conversations.rows)
-})
-
-// get number of unread conversations
-router.get('/:firebase_uid/conversations/unread', async (req, res) => {
-  const conversationResults = await db.query(`
-    SELECT count(*) OVER() AS total_count
-    FROM conversations
-    LEFT JOIN users ON users.id = conversations.to_id
-    WHERE users.firebase_uid = $1 AND conversations.unread_messages IS TRUE
-  `, [ req.params.firebase_uid ])
-  return res.status(200).send(conversationResults.rows[0])
 })
 
 // get conversation messages
@@ -416,13 +406,19 @@ router.get('/:firebase_uid/conversations/:id', async (req, res) => {
 
 // mark conversation as read
 router.post('/:firebase_uid/conversations/:id/read', async (req, res) => {
+  const userResults = await db.query('SELECT client FROM users WHERE firebase_uid = $1', [ req.params.firebase_uid ])
+
   const conversationResults = await db.query(`
-    SELECT conversations.id AS id
+    SELECT
+      conversations.id AS id,
+      users.client AS user_client
     FROM conversations
-    LEFT JOIN users ON users.id = conversations.to_id
+    LEFT JOIN users ON users.id = ${userResults.rows[0].client ? 'conversations.from_id' : 'conversations.to_id'}
     WHERE users.firebase_uid = $1
   `, [ req.params.firebase_uid ])
-  await user.markConversationAsRead(conversationResults.rows[0].id)
+
+  await user.markConversationAsRead(conversationResults.rows[0].id, conversationResults.rows[0].user_client)
+
   return res.status(200).send(true)
 })
 

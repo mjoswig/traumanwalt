@@ -352,10 +352,10 @@ async function createConversation(conversation, userId) {
 }
 
 // mark conversation as read
-async function markConversationAsRead(conversationId) {
+async function markConversationAsRead(conversationId, isClient) {
   await db.query(`
     UPDATE conversations
-    SET unread_messages = FALSE
+    SET ${isClient ? 'from_unread_messages' : 'to_unread_messages'} = FALSE
     WHERE id = $1
   `, [ conversationId ])
 }

@@ -21,10 +21,13 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     // update user data
     store.commit('SET_USER_DATA', userData)
 
-    // redirect user to account page if he is logged in and wants to access certain pages
-    if (onLoginPage || userData.client && route.path.startsWith('/konto/anwalt') || !userData.client && route.path.startsWith('/konto/mandant') || (emailVerified && (route.path === '/konto' || route.path === '/konto/bestaetigen'))) {
-      if (userData.client) return redirect('/konto/mandant')
-      return redirect('/konto/anwalt')
+    // synchronize firebase email with database email
+    if (emailVerified && userData.email !== store.state.authUser.email) {
+      await app.$axios.$post('/api/users/update', {
+        ...userData,
+        email: store.state.authUser.email,
+        contact_email: store.state.authUser.email
+      })
     }
 
     // redirect user to settings page when trial has expired
@@ -40,13 +43,10 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
       }
     }
 
-    // synchronize firebase email with database email
-    if (emailVerified && userData.email !== store.state.authUser.email) {
-      await app.$axios.$post('/api/users/update', {
-        ...userData,
-        email: store.state.authUser.email,
-        contact_email: store.state.authUser.email
-      })
+    // redirect user to account page if he is logged in and wants to access certain pages
+    if (onLoginPage || userData.client && route.path.startsWith('/konto/anwalt') || !userData.client && route.path.startsWith('/konto/mandant') || (emailVerified && (route.path === '/konto' || route.path === '/konto/bestaetigen'))) {
+      if (userData.client) return redirect('/konto/mandant')
+      return redirect('/konto/anwalt')
     }
   }
 }

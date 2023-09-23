@@ -29,6 +29,7 @@ router.get('/', async (req, res) => {
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
+    WHERE users.client IS FALSE
     GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at
     ORDER BY users.created_at DESC
     ${queryArgs.length === 2 ? 'LIMIT $1 OFFSET $2' : ''}
@@ -108,7 +109,7 @@ router.get('/category/:slug', async (req, res) => {
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
-    ${queryCondition ? `WHERE ${queryCondition}` : ''}
+    WHERE users.client IS FALSE AND ${queryCondition ? queryCondition : ''}
     GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at
     ORDER BY users.created_at DESC
     ${limitQuery ? 'LIMIT $1 OFFSET $2' : ''}

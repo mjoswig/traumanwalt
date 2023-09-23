@@ -364,7 +364,7 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
     LEFT JOIN conversation_messages ON conversation_messages.conversation_id = conversations.id
     LEFT JOIN users ON users.id = conversations.to_id
     WHERE ${user.client ? 'conversations.from_id = $1' : 'users.firebase_uid = $1'}
-    GROUP BY conversations.id, conversations.from_first_name, conversations.from_last_name, users.first_name, users.last_name, conversations.unread_messages, conversations.created_at
+    GROUP BY conversations.id, conversations.from_first_name, conversations.from_last_name, users.first_name, users.last_name, conversations.from_unread_messages, conversations.to_unread_messages, conversations.created_at
     ORDER BY ${user.client ? 'conversations.from_unread_messages DESC' : 'conversations.to_unread_messages DESC'}, conversations.created_at DESC
     LIMIT $2 OFFSET $3
   `, [ user.client ? user.id : req.params.firebase_uid, req.query.page_length, (req.query.page - 1) * req.query.page_length ])

@@ -177,10 +177,8 @@ export default {
     //scroll to end of chat box
     this.$refs.chatBox.scrollTop = this.$refs.chatBox.scrollHeight
 
-    if (!this.$store.state.userData.client) {
-      // mark conversation as read
-      await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/conversations/${this.conversationId}/read`)
-    }
+    // mark conversation as read
+    await this.$axios.$post(`/api/users/${this.$store.state.userData.firebase_uid}/conversations/${this.conversationId}/read`)
   }
 }
 </script>

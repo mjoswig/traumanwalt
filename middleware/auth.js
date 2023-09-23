@@ -10,6 +10,11 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
     // check if email is verified
     const emailVerified = store.state.authUser.emailVerified
 
+    // redirect user to email confirmation page if he tries to access an account page with an unconfirmed email
+    if (!emailVerified && !onVisitorPage && route.path !== '/konto/logout' && route.path !== '/konto/bestaetigen') {
+      return redirect('/konto/bestaetigen')
+    }
+
     // fetch account data related to the user
     let userData = await app.$axios.$get(`/api/users/${store.state.authUser.uid}`)
 
@@ -22,13 +27,8 @@ const authMiddleware = async ({ app, redirect, route, store }) => {
       return redirect('/konto/anwalt')
     }
 
-    // redirect user to email confirmation page if he tries to access an account page with an unconfirmed email
-    if (!emailVerified && !onVisitorPage && route.path !== '/konto/logout' && route.path !== '/konto/bestaetigen') {
-      return redirect('/konto/bestaetigen')
-    }
-
     // redirect user to settings page when trial has expired
-    if (!userData.subscribed) {
+    if (emailVerified && !userData.subscribed) {
       if (userData.trial_expires_at) {
         const trialExpirationDate = new Date(userData.trial_expires_at)
         const trialDaysRemaining = Math.ceil(Math.round(trialExpirationDate - new Date()) / (24 * 60 * 60 * 1000))

@@ -89,7 +89,7 @@ app.get('/api/legal-guides', async (req, res) => {
 
   const result = await db.query(`
     SELECT
-      count(*) OVER() AS total_count,
+      COUNT(*) OVER() AS total_count,
       legal_guides.title AS title,
       legal_guides.slug AS slug,
       legal_guides.thumbnail_url AS thumbnail_url,

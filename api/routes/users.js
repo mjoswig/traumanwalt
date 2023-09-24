@@ -183,7 +183,7 @@ router.post('/:firebase_uid/law-firm/leave', async (req, res) => {
 router.get('/:firebase_uid/reviews', async (req, res) => {
   const reviews = await db.query(`
     SELECT
-      count(*) OVER() AS total_count,
+      COUNT(*) OVER() AS total_count,
       reviews.id AS id,
       reviews.author AS author,
       reviews.rating AS rating,
@@ -233,7 +233,7 @@ router.post('/:firebase_uid/reviews/update', async (req, res) => {
 router.get('/:firebase_uid/legal-guides', async (req, res) => {
   const legalGuides = await db.query(`
     SELECT
-      count(*) OVER() AS total_count,
+      COUNT(*) OVER() AS total_count,
       legal_guides.id AS id,
       legal_guides.title AS title,
       legal_guides.slug AS slug,
@@ -299,14 +299,14 @@ router.get('/:firebase_uid/stats', async (req, res) => {
   `, [ req.params.firebase_uid ])
 
   const reviewResults = await db.query(`
-    SELECT count(*) OVER() AS count
+    SELECT COUNT(*) OVER() AS count
     FROM reviews
     LEFT JOIN users ON users.id = reviews.user_id
     WHERE users.firebase_uid = $1
   `, [ req.params.firebase_uid ])
 
   const conversationResults = await db.query(`
-    SELECT count(*) OVER() AS count
+    SELECT COUNT(*) OVER() AS count
     FROM conversations
     LEFT JOIN users ON users.id = conversations.to_id
     WHERE users.firebase_uid = $1
@@ -349,7 +349,7 @@ router.get('/:firebase_uid/conversations', async (req, res) => {
 
   const conversations = await db.query(`
     SELECT
-      count(*) OVER() AS total_count,
+      COUNT(*) OVER() AS total_count,
       conversations.id AS id,
       conversations.subject AS subject,
       conversations.from_first_name AS from_first_name,

@@ -98,6 +98,9 @@ router.get('/category/:slug', async (req, res) => {
   const profiles = await db.query(`
     SELECT
       COUNT(*) OVER() AS total_count,
+      COALESCE(reviews.total_reviews, 0) AS total_reviews,
+      COALESCE(reviews.total_rating_sum, 0) AS total_rating_sum,
+      (total_rating_sum::decimal / reviews.total_reviews::decimal) AS average_rating,
       users.slug AS slug,
       salutation, job_title, academic_title, first_name, last_name, suffix_title,
       photo_url, address_line, postal_code, city,
@@ -113,8 +116,9 @@ router.get('/category/:slug', async (req, res) => {
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
+    LEFT JOIN (SELECT r.user_id, COUNT(1) AS total_reviews, SUM(r.rating) AS total_rating_sum FROM reviews r GROUP BY r.user_id) AS reviews ON reviews.user_id = users.id
     WHERE users.client IS FALSE AND ${queryCondition ? queryCondition : ''}
-    GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at
+    GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at, reviews.total_reviews, reviews.total_rating_sum
     ORDER BY users.created_at DESC
     ${limitQuery ? 'LIMIT $1 OFFSET $2' : ''}
   `, queryArgs)

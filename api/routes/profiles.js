@@ -70,13 +70,13 @@ router.get('/category/:slug', async (req, res) => {
   if (legalField.rows.length && city.rows.length) {
     queryCondition = `legal_fields.id = $${queryArgs.length + 1} AND users.city = $${queryArgs.length + 2}`
     queryArgs.push(legalField.rows[0].id)
-    queryArgs.push(city.rows[0].name)
+    queryArgs.push(city.rows[city.rows.length - 1].name)
     categories.push({
       name: legalField.rows[0].name,
       type: 'legal_field'
     })
     categories.push({
-      name: city.rows[0].name,
+      name: city.rows[city.rows.length - 1].name,
       type: 'city'
     })
   } else if (legalField.rows.length && !city.rows.length) {
@@ -88,9 +88,9 @@ router.get('/category/:slug', async (req, res) => {
     })
   } else if (!legalField.rows.length && city.rows.length) {
     queryCondition = `users.city = $${queryArgs.length + 1}`
-    queryArgs.push(city.rows[0].name)
+    queryArgs.push(city.rows[city.rows.length - 1].name)
     categories.push({
-      name: city.rows[0].name,
+      name: city.rows[city.rows.length - 1].name,
       type: 'city'
     })
   }

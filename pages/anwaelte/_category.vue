@@ -11,7 +11,7 @@
           <img class="h-24 w-auto" src="@/assets/images/icons/traumanwalt-icon-alt.png" />
         </div>
         <h2 class="text-xl xl:text-2xl mb-2">Sie sind Anwalt und möchten auf dieser Seite gelistet werden?</h2>
-        <p>Stärken Sie Ihre Sichtbarkeit bei Google und <nuxt-link to="/mitgliedschaft">werden Sie Traumanwalt</nuxt-link>.</p>
+        <p>Stärken Sie Ihre Sichtbarkeit bei Google und <nuxt-link class="font-bold" to="/mitgliedschaft">werden Sie Traumanwalt</nuxt-link>.</p>
       </div>
     </div>
     <ProfileSearch v-if="profiles.length" :profiles="profiles" :page="page" :page-length="pageLength" @loadMore="loadMore" class="mt-4 md:mt-12" />

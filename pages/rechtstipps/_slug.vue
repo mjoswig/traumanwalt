@@ -19,17 +19,6 @@
         </div>
       </article>
       <div class="hidden lg:block w-full lg:w-1/3">
-        <!-- div class="sticky top-4 border border-gray-300 p-4 rounded-md">
-          <h2 class="text-xl xl:text-2xl mb-2">Sie haben eine Rechtsfrage?</h2>
-          <p class="text-lg mb-3">So einfach geht's auf Traumanwalt:</p>
-          <ol class="flex flex-col space-y-2 list-decimal ml-5 mb-5">
-            <li>Kostenloses Konto erstellen</li>
-            <li>Frage stellen</li>
-            <li>Fixpreis bezahlen</li>
-            <li>Hilfe bekommen</li>
-          </ol>
-          <Btn class="w-full" @click="$router.push('/rechtsberatung')">Jetzt beraten werden</Btn>
-        </div !-->
         <div class="sticky top-4 border border-gray-300 p-4 rounded-md">
           <h2 class="text-xl xl:text-2xl mb-2">Nachricht an {{ salutation }}{{ salutation === 'Herr' ? 'n' : '' }} {{ lastName }}</h2>
           <form class="flex flex-col space-y-4" @submit.prevent>
@@ -53,7 +42,7 @@ export default {
   name: 'RechtstippsDetailsPage',
   head() {
     return {
-      title: 'Rechtstipps - Traumanwalt'
+      title: `${this.legalGuide.title} - Traumanwalt`
     }
   },
   async asyncData({ app, params, redirect }) {

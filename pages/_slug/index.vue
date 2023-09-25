@@ -95,7 +95,7 @@
         </section>
         <hr v-if="profile.about" />
         <section v-if="profile.about" class="flex flex-col space-y-4 md:space-y-6">
-          <h2>Über mich</h2>
+          <h2>Über {{ firstName }} {{ lastName }}</h2>
           <p v-if="!profile.about">{{ firstName }} {{ lastName }} hat noch nichts über sich geschrieben.</p>
           <div v-if="profile.about" v-html="profile.about"></div>
         </section>

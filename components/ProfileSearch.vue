@@ -60,10 +60,11 @@ export default {
     getFullName(profile) {
       let fullName = []
       if (profile.salutation === 'Frau') {
-        fullName.push('Rechtsanwältin')
+        fullName.push(profile.job_title || 'Rechtsanwältin')
       } else {
-        fullName.push('Rechtsanwalt')
+        fullName.push(profile.job_title || 'Rechtsanwalt')
       }
+      fullName.push(profile.academic_title)
       fullName.push(profile.first_name)
       fullName.push(profile.last_name)
       return fullName.join(' ')

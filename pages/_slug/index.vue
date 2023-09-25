@@ -5,7 +5,7 @@
       <div class="profile-photo z-10 bg-cover border border-white h-36 w-36 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${photoUrl});`"></div>
       <div class="z-10 text-center text-white">
         <span class="block uppercase text-lg xl:text-xl my-1">{{ jobTitle }}</span>
-        <h1>{{ firstName }} {{ lastName }}</h1>
+        <h1>{{ fullNameWithoutJobTitle }}</h1>
         <span v-if="lawFirm.name" class="block text-base xl:text-lg mt-2">{{ lawFirm.name }}</span>
       </div>
       <div v-if="profile.linkedin_url || profile.xing_url || profile.facebook_url || profile.twitter_url || profile.instagram_url || profile.youtube_url" class="z-10 flex justify-center space-x-4 py-2 md:py-0">
@@ -272,7 +272,11 @@ export default {
       return this.profile.salutation
     },
     jobTitle() {
-      return this.profile.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
+      if (!this.profile.job_title) return this.profile.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
+      return this.profile.job_title
+    },
+    academicTitle() {
+      return this.profile.academic_title
     },
     firstName() {
       return this.profile.first_name
@@ -281,7 +285,10 @@ export default {
       return this.profile.last_name
     },
     fullName() {
-      return `${this.jobTitle} ${this.firstName} ${this.lastName}`
+      return [this.jobTitle, this.academicTitle, this.firstName, this.lastName].join(' ')
+    },
+    fullNameWithoutJobTitle() {
+      return [this.academicTitle, this.firstName, this.lastName].join(' ')
     },
     photoUrl() {
       return this.profile.photo_url || require('@/assets/images/photo-default.jpeg')

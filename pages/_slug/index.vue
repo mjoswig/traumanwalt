@@ -106,9 +106,9 @@
             <h3 class="mb-4">Rechtsgebiete</h3>
             <p v-if="!legalFields.length">{{ firstName }} {{ lastName }} hat keine Rechtsgebiete angegeben.</p>
             <div v-if="legalFields.length" class="mb-2">
-              <span class="inline-block bg-gray-100 px-2 py-1 rounded-md w-fit mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in legalFields" :key="index">
+              <nuxt-link :to="`/anwaelte/${legalField.slug}`" class="tag-link inline-block bg-gray-100 px-2 py-1 rounded-md w-fit mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in legalFields" :key="index">
                 {{ getLegalFieldName(legalField, profile) }}
-              </span>
+              </nuxt-link>
             </div>
           </div>
           <div v-if="languages.length">
@@ -215,7 +215,7 @@
                   <div class="bg-cover h-20 w-20 rounded-full mb-2" :style="`background-image: url(${user.photo_url || require('@/assets/images/photo-default.jpeg')});`"></div>
                 </div>
                 <div>
-                  <span class="block text-gray-500 text-sm">{{ user.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt' }}</span>
+                  <span class="block text-gray-500 text-sm">{{ getProfileJobTitle(user) }}</span>
                   <nuxt-link :to="`/${user.slug}`" class="block font-bold">{{ user.first_name }} {{ user.last_name }}</nuxt-link>
                 </div>
               </div>
@@ -374,6 +374,10 @@ export default {
       }
       return legalField.name
     },
+    getProfileJobTitle(profile) {
+      if (!profile.job_title) return profile.salutation === 'Frau' ? 'Rechtsanwältin' : 'Rechtsanwalt'
+      return profile.job_title
+    },
     getExcerpt(content) {
       const words = content.split(' ')
       if (words.length <= 25) return content
@@ -392,6 +396,20 @@ export default {
 <style lang="postcss" scoped>
 .profile-photo {
   margin-top: 4px !important;
+}
+
+.tag-link {
+  @apply text-current;
+
+  &:hover {
+    @apply no-underline;
+  }
+
+  & h2 {
+    &:hover {
+      @apply underline;
+    }
+  }
 }
 
 .mobile-cta {

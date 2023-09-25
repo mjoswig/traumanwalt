@@ -149,6 +149,7 @@ router.get('/:slug', async (req, res) => {
     LEFT JOIN user_legal_fields ON user_legal_fields.legal_field_id = legal_fields.id
     LEFT JOIN users ON users.id = user_legal_fields.user_id
     WHERE users.slug = $1
+    ORDER BY user_legal_fields.specialized DESC, legal_fields.slug ASC
   `, [ req.params.slug ])
 
   const legalGuides = await db.query(`

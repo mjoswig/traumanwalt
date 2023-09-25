@@ -6,7 +6,7 @@
       <h1 v-if="categories.length === 1 && categories[0].type === 'city'">Die besten Anwälte in {{ categories[0].name }}</h1>
       <div v-if="!profiles.length" class="text-lg mt-4">
         <p class="mb-2">Wir haben keine Anwälte in dieser Kategorie gefunden.</p>
-        <p class="mb-6"><nuxt-link to="/anwaelte">Zurück zum Anwaltsverzeichnis</nuxt-link></p>
+        <p class="mb-6"><nuxt-link class="font-bold" to="/anwaelte">Zurück zum Anwaltsverzeichnis</nuxt-link></p>
         <div class="hidden md:flex md:justify-center mb-6">
           <img class="h-24 w-auto" src="@/assets/images/icons/traumanwalt-icon-alt.png" />
         </div>

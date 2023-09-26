@@ -46,6 +46,7 @@ router.get('/:slug', async (req, res) => {
         users.id AS id,
         users.slug AS slug,
         users.salutation AS salutation,
+        users.job_title AS job_title,
         users.first_name AS first_name,
         users.last_name AS last_name,
         users.photo_url AS photo_url

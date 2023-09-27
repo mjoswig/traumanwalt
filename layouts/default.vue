@@ -1,6 +1,9 @@
 <template>
   <div>
     <div v-if="!isLoading">
+      <div class="top-banner bg-brand text-center text-xs sm:text-sm text-white py-1">
+        <nuxt-link to="/traumanwalt-werden">Noch kein Traumanwalt? Jetzt 1 Monat kostenlos testen!</nuxt-link>
+      </div>
       <div v-show="showPublicLayout" class="flex justify-center">
         <div class="p-4 sm:p-8 wrapper flex flex-col w-full">
           <header class="mb-8 md:mb-12">
@@ -341,9 +344,21 @@ a {
   max-width: 1400px;
 }
 
+.bg-brand {
+  background-color: #222222;
+}
+
 .tag {
   border-color: #484848;
   color: #484848;
+}
+
+.top-banner a {
+  @apply font-bold text-white;
+
+  &:hover {
+    @apply text-white;
+  }
 }
 
 .editr {

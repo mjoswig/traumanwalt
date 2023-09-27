@@ -1,16 +1,56 @@
 <template>
   <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0">
     <section class="w-full lg:w-1/5">
-      <div class="sticky top-4 border p-4 rounded-md">
-        <form @submit.prevent>
-          <label class="block font-bold text-base md:text-xl mb-1">Sortieren nach</label>
-          <select class="border rounded-md px-2 py-1 w-full">
-            <option value="">Keine Sortierung</option>
-          </select>
+      <div class="sticky top-4 border rounded-md">
+        <div class="flex lg:hidden items-center justify-between p-2">
+          <b class="text-gray-500 text-base md:text-lg">Suchfilter</b>
+          <div>
+            <svg v-show="!showMobileFilters" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list h-6 w-6 md:h-8 md:w-8" viewBox="0 0 16 16" @click="showMobileFilters = true">
+              <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            <svg v-show="showMobileFilters" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg h-6 w-6 md:h-8 md:w-8" viewBox="0 0 16 16" @click="showMobileFilters = false">
+              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+            </svg>
+          </div>
+        </div>
+        <form class="flex-col space-y-4 px-2 pb-2 lg:p-4" :class="{ 'flex': showMobileFilters, 'hidden lg:flex': !showMobileFilters }" @submit.prevent>
+          <fieldset>
+            <label class="block font-bold text-base md:text-lg mb-1">Sortieren nach</label>
+            <select class="border rounded-md px-2 py-1 w-full">
+              <option value="">Keine Sortierung</option>
+              <option value="">Bestbewertet</option>
+              <option value="">Neueste Bewertungen</option>
+              <option value="">Name A-Z</option>
+              <option value="">Neu bei Traumanwalt</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <label class="block font-bold text-base md:text-lg mb-1">Tätig in Rechtsgebiet</label>
+            <select class="border rounded-md px-2 py-1 w-full">
+              <option value="">Alle Rechtsgebiete</option>
+              <option v-for="(legalField, index) in legalFields" :key="index">{{ legalField.name }}</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <label class="block font-bold text-base md:text-lg mb-1">Fachanwalt für</label>
+            <select class="border rounded-md px-2 py-1 w-full">
+              <option value="">Alle Fachanwaltschaften</option>
+              <option v-for="(legalField, index) in legalFields" :key="index">{{ legalField.name }}</option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <label class="block font-bold text-base md:text-lg mb-1">Ø-Bewertung ab</label>
+            <star-rating :show-rating="false" :star-size="30" />
+          </fieldset>
+          <fieldset>
+            <label class="block font-bold text-base md:text-lg mb-1">Anzahl Bewertungen</label>
+            <input class="w-full" type="range" id="review-count" name="review-count" min="0" max="100" />
+          </fieldset>
         </form>
       </div>
     </section>
     <section class="w-full lg:w-4/5 flex flex-col space-y-4">
+      <span class="block text-sm lg:text-base">0 Anwälte entsprechen Ihren Suchkriterien</span>
       <nuxt-link class="profile-box" :to="`/${profile.slug}`" v-for="(profile, index) in profiles" :key="index">
         <article class="flex flex-col space-y-2 sm:flex-row sm:space-x-4 lg:space-x-6 sm:space-y-0 p-4 lg:p-6 border rounded-md shadow-md">
           <div class="profile-photo">
@@ -47,7 +87,12 @@
 <script>
 export default {
   name: 'ProfileSearch',
-  props: ['profiles', 'page', 'pageLength'],
+  props: ['profiles', 'legalFields', 'page', 'pageLength'],
+  data() {
+    return {
+      showMobileFilters: false
+    }
+  },
   computed: {
     totalPages() {
       return Math.ceil(this.profiles[0].total_count / this.pageLength)

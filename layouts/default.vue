@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isLoading">
-      <div class="top-banner bg-brand text-center text-xs sm:text-sm text-white py-1">
+      <div v-show="showPublicLayout" class="top-banner bg-brand text-center text-xs sm:text-sm text-white py-1">
         <nuxt-link to="/traumanwalt-werden">Noch kein Traumanwalt? Jetzt 1 Monat kostenlos testen!</nuxt-link>
       </div>
       <div v-show="showPublicLayout" class="flex justify-center">

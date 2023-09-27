@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="md:text-center mb-4 md:mb-12">Finden Sie die besten Anwälte Deutschlands</h1>
-    <ProfileSearch :profiles="profiles" :page="page" :page-length="pageLength" @loadMore="loadMore" />
+    <ProfileSearch :profiles="profiles" :legal-fields="legalFields" :page="page" :page-length="pageLength" @loadMore="loadMore" />
   </div>
 </template>
 
@@ -17,10 +17,12 @@ export default {
     const page = 1
     const pageLength = 10
     const profiles = await app.$axios.$get(`/api/profiles?page=${page}&page_length=${pageLength}`)
+    const legalFields = await app.$axios.$get('/api/legal-fields')
     return {
       page,
       pageLength,
-      profiles
+      profiles,
+      legalFields
     }
   },
   methods: {

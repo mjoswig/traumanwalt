@@ -14,7 +14,7 @@
         <p>Stärken Sie Ihre Sichtbarkeit bei Google und <nuxt-link class="font-bold" to="/mitgliedschaft">werden Sie Traumanwalt</nuxt-link>.</p>
       </div>
     </div>
-    <ProfileSearch v-if="profiles.length" :profiles="profiles" :page="page" :page-length="pageLength" @loadMore="loadMore" class="mt-4 md:mt-12" />
+    <ProfileSearch v-if="profiles.length" :profiles="profiles" :legal-fields="legalFields" :page="page" :page-length="pageLength" @loadMore="loadMore" class="mt-4 md:mt-12" />
   </div>
 </template>
 
@@ -30,6 +30,7 @@ export default {
     const page = 1
     const pageLength = 10
     const profiles = await app.$axios.$get(`/api/profiles/category/${params.category}`)
+    const legalFields = await app.$axios.$get('/api/legal-fields')
 
     if (!profiles.categories) redirect('/anwaelte')
 
@@ -38,7 +39,8 @@ export default {
       pageLength,
       profiles: profiles.profiles,
       categories: profiles.categories,
-      slug: params.category
+      slug: params.category,
+      legalFields
     }
   },
   computed: {

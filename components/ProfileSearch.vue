@@ -18,8 +18,8 @@
             <label class="block font-bold text-base md:text-lg mb-1">Sortieren nach</label>
             <select class="border rounded-md px-2 py-1 w-full" v-model="filters.sortValue">
               <option value="">Keine Sortierung</option>
-              <option value="best-ratings">Bestbewertet</option>
-              <option value="new-ratings">Neueste Bewertungen</option>
+              <option value="top-ratings">Bestbewertet</option>
+              <!-- option value="new-ratings">Neueste Bewertungen</option -->
               <option value="alphabetical">Name A-Z</option>
               <option value="new">Neu bei Traumanwalt</option>
             </select>

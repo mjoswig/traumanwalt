@@ -14,7 +14,11 @@ router.get('/', async (req, res) => {
   let orderByArgs = []
 
   if (req.query.sort) {
-    if (req.query.sort === 'alphabetical') {
+    if (req.query.sort === 'top-ratings') {
+      orderByArgs.push('average_rating DESC')
+    } else if (req.query.sort === 'new-ratings') {
+      orderByArgs.push('reviews.created_at DESC')
+    } else if (req.query.sort === 'alphabetical') {
       orderByArgs.push('users.last_name ASC')
     } else if (req.query.sort === 'new') {
       orderByArgs.push('users.created_at DESC')
@@ -30,7 +34,7 @@ router.get('/', async (req, res) => {
       COUNT(*) OVER() AS total_count,
       COALESCE(reviews.total_reviews, 0) AS total_reviews,
       COALESCE(reviews.total_rating_sum, 0) AS total_rating_sum,
-      (total_rating_sum::decimal / reviews.total_reviews::decimal) AS average_rating,
+      CASE WHEN reviews.total_rating_sum IS NULL THEN 0 ELSE ROUND((total_rating_sum::decimal / reviews.total_reviews::decimal)::decimal, 2) END AS average_rating,
       users.slug AS slug,
       salutation, job_title, academic_title, first_name, last_name, suffix_title,
       photo_url, address_line, postal_code, city,
@@ -112,7 +116,11 @@ router.get('/category/:slug', async (req, res) => {
   let orderByArgs = []
 
   if (req.query.sort) {
-    if (req.query.sort === 'alphabetical') {
+    if (req.query.sort === 'top-ratings') {
+      orderByArgs.push('average_rating DESC')
+    } else if (req.query.sort === 'new-ratings') {
+      orderByArgs.push('reviews.created_at DESC')
+    } else if (req.query.sort === 'alphabetical') {
       orderByArgs.push('users.last_name ASC')
     } else if (req.query.sort === 'new') {
       orderByArgs.push('users.created_at DESC')
@@ -128,7 +136,7 @@ router.get('/category/:slug', async (req, res) => {
       COUNT(*) OVER() AS total_count,
       COALESCE(reviews.total_reviews, 0) AS total_reviews,
       COALESCE(reviews.total_rating_sum, 0) AS total_rating_sum,
-      (total_rating_sum::decimal / reviews.total_reviews::decimal) AS average_rating,
+      CASE WHEN reviews.total_rating_sum IS NULL THEN 0 ELSE ROUND((total_rating_sum::decimal / reviews.total_reviews::decimal)::decimal, 2) END AS average_rating,
       users.slug AS slug,
       salutation, job_title, academic_title, first_name, last_name, suffix_title,
       photo_url, address_line, postal_code, city,

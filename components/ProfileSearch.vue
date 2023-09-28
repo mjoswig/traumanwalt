@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0">
+  <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0 -mt-4 lg:mt-0">
     <section class="w-full lg:w-1/5">
-      <div class="sticky top-4 border rounded-md">
-        <div class="flex lg:hidden items-center justify-between p-2">
+      <div class="bg-white w-full fixed left-0 bottom-0 lg:sticky lg:bottom-0 lg:top-4 border lg:rounded-md">
+        <div class="flex lg:hidden items-center justify-between px-4 py-2">
           <b class="text-gray-500 text-base md:text-lg">Suchfilter</b>
           <div>
             <svg v-show="!showMobileFilters" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list h-6 w-6 md:h-8 md:w-8" viewBox="0 0 16 16" @click="showMobileFilters = true">
@@ -13,7 +13,7 @@
             </svg>
           </div>
         </div>
-        <form class="flex-col space-y-4 px-2 pb-2 lg:p-4" :class="{ 'flex': showMobileFilters, 'hidden lg:flex': !showMobileFilters }" @submit.prevent>
+        <form class="flex-col space-y-4 px-4 pb-4 lg:p-4" :class="{ 'flex': showMobileFilters, 'hidden lg:flex': !showMobileFilters }" @submit.prevent>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Sortieren nach</label>
             <select class="border rounded-md px-2 py-1 w-full" v-model="filters.sortValue">
@@ -79,7 +79,7 @@
                 <star-rating :increment="0.1" :read-only="true" :show-rating="false" :star-size="25" v-model="profile.average_rating" />
                 <span class="block text-sm md:text-lg pt-1">{{ profile.total_reviews }} Bewertung{{ profile.total_reviews !== '1' ? 'en' : '' }}</span>
               </div>
-              <p v-if="profile.latest_top_review_description" class="mt-2 text-gray-500">„{{ profile.latest_top_review_description }}“ ({{ $moment(profile.latest_top_review_created_at).format('DD.MM.YYYY') }})</p>
+              <p v-if="profile.latest_top_review_description" class="mt-2 text-gray-500 text-xs md:text-base">„{{ profile.latest_top_review_description }}“ ({{ $moment(profile.latest_top_review_created_at).format('DD.MM.YYYY') }})</p>
             </div>
             <div class="flex flex-wrap text-xs md:text-base mt-2">
               <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in profile.legal_fields" :key="index">

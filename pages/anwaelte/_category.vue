@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="md:text-center">
+    <div class="md:text-center mb-4 md:mb-12">
       <h1 v-if="categories.length === 2">Die besten Anwälte für {{ categories[0].name }} in {{ categories[1].name }}</h1>
       <h1 v-if="categories.length === 1 && categories[0].type === 'legal_field'">Die besten Anwälte für {{ categories[0].name }}</h1>
       <h1 v-if="categories.length === 1 && categories[0].type === 'city'">Die besten Anwälte in {{ categories[0].name }}</h1>
     </div>
-    <ProfileSearch :profiles="profiles" :legal-fields="legalFields" :page="page" :page-length="pageLength" @loadMore="updateProfiles(true)" @updateFilters="updateFilters" class="mt-4 md:mt-12" />
+    <ProfileSearch :profiles="profiles" :legal-fields="legalFields" :page="page" :page-length="pageLength" @loadMore="updateProfiles(true)" @updateFilters="updateFilters" />
   </div>
 </template>
 

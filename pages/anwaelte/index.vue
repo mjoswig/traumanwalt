@@ -23,7 +23,13 @@ export default {
       pageLength,
       profiles,
       legalFields,
-      filters: {}
+      filters: {
+        sortValue: '',
+        legalFieldSlug: '',
+        specializedLegalFieldSlug: '',
+        minAverageRating: 0,
+        minReviews: 0
+      }
     }
   },
   methods: {

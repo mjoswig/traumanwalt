@@ -52,7 +52,14 @@
       </div>
     </section>
     <section class="w-full lg:w-4/5 flex flex-col space-y-4">
-      <span class="block text-sm lg:text-base">{{ totalProfiles }} Anwälte entsprechen Ihren Suchkriterien</span>
+      <span class="block text-sm lg:text-base">{{ totalProfiles }} {{ totalProfiles == 1 ? 'Anwalt entspricht' : 'Anwälte entsprechen' }} Ihren Suchkriterien</span>
+      <div class="relative flex items-center justify-center bg-cover h-36 md:h-64 border p-4 rounded-md" v-show="profiles.length === 0" :style="`background-image: url(${require('@/assets/images/traumanwalt-clients.jpeg')}); background-position: 50% 0;`">
+        <div class="absolute top-0 left-0 h-full w-full opacity-30 bg-black rounded-md"></div>
+        <div class="flex flex-col lg:items-center z-10 text-white lg:text-center lg:w-96 lg:px-4 lg:-ml-40">
+          <h2 class="text-xl xl:text-2xl mb-4">Sie sind Anwalt und möchten hier gelistet werden?</h2>
+          <Btn @click="$router.push('/mitgliedschaft')">Jetzt Traumanwalt werden</Btn>
+        </div>
+      </div>
       <nuxt-link class="profile-box" :to="`/${profile.slug}`" v-for="(profile, index) in profiles" :key="index">
         <article class="flex flex-col space-y-2 sm:flex-row sm:space-x-4 lg:space-x-6 sm:space-y-0 p-4 lg:p-6 border rounded-md shadow-md">
           <div class="profile-photo">

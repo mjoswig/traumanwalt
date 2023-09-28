@@ -30,6 +30,11 @@ router.get('/', async (req, res) => {
     orderByArgs.push('RANDOM()')
   }
 
+  let queryCondition = ''
+  if (req.query.min_reviews) {
+    queryCondition = ` AND total_reviews >= ${req.query.min_reviews}`
+  }
+
   const profiles = await db.query(`
     SELECT
       COUNT(*) OVER() AS total_count,
@@ -52,7 +57,7 @@ router.get('/', async (req, res) => {
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
     LEFT JOIN (SELECT r.user_id, COUNT(1) AS total_reviews, SUM(r.rating) AS total_rating_sum FROM reviews r GROUP BY r.user_id) AS reviews ON reviews.user_id = users.id
-    WHERE users.client IS FALSE
+    WHERE users.client IS FALSE${queryCondition}
     GROUP BY users.id, users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at, reviews.total_reviews, reviews.total_rating_sum
     ${`ORDER BY ${orderByArgs.join(' AND ')}`}
     ${queryArgs.length === 2 ? 'LIMIT $1 OFFSET $2' : ''}
@@ -112,6 +117,10 @@ router.get('/category/:slug', async (req, res) => {
       name: city.rows[city.rows.length - 1].name,
       type: 'city'
     })
+  }
+
+  if (req.query.min_reviews) {
+    queryCondition += ` AND total_reviews >= ${req.query.min_reviews}`
   }
 
   let orderByArgs = []

@@ -58,7 +58,7 @@ export default {
 
       if (this.filters.minReviews) {
         requestUrl += `&min_reviews=${this.filters.minReviews}`
-      }s
+      }
 
       const profiles = await this.$axios.$get(requestUrl)
 

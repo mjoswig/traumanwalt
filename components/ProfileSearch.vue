@@ -40,17 +40,18 @@
           </fieldset>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Ø-Bewertung ab</label>
-            <star-rating :show-rating="false" :star-size="30" />
+            <star-rating :clearable="true" :show-rating="false" :star-size="30" v-model="filters.minAverageReview" />
           </fieldset>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Anzahl Bewertungen</label>
-            <input class="w-full" type="range" id="review-count" name="review-count" min="0" max="100" />
+            <input class="w-full" type="range" id="min-reviews" name="min-reviews" min="0" max="1000" step="5" v-model="filters.minReviews" />
+            <span>≥ {{ filters.minReviews }} Bewertungen</span>
           </fieldset>
         </form>
       </div>
     </section>
     <section class="w-full lg:w-4/5 flex flex-col space-y-4">
-      <span class="block text-sm lg:text-base">0 Anwälte entsprechen Ihren Suchkriterien</span>
+      <span class="block text-sm lg:text-base">{{ totalProfiles }} Anwälte entsprechen Ihren Suchkriterien</span>
       <nuxt-link class="profile-box" :to="`/${profile.slug}`" v-for="(profile, index) in profiles" :key="index">
         <article class="flex flex-col space-y-2 sm:flex-row sm:space-x-4 lg:space-x-6 sm:space-y-0 p-4 lg:p-6 border rounded-md shadow-md">
           <div class="profile-photo">
@@ -90,10 +91,18 @@ export default {
   props: ['profiles', 'legalFields', 'page', 'pageLength'],
   data() {
     return {
+      filters: {
+        minAverageReview: 0,
+        minReviews: 0
+      },
       showMobileFilters: false
     }
   },
   computed: {
+    totalProfiles() {
+      if (!this.profiles.length) return 0
+      return this.profiles[0].total_count
+    },
     totalPages() {
       return Math.ceil(this.profiles[0].total_count / this.pageLength)
     }

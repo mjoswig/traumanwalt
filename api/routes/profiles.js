@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
   if (req.query.sort) {
     if (req.query.sort === 'top-ratings') {
-      orderByArgs.push('average_rating DESC')
+      orderByArgs.push('average_rating DESC, total_reviews DESC')
     } else if (req.query.sort === 'new-ratings') {
       // @FIXME: this filter doesn't work yet...
       orderByArgs.push('reviews.created_at DESC')
@@ -127,7 +127,7 @@ router.get('/category/:slug', async (req, res) => {
 
   if (req.query.sort) {
     if (req.query.sort === 'top-ratings') {
-      orderByArgs.push('average_rating DESC')
+      orderByArgs.push('average_rating DESC, total_reviews DESC')
     } else if (req.query.sort === 'new-ratings') {
       // @FIXME: this filter doesn't work yet...
       orderByArgs.push('reviews.created_at DESC')

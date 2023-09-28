@@ -1,9 +1,14 @@
 <template>
   <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0 -mt-4 lg:mt-0">
     <section class="w-full lg:w-1/5">
-      <div class="bg-white w-full fixed left-0 bottom-0 shadow-md lg:shadow-none lg:sticky lg:bottom-0 lg:top-4 border lg:rounded-md">
+      <div class="bg-white w-full fixed left-0 bottom-0 lg:sticky lg:bottom-0 lg:top-4 border lg:rounded-md">
         <div class="bg-gray-100 flex lg:hidden items-center justify-between px-4 py-2" @click="showMobileFilters = !showMobileFilters">
-          <b class="text-gray-500 text-base md:text-lg">Suchfilter</b>
+          <div class="flex items-center space-x-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+            <b class="text-gray-500 text-base">Suchfilter</b>
+          </div>
           <div>
             <svg v-show="!showMobileFilters" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list h-6 w-6 md:h-8 md:w-8" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>

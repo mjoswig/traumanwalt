@@ -31,8 +31,18 @@ router.get('/', async (req, res) => {
   }
 
   let queryCondition = ''
+  if (req.query.legal_field) {
+    queryCondition += ` AND legal_fields.slug = '${req.query.legal_field}'`
+  }
+  if (req.query.specialized_legal_field) {
+    // @FIXME: don't ignore value of legal_field filter when querying specialized_legal_field
+    queryCondition += ` AND legal_fields.slug = '${req.query.specialized_legal_field}' AND user_legal_fields.specialized IS TRUE`
+  }
+  if (req.query.min_average_rating) {
+    queryCondition += ` AND ROUND((total_rating_sum::decimal / reviews.total_reviews::decimal)::decimal, 2) >= ${req.query.min_average_rating}`
+  }
   if (req.query.min_reviews) {
-    queryCondition = ` AND total_reviews >= ${req.query.min_reviews}`
+    queryCondition += ` AND total_reviews >= ${req.query.min_reviews}`
   }
 
   const profiles = await db.query(`
@@ -119,6 +129,16 @@ router.get('/category/:slug', async (req, res) => {
     })
   }
 
+  if (req.query.legal_field) {
+    queryCondition += ` AND legal_fields.slug = '${req.query.legal_field}'`
+  }
+  if (req.query.specialized_legal_field) {
+    // @FIXME: don't ignore value of legal_field filter when querying specialized_legal_field
+    queryCondition += ` AND legal_fields.slug = '${req.query.specialized_legal_field}' AND user_legal_fields.specialized IS TRUE`
+  }
+  if (req.query.min_average_rating) {
+    queryCondition += ` AND ROUND((total_rating_sum::decimal / reviews.total_reviews::decimal)::decimal, 2) >= ${req.query.min_average_rating}`
+  }
   if (req.query.min_reviews) {
     queryCondition += ` AND total_reviews >= ${req.query.min_reviews}`
   }

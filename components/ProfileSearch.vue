@@ -27,14 +27,14 @@
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Tätig in Rechtsgebiet</label>
             <select class="border rounded-md px-2 py-1 w-full" v-model="filters.legalFieldSlug">
-              <option value="">Alle Rechtsgebiete</option>
+              <option value="">Bitte auswählen...</option>
               <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
           </fieldset>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Fachanwalt für</label>
             <select class="border rounded-md px-2 py-1 w-full" v-model="filters.specializedLegalFieldSlug">
-              <option value="">Alle Fachanwaltschaften</option>
+              <option value="">Bitte auswählen...</option>
               <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
           </fieldset>

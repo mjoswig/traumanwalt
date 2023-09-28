@@ -40,8 +40,8 @@
           </fieldset>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Ø-Bewertung</label>
-            <star-rating class="mb-2" :clearable="true" :show-rating="false" :star-size="30" v-model="filters.minAverageReview" />
-            <span>ab {{ filters.minAverageReview }} Stern{{ filters.minAverageReview !== 1 ? 'e' : '' }}</span>
+            <star-rating class="mb-2" :clearable="true" :show-rating="false" :star-size="30" v-model="filters.minAverageRating" />
+            <span>ab {{ filters.minAverageRating }} Stern{{ filters.minAverageRating !== 1 ? 'e' : '' }}</span>
           </fieldset>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Bewertungsanzahl</label>
@@ -96,7 +96,7 @@ export default {
         sortValue: '',
         legalFieldSlug: '',
         specializedLegalFieldSlug: '',
-        minAverageReview: 0,
+        minAverageRating: 0,
         minReviews: 0
       },
       showMobileFilters: false

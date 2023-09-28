@@ -77,8 +77,8 @@ export default {
         requestUrl += `&specialized_legal_field=${this.filters.specializedLegalFieldSlug}`
       }
 
-      if (this.filters.minAverageReview) {
-        requestUrl += `&min_average_review=${this.filters.minAverageReview}`
+      if (this.filters.minAverageRating) {
+        requestUrl += `&min_average_rating=${this.filters.minAverageRating}`
       }
 
       if (this.filters.minReviews) {

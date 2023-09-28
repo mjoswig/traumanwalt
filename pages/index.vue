@@ -52,6 +52,13 @@
 <script>
 export default {
   name: 'IndexPage',
+  head() {
+    return {
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
+    }
+  },
   async asyncData({ app }) {
     const legalFields = await app.$axios.$get('/api/legal-fields')
     const cities = await app.$axios.$get('/api/cities')

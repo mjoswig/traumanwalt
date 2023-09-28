@@ -54,7 +54,10 @@ export default {
   name: 'ProfileBewertenPage',
   head() {
     return {
-      title: `Bewertung von ${this.fullName} - Traumanwalt`
+      title: `Bewertung von ${this.fullName} - Traumanwalt`,
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   async asyncData({ app, params, redirect, store }) {

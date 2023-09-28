@@ -26,7 +26,10 @@ export default {
   name: 'DatenschutzPage',
   head() {
     return {
-      title: 'Datenschutzerklärung - Traumanwalt'
+      title: 'Datenschutzerklärung - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   }
 }

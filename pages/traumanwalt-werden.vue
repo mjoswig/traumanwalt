@@ -90,7 +90,10 @@ export default {
   name: 'TraumanwaltWerdenPage',
   head() {
     return {
-      title: 'Jetzt kostenlos testen - Traumanwalt'
+      title: 'Jetzt kostenlos testen - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   data() {

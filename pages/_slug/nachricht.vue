@@ -70,7 +70,10 @@ export default {
   name: 'ProfileNachrichtPage',
   head() {
     return {
-      title: `Nachricht an ${this.fullName} - Traumanwalt`
+      title: `Nachricht an ${this.fullName} - Traumanwalt`,
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   async asyncData({ app, params, redirect, route, store }) {

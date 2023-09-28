@@ -35,7 +35,10 @@ export default {
   name: 'RegistrierenPage',
   head() {
     return {
-      title: 'Registrieren - Traumanwalt'
+      title: 'Registrieren - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   data() {

@@ -42,7 +42,10 @@ export default {
   name: 'RechtstippsDetailsPage',
   head() {
     return {
-      title: `${this.legalGuide.title} - Traumanwalt`
+      title: `${this.legalGuide.title} - Traumanwalt`,
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   async asyncData({ app, params, redirect }) {

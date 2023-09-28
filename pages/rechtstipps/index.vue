@@ -27,7 +27,10 @@ export default {
   name: 'RechtstippsIndexPage',
   head() {
     return {
-      title: 'Rechtstipps - Traumanwalt'
+      title: 'Rechtstipps - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   async asyncData({ app }) {

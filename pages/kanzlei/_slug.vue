@@ -126,7 +126,10 @@ export default {
   name: 'LawFirmProfilePage',
   head() {
     return {
-      title: `${this.lawFirm.name} - Traumanwalt`
+      title: `${this.lawFirm.name} - Traumanwalt`,
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   async asyncData({ app, params, redirect }) {

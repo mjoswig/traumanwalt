@@ -58,7 +58,10 @@ export default {
   name: 'MandantWerdenPage',
   head() {
     return {
-      title: 'Traummandant werden - Traumanwalt'
+      title: 'Traummandant werden - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   data() {

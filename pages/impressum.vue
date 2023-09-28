@@ -19,7 +19,10 @@ export default {
   name: 'ImpressumPage',
   head() {
     return {
-      title: 'Impressum - Traumanwalt'
+      title: 'Impressum - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   }
 }

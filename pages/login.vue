@@ -26,7 +26,10 @@ export default {
   name: 'LoginPage',
   head() {
     return {
-      title: 'Login - Traumanwalt'
+      title: 'Login - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   data() {

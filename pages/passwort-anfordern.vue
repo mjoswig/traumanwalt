@@ -22,7 +22,10 @@ export default {
   name: 'PasswortZuruecksetzenPage',
   head() {
     return {
-      title: 'Passwort zurücksetzen - Traumanwalt'
+      title: 'Passwort zurücksetzen - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   data() {

@@ -249,7 +249,10 @@ export default {
   name: 'ProfilePage',
   head() {
     return {
-      title: `${this.fullName} - Traumanwalt`
+      title: `${this.fullName} - Traumanwalt`,
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   async asyncData({ app, params, redirect }) {

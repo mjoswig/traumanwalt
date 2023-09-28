@@ -102,7 +102,10 @@ export default {
   name: 'MitgliedschaftPage',
   head() {
     return {
-      title: 'Mitgliedschaft - Traumanwalt'
+      title: 'Mitgliedschaft - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   data() {

@@ -39,7 +39,10 @@ export default {
   name: 'AgbPage',
   head() {
     return {
-      title: 'Allgemeine Geschäftsbedingungen - Traumanwalt'
+      title: 'Allgemeine Geschäftsbedingungen - Traumanwalt',
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   }
 }

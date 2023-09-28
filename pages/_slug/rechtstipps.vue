@@ -28,7 +28,10 @@ export default {
   name: 'ProfileRechtstippsPage',
   head() {
     return {
-      title: `Rechtstipps von ${this.fullName} - Traumanwalt`
+      title: `Rechtstipps von ${this.fullName} - Traumanwalt`,
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   async asyncData({ app, params, redirect }) {

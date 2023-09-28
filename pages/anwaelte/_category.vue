@@ -14,7 +14,11 @@ export default {
   name: 'AnwaelteCategoryPage',
   head() {
     return {
-      title: `${this.seoTitle} - Traumanwalt`
+      title: `${this.seoTitle} - Traumanwalt`,
+      description: `Finden Sie die besten ${this.seoTitle} in unserem Anwaltsverzeichnis. Jetzt kontaktieren und beraten lassen!`,
+      link: [
+        { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ]
     }
   },
   async asyncData({ app, params, redirect }) {

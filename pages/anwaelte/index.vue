@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="md:text-center mb-4 md:mb-12">Finden Sie die besten Anwälte Deutschlands</h1>
-    <ProfileSearch :profiles="profiles" :legal-fields="legalFields" :page="page" :page-length="pageLength" @loadMore="loadMore" />
+    <ProfileSearch :profiles="profiles" :legal-fields="legalFields" :page="page" :page-length="pageLength" @loadMore="updateProfiles(true)" @updateFilters="updateFilters" />
   </div>
 </template>
 
@@ -22,16 +22,54 @@ export default {
       page,
       pageLength,
       profiles,
-      legalFields
+      legalFields,
+      filters: {}
     }
   },
   methods: {
-    async loadMore() {
-      const profiles = await this.$axios.$get(`/api/profiles?page=${++this.page}&page_length=${this.pageLength}`)
-      this.profiles.push(...profiles)
+    async updateFilters(filters) {
+      this.filters = filters
+      await this.updateProfiles()
+    },
+    async updateProfiles(loadMore = false) {
+      if (!loadMore) {
+        this.page = 1
+      } else {
+        ++this.page
+      }
 
-      // filter out duplicates
-      this.profiles = this.profiles.filter((v, i, a) => a.findIndex(v2 => (v2.slug === v.slug)) === i)
+      let requestUrl = `/api/profiles?page=${this.page}&page_length=${this.pageLength}`
+
+      if (this.filters.sortValue) {
+        requestUrl += `&sort=${this.filters.sortValue}`
+      }
+
+      if (this.filters.legalFieldSlug) {
+        requestUrl += `&legal_field=${this.filters.legalFieldSlug}`
+      }
+
+      if (this.filters.specializedLegalFieldSlug) {
+        requestUrl += `&specialized_legal_field=${this.filters.specializedLegalFieldSlug}`
+      }
+
+      if (this.filters.minAverageReview) {
+        requestUrl += `&min_average_review=${this.filters.minAverageReview}`
+      }
+
+      if (this.filters.minReviews) {
+        requestUrl += `&min_reviews=${this.filters.minReviews}`
+      }
+
+      const profiles = await this.$axios.$get(requestUrl)
+
+      if (!loadMore) {
+        this.profiles = profiles
+      } else {
+        this.profiles.push(...profiles)
+
+        // filter out duplicates
+        this.profiles = this.profiles.filter((v, i, a) => a.findIndex(v2 => (v2.slug === v.slug)) === i)
+      }
     }
   }
 }

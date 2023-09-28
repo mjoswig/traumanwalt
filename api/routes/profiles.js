@@ -11,6 +11,20 @@ router.get('/', async (req, res) => {
     queryArgs.push((req.query.page - 1) * req.query.page_length)
   }
 
+  let orderByArgs = []
+
+  if (req.query.sort) {
+    if (req.query.sort === 'alphabetical') {
+      orderByArgs.push('users.last_name ASC')
+    } else if (req.query.sort === 'new') {
+      orderByArgs.push('users.created_at DESC')
+    }
+  }
+
+  if (!orderByArgs.length) {
+    orderByArgs.push('RANDOM()')
+  }
+
   const profiles = await db.query(`
     SELECT
       COUNT(*) OVER() AS total_count,
@@ -34,8 +48,8 @@ router.get('/', async (req, res) => {
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
     LEFT JOIN (SELECT r.user_id, COUNT(1) AS total_reviews, SUM(r.rating) AS total_rating_sum FROM reviews r GROUP BY r.user_id) AS reviews ON reviews.user_id = users.id
     WHERE users.client IS FALSE
-    GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at, reviews.total_reviews, reviews.total_rating_sum
-    ORDER BY users.created_at DESC
+    GROUP BY users.id, users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at, reviews.total_reviews, reviews.total_rating_sum
+    ${`ORDER BY ${orderByArgs.join(' AND ')}`}
     ${queryArgs.length === 2 ? 'LIMIT $1 OFFSET $2' : ''}
   `, queryArgs)
 
@@ -95,6 +109,20 @@ router.get('/category/:slug', async (req, res) => {
     })
   }
 
+  let orderByArgs = []
+
+  if (req.query.sort) {
+    if (req.query.sort === 'alphabetical') {
+      orderByArgs.push('users.last_name ASC')
+    } else if (req.query.sort === 'new') {
+      orderByArgs.push('users.created_at DESC')
+    }
+  }
+
+  if (!orderByArgs.length) {
+    orderByArgs.push('RANDOM()')
+  }
+
   const profiles = await db.query(`
     SELECT
       COUNT(*) OVER() AS total_count,
@@ -119,7 +147,7 @@ router.get('/category/:slug', async (req, res) => {
     LEFT JOIN (SELECT r.user_id, COUNT(1) AS total_reviews, SUM(r.rating) AS total_rating_sum FROM reviews r GROUP BY r.user_id) AS reviews ON reviews.user_id = users.id
     WHERE users.client IS FALSE AND ${queryCondition ? queryCondition : ''}
     GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at, reviews.total_reviews, reviews.total_rating_sum
-    ORDER BY users.created_at DESC
+    ${`ORDER BY ${orderByArgs.join(' AND ')}`}
     ${limitQuery ? 'LIMIT $1 OFFSET $2' : ''}
   `, queryArgs)
 

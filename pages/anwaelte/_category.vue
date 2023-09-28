@@ -14,7 +14,7 @@
         <p>Stärken Sie Ihre Sichtbarkeit bei Google und <nuxt-link class="font-bold" to="/mitgliedschaft">werden Sie Traumanwalt</nuxt-link>.</p>
       </div>
     </div>
-    <ProfileSearch v-if="profiles.length" :profiles="profiles" :legal-fields="legalFields" :page="page" :page-length="pageLength" @loadMore="loadMore" class="mt-4 md:mt-12" />
+    <ProfileSearch v-if="profiles.length" :profiles="profiles" :legal-fields="legalFields" :page="page" :page-length="pageLength" @loadMore="updateProfiles(true)" @updateFilters="updateFilters" class="mt-4 md:mt-12" />
   </div>
 </template>
 
@@ -40,7 +40,8 @@ export default {
       profiles: profiles.profiles,
       categories: profiles.categories,
       slug: params.category,
-      legalFields
+      legalFields,
+      filters: {}
     }
   },
   computed: {
@@ -51,12 +52,49 @@ export default {
     }
   },
   methods: {
-    async loadMore() {
-      const profiles = await this.$axios.$get(`/api/profiles/category/${this.slug}/?page=${++this.page}&page_length=${this.pageLength}`)
-      this.profiles.push(...profiles.profiles)
+    async updateFilters(filters) {
+      this.filters = filters
+      await this.updateProfiles()
+    },
+    async updateProfiles(loadMore = false) {
+      if (!loadMore) {
+        this.page = 1
+      } else {
+        ++this.page
+      }
 
-      // filter out duplicates
-      this.profiles = this.profiles.filter((v, i, a) => a.findIndex(v2 => (v2.slug === v.slug)) === i)
+      let requestUrl = `/api/profiles/category/${this.slug}/?page=${this.page}&page_length=${this.pageLength}`
+
+      if (this.filters.sortValue) {
+        requestUrl += `&sort=${this.filters.sortValue}`
+      }
+
+      if (this.filters.legalFieldSlug) {
+        requestUrl += `&legal_field=${this.filters.legalFieldSlug}`
+      }
+
+      if (this.filters.specializedLegalFieldSlug) {
+        requestUrl += `&specialized_legal_field=${this.filters.specializedLegalFieldSlug}`
+      }
+
+      if (this.filters.minAverageReview) {
+        requestUrl += `&min_average_review=${this.filters.minAverageReview}`
+      }
+
+      if (this.filters.minReviews) {
+        requestUrl += `&min_reviews=${this.filters.minReviews}`
+      }
+
+      const profiles = await this.$axios.$get(requestUrl)
+
+      if (!loadMore) {
+        this.profiles = profiles.profiles
+      } else {
+        this.profiles.push(...profiles.profiles)
+
+        // filter out duplicates
+        this.profiles = this.profiles.filter((v, i, a) => a.findIndex(v2 => (v2.slug === v.slug)) === i)
+      }
     }
   }
 }

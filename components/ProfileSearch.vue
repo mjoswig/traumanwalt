@@ -16,36 +16,37 @@
         <form class="flex-col space-y-4 px-2 pb-2 lg:p-4" :class="{ 'flex': showMobileFilters, 'hidden lg:flex': !showMobileFilters }" @submit.prevent>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Sortieren nach</label>
-            <select class="border rounded-md px-2 py-1 w-full">
+            <select class="border rounded-md px-2 py-1 w-full" v-model="filters.sortValue">
               <option value="">Keine Sortierung</option>
-              <option value="">Bestbewertet</option>
-              <option value="">Neueste Bewertungen</option>
-              <option value="">Name A-Z</option>
-              <option value="">Neu bei Traumanwalt</option>
+              <option value="best-ratings">Bestbewertet</option>
+              <option value="new-ratings">Neueste Bewertungen</option>
+              <option value="alphabetical">Name A-Z</option>
+              <option value="new">Neu bei Traumanwalt</option>
             </select>
           </fieldset>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Tätig in Rechtsgebiet</label>
-            <select class="border rounded-md px-2 py-1 w-full">
+            <select class="border rounded-md px-2 py-1 w-full" v-model="filters.legalFieldSlug">
               <option value="">Alle Rechtsgebiete</option>
-              <option v-for="(legalField, index) in legalFields" :key="index">{{ legalField.name }}</option>
+              <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
           </fieldset>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Fachanwalt für</label>
-            <select class="border rounded-md px-2 py-1 w-full">
+            <select class="border rounded-md px-2 py-1 w-full" v-model="filters.specializedLegalFieldSlug">
               <option value="">Alle Fachanwaltschaften</option>
-              <option v-for="(legalField, index) in legalFields" :key="index">{{ legalField.name }}</option>
+              <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
           </fieldset>
           <fieldset>
-            <label class="block font-bold text-base md:text-lg mb-1">Ø-Bewertung ab</label>
-            <star-rating :clearable="true" :show-rating="false" :star-size="30" v-model="filters.minAverageReview" />
+            <label class="block font-bold text-base md:text-lg mb-1">Ø-Bewertung</label>
+            <star-rating class="mb-2" :clearable="true" :show-rating="false" :star-size="30" v-model="filters.minAverageReview" />
+            <span>ab {{ filters.minAverageReview }} Stern{{ filters.minAverageReview !== 1 ? 'e' : '' }}</span>
           </fieldset>
           <fieldset>
-            <label class="block font-bold text-base md:text-lg mb-1">Anzahl Bewertungen</label>
+            <label class="block font-bold text-base md:text-lg mb-1">Bewertungsanzahl</label>
             <input class="w-full" type="range" id="min-reviews" name="min-reviews" min="0" max="1000" step="5" v-model="filters.minReviews" />
-            <span>≥ {{ filters.minReviews }} Bewertungen</span>
+            <span>ab {{ filters.minReviews }} Bewertungen</span>
           </fieldset>
         </form>
       </div>
@@ -92,6 +93,9 @@ export default {
   data() {
     return {
       filters: {
+        sortValue: '',
+        legalFieldSlug: '',
+        specializedLegalFieldSlug: '',
         minAverageReview: 0,
         minReviews: 0
       },
@@ -104,7 +108,15 @@ export default {
       return this.profiles[0].total_count
     },
     totalPages() {
-      return Math.ceil(this.profiles[0].total_count / this.pageLength)
+      return Math.ceil(this.totalProfiles / this.pageLength)
+    }
+  },
+  watch: {
+    filters: {
+      deep: true,
+      handler(newFilters) {
+        this.$emit('updateFilters', newFilters)
+      }
     }
   },
   methods: {

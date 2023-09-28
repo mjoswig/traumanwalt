@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
     queryCondition += ` AND total_reviews >= ${req.query.min_reviews}`
   }
   if (req.query.sort === 'new-reviews') {
-    queryCondition += ` AND total_reviews > 0`
+    queryCondition += ' AND total_reviews > 0'
   }
 
   const profiles = await db.query(`
@@ -92,7 +92,25 @@ router.get('/category/:slug', async (req, res) => {
   }
 
   let queryCondition = ''
+  let queryConditionArgs = []
   const categories = []
+
+  if (req.query.legal_field) {
+    queryConditionArgs.push(`legal_fields.slug = '${req.query.legal_field}'`)
+  }
+  if (req.query.specialized_legal_field) {
+    // @FIXME: don't ignore value of legal_field filter when querying specialized_legal_field
+    queryConditionArgs.push(`legal_fields.slug = '${req.query.specialized_legal_field}' AND user_legal_fields.specialized IS TRUE`)
+  }
+  if (req.query.min_average_rating) {
+    queryConditionArgs.push(`ROUND((total_rating_sum::decimal / reviews.total_reviews::decimal)::decimal, 2) >= ${req.query.min_average_rating}`)
+  }
+  if (req.query.min_reviews) {
+    queryConditionArgs.push(`total_reviews >= ${req.query.min_reviews}`)
+  }
+  if (req.query.sort === 'new-reviews') {
+    queryConditionArgs.push('total_reviews > 0')
+  }
 
   const legalField = await db.query(`
     SELECT id, name, slug
@@ -107,26 +125,30 @@ router.get('/category/:slug', async (req, res) => {
   `, [ req.params.slug.toLowerCase() ])
 
   if (legalField.rows.length && city.rows.length) {
-    queryCondition = `legal_fields.id = $${queryArgs.length + 1} AND users.city = $${queryArgs.length + 2}`
-    queryArgs.push(legalField.rows[0].id)
+    if (!queryConditionArgs.find(args => args.indexOf('legal_fields') !== -1)) {
+      queryConditionArgs.push(`legal_fields.id = $${queryArgs.length + 1}`)
+      queryArgs.push(legalField.rows[0].id)
+      categories.push({
+        name: legalField.rows[0].name,
+        type: 'legal_field'
+      })
+    }
+
+    queryConditionArgs.push(`users.city = $${queryArgs.length + 1}`)
     queryArgs.push(city.rows[city.rows.length - 1].name)
-    categories.push({
-      name: legalField.rows[0].name,
-      type: 'legal_field'
-    })
     categories.push({
       name: city.rows[city.rows.length - 1].name,
       type: 'city'
     })
-  } else if (legalField.rows.length && !city.rows.length) {
-    queryCondition = `legal_fields.id = $${queryArgs.length + 1}`
+  } else if (legalField.rows.length && !city.rows.length && !queryConditionArgs.find(args => args.indexOf('legal_fields') !== -1)) {
+    queryConditionArgs.push(`legal_fields.id = $${queryArgs.length + 1}`)
     queryArgs.push(legalField.rows[0].id)
     categories.push({
       name: legalField.rows[0].name,
       type: 'legal_field'
     })
   } else if (!legalField.rows.length && city.rows.length) {
-    queryCondition = `users.city = $${queryArgs.length + 1}`
+    queryConditionArgs.push(`users.city = $${queryArgs.length + 1}`)
     queryArgs.push(city.rows[city.rows.length - 1].name)
     categories.push({
       name: city.rows[city.rows.length - 1].name,
@@ -134,22 +156,7 @@ router.get('/category/:slug', async (req, res) => {
     })
   }
 
-  if (req.query.legal_field) {
-    queryCondition += ` AND legal_fields.slug = '${req.query.legal_field}'`
-  }
-  if (req.query.specialized_legal_field) {
-    // @FIXME: don't ignore value of legal_field filter when querying specialized_legal_field
-    queryCondition += ` AND legal_fields.slug = '${req.query.specialized_legal_field}' AND user_legal_fields.specialized IS TRUE`
-  }
-  if (req.query.min_average_rating) {
-    queryCondition += ` AND ROUND((total_rating_sum::decimal / reviews.total_reviews::decimal)::decimal, 2) >= ${req.query.min_average_rating}`
-  }
-  if (req.query.min_reviews) {
-    queryCondition += ` AND total_reviews >= ${req.query.min_reviews}`
-  }
-  if (req.query.sort === 'new-reviews') {
-    queryCondition += ` AND total_reviews > 0`
-  }
+  queryCondition = queryConditionArgs.join(' AND ')
 
   let orderByArgs = []
 

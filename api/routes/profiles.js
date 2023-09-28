@@ -65,7 +65,9 @@ router.get('/', async (req, res) => {
         )
         ORDER BY user_legal_fields.specialized DESC, legal_fields.slug ASC
       ) as legal_fields,
-      (SELECT created_at FROM reviews WHERE reviews.user_id = users.id LIMIT 1) AS latest_review_created_at
+      (SELECT description FROM reviews WHERE reviews.user_id = users.id ORDER BY reviews.rating DESC, reviews.created_at DESC LIMIT 1) AS latest_top_review_description,
+      (SELECT created_at FROM reviews WHERE reviews.user_id = users.id ORDER BY reviews.rating DESC, reviews.created_at DESC LIMIT 1) AS latest_top_review_created_at,
+      (SELECT created_at FROM reviews WHERE reviews.user_id = users.id ORDER BY reviews.created_at DESC LIMIT 1) AS latest_review_created_at
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
@@ -185,6 +187,8 @@ router.get('/category/:slug', async (req, res) => {
         )
         ORDER BY user_legal_fields.specialized DESC, legal_fields.slug ASC
       ) as legal_fields,
+      (SELECT description FROM reviews WHERE reviews.user_id = users.id ORDER BY reviews.rating DESC, reviews.created_at DESC LIMIT 1) AS latest_top_review_description,
+      (SELECT created_at FROM reviews WHERE reviews.user_id = users.id ORDER BY reviews.rating DESC, reviews.created_at DESC LIMIT 1) AS latest_top_review_created_at,
       (SELECT created_at FROM reviews WHERE reviews.user_id = users.id LIMIT 1) AS latest_review_created_at
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id

@@ -79,6 +79,7 @@
                 <star-rating :increment="0.1" :read-only="true" :show-rating="false" :star-size="25" v-model="profile.average_rating" />
                 <span class="block text-sm md:text-lg pt-1">{{ profile.total_reviews }} Bewertung{{ profile.total_reviews !== '1' ? 'en' : '' }}</span>
               </div>
+              <p v-if="profile.latest_top_review_description" class="mt-2 text-gray-500">„{{ profile.latest_top_review_description }}“ ({{ $moment(profile.latest_top_review_created_at).format('DD.MM.YYYY') }})</p>
             </div>
             <div class="flex flex-wrap text-xs md:text-base mt-2">
               <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in profile.legal_fields" :key="index">

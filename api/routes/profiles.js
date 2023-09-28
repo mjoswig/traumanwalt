@@ -17,8 +17,7 @@ router.get('/', async (req, res) => {
     if (req.query.sort === 'top-reviews') {
       orderByArgs.push('average_rating DESC, total_reviews DESC')
     } else if (req.query.sort === 'new-reviews') {
-      // @FIXME: this filter doesn't work yet...
-      orderByArgs.push('reviews.created_at DESC')
+      orderByArgs.push('latest_review_created_at DESC')
     } else if (req.query.sort === 'alphabetical') {
       orderByArgs.push('users.last_name ASC')
     } else if (req.query.sort === 'new') {
@@ -44,6 +43,9 @@ router.get('/', async (req, res) => {
   if (req.query.min_reviews) {
     queryCondition += ` AND total_reviews >= ${req.query.min_reviews}`
   }
+  if (req.query.sort === 'new-reviews') {
+    queryCondition += ` AND total_reviews > 0`
+  }
 
   const profiles = await db.query(`
     SELECT
@@ -62,7 +64,8 @@ router.get('/', async (req, res) => {
           'specialized', user_legal_fields.specialized
         )
         ORDER BY user_legal_fields.specialized DESC, legal_fields.slug ASC
-      ) as legal_fields
+      ) as legal_fields,
+      (SELECT created_at FROM reviews WHERE reviews.user_id = users.id LIMIT 1) AS latest_review_created_at
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
@@ -142,6 +145,9 @@ router.get('/category/:slug', async (req, res) => {
   if (req.query.min_reviews) {
     queryCondition += ` AND total_reviews >= ${req.query.min_reviews}`
   }
+  if (req.query.sort === 'new-reviews') {
+    queryCondition += ` AND total_reviews > 0`
+  }
 
   let orderByArgs = []
 
@@ -149,8 +155,7 @@ router.get('/category/:slug', async (req, res) => {
     if (req.query.sort === 'top-reviews') {
       orderByArgs.push('average_rating DESC, total_reviews DESC')
     } else if (req.query.sort === 'new-reviews') {
-      // @FIXME: this filter doesn't work yet...
-      orderByArgs.push('reviews.created_at DESC')
+      orderByArgs.push('latest_review_created_at DESC')
     } else if (req.query.sort === 'alphabetical') {
       orderByArgs.push('users.last_name ASC')
     } else if (req.query.sort === 'new') {
@@ -179,13 +184,14 @@ router.get('/category/:slug', async (req, res) => {
           'specialized', user_legal_fields.specialized
         )
         ORDER BY user_legal_fields.specialized DESC, legal_fields.slug ASC
-      ) as legal_fields
+      ) as legal_fields,
+      (SELECT created_at FROM reviews WHERE reviews.user_id = users.id LIMIT 1) AS latest_review_created_at
     FROM users
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
     LEFT JOIN (SELECT r.user_id, COUNT(1) AS total_reviews, SUM(r.rating) AS total_rating_sum FROM reviews r GROUP BY r.user_id) AS reviews ON reviews.user_id = users.id
     WHERE users.client IS FALSE AND ${queryCondition ? queryCondition : ''}
-    GROUP BY users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at, reviews.total_reviews, reviews.total_rating_sum
+    GROUP BY users.id, users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at, reviews.total_reviews, reviews.total_rating_sum
     ${`ORDER BY ${orderByArgs.join(' AND ')}`}
     ${limitQuery ? 'LIMIT $1 OFFSET $2' : ''}
   `, queryArgs)

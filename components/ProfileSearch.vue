@@ -19,7 +19,7 @@
             <select class="border rounded-md px-2 py-1 w-full" v-model="filters.sortValue">
               <option value="">Keine Sortierung</option>
               <option value="top-reviews">Bestbewertet</option>
-              <!-- option value="new-reviews">Neueste Bewertungen</option -->
+              <option value="new-reviews">Neueste Bewertungen</option>
               <option value="alphabetical">Name A-Z</option>
               <option value="new">Neu bei Traumanwalt</option>
             </select>

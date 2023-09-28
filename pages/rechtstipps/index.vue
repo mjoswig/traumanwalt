@@ -49,9 +49,9 @@ export default {
     getFullName(legalGuide) {
       let fullName = []
       if (legalGuide.user_salutation === 'Frau') {
-        fullName.push('Rechtsanwältin')
+        fullName.push(legalGuide.user_job_title || 'Rechtsanwältin')
       } else {
-        fullName.push('Rechtsanwalt')
+        fullName.push(legalGuide.user_job_title || 'Rechtsanwalt')
       }
       fullName.push(legalGuide.user_first_name)
       fullName.push(legalGuide.user_last_name)

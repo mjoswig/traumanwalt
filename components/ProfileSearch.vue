@@ -1,19 +1,19 @@
 <template>
   <div class="flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0 -mt-4 lg:mt-0">
     <section class="w-full lg:w-1/5">
-      <div class="bg-white w-full fixed left-0 bottom-0 lg:sticky lg:bottom-0 lg:top-4 border lg:rounded-md">
-        <div class="flex lg:hidden items-center justify-between px-4 py-2">
+      <div class="bg-white w-full fixed left-0 bottom-0 shadow-md lg:shadow-none lg:sticky lg:bottom-0 lg:top-4 border lg:rounded-md">
+        <div class="bg-gray-100 flex lg:hidden items-center justify-between px-4 py-2" @click="showMobileFilters = !showMobileFilters">
           <b class="text-gray-500 text-base md:text-lg">Suchfilter</b>
           <div>
-            <svg v-show="!showMobileFilters" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list h-6 w-6 md:h-8 md:w-8" viewBox="0 0 16 16" @click="showMobileFilters = true">
+            <svg v-show="!showMobileFilters" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list h-6 w-6 md:h-8 md:w-8" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
             </svg>
-            <svg v-show="showMobileFilters" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg h-6 w-6 md:h-8 md:w-8" viewBox="0 0 16 16" @click="showMobileFilters = false">
+            <svg v-show="showMobileFilters" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-lg h-6 w-6 md:h-8 md:w-8" viewBox="0 0 16 16">
               <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
             </svg>
           </div>
         </div>
-        <form class="flex-col space-y-4 px-4 pb-4 lg:p-4" :class="{ 'flex': showMobileFilters, 'hidden lg:flex': !showMobileFilters }" @submit.prevent>
+        <form class="flex-col space-y-4 p-4" :class="{ 'flex': showMobileFilters, 'hidden lg:flex': !showMobileFilters }" @submit.prevent>
           <fieldset>
             <label class="block font-bold text-base md:text-lg mb-1">Sortieren nach</label>
             <select class="border rounded-md px-2 py-1 w-full" v-model="filters.sortValue">

@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
   }
 
   if (!orderByArgs.length) {
-    orderByArgs.push('RANDOM()')
+    orderByArgs.push('users.order_id DESC')
   }
 
   let queryCondition = ''
@@ -173,7 +173,7 @@ router.get('/category/:slug', async (req, res) => {
   }
 
   if (!orderByArgs.length) {
-    orderByArgs.push('RANDOM()')
+    orderByArgs.push('users.order_id DESC')
   }
 
   const profiles = await db.query(`

@@ -3,7 +3,7 @@
     <h1 class="md:text-center mb-2">Neue Stellenanzeige erstellen</h1>
     <p class="md:text-center text-lg lg:text-xl">Sie suchen Kollegen für Ihre Kanzlei? Schalten Sie Ihre Wunschanzeige ganz einfach online.</p>
     <form class="flex flex-col space-y-5 mt-4 md:mt-8 w-full" @submit.prevent>
-      <div class="grid grid-cols lg:grid-cols-2 gap-4 w-full">
+      <div class="grid grid-cols lg:grid-cols-2 gap-6 md:gap-8 w-full">
         <div class="flex flex-col space-y-4">
           <h2>Kontaktdaten</h2>
           <fieldset>

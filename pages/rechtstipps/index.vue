@@ -1,9 +1,9 @@
 <template>
   <div>
-    <section class="md:text-center mb-4 md:mb-12">
+    <div class="md:text-center mb-4 md:mb-12">
       <h1 class="mb-2">Rechtstipps von Traumanwälten</h1>
       <p class="text-xl">Hier finden Sie gut verständliche Rechtstipps zu allen wichtigen Rechtsgebieten.</p>
-    </section>
+    </div>
     <section class="flex flex-col space-y-4 md:space-y-8">
       <nuxt-link class="legal-guide" :to="`/rechtstipps/${legalGuide.slug}`" v-for="(legalGuide, index) in legalGuides" :key="index">
         <div class="border rounded-md shadow-md flex flex-col space-y-4 lg:flex-row lg:space-y-0" style="min-height: 250px;">

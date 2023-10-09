@@ -1,10 +1,10 @@
 <template>
   <div>
-    <section>
+    <div>
       <h1>Rechtstipps von {{ fullName }}</h1>
       <p class="text-xl mt-4" v-if="!legalGuides.length">{{ fullName }} hat noch keine Rechtstipps veröffentlicht.</p>
       <p class="text-xl mt-4" v-if="legalGuides.length">{{ fullName }} hat {{ totalGuides }} Rechtstipp{{ totalGuides !== 1 ? 's' : '' }} auf Traumanwalt geteilt.</p>
-    </section>
+    </div>
     <section v-if="legalGuides.length" class="flex flex-col space-y-4 md:space-y-8 mt-4 md:mt-12">
       <nuxt-link class="legal-guide" :to="`/rechtstipps/${legalGuide.slug}`" v-for="(legalGuide, index) in legalGuides" :key="index">
         <div class="border rounded-md shadow-md flex flex-col space-y-4 lg:flex-row lg:space-y-0" style="min-height: 250px;">

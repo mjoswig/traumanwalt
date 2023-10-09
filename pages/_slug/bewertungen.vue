@@ -1,8 +1,6 @@
 <template>
   <div>
-    <section class="mb-4 md:mb-8">
-      <h1>Bewertungen für {{ fullName }}</h1>
-    </section>
+    <h1 class="mb-4 md:mb-8">Bewertungen für {{ fullName }}</h1>
     <div class="flex justify-between">
       <div class="flex flex-col space-y-1 sm:flex-row sm:space-x-2 sm:space-y-0">
         <span class="text-3xl lg:text-4xl">{{ (Math.round(averageRating * 100) / 100).toFixed(1).replace('.', ',') }}</span>

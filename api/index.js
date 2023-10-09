@@ -7,6 +7,7 @@ const db = require('./db')
 
 // import routes
 const conversationRoutes = require('./routes/conversations')
+const jobRoutes = require('./routes/jobs')
 const lawFirmRoutes = require('./routes/law-firms')
 const legalFieldRoutes = require('./routes/legal-fields')
 const legalServiceRoutes = require('./routes/legal-services')
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({ extended: false }))
 app.use(cors({ origin: true }))
 app.use('/api/conversations', conversationRoutes)
+app.use('/api/jobs', jobRoutes)
 app.use('/api/law-firms', lawFirmRoutes)
 app.use('/api/legal-fields', legalFieldRoutes)
 app.use('/api/legal-services', legalServiceRoutes)

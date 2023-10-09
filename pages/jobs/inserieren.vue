@@ -53,7 +53,7 @@
             </fieldset>
             <fieldset>
               <label class="font-bold block">Telefonnummer</label>
-              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Telefonnummer', example: 'Beispiel:' }" default-country-code="DE" valid-color="green" v-model="companyPhoneInput" @update="value => phone = value.formattedNumber" />
+              <VuePhoneNumberInput class="w-full" :translations="{ countrySelectorLabel: 'Vorwahl', phoneNumberLabel: 'Ihre Telefonnummer', example: 'Beispiel:' }" default-country-code="DE" valid-color="green" v-model="companyPhoneInput" @update="value => companyPhone = value.formattedNumber" />
             </fieldset>
           </div>
           <div class="grid lg:grid-cols-2 gap-4">
@@ -81,21 +81,21 @@
             <fieldset>
               <label class="font-bold block">Jobtyp</label>
               <select class="border px-2 py-1 rounded-md w-full" v-model="jobTypeId">
-                <option value="">Bitte auswählen...</option>
+                <option :value="null">Bitte auswählen...</option>
                 <option v-for="(jobType, index) in jobTypes" :key="index" :value="jobType.id">{{ jobType.name }}</option>
               </select>
             </fieldset>
             <fieldset>
               <label class="font-bold block">Arbeitszeit</label>
               <select class="border px-2 py-1 rounded-md w-full" v-model="jobEmploymentTypeId">
-                <option value="">Bitte auswählen...</option>
+                <option :value="null">Bitte auswählen...</option>
                 <option v-for="(employmentType, index) in employmentTypes" :key="index" :value="employmentType.id">{{ employmentType.name }}</option>
               </select>
             </fieldset>
             <fieldset>
               <label class="font-bold block">Rechtsgebiet (optional)</label>
               <select class="border px-2 py-1 rounded-md w-full" v-model="jobLegalFieldId">
-                <option value="">Bitte auswählen...</option>
+                <option :value="null">Bitte auswählen...</option>
                 <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.id">{{ legalField.name }}</option>
               </select>
             </fieldset>
@@ -111,7 +111,7 @@
         </div>
       </div>
       <fieldset class="flex justify-end">
-        <Btn :is-disabled="!canPublish">Jetzt veröffentlichen – 299,00 €</Btn>
+        <Btn :is-disabled="!canPublish" :is-loading="isPublishing" @click="publishJob">Jetzt veröffentlichen – 299,00 €</Btn>
       </fieldset>
     </form>
   </div>
@@ -155,28 +155,29 @@ export default {
       companyLinkedInUrl: '',
       jobTitle: '',
       jobDescription: '',
-      jobTypeId: '',
-      jobEmploymentTypeId: '',
-      jobLegalFieldId: '',
-      jobLocation: ''
+      jobTypeId: null,
+      jobEmploymentTypeId: null,
+      jobLegalFieldId: null,
+      jobLocation: '',
+      isPublishing: false
     }
   },
   computed: {
     canPublish() {
       return (
         this.companyName !== ''
-        && this.companyLogoUrl !== ''
         && !this.isUploadingCompanyLogo
         && this.companyAddressLine !== ''
         && this.companyPostalCode !== ''
         && this.companyCity !== ''
         && this.companyCountry !== ''
         && this.companyEmail !== ''
+        && this.companyEmail.indexOf('@') !== -1
         && this.companyPhone !== ''
         && this.jobTitle !== ''
         && this.jobDescription !== ''
-        && this.jobTypeId !== ''
-        && this.jobEmploymentTypeId !== ''
+        && this.jobTypeId
+        && this.jobEmploymentTypeId
       )
     }
   },
@@ -212,6 +213,35 @@ export default {
       this.companyLogoUrl = null
 
       this.$toast.success('Firmenlogo entfernt')
+    },
+    async publishJob() {
+      this.isPublishing = true
+
+      const job = await this.$axios.$post('/api/jobs/create', {
+        company_name: this.companyName,
+        company_logo_url: this.companyLogoUrl,
+        company_address_line: this.companyAddressLine,
+        company_postal_code: this.companyPostalCode,
+        company_city: this.companyCity,
+        company_country: this.companyCountry,
+        company_email: this.companyEmail,
+        company_phone: this.companyPhone,
+        company_website_url: this.companyWebsiteUrl,
+        company_linkedin_url: this.companyLinkedInUrl,
+        title: this.jobTitle,
+        description: this.jobDescription,
+        type_id: this.jobTypeId,
+        employment_type_id: this.jobEmploymentTypeId,
+        legal_field_id: this.jobLegalFieldId,
+        location: this.jobLocation
+      })
+
+      /*const response = await this.$axios.$post(`/api/stripe/job/pay`, {
+        job_id: job.id
+      })*/
+
+      this.isPublishing = false
+      window.location.href = response.url
     }
   }
 }

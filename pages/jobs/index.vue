@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="-mt-4">
     <section class="bg-gray-100 flex flex-col-reverse md:flex-row items-center rounded-md shadow-sm mb-12">
       <div class="px-4 py-6 md:p-8 w-full">
         <h1 class="mb-2">Stellenmarkt und Jobbörse für Rechtsanwälte und Juristen</h1>
@@ -10,6 +10,7 @@
       </div>
     </section>
     <section>
+      <h2 class="mb-4">Aktuelle Stellenanzeigen</h2>
       <p>Aktuell haben wir keine offenen Stellenanzeigen in unserer Jobbörse. Bitte besuchen Sie uns zu einem späteren Zeitpunkt wieder!</p>
     </section>
   </div>

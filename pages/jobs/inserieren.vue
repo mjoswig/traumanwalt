@@ -12,7 +12,17 @@
           </fieldset>
           <fieldset>
             <label class="font-bold block">Firmenlogo (optional)</label>
-            <input ref="clupload" name="company-logo-upload" type="file" accept=".jpg, .jpeg, .png" @change="updatePhoto($event)" />
+            <input ref="clupload" name="company-logo-upload" type="file" accept=".jpg, .jpeg, .png" @change="updateCompanyLogo($event)" />
+            <span v-show="isUploadingCompanyLogo" class="block text-gray-500 mt-2">Logo wird hochgeladen. Bitte warten...</span>
+            <div class="mt-2" v-show="companyLogoUrl">
+              <div class="border bg-white bg-center bg-no-repeat h-36 w-36 md:h-48 md:w-48 rounded-md" :style="`background-image: url(${companyLogoUrl}); background-size: 90%;`" />
+              <a class="flex items-center space-x-2 cursor-pointer mt-4" @click="removeLogo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16" @click="removeLegalField(index)">
+                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                </svg>
+                <span>Logo entfernen</span>
+              </a>
+            </div>
           </fieldset>
           <div class="grid lg:grid-cols-2 gap-4">
             <fieldset>
@@ -72,14 +82,14 @@
               <label class="font-bold block">Jobtyp</label>
               <select class="border px-2 py-1 rounded-md w-full" v-model="jobTypeId">
                 <option value="">Bitte auswählen...</option>
-                <option></option>
+                <option v-for="(jobType, index) in jobTypes" :key="index" :value="jobType.id">{{ jobType.name }}</option>
               </select>
             </fieldset>
             <fieldset>
               <label class="font-bold block">Arbeitszeit</label>
               <select class="border px-2 py-1 rounded-md w-full" v-model="jobEmploymentTypeId">
                 <option value="">Bitte auswählen...</option>
-                <option></option>
+                <option v-for="(employmentType, index) in employmentTypes" :key="index" :value="employmentType.id">{{ employmentType.name }}</option>
               </select>
             </fieldset>
             <fieldset>
@@ -101,14 +111,16 @@
         </div>
       </div>
       <fieldset class="flex justify-end">
-        <Btn>Jetzt veröffentlichen – 299,00 €</Btn>
+        <Btn :is-disabled="!canPublish">Jetzt veröffentlichen – 299,00 €</Btn>
       </fieldset>
     </form>
   </div>
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid'
 import countryData from '@/assets/json/countries.json'
+import imageCompression from 'browser-image-compression'
 
 export default {
   name: 'JobsInserierenPage',
@@ -131,6 +143,7 @@ export default {
       legalFields,
       companyName: '',
       companyLogoUrl: '',
+      isUploadingCompanyLogo: false,
       companyAddressLine: '',
       companyPostalCode: '',
       companyCity: '',
@@ -146,6 +159,59 @@ export default {
       jobEmploymentTypeId: '',
       jobLegalFieldId: '',
       jobLocation: ''
+    }
+  },
+  computed: {
+    canPublish() {
+      return (
+        this.companyName !== ''
+        && this.companyLogoUrl !== ''
+        && !this.isUploadingCompanyLogo
+        && this.companyAddressLine !== ''
+        && this.companyPostalCode !== ''
+        && this.companyCity !== ''
+        && this.companyCountry !== ''
+        && this.companyEmail !== ''
+        && this.companyPhone !== ''
+        && this.jobTitle !== ''
+        && this.jobDescription !== ''
+        && this.jobTypeId !== ''
+        && this.jobEmploymentTypeId !== ''
+      )
+    }
+  },
+  methods: {
+    async updateCompanyLogo(e) {
+      const files = e.target.files || e.dataTransfer.files
+      if (!files.length) return
+
+      this.isUploadingCompanyLogo = true
+
+      // compress image to less than 500kb
+      const compressedFile = await imageCompression(files[0], {
+        maxSizeMB: 0.5,
+        useWebWorker: true
+      })
+
+      // delete previous image from firebase storage
+      if (this.companyLogoUrl && this.companyLogoUrl.indexOf('google') !== -1) {
+        await this.$firebaseStorage.remove(this.companyLogoUrl)
+      }
+
+      this.companyLogoUrl = await this.$firebaseStorage.write(`/jobs/logos/${uuidv4()}`, compressedFile)
+
+      this.isUploadingCompanyLogo = false
+      this.$toast.success('Firmenlogo aktualisiert')
+    },
+    async removeLogo() {
+      // delete previous image from firebase storage
+      if (this.companyLogoUrl && this.companyLogoUrl.indexOf('google') !== -1) {
+        await this.$firebaseStorage.remove(this.companyLogoUrl)
+      }
+
+      this.companyLogoUrl = null
+
+      this.$toast.success('Firmenlogo entfernt')
     }
   }
 }

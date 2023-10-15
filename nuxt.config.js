@@ -101,6 +101,12 @@ export default {
     { path: '/', handler: '@/api/index.js' }
   ],
 
+  // Environment Variables Configuration
+  env: {
+    telegramBotApiKey: process.env.TELEGRAM_BOT_API_KEY || null,
+    telegramBotChatId: process.env.TELEGRAM_BOT_CHAT_ID || null
+  },
+
   // Sitemap Configuration
   sitemap: {
     path: '/sitemap.xml',

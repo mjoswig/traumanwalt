@@ -1,10 +1,10 @@
 const ignorePaths = ["\u002F__webpack_hmr","\u002F_loading","\u002F_nuxt\u002F"]
 
 importScripts(
-  'https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js'
+  'https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js'
 )
 importScripts(
-  'https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js'
+  'https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js'
 )
 firebase.initializeApp({"apiKey":"AIzaSyDurZv14354hYOwLK6siLiKraBLYY4VmJU","authDomain":"traumanwalt.firebaseapp.com","projectId":"traumanwalt","storageBucket":"traumanwalt.appspot.com","messagingSenderId":"667857912387","appId":"1:667857912387:web:bbf1c3c75850a184e64af6","measurementId":"G-08MF7YEYLM"})
 

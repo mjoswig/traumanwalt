@@ -2,6 +2,7 @@ const router = require('express').Router()
 const user = require('../user')
 const email = require('../email')
 const db = require('../db')
+const emailCheck = require('node-email-check')
 
 // get profiles
 router.get('/', async (req, res) => {
@@ -454,6 +455,10 @@ router.post('/:slug/contact', async (req, res) => {
   // validate security question answer to prevent bot attacks
   if (req.body.sqa + req.body.sqb !== req.body.sqn) return res.status(200).send(true)
 
+  // validate email provider
+  const validEmail = await emailCheck.isValid(req.body.email)
+  if (!validEmail) return res.status(200).send(true)
+
   const userResults = await db.query('SELECT id, email, salutation, last_name FROM users WHERE slug = $1', [ req.params.slug ])
 
   await user.createConversation({
@@ -472,7 +477,7 @@ router.post('/:slug/contact', async (req, res) => {
     replyTo: `"Traumanwalt" <support@traumanwalt.com>`,
     to: userResults.rows[0].email,
     subject: 'Neue Anfrage',
-    html: `Hallo ${userResults.rows[0].salutation} ${userResults.rows[0].last_name},<br /><br />Sie haben eine neue Anfrage auf Traumanwalt erhalten. Bitte loggen Sie sich bei traumanwalt.com ein und antworten Sie anschließend über das interne Nachrichtensystem.<br /><br />Name: ${req.body.salutation} ${req.body.first_name} ${req.body.last_name}<br />E-Mail: ${req.body.email}<br />Telefonnummer: ${req.body.phone}<br />Nachricht: ${req.body.message}<br /><br />Mit freundlichen Grüßen,<br /><br />Ihr Traumanwalt Team`
+    html: `Hallo ${userResults.rows[0].salutation} ${userResults.rows[0].last_name},<br /><br />Sie haben eine neue Anfrage über Traumanwalt erhalten. Bitte loggen Sie sich bei traumanwalt.com ein und antworten Sie anschließend über das interne Nachrichtensystem.<br /><br />Name: ${req.body.salutation} ${req.body.first_name} ${req.body.last_name}<br />E-Mail: ${req.body.email}<br />Telefonnummer: ${req.body.phone}<br />Nachricht: ${req.body.message}<br /><br />Mit freundlichen Grüßen,<br /><br />Ihr Traumanwalt Team`
   })
 
   return res.status(200).send(true)

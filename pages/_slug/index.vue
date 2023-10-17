@@ -395,14 +395,7 @@ export default {
     },
     processMessage() {
       this.$router.push(`/${this.profile.slug}/nachricht?message=${this.message}`)
-    },
-    async trackVisitors() {
-      const text = `Neuer Klick auf Anwaltsprofil\n\nPfad: ${this.$route.path}`
-      await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
     }
-  },
-  created() {
-    this.trackVisitors()
   }
 }
 </script>

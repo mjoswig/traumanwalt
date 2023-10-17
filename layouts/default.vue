@@ -186,13 +186,13 @@
           </div>
           <div class="w-full md:w-2/3 lg:w-4/5">
             <div v-show="!isClient && !trialExpired && !hasSubscribed" class="text-orange-700 px-4 text-sm sm:text-base sm:px-8 py-3" style="background-color: rgb(255, 245, 236);">
-              Ihre kostenlose Testphase endet in <b>{{ trialDaysRemaining }} Tag{{ trialDaysRemaining !== 1 ? 'en': '' }}</b>. <nuxt-link to="/konto/einstellungen">Bitte klicken Sie hier</nuxt-link>, um Mitglied zu werden.
+              Ihre kostenlose Testphase endet in <b>{{ trialDaysRemaining }} Tag{{ trialDaysRemaining !== 1 ? 'en': '' }}</b>. <nuxt-link to="/konto/einstellungen">Bitte klicken Sie hier</nuxt-link>, um Mitglied zu werden. Sonst wird ihr Konto nach Ablauf deaktiviert.
             </div>
             <div v-show="!isClient && trialExpired && !hasSubscribed" class="bg-red-100 text-red-700 px-4 text-sm sm:text-base sm:px-8 py-3">
-              Ihre kostenlose Testphase ist abgelaufen. Bitte schließen Sie eine Mitgliedschaft ab, um Ihr Traumanwalt-Profil zu reaktivieren.
+              Ihre kostenlose Testphase ist abgelaufen. Bitte schließen Sie eine Mitgliedschaft ab, um Ihr Konto zu reaktivieren.
             </div>
             <div v-show="!isClient && $route.query.subscribed && hasSubscribed" class="bg-green-100 text-green-700 px-4 text-sm sm:text-base sm:px-8 py-3">
-              Herzlichen Glückwunsch, Sie sind jetzt <b>Traumanwalt</b>! Ihr Account wurde soeben für die uneingeschränkte Nutzung freigeschaltet.
+              Herzlichen Glückwunsch, Sie sind jetzt <b>Traumanwalt</b>! Ihr Konto wurde soeben für die uneingeschränkte Nutzung freigeschaltet.
             </div>
             <div class="px-4 py-6 sm:p-8">
               <Nuxt />

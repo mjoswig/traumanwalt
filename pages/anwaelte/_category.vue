@@ -47,8 +47,8 @@ export default {
   },
   computed: {
     seoTitle() {
-      if (this.categories.length === 1 && this.categories[0].type === 'legal_field') return `Anwälte für ${this.categories[0].name}`
-      if (this.categories.length === 1 && this.categories[0].type === 'city') return `Anwälte in ${this.categories[0].name}`
+      if (this.categories.length === 1 && this.categories[0].type === 'legal_field') return `${this.profiles[0].total_count} Anwälte für ${this.categories[0].name}`
+      if (this.categories.length === 1 && this.categories[0].type === 'city') return `${this.profiles[0].total_count} Anwälte in ${this.categories[0].name}`
       return `Anwälte für ${this.categories[0].name} in ${this.categories[1].name}`
     }
   },

@@ -252,6 +252,34 @@ export default {
       title: `${this.fullName} - Traumanwalt`,
       link: [
         { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
+      ],
+      script: [
+        {
+          json: {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": this.profile.address_line,
+              "postalCode": this.profile.postal_code,
+              "addressLocality": this.profile.city,
+              "addressCountry": this.profile.country
+            },
+            "name": `${this.profile.salutation} ${this.fullName}`,
+            "telephone": this.nationalPhoneNumber,
+            "faxNumber": "",
+            "image": this.photoUrl,
+            "url": `https://traumanwalt.com${this.$route.path}`,
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "bestRating": "5",
+              "worstRating": "1",
+              "ratingValue": this.averageRating,
+              "ratingCount": this.reviewCount
+            }
+          },
+          type: 'application/ld+json'
+        }
       ]
     }
   },

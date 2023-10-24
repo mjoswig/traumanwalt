@@ -268,7 +268,7 @@ export default {
             "name": `${this.profile.salutation} ${this.fullName}`,
             "telephone": this.nationalPhoneNumber,
             "faxNumber": "",
-            "image": this.photoUrl,
+            "image": this.profile.photo_url || 'https://traumanwalt.com/images/traumanwalt-lawyer-photo.png',
             "url": `https://traumanwalt.com${this.$route.path}`,
             "aggregateRating": {
               "@type": "AggregateRating",

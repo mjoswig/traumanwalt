@@ -1,6 +1,30 @@
 const router = require('express').Router()
 const db = require('../db')
 
+// get all jobs
+router.get('/', async (req, res) => {
+  const queryArgs = []
+  if (req.query.page && req.query.page_length) {
+    queryArgs.push(req.query.page_length)
+    queryArgs.push((req.query.page - 1) * req.query.page_length)
+  }
+
+  const jobs = await db.query(`
+    SELECT
+      COUNT(*) OVER() AS total_count,
+      slug, title, description, type_id, employment_type_id, location,
+      company_name, company_logo_url, company_address_line, company_postal_code,
+      company_city, company_country, company_email, company_phone, company_website_url,
+      company_linkedin_url
+    FROM jobs
+    LEFT JOIN job_types ON job_types.id = jobs.type_id
+    LEFT JOIN employment_types ON employment_types.id = jobs.employment_type_id
+    ${queryArgs.length === 2 ? 'LIMIT $1 OFFSET $2' : ''}
+  `, queryArgs)
+
+  return res.status(200).send(jobs.rows)
+})
+
 // get all job types
 router.get('/types', async (req, res) => {
   const jobTypes = await db.query(`

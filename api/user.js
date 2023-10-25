@@ -398,6 +398,21 @@ async function unsubscribeFromMembership(userId) {
   `, [ userId ])
 }
 
+// publish job
+async function publishJob(jobId) {
+  const publishedAt = new Date()
+  let expiresAt = new Date()
+  expiresAt.setDate(expiresAt.getDate() + 60)
+
+  await db.query(`
+    UPDATE jobs
+    SET
+      published_at = $1,
+      expires_at = $2
+    WHERE id = $3
+  `, [ publishedAt, expiresAt, jobId ])
+}
+
 module.exports = {
   create,
   update,
@@ -415,5 +430,6 @@ module.exports = {
   markConversationAsRead,
   replyToConversation,
   subscribeToMembership,
-  unsubscribeFromMembership
+  unsubscribeFromMembership,
+  publishJob
 }

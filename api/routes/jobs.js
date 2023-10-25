@@ -25,15 +25,15 @@ router.get('/employment-types', async (req, res) => {
 router.post('/create', async (req, res) => {
   const jobResults = await db.query(`
     INSERT INTO jobs(
-      title, description, type_id, employment_type_id, location,
+      slug, title, description, type_id, employment_type_id, location,
       company_name, company_logo_url, company_address_line, company_postal_code,
       company_city, company_country, company_email, company_phone, company_website_url,
       company_linkedin_url
     )
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
     RETURNING id
   `, [
-    req.body.title, req.body.description, req.body.type_id, req.body.employment_type_id,
+    req.body.slug, slug, req.body.title, req.body.description, req.body.type_id, req.body.employment_type_id,
     req.body.location, req.body.company_name, req.body.company_logo_url, req.body.company_address_line,
     req.body.company_postal_code, req.body.company_city, req.body.company_country, req.body.company_email,
     req.body.company_phone, req.body.company_website_url, req.body.company_linkedin_url

@@ -47,8 +47,9 @@ export default {
   },
   computed: {
     seoTitle() {
-      if (this.categories.length === 1 && this.categories[0].type === 'legal_field') return `${this.profiles[0].total_count} ${parseInt(this.profiles[0].total_count) !== 1 ? 'Anwälte' : 'Anwalt'} für ${this.categories[0].name}`
-      if (this.categories.length === 1 && this.categories[0].type === 'city') return `${this.profiles[0].total_count} ${parseInt(this.profiles[0].total_count) !== 1 ? 'Anwälte' : 'Anwalt'} in ${this.categories[0].name}`
+      const totalCount = this.profiles.length ? parseInt(this.profiles[0].total_count) : 0
+      if (this.categories.length === 1 && this.categories[0].type === 'legal_field') return `${totalCount !== 0 ? `${totalCount} ` : ''}${totalCount !== 1 ? 'Anwälte' : 'Anwalt'} für ${this.categories[0].name}`
+      if (this.categories.length === 1 && this.categories[0].type === 'city') return `${totalCount !== 0 ? `${totalCount} ` : ''}${totalCount !== 1 ? 'Anwälte' : 'Anwalt'} in ${this.categories[0].name}`
       return `Anwälte für ${this.categories[0].name} in ${this.categories[1].name}`
     }
   },

@@ -65,51 +65,6 @@ router.post('/membership/subscribe', async (req, res) => {
   return res.status(200).send(session)
 })
 
-// process payment for job posting
-router.post('/job-posting/pay', async (req, res) => {
-  // check if a customer with the same email already exists within stripe
-  let customer = await stripe.customers.search({
-    query: `email:\'${req.body.email}\'`,
-  })
-
-  // create checkout session
-  let sessionParams = {
-    line_items: [
-      {
-        price_data: {
-          unit_amount: 49900,
-          currency: 'eur',
-          product_data: {
-            name: 'Traumanwalt Stellenanzeige'
-          }
-        },
-        quantity: 1
-      }
-    ],
-    metadata: {
-      job_id: req.body.job_id
-    },
-    mode: 'payment',
-    automatic_tax: {
-      enabled: true,
-    },
-    billing_address_collection: 'required',
-    success_url: `https://traumanwalt.com/jobs/inserierung-erfolgreich`,
-    cancel_url: 'https://traumanwalt.com/jobs/inserieren'
-  }
-
-  // attach customer or customer email to session
-  if (customer && customer.data.length) {
-    sessionParams.customer = customer.data[0].id
-  } else {
-    sessionParams.customer_email = req.body.email
-  }
-
-  let session = await stripe.checkout.sessions.create(sessionParams)
-
-  return res.status(200).send(session)
-})
-
 // webhook for stripe events
 router.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   // local env: run "stripe listen --forward-to localhost:3000/api/stripe/webhook/eu" and paste secret here
@@ -131,9 +86,6 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
     if (session.metadata.membership && session.metadata.user_id) {
       const userId = parseInt(session.metadata.user_id)
       await user.subscribeToMembership(userId)
-    } else if (session.metadata.job_id) {
-      const jobId = parseInt(session.metadata.job_id)
-      await user.publishJob(jobId)
     }
   // customer subscription deleted (= subscription cancelled)
   } else if (event.type === 'customer.subscription.deleted') {

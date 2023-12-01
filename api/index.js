@@ -94,6 +94,7 @@ app.get('/api/legal-guides', async (req, res) => {
       legal_guides.slug AS slug,
       legal_guides.thumbnail_url AS thumbnail_url,
       legal_guides.content AS content,
+      legal_guides.created_at AS created_at,
       users.salutation AS user_salutation,
       users.job_title AS user_job_title,
       users.first_name AS user_first_name,

@@ -13,7 +13,7 @@
             <autocomplete base-class="city-search" placeholder="Ort eingeben" :search="searchCities" @submit="result => searchedCityName = result"></autocomplete>
           </fieldset>
           <div class="flex justify-end">
-            <Btn class="w-full sm:w-fit" @click="showSearchResults">Anwälte suchen</Btn>
+            <Btn class="w-full sm:w-fit" @click="showSearchResults">Jetzt Anwalt suchen</Btn>
           </div>
         </form>
       </div>

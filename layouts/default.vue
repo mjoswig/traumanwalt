@@ -82,7 +82,7 @@
                 <span>support@traumanwalt.com</span>
               </div>
             </div>
-            <p class="text-gray-500 text-left text-sm">Copyright &copy; {{ copyrightYear }} Traumanwalt – eine Lösung von <a href="https://joswigsolutions.com/" target="_blank">Joswig Solutions</a>. Alle Rechte vorbehalten.</p>
+            <p class="text-gray-500 text-left text-sm">&copy; Traumanwalt – made by <a href="https://joswigsolutions.com/" target="_blank">Joswig Solutions</a></p>
           </footer>
         </div>
       </div>
@@ -259,11 +259,6 @@ export default {
       const firstName = this.$store.state.userData.first_name
       const lastName = this.$store.state.userData.last_name
       return `${firstName} ${lastName}`
-    },
-    copyrightYear() {
-      const year = new Date().getFullYear()
-      if (year === 2023) return year
-      return `2023-${year}`
     }
   },
   watch: {

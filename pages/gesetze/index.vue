@@ -10,7 +10,7 @@
         &rightarrow; <b>{{ law.title_short }}</b> – {{ law.title_long }}
       </div>
       <h2 class="pt-4">Alphabetische Gesetzesübersicht</h2>
-      <div v-for="(law, index) in laws.filter(l => !l.popular)" :key="index">
+      <div v-for="(law, index) in laws" :key="index">
         &rightarrow; <b>{{ law.title_short }}</b> – {{ law.title_long }}
       </div>
     </section>

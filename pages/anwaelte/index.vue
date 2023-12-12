@@ -10,7 +10,7 @@ export default {
   name: 'AnwaelteIndexPage',
   head() {
     return {
-      title: 'Anwaltsverzeichnis - Traumanwalt',
+      title: 'Anwaltssuche - Traumanwalt',
       description: `Finden Sie die besten Anwälte Deutschlands. Jetzt kontaktieren und beraten lassen!`,
       link: [
         { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }

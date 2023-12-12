@@ -13,7 +13,7 @@
               </div>
               <div class="flex items-center space-x-8">
                 <div class="hidden md:flex items-center space-x-6 xl:space-x-8 xl:text-lg">
-                  <nuxt-link to="/anwaelte" class="hidden lg:inline-block">Anwalt finden</nuxt-link>
+                  <nuxt-link to="/anwaelte" class="hidden lg:inline-block">Anwaltssuche</nuxt-link>
                   <nuxt-link to="/rechtstipps" class="hidden lg:inline-block">Rechtstipps</nuxt-link>
                   <nuxt-link to="/gesetze" class="hidden lg:inline-block">Gesetze</nuxt-link>
                   <nuxt-link v-show="!$store.getters.isLoggedIn" to="/login">Login</nuxt-link>
@@ -38,7 +38,7 @@
               </div>
             </div>
             <div class="bg-gray-100 p-4 flex-col space-y-4 rounded-md shadow-sm mt-4" :class="{ 'flex lg:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
-              <nuxt-link to="/anwaelte">Anwalt finden</nuxt-link>
+              <nuxt-link to="/anwaelte">Anwaltssuche</nuxt-link>
               <nuxt-link to="/rechtstipps">Rechtstipps</nuxt-link>
               <nuxt-link to="/gesetze">Gesetze</nuxt-link>
               <nuxt-link v-show="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>

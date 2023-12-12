@@ -18,7 +18,7 @@
                   <nuxt-link to="/gesetze" class="hidden lg:inline-block">Gesetze</nuxt-link>
                   <nuxt-link v-show="!$store.getters.isLoggedIn" to="/login">Login</nuxt-link>
                   <nuxt-link v-show="$store.getters.isLoggedIn" to="/konto/logout">Logout</nuxt-link>
-                  <Btn v-show="!isLoggedIn" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
+                  <Btn v-show="!isLoggedIn" @click="$router.push('/mitgliedschaft')">Traumanwalt werden</Btn>
                   <Btn v-show="isLoggedIn" @click="$router.push('/konto')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                       <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -43,7 +43,7 @@
               <nuxt-link to="/gesetze">Gesetze</nuxt-link>
               <nuxt-link v-show="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>
               <nuxt-link v-show="isLoggedIn" to="/konto/logout" class="md:hidden">Logout</nuxt-link>
-              <Btn v-show="!isLoggedIn" class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Sie sind Anwalt?</Btn>
+              <Btn v-show="!isLoggedIn" class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Traumanwalt werden</Btn>
               <Btn v-show="isLoggedIn" class="w-fit md:hidden" @click="$router.push('/konto')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>

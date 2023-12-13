@@ -10,8 +10,11 @@
         &rightarrow; <b>{{ law.title_short }}</b> – {{ law.title_long }}
       </div>
       <h2 class="pt-4">Alphabetische Gesetzesübersicht</h2>
-      <div v-for="(law, index) in laws" :key="index">
-        &rightarrow; <b>{{ law.title_short }}</b> – {{ law.title_long }}
+      <div  class="flex flex-col space-y-2 md:space-y-4" v-for="(letter, index) in letters" :key="index">
+        <h3>{{ letter }}</h3>
+        <div v-for="(law, index) in laws.filter(law => law.title_short.startsWith(letter))" :key="index">
+          &rightarrow; <b>{{ law.title_short }}</b> – {{ law.title_long }}
+        </div>
       </div>
     </section>
   </div>
@@ -31,6 +34,7 @@ export default {
   async asyncData({ app }) {
     const laws = await app.$axios.$get(`/api/laws`)
     return {
+      letters: ['A', 'B', 'C', 'D', 'E'],
       laws
     }
   }

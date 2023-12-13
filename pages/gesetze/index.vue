@@ -34,7 +34,7 @@ export default {
   async asyncData({ app }) {
     const laws = await app.$axios.$get(`/api/laws`)
     return {
-      letters: ['A', 'B', 'C', 'D', 'E'],
+      letters: ['A', 'B', 'C', 'D', 'E', 'F'],
       laws
     }
   }

@@ -37,6 +37,13 @@
             <div class="ml-4 md:ml-8 my-2" v-for="(lawParagraph, index) in lawParagraphs.filter(lp => lp.section_id === lawSection3.id)" :key="index">
               <nuxt-link :to="`/gesetze/${lawSection3.law_slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
             </div>
+            <section class="ml-4 md:ml-8 mt-2" v-for="(lawSection4, index) in lawSections.filter(ls => ls.parent_id === lawSection3.id)" :key="index">
+              <h5 class="block pt-2">{{ lawSection4.title }}</h5>
+              <p>{{ lawSection4.description }}</p>
+              <div class="ml-4 md:ml-8 my-2" v-for="(lawParagraph, index) in lawParagraphs.filter(lp => lp.section_id === lawSection4.id)" :key="index">
+                <nuxt-link :to="`/gesetze/${lawSection4.law_slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
+              </div>
+            </section>
           </section>
         </section>
       </section>

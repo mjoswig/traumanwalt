@@ -19,7 +19,7 @@
       </svg>
       <nuxt-link :to="`/gesetze/${lawParagraph.law_slug}/${lawParagraph.slug}`">{{ lawParagraph.title_short }}</nuxt-link>
     </div>
-    <div class="md:text-center mb-4 md:mb-12">
+    <div class="mb-4 md:mb-12">
       <h1>{{ paragraphTitle }}</h1>
     </div>
     <article class="law-content" v-html="lawParagraph.content">

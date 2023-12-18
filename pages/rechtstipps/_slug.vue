@@ -1,5 +1,24 @@
 <template>
   <div>
+    <div class="breadcrumb-nav flex flex-wrap items-center text-sm md:text-base mb-6 md:mb-12">
+      <nuxt-link class="mr-2" to="/">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+          <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+        </svg>
+      </nuxt-link>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill mr-2" viewBox="0 0 16 16">
+        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+      </svg>
+      <nuxt-link  class="mr-2" to="/rechtstipps">Rechtstipps</nuxt-link>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill mr-2" viewBox="0 0 16 16">
+        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+      </svg>
+      <nuxt-link  class="mr-2" :to="`/${legalGuide.user_slug}/rechtstipps`">{{ fullNameWithoutJobTitle }}</nuxt-link>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill mr-2" viewBox="0 0 16 16">
+        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+      </svg>
+      <nuxt-link :to="`/rechtstipps/${legalGuide.slug}`">{{ legalGuide.title }}</nuxt-link>
+    </div>
     <h1 class="mb-6 xl:mb-7">{{ legalGuide.title }}</h1>
     <div v-if="legalGuide.thumbnail_url" class="w-full mb-6">
       <div class="bg-cover bg-center border rounded-lg h-48 sm:h-64 md:h-72 xl:h-96 w-full" :style="`background-image: url(${legalGuide.thumbnail_url});`"></div>
@@ -77,6 +96,12 @@ export default {
       } else {
         fullName.push(this.legalGuide.user_job_title || 'Rechtsanwalt')
       }
+      fullName.push(this.legalGuide.user_first_name)
+      fullName.push(this.legalGuide.user_last_name)
+      return fullName.join(' ')
+    },
+    fullNameWithoutJobTitle() {
+      let fullName = []
       fullName.push(this.legalGuide.user_first_name)
       fullName.push(this.legalGuide.user_last_name)
       return fullName.join(' ')

@@ -350,6 +350,10 @@ dl dd {
   @apply mb-1;
 }
 
+dl dl {
+  @apply ml-8;
+}
+
 .wrapper {
   max-width: 1400px;
 }

@@ -28,6 +28,7 @@ router.get('/paragraphs/:paragraph_slug', async (req, res) => {
   const result = await db.query(`
     SELECT
       laws.slug AS law_slug,
+      laws.title_short AS law_title_short,
       law_paragraphs.slug AS slug,
       law_paragraphs.title_short AS title_short,
       law_paragraphs.title_long AS title_long,

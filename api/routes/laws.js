@@ -69,6 +69,7 @@ router.get('/:law_slug/paragraphs', async (req, res) => {
     FROM law_paragraphs
     LEFT JOIN laws ON laws.id = law_paragraphs.law_id
     WHERE laws.slug = $1
+    ORDER BY law_paragraphs.id ASC
   `, [ req.params.law_slug ])
   return res.status(200).send(result.rows)
 })

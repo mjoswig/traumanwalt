@@ -22,7 +22,7 @@
     <div class="md:text-center mb-4 md:mb-12">
       <h1>{{ paragraphTitle }}</h1>
     </div>
-    <article v-html="lawParagraph.content">
+    <article class="law-content" v-html="lawParagraph.content">
     </article>
   </div>
 </template>
@@ -56,5 +56,8 @@ export default {
 }
 </script>
 
-<style lang="postcss" scoped>
+<style lang="postcss">
+.law-content a {
+  @apply font-bold;
+}
 </style>

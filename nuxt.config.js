@@ -204,6 +204,9 @@ export default {
           const { data: laws } = await axios.get('https://traumanwalt.com/api/laws')
           routes.push(...laws.map(l => `/gesetze/${l.slug}`))
 
+          const { data: lawParagraphs } = await axios.get('https://traumanwalt.com/api/laws/paragraphs')
+          routes.push(...lawParagraphs.map(lp => `/gesetze/${lp.law_slug}/${lp.slug}`))
+
           return routes
         },
         exclude: ['/**']

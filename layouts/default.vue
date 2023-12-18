@@ -341,6 +341,15 @@ ol {
   @apply flex flex-col space-y-2 list-decimal ml-5;
 }
 
+dl dt {
+  @apply font-bold mr-1;
+  float: left;
+}
+
+dl dd {
+  @apply mb-1;
+}
+
 .wrapper {
   max-width: 1400px;
 }

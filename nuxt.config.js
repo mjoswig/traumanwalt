@@ -195,6 +195,18 @@ export default {
           return routes
         },
         exclude: ['/**']
+      },
+      {
+        path: '/sitemap-laws.xml',
+        routes: async () => {
+          let routes = []
+
+          const { data: laws } = await axios.get('https://traumanwalt.com/api/laws')
+          routes.push(...laws.map(l => `/gesetze/${l.slug}`))
+
+          return routes
+        },
+        exclude: ['/**']
       }
     ]
   },

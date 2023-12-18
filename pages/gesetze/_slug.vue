@@ -34,7 +34,7 @@ export default {
   name: 'GesetzeSectionsPage',
   head() {
     return {
-      title: `${this.lawTitle} - Traumanwalt`,
+      title: `${this.seoTitle} - Traumanwalt`,
       link: [
         { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
       ]
@@ -52,6 +52,9 @@ export default {
   computed: {
     lawTitle() {
       return `${this.lawSections[0].law_title_short} – ${this.lawSections[0].law_title_long}`
+    },
+    seoTitle() {
+      return `${this.lawSections[0].law_title_long} (${this.lawSections[0].law_title_short})`
     }
   }
 }

@@ -11,6 +11,18 @@ router.get('/', async (req, res) => {
   return res.status(200).send(result.rows)
 })
 
+// get all law paragraphs
+router.get('/paragraphs', async (req, res) => {
+  const result = await db.query(`
+    SELECT
+      laws.slug AS law_slug,
+      law_paragraphs.slug AS slug
+    FROM law_paragraphs
+    LEFT JOIN laws ON laws.id = law_paragraphs.law_id
+  `)
+  return res.status(200).send(result.rows)
+})
+
 // get law sections
 router.get('/:law_slug', async (req, res) => {
   const result = await db.query(`
@@ -29,7 +41,7 @@ router.get('/:law_slug', async (req, res) => {
   return res.status(200).send(result.rows)
 })
 
-// get law paragraphs
+// get law paragraphs by law
 router.get('/:law_slug/paragraphs', async (req, res) => {
   const result = await db.query(`
     SELECT

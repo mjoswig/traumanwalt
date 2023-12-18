@@ -23,6 +23,22 @@ router.get('/paragraphs', async (req, res) => {
   return res.status(200).send(result.rows)
 })
 
+// get single law paragraph by slug
+router.get('/paragraphs/:paragraph_slug', async (req, res) => {
+  const result = await db.query(`
+    SELECT
+      laws.slug AS law_slug,
+      law_paragraphs.slug AS slug,
+      law_paragraphs.title_short AS title_short,
+      law_paragraphs.title_long AS title_long,
+      law_paragraphs.content AS content
+    FROM law_paragraphs
+    LEFT JOIN laws ON laws.id = law_paragraphs.law_id
+    WHERE law_paragraphs.slug = $1
+  `, [ req.params.paragraph_slug ])
+  return res.status(200).send(result.rows[0])
+})
+
 // get law sections
 router.get('/:law_slug', async (req, res) => {
   const result = await db.query(`

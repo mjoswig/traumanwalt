@@ -337,6 +337,10 @@ a {
   }
 }
 
+ol {
+  @apply flex flex-col space-y-2 list-decimal ml-5;
+}
+
 .wrapper {
   max-width: 1400px;
 }

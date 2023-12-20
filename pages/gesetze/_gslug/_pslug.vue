@@ -19,6 +19,24 @@
       </svg>
       <nuxt-link :to="`/gesetze/${lawParagraph.law_slug}/${lawParagraph.slug}`">{{ lawParagraph.title_short }}</nuxt-link>
     </div>
+    <div class="flex justify-between text-sm md:text-base mb-4 md:mb-8">
+      <div>
+        <nuxt-link v-if="lawParagraphBefore" class="flex items-center space-x-2" :to="`/gesetze/${lawParagraph.law_slug}/${lawParagraphBefore.slug}`">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+          </svg>
+          <span>{{ lawParagraphBefore.title_short }}</span>
+        </nuxt-link>
+      </div>
+      <div>
+        <nuxt-link v-if="lawParagraphAfter" class="flex items-center space-x-2" :to="`/gesetze/${lawParagraph.law_slug}/${lawParagraphAfter.slug}`">
+          <span>{{ lawParagraphAfter.title_short }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+          </svg>
+        </nuxt-link>
+      </div>
+    </div>
     <div class="mb-4 md:mb-12">
       <h1>{{ paragraphTitle }}</h1>
     </div>
@@ -49,7 +67,9 @@ export default {
     const lawParagraph = await app.$axios.$get(`/api/laws/paragraphs/${params.pslug}`)
     if (!lawParagraph) redirect('/gesetze')
     return {
-      lawParagraph
+      lawParagraphBefore: lawParagraph.result_before,
+      lawParagraphAfter: lawParagraph.result_after,
+      lawParagraph: lawParagraph.result
     }
   },
   computed: {

@@ -29,6 +29,8 @@ router.get('/paragraphs/:paragraph_slug', async (req, res) => {
     SELECT
       laws.slug AS law_slug,
       laws.title_short AS law_title_short,
+      law_paragraphs.law_id AS law_id,
+      law_paragraphs.id AS id,
       law_paragraphs.slug AS slug,
       law_paragraphs.title_short AS title_short,
       law_paragraphs.title_long AS title_long,
@@ -37,7 +39,32 @@ router.get('/paragraphs/:paragraph_slug', async (req, res) => {
     LEFT JOIN laws ON laws.id = law_paragraphs.law_id
     WHERE law_paragraphs.slug = $1
   `, [ req.params.paragraph_slug ])
-  return res.status(200).send(result.rows[0])
+
+  const resultBefore = await db.query(`
+    SELECT
+      law_paragraphs.slug AS slug,
+      law_paragraphs.title_short AS title_short
+    FROM law_paragraphs
+    WHERE law_paragraphs.id < $1 AND law_paragraphs.law_id = $2
+    ORDER BY $1 - law_paragraphs.id ASC
+    LIMIT 1
+  `, [ result.rows[0].id, result.rows[0].law_id ])
+
+  const resultAfter = await db.query(`
+    SELECT
+      law_paragraphs.slug AS slug,
+      law_paragraphs.title_short AS title_short
+    FROM law_paragraphs
+    WHERE law_paragraphs.id > $1 AND law_paragraphs.law_id = $2
+    ORDER BY law_paragraphs.id - $1 ASC
+    LIMIT 1
+  `, [ result.rows[0].id, result.rows[0].law_id ])
+
+  return res.status(200).send({
+    result_before: resultBefore.rows[0],
+    result_after: resultAfter.rows[0],
+    result: result.rows[0]
+  })
 })
 
 // get law sections

@@ -37,7 +37,7 @@
         </nuxt-link>
       </div>
     </div>
-    <div class="mb-4 md:mb-12">
+    <div class="mb-4 md:mb-8">
       <h1>{{ paragraphTitle }}</h1>
     </div>
     <article class="law-content mb-6 md:mb-10" v-html="lawParagraph.content">

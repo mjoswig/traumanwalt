@@ -22,8 +22,15 @@
     <div class="mb-4 md:mb-12">
       <h1>{{ paragraphTitle }}</h1>
     </div>
-    <article class="law-content" v-html="lawParagraph.content">
+    <article class="law-content mb-6 md:mb-10" v-html="lawParagraph.content">
     </article>
+    <div class="relative flex items-center justify-center bg-cover sm:h-48 lg:h-72 border p-4 rounded-md" :style="`background-image: url(${require('@/assets/images/traumanwalt-clients.jpeg')}); background-position: 50% 0;`">
+      <div class="absolute top-0 left-0 h-full w-full opacity-30 bg-black rounded-md"></div>
+      <div class="flex flex-col lg:items-center z-10 text-white lg:text-center lg:w-96 lg:px-0 lg:-ml-40">
+        <h2 class="text-xl xl:text-2xl mb-3 lg:mb-4">Gewinnen Sie neue Mandanten und steigern Sie Ihre Reputation mit einem Traumanwalt-Profil</h2>
+        <Btn @click="$router.push('/mitgliedschaft')">Jetzt Traumanwalt werden</Btn>
+      </div>
+    </div>
   </div>
 </template>
 

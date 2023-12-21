@@ -2,7 +2,7 @@
   <div>
     <div v-if="!isLoading">
       <div v-show="showPublicLayout" class="top-banner bg-brand text-center text-xs sm:text-sm text-white py-1">
-        <nuxt-link to="/traumanwalt-werden">Noch kein Traumanwalt? Jetzt 1 Monat kostenlos testen!</nuxt-link>
+        <nuxt-link to="/mitgliedschaft">Noch kein Traumanwalt? Jetzt 1 Monat kostenlos testen!</nuxt-link>
       </div>
       <div v-show="showPublicLayout" class="flex justify-center">
         <div class="p-4 sm:p-8 wrapper flex flex-col w-full">

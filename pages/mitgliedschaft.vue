@@ -34,7 +34,7 @@
             <h3>Anwaltsprofil</h3>
           </div>
           <p class="mb-4 lg:mb-8 lg:text-lg">Hinterlegen Sie Informationen zu Ihrer Anwaltstätigkeit: Lebenslauf, Schwerpunkte, Standorte, Sprachen, uvm.</p>
-          <Btn class="w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlos testen</Btn>
+          <Btn class="w-full md:w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlosen Testzugang erstellen</Btn>
         </div>
         <div class="w-full mb-4 lg:mb-0">
           <img class="border rounded-md shadow-sm" src="@/assets/images/landing-page/traumanwalt-anwaltsprofil.png" />
@@ -53,7 +53,7 @@
             <h3>Direkt-Kontakt</h3>
           </div>
           <p class="mb-4 lg:mb-8 lg:text-lg">Über Ihr Anwaltsprofil können potentielle Mandanten Sie direkt kontaktieren und Nachrichten mit Ihnen austauschen.</p>
-          <Btn class="w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlos testen</Btn>
+          <Btn class="w-full md:w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlosen Testzugang erstellen</Btn>
         </div>
       </section>
       <section class="flex flex-col-reverse items-center lg:flex-row lg:space-x-12">
@@ -65,7 +65,7 @@
             <h3>Bewertungen erhalten</h3>
           </div>
           <p class="mb-4 lg:mb-8 lg:text-lg">Erhalten Sie Bewertungen für Ihre Leistungen als Anwalt und steigern Sie damit Ihre Position in den Suchmaschinen.</p>
-          <Btn class="w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlos testen</Btn>
+          <Btn class="w-full md:w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlosen Testzugang erstellen</Btn>
         </div>
         <div class="w-full mb-4 lg:mb-0">
           <img class="border rounded-md shadow-sm" src="@/assets/images/landing-page/traumanwalt-bewertungen.png" />
@@ -83,7 +83,7 @@
             <h3>Besucherstatistiken</h3>
           </div>
           <p class="mb-4 lg:mb-8 lg:text-lg">Sie erhalten für Ihr Anwaltsprofil und jeden Fachbeitrag gezielte Besucherstatistiken und Klickzahlen.</p>
-          <Btn class="w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlos testen</Btn>
+          <Btn class="w-full md:w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlosen Testzugang erstellen</Btn>
         </div>
       </section>
       <section class="flex flex-col-reverse items-center lg:flex-row lg:space-x-12">
@@ -95,7 +95,7 @@
             <h3>Rechtstipps</h3>
           </div>
           <p class="mb-4 lg:mb-8 lg:text-lg">Veröffentlichen Sie Fachbeiträge zu Ihren Schwerpunkten und erlangen Sie so mehr Sichtbarkeit für Ihr Anwaltsprofil.</p>
-          <Btn class="w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlos testen</Btn>
+          <Btn class="w-full md:w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlosen Testzugang erstellen</Btn>
         </div>
         <div class="w-full mb-4 lg:mb-0">
           <img class="border rounded-md shadow-sm" src="@/assets/images/landing-page/traumanwalt-rechtstipps.png" />
@@ -114,7 +114,7 @@
             <h3>Kanzleiprofil</h3>
           </div>
           <p class="mb-4 lg:mb-8 lg:text-lg">Mehr als ein Anwaltsprofil? Kein Problem – mit unserem Kanzleiprofil, welches Sie selbst verwalten können.</p>
-          <Btn class="w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlos testen</Btn>
+          <Btn class="w-full md:w-fit" @click="$router.push('/traumanwalt-werden')">Kostenlosen Testzugang erstellen</Btn>
         </div>
       </section>
     </article>
@@ -122,7 +122,7 @@
       <div class="absolute top-0 left-0 h-full w-full opacity-30 bg-black rounded-md"></div>
       <div class="flex flex-col lg:items-center z-10 text-white lg:text-center lg:w-96 lg:px-0 lg:-ml-40">
         <h2 class="text-xl xl:text-2xl mb-3 lg:mb-4">Werden Sie als Anwalt sichtbar: Wir helfen Ihnen schneller über Google gefunden zu werden</h2>
-        <Btn @click="$router.push('/traumanwalt-werden')">Traumanwalt-Profil erstellen</Btn>
+        <Btn @click="$router.push('/traumanwalt-werden')">Ich will Traumanwalt werden</Btn>
       </div>
     </div>
   </div>

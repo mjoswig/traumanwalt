@@ -24,7 +24,7 @@
       </div>
     </div>
     <h2 class="mb-6 md:mb-8 lg:mb-12">Was Sie bei uns bekommen:</h2>
-    <article class="flex flex-col space-y-8 lg:space-y-16">
+    <article class="flex flex-col space-y-8 lg:space-y-16 mb-8 md:mb-12 lg:mb-16">
       <section class="flex flex-col-reverse items-center lg:flex-row lg:space-x-12">
         <div class="w-full">
           <div class="flex flex-col space-y-2 lg:space-y-0 lg:flex-row lg:space-x-4 mb-2 lg:mb-4">
@@ -118,6 +118,13 @@
         </div>
       </section>
     </article>
+    <div class="relative flex items-center justify-center bg-cover sm:h-48 lg:h-72 border p-4 rounded-md" :style="`background-image: url(${require('@/assets/images/traumanwalt-clients.jpeg')}); background-position: 50% 0;`">
+      <div class="absolute top-0 left-0 h-full w-full opacity-30 bg-black rounded-md"></div>
+      <div class="flex flex-col lg:items-center z-10 text-white lg:text-center lg:w-96 lg:px-0 lg:-ml-40">
+        <h2 class="text-xl xl:text-2xl mb-3 lg:mb-4">Werden Sie als Anwalt sichtbar: Wir helfen Ihnen schneller über Google gefunden zu werden</h2>
+        <Btn @click="$router.push('/traumanwalt-werden')">Traumanwalt-Profil erstellen</Btn>
+      </div>
+    </div>
   </div>
 </template>
 

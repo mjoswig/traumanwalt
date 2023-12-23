@@ -17,14 +17,24 @@
     </div>
     <section class="flex flex-col space-y-2 md:space-y-4">
       <h2 class="block pb-2 pt-2 md:pt-0">Meistgesuchte Gesetze</h2>
-      <nuxt-link :to="`/gesetze/${law.slug}`" class="w-fit md:pb-2" v-for="(law, index) in laws.filter(l => l.popular)" :key="index">
-        &rightarrow; <b>{{ law.title_short }}</b> – {{ law.title_long }}
+      <nuxt-link :to="`/gesetze/${law.slug}`" class="flex space-x-2 w-fit md:pb-2" v-for="(law, index) in laws.filter(l => l.popular)" :key="index">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" style="margin-top: 5px;" viewBox="0 0 16 16">
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+          </svg>
+        </div>
+        <span><b>{{ law.title_short }}</b> – {{ law.title_long }}</span>
       </nuxt-link>
       <h2 class="pt-5 md:pt-8">Alphabetische Gesetzesübersicht</h2>
       <div class="flex flex-col space-y-2 md:space-y-4" v-for="(letter, index) in letters" :key="index">
         <h3 class="block md:pb-2 pt-4">{{ letter }}</h3>
-        <nuxt-link :to="`/gesetze/${law.slug}`" class="w-fit md:pb-2" v-for="(law, index) in laws.filter(law => law.title_short.startsWith(letter))" :key="index">
-          &rightarrow; <b>{{ law.title_short }}</b> – {{ law.title_long }}
+        <nuxt-link :to="`/gesetze/${law.slug}`" class="flex space-x-2 w-fit md:pb-2" v-for="(law, index) in laws.filter(law => law.title_short.startsWith(letter))" :key="index">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" style="margin-top: 5px;" viewBox="0 0 16 16">
+              <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+            </svg>
+          </div>
+          <span><b>{{ law.title_short }}</b> – {{ law.title_long }}</span>
         </nuxt-link>
       </div>
     </section>

@@ -15,30 +15,44 @@
       </svg>
       <nuxt-link :to="`/rechtsberatung/${legalService.slug}`">{{ legalService.name }}</nuxt-link>
     </div>
-    <div class="mb-6">
-      <h1>{{ legalService.name }}</h1>
-      <p v-if="legalService.description" class="text-lg md:text-xl mt-2 md:mt-4">{{ legalService.description }}</p>
-    </div>
-    <section>
-      <div v-if="!isClient" class="border bg-gray-100 p-4 md:p-6 rounded-md shadow-sm">
-        <h2 class="mb-2">Schon bei uns registriert?</h2>
-        <p class="mb-4 md:mb-6 md:text-lg">Um eine Rechtsberatung in Auftrag geben zu können, müssen Sie sich zuerst auf Traumanwalt anmelden.</p>
-        <div class="flex flex-col space-y-3 md:flex-row md:items-center md:space-x-4 md:space-y-0">
-          <Btn class="w-full md:w-fit" @click="$router.push('/mandant-werden')">Mandant werden</Btn>
-          <nuxt-link to="/login">Ich bin bereits Mandant</nuxt-link>
-        </div>
+    <section class="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0 w-full">
+      <div class="w-full lg:w-2/3">
+        <h1>{{ legalService.name }}</h1>
+        <p v-if="legalService.description" class="text-lg md:text-xl mt-2 md:mt-4">{{ legalService.description }}</p>
       </div>
-      <div v-if="isClient" class="border bg-gray-100 p-4 md:p-6 rounded-md shadow-sm">
-        <h2 class="mb-2">Jetzt Anwalt beauftragen</h2>
-        <p class="mb-6 md:text-lg">Unsere Partneranwälte helfen Ihnen gerne und beantworten alle Ihre Fragen zum <b>Bruttofestpreis</b>, ohne Steuern und weitere Überraschungen.</p>
-        <form @submit.prevent>
-          <fieldset class="mb-4">
-            <wysiwyg class="bg-white w-full" placeholder="Bitte schildern Sie hier Ihren Fall..." v-model="orderForm.description" />
-          </fieldset>
-          <fieldset class="flex items-end justify-end mt-1">
-            <Btn :is-disabled="true" class="w-full md:w-fit">Weiter zur Zahlung – {{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(legalService.price) }}</Btn>
-          </fieldset>
-        </form>
+      <div class="w-full lg:w-1/3">
+        <div class="sticky top-4 border border-gray-300 p-4 rounded-md">
+          <h2 class="text-xl xl:text-2xl mb-2">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(legalService.price) }}</h2>
+          <p class="mb-2">Rechtsprobleme sind eine enorme Belastung im Alltag. Lassen Sie sich die Last abnehmen.</p>
+          <p class="font-bold text-gray-500 text-lg mb-2">Vorteile der Traumanwalt-Beratung</p>
+          <ul class="flex flex-col space-y-1 mb-5">
+            <li class="flex space-x-2">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg mt-1" viewBox="0 0 16 16">
+                  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                </svg>
+              </div>
+              <span>Schnelle Rechtsberatung zum Festpreis</span>
+            </li>
+            <li class="flex space-x-2">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg mt-1" viewBox="0 0 16 16">
+                  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                </svg>
+              </div>
+              <span>Transparente Kommunikation mit Fachanwälten auf Augenhöhe</span>
+            </li>
+            <li class="flex space-x-2">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg mt-1" viewBox="0 0 16 16">
+                  <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                </svg>
+              </div>
+              <span>Sichere Übermittlung von vertraulichen Daten und Dokumenten</span>
+            </li>
+          </ul>
+          <Btn class="w-full" :is-disabled="true">Jetzt buchen</Btn>
+        </div>
       </div>
     </section>
   </div>

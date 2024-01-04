@@ -29,8 +29,8 @@
             <h3 class="text-lg lg:text-xl">{{ legalService.name }}</h3>
           </div>
           <div>
-            <span class="block text-gray-500 lg:text-lg mb-3">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(legalService.price) }} inkl. MwSt.</span>
-            <Btn class="w-full" @click="$router.push(`/rechtsberatung/${legalService.slug}`)">Jetzt beraten lassen</Btn>
+            <span class="block lg:text-lg mb-3">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(legalService.price) }}</span>
+            <Btn class="w-full" @click="$router.push(`/rechtsberatung/${legalService.slug}`)">Mehr erfahren</Btn>
           </div>
         </div>
       </div>

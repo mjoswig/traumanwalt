@@ -15,7 +15,10 @@
       </svg>
       <nuxt-link :to="`/rechtsberatung/${legalService.slug}`">{{ legalService.name }}</nuxt-link>
     </div>
-    <h1>{{ legalService.name }}</h1>
+    <div>
+      <h1>{{ legalService.name }}</h1>
+      <p v-if="legalService.description" class="text-lg md:text-xl mt-2 md:mt-4">{{ legalService.description }}</p>
+    </div>
   </div>
 </template>
 

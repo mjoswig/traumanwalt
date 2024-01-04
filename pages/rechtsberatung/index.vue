@@ -14,7 +14,7 @@
     <section class="flex flex-col lg:flex-row items-center mb-8 md:mb-12">
       <div class="w-full lg:w-2/5">
         <h1 class="mb-2">Rechtsberatung von Traumanwälten</h1>
-        <p class="text-xl">Lassen Sie sich online zu festen Preisen von einem Rechtsanwalt beraten. Rechtsverbindlicher Rat in 48 Stunden mit 100% Geld-zurück-Garantie.</p>
+        <p class="text-xl">Lassen Sie sich online zu festen Preisen von einem Traumanwalt beraten. Rechtsverbindlicher Rat in 48 Stunden mit 100% Geld-zurück-Garantie.</p>
       </div>
       <div class="pt-4 lg:pt-8 w-full lg:w-3/5">
         <img src="@/assets/images/traumanwalt-rechtsberatung.png" />

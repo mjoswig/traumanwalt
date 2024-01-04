@@ -12,10 +12,9 @@
                 <nuxt-link to="/"><img class="h-10 md:h-12 w-auto" src="@/assets/images/traumanwalt-logo.png" /></nuxt-link>
               </div>
               <div class="flex items-center space-x-8">
-                <div class="hidden md:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8 xl:text-lg">
+                <div class="hidden md:flex items-center space-x-8 xl:text-lg">
                   <nuxt-link to="/anwaelte" class="hidden lg:inline-block">Anwaltssuche</nuxt-link>
                   <nuxt-link to="/rechtsberatung" class="hidden lg:inline-block">Rechtsberatung</nuxt-link>
-                  <nuxt-link to="/rechtstipps" class="hidden lg:inline-block">Rechtstipps</nuxt-link>
                   <nuxt-link v-show="!$store.getters.isLoggedIn" to="/login">Login</nuxt-link>
                   <nuxt-link v-show="$store.getters.isLoggedIn" to="/konto/logout">Logout</nuxt-link>
                   <Btn v-show="!isLoggedIn" @click="$router.push('/mitgliedschaft')">Traumanwalt werden</Btn>
@@ -40,7 +39,6 @@
             <div class="bg-gray-100 p-4 flex-col space-y-4 rounded-md shadow-sm mt-4" :class="{ 'flex lg:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
               <nuxt-link to="/anwaelte">Anwaltssuche</nuxt-link>
               <nuxt-link to="/rechtstipps">Rechtsberatung</nuxt-link>
-              <nuxt-link to="/rechtstipps">Rechtstipps</nuxt-link>
               <nuxt-link v-show="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>
               <nuxt-link v-show="isLoggedIn" to="/konto/logout" class="md:hidden">Logout</nuxt-link>
               <Btn v-show="!isLoggedIn" class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Traumanwalt werden</Btn>
@@ -82,7 +80,7 @@
                 </ul>
               </div>
               <div>
-                <h3 class="text-lg mb-2">Rechtliches</h3>
+                <h3 class="text-lg mb-2">Unternehmen</h3>
                 <ul class="flex flex-col space-y-2">
                   <li><nuxt-link to="/agb">AGB</nuxt-link></li>
                   <li><a href="mailto:support@traumanwalt.com">Kontakt</a></li>

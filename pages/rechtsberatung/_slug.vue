@@ -15,10 +15,11 @@
       </svg>
       <nuxt-link :to="`/rechtsberatung/${legalService.slug}`">{{ legalService.name }}</nuxt-link>
     </div>
-    <section class="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0 w-full">
+    <section class="flex flex-col space-y-8 lg:flex-row lg:space-x-8 lg:space-y-0 w-full">
       <div class="w-full lg:w-2/3">
         <h1>{{ legalService.name }}</h1>
         <p v-if="legalService.description" class="text-lg md:text-xl mt-2 md:mt-4">{{ legalService.description }}</p>
+        <div v-if="legalService.thumbnail_url" class="bg-cover bg-center border rounded-lg h-48 sm:h-64 md:h-72 xl:h-96 w-full mt-4 md:mt-6" :style="`background-image: url(${legalService.thumbnail_url});`"></div>
       </div>
       <div class="w-full lg:w-1/3">
         <div class="sticky top-4 border border-gray-300 p-4 rounded-md">
@@ -51,7 +52,7 @@
               <span>Sichere Übermittlung von vertraulichen Daten und Dokumenten</span>
             </li>
           </ul>
-          <Btn class="w-full" :is-disabled="true">Jetzt buchen</Btn>
+          <Btn class="w-full" :is-disabled="true">Jetzt Beratung buchen</Btn>
         </div>
       </div>
     </section>

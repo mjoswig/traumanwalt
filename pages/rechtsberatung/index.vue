@@ -23,12 +23,12 @@
     <section>
       <h2 class="mb-6">Alle Beratungsleistungen</h2>
       <div class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-        <div class="border flex flex-col justify-between p-4 rounded-md space-y-1" v-for="(legalService, index) in legalServices" :key="index">
+        <div class="border flex flex-col justify-between rounded-md space-y-1" v-for="(legalService, index) in legalServices" :key="index">
           <div>
-            <img v-if="legalService.thumbnail_url" class="h-20 w-auto mb-3" :src="legalService.thumbnail_url" />
-            <h3 class="text-lg lg:text-xl">{{ legalService.name }}</h3>
+            <div class="h-40 bg-cover bg-center bg-no-repeat rounded-t-md mb-3" :style="`background-image: url(${legalService.thumbnail_url});`"></div>
+            <h3 class="text-lg lg:text-xl px-4">{{ legalService.name }}</h3>
           </div>
-          <div>
+          <div class="px-4 pb-4">
             <span class="block lg:text-lg mb-3">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(legalService.price) }}</span>
             <Btn class="w-full" @click="$router.push(`/rechtsberatung/${legalService.slug}`)">Mehr erfahren</Btn>
           </div>

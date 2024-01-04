@@ -20,17 +20,17 @@
       <p v-if="legalService.description" class="text-lg md:text-xl mt-2 md:mt-4">{{ legalService.description }}</p>
     </div>
     <section>
-      <div v-if="!isClient">
+      <div v-if="!isClient" class="border bg-gray-100 p-4 md:p-6 rounded-md shadow-sm">
         <h2 class="mb-2">Schon bei uns registriert?</h2>
-        <p class="mb-4">Um eine Rechtsberatung in Auftrag geben zu können, müssen Sie sich zuerst auf Traumanwalt anmelden.</p>
-        <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
+        <p class="mb-4 md:mb-6 md:text-lg">Um eine Rechtsberatung in Auftrag geben zu können, müssen Sie sich zuerst auf Traumanwalt anmelden.</p>
+        <div class="flex flex-col space-y-3 md:flex-row md:items-center md:space-x-4 md:space-y-0">
           <Btn class="w-full md:w-fit" @click="$router.push('/mandant-werden')">Mandant werden</Btn>
           <nuxt-link to="/login">Ich bin bereits Mandant</nuxt-link>
         </div>
       </div>
-      <div v-if="isClient">
+      <div v-if="isClient" class="border bg-gray-100 p-4 md:p-6 rounded-md shadow-sm">
         <h2 class="mb-2">Jetzt Anwalt beauftragen</h2>
-        <p class="mb-6">Unsere Partneranwälte helfen Ihnen gerne und beantworten alle Ihre Fragen zum <b>Bruttofestpreis</b>, ohne Steuern und weitere Überraschungen.</p>
+        <p class="mb-6 md:text-lg">Unsere Partneranwälte helfen Ihnen gerne und beantworten alle Ihre Fragen zum <b>Bruttofestpreis</b>, ohne Steuern und weitere Überraschungen.</p>
         <form @submit.prevent>
           <fieldset class="mb-4">
             <wysiwyg class="bg-white w-full" placeholder="Bitte schildern Sie hier Ihren Fall..." v-model="orderForm.description" />

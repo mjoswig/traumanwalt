@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center justify-center">
     <div class="lg:w-2/3">
       <h1 class="md:text-center mb-2">Jetzt Mandant werden und beraten lassen</h1>
-      <p class="md:text-center text-lg lg:text-xl">Registrieren Sie sich kostenlos und buchen Sie Rechtsdienstleistungen.</p>
+      <p class="md:text-center text-lg lg:text-xl">Registrieren Sie sich kostenlos und buchen Sie Beratungsleistungen.</p>
       <form class="mt-4 md:mt-8" @submit.prevent>
         <div class="grid lg:grid-cols-3 gap-4 mb-4">
           <fieldset>
@@ -101,6 +101,9 @@ export default {
 
       try {
         this.isSigningUp = true
+
+        const text = `Neuer Mandant\n\nE-Mail: ${this.email}`
+        await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
 
         await this.$fire.auth.createUserWithEmailAndPassword(
           this.email,

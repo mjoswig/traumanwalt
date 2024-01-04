@@ -15,16 +15,38 @@
       </svg>
       <nuxt-link :to="`/rechtsberatung/${legalService.slug}`">{{ legalService.name }}</nuxt-link>
     </div>
-    <div>
+    <div class="mb-6">
       <h1>{{ legalService.name }}</h1>
       <p v-if="legalService.description" class="text-lg md:text-xl mt-2 md:mt-4">{{ legalService.description }}</p>
     </div>
+    <section>
+      <div v-if="!isClient">
+        <h2 class="mb-2">Schon bei uns registriert?</h2>
+        <p class="mb-4">Um eine Rechtsberatung in Auftrag zu geben, müssen Sie sich zuerst auf Traumanwalt anmelden.</p>
+        <div class="flex items-center space-x-4">
+          <Btn class="w-full md:w-fit" @click="$router.push('/mandant-werden')">Mandant werden</Btn>
+          <nuxt-link to="/login">Ich bin bereits Mandant</nuxt-link>
+        </div>
+      </div>
+      <div v-if="isClient">
+        <h2 class="mb-2">Jetzt Anwalt beauftragen</h2>
+        <p class="mb-6">Unsere Partneranwälte helfen Ihnen gerne und beantworten alle Ihre Fragen zum <b>Bruttofestpreis</b>, ohne Steuern und weitere Überraschungen.</p>
+        <form @submit.prevent>
+          <fieldset class="mb-4">
+            <wysiwyg class="bg-white w-full" placeholder="Bitte schildern Sie hier Ihren Fall..." v-model="orderForm.description" />
+          </fieldset>
+          <fieldset class="flex items-end justify-end mt-1">
+            <Btn :is-disabled="true" class="w-full md:w-fit">Weiter zur Zahlung – 149,00 €</Btn>
+          </fieldset>
+        </form>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'RechtsdienstleistungenDetailsPage',
+  name: 'RechtsberatungDetailsPage',
   head() {
     return {
       title: `${this.legalService.name} - Traumanwalt`
@@ -34,7 +56,16 @@ export default {
     const legalService = await app.$axios.$get(`/api/legal-services/${params.slug}`)
     if (!legalService) redirect('/rechtsberatung')
     return {
-      legalService
+      legalService,
+      orderForm: {
+        description: ''
+      }
+    }
+  },
+  computed: {
+    isClient() {
+      if (!this.$store.state.userData) return false
+      return this.$store.state.userData.client
     }
   }
 }

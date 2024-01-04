@@ -37,7 +37,7 @@
       </ul>
     </section>
     <section class="mb-12">
-      <h2 class="mb-6">Rechtsdienstleistungen</h2>
+      <h2 class="mb-6">Online-Rechtsberatung</h2>
       <ul class="grid grid-cols sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <li class="border-b pb-2 break-words" v-for="(legalService, index) in legalServices" :key="index">
           <nuxt-link :to="`/rechtsberatung/${legalService.slug}`">{{ legalService.name }}</nuxt-link>

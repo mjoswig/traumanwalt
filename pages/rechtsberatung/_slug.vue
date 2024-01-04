@@ -22,8 +22,8 @@
     <section>
       <div v-if="!isClient">
         <h2 class="mb-2">Schon bei uns registriert?</h2>
-        <p class="mb-4">Um eine Rechtsberatung in Auftrag zu geben, müssen Sie sich zuerst auf Traumanwalt anmelden.</p>
-        <div class="flex items-center space-x-4">
+        <p class="mb-4">Um eine Rechtsberatung in Auftrag geben zu können, müssen Sie sich zuerst auf Traumanwalt anmelden.</p>
+        <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
           <Btn class="w-full md:w-fit" @click="$router.push('/mandant-werden')">Mandant werden</Btn>
           <nuxt-link to="/login">Ich bin bereits Mandant</nuxt-link>
         </div>
@@ -36,7 +36,7 @@
             <wysiwyg class="bg-white w-full" placeholder="Bitte schildern Sie hier Ihren Fall..." v-model="orderForm.description" />
           </fieldset>
           <fieldset class="flex items-end justify-end mt-1">
-            <Btn :is-disabled="true" class="w-full md:w-fit">Weiter zur Zahlung – 149,00 €</Btn>
+            <Btn :is-disabled="true" class="w-full md:w-fit">Weiter zur Zahlung – {{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(legalService.price) }}</Btn>
           </fieldset>
         </form>
       </div>

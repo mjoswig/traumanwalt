@@ -4,7 +4,7 @@
     <AccountSection>
       <div class="border-l-4 pl-2 mb-4">
         <p class="mb-2">„Vielen Dank für Ihr Interesse an Traumanwalt. Der Mandantenbereich befindet sich zurzeit noch in Entwicklung.</p>
-        <p class="mb-2">Über Ihr Konto werden Sie zukünftig Rechtsdienstleistungen buchen und mit Anwälten kommunizieren können. Unser langfristiges Ziel ist es, Ihr erster Anlaufpunkt für Rechtsfragen zu sein.</p>
+        <p class="mb-2">Über Ihr Konto werden Sie zukünftig Mandate buchen und mit Anwälten kommunizieren können. Unser langfristiges Ziel ist es, Ihr erster Anlaufpunkt für Rechtsfragen zu sein.</p>
         <p>Haben Sie Fragen oder Anmerkungen? Wir freuen uns auf Ihre Nachricht: <b>support@traumanwalt.com</b>“</p>
       </div>
       <div>

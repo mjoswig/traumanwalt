@@ -178,7 +178,7 @@ export default {
           let routes = []
 
           const { data: legalServices } = await axios.get('https://traumanwalt.com/api/legal-services')
-          routes.push(...legalServices.map(lg => `/rechtsberatung/${ls.slug}`))
+          routes.push(...legalServices.map(ls => `/rechtsberatung/${ls.slug}`))
 
           return routes
         },

@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 // get legal service
 router.get('/:slug', async (req, res) => {
   const result = await db.query(`
-    SELECT id, name, slug, description, thumbnail_url, price
+    SELECT id, name, slug, excerpt, thumbnail_url, price
     FROM legal_services
     WHERE slug = $1
   `, [ req.params.slug ])

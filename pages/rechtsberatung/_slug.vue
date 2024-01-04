@@ -19,7 +19,7 @@
       <div class="w-full lg:w-2/3">
         <h1>{{ legalService.name }}</h1>
         <p v-if="legalService.description" class="text-lg md:text-xl mt-2 md:mt-4">{{ legalService.description }}</p>
-        <div v-if="legalService.thumbnail_url" class="bg-cover bg-center border rounded-lg h-48 sm:h-64 md:h-72 xl:h-96 w-full mt-4 md:mt-6" :style="`background-image: url(${legalService.thumbnail_url});`"></div>
+        <div v-if="legalService.thumbnail_url" class="bg-cover bg-center border rounded-lg h-48 sm:h-64 md:h-72 xl:h-96 w-full mt-4 md:mt-7" :style="`background-image: url(${legalService.thumbnail_url});`"></div>
       </div>
       <div class="w-full lg:w-1/3">
         <div class="sticky top-4 border border-gray-300 p-4 rounded-md">

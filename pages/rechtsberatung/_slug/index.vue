@@ -52,8 +52,8 @@
           </ul>
           <Btn class="w-full" :is-disabled="true">Jetzt Beratung buchen</Btn>
         </div>
-        <h2 class="mt-5 md:mt-10 mb-3 md:mb-6">So funktioniert die Traumanwalt-Beratung</h2>
-        <div class="grid grid-cols gap-2 md:gap-4">
+        <h2 class="mt-8 md:mt-10 mb-4 md:mb-6">So funktioniert die Traumanwalt-Beratung</h2>
+        <div class="grid grid-cols gap-4">
           <div>
             <h3 class="mb-2">1. Kontaktaufnahme</h3>
             <p class="md:text-lg">Sie schildern uns Ihr Problem und senden uns alle relevanten Daten für die Beratung.</p>
@@ -71,7 +71,7 @@
             <p class="md:text-lg">Ihr Anwalt wird ein persönliches Gespräch mit Ihnen vereinbaren und Ihnen bei Ihrem Rechtsproblem helfen.</p>
           </div>
         </div>
-        <h2 class="mt-4 md:mt-8 mb-4 md:mb-6">Haben Sie Fragen vor der Buchung?</h2>
+        <h2 class="mt-6 md:mt-8 mb-4 md:mb-6">Haben Sie Fragen vor der Buchung?</h2>
         <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
           <div>
             <div class="h-28 w-28 md:h-36 md:w-36 bg-cover rounded-full" :style="`background-image: url(${require('@/assets/images/manuel-joswig.jpg')}); background-position: center 20%;`"></div>
@@ -95,7 +95,7 @@
             </ul>
           </div>
         </div>
-        <h2 class="mt-5 md:mt-10 mb-4 md:mb-6">Ähnliche Beratungsleistungen</h2>
+        <h2 class="mt-8 md:mt-10 mb-4 md:mb-6">Ähnliche Beratungsleistungen</h2>
         <div class="grid grid-cols sm:grid-cols-3 gap-4">
           <div class="border flex flex-col justify-between rounded-md space-y-1" v-for="(relatedService, index) in relatedServices" :key="index">
             <div>

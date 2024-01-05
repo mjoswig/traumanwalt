@@ -70,6 +70,10 @@
             <h3 class="mb-2">4. Individuelle Rechtsberatung</h3>
             <p class="md:text-lg">Ihr Anwalt wird ein persönliches Gespräch mit Ihnen vereinbaren und Ihnen bei Ihrem Rechtsproblem helfen.</p>
           </div>
+          <div>
+            <h3 class="mb-2">5. Geld-zurück-Garantie</h3>
+            <p class="md:text-lg">Falls Sie mit unserer Beratung nicht zufrieden sein sollten, zahlen wir Ihr Geld innerhalb von 30 Tagen zurück. E-Mail genügt – ohne wenn und aber.</p>
+          </div>
         </div>
         <h2 class="mt-6 md:mt-8 mb-4 md:mb-6">Haben Sie Fragen vor der Buchung?</h2>
         <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">

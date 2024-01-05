@@ -75,7 +75,8 @@
             <p class="md:text-lg">Falls Sie mit unserer Beratung nicht zufrieden sein sollten, zahlen wir Ihr Geld innerhalb von 30 Tagen zurück. E-Mail genügt – ohne wenn und aber.</p>
           </div>
         </div>
-        <h2 class="mt-6 md:mt-8 mb-4 md:mb-6">Haben Sie Fragen vor der Buchung?</h2>
+        <h2 class="mt-6 md:mt-8 mb-2">Haben Sie Fragen zu dieser Beratung?</h2>
+        <p class="md:text-lg mb-4 md:mb-6">Gerne beantworten wir Ihre Fragen bevor Sie bei uns buchen. Kontaktieren Sie uns hierfür einfach via E-Mail oder WhatsApp.</p>
         <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
           <div>
             <div class="h-28 w-28 md:h-36 md:w-36 bg-cover rounded-full" :style="`background-image: url(${require('@/assets/images/manuel-joswig.jpg')}); background-position: center 20%;`"></div>

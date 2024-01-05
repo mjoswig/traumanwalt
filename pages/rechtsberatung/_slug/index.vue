@@ -71,20 +71,20 @@
             <p class="md:text-lg">Ihr Anwalt wird ein persönliches Gespräch mit Ihnen vereinbaren und Ihnen bei Ihrem Rechtsproblem helfen.</p>
           </div>
         </div>
-        <h2 class="mt-4 md:mt-8 mb-3 md:mb-5">Haben Sie Fragen vor der Buchung?</h2>
+        <h2 class="mt-4 md:mt-8 mb-4 md:mb-6">Haben Sie Fragen vor der Buchung?</h2>
         <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
           <div>
             <div class="h-28 w-28 md:h-36 md:w-36 bg-cover rounded-full" :style="`background-image: url(${require('@/assets/images/manuel-joswig.jpg')}); background-position: center 20%;`"></div>
           </div>
           <div>
             <b class="block md:text-xl">Manuel Joswig</b>
-            <span class="block md:text-lg mb-1">Traumanwalt Gründer</span>
+            <span class="block md:text-lg mb-2">Traumanwalt Gründer</span>
             <ul class="flex flex-col space-y-1">
               <li class="flex items-center space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
                   <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
                 </svg>
-                <span>manuel.joswig@traumanwalt.com</span>
+                <span>support@traumanwalt.com</span>
               </li>
               <li class="flex items-center space-x-2">
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
@@ -95,7 +95,7 @@
             </ul>
           </div>
         </div>
-        <h2 class="mt-5 md:mt-10 mb-3 md:mb-6">Ähnliche Beratungsleistungen</h2>
+        <h2 class="mt-5 md:mt-10 mb-4 md:mb-6">Ähnliche Beratungsleistungen</h2>
         <div class="grid grid-cols sm:grid-cols-3 gap-4">
           <div class="border flex flex-col justify-between rounded-md space-y-1" v-for="(relatedService, index) in relatedServices" :key="index">
             <div>

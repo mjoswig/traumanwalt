@@ -50,7 +50,8 @@
               <span>100% Geld-zurück-Garantie</span>
             </li>
           </ul>
-          <Btn class="w-full" :is-disabled="true">Jetzt Beratung buchen</Btn>
+          <Btn class="w-full" :is-disabled="!isClient">Jetzt Beratung buchen</Btn>
+          <p v-if="!isClient" class="mt-3 text-sm">Sie müssen <nuxt-link class="font-bold" to="/login">als Mandant angemeldet</nuxt-link> sein. Noch kein Konto? <nuxt-link class="font-bold" to="/mandant-werden">Jetzt registrieren</nuxt-link>.</p>
         </div>
         <h2 class="mt-8 md:mt-10 mb-4 md:mb-6">So funktioniert die Traumanwalt-Beratung</h2>
         <div class="grid grid-cols gap-4">
@@ -145,7 +146,8 @@
               <span>100% Geld-zurück-Garantie</span>
             </li>
           </ul>
-          <Btn class="w-full" :is-disabled="true">Jetzt Beratung buchen</Btn>
+          <Btn class="w-full" :is-disabled="!isClient">Jetzt Beratung buchen</Btn>
+          <p v-if="!isClient" class="mt-3 text-sm">Sie müssen <nuxt-link class="font-bold" to="/login">als Mandant angemeldet</nuxt-link> sein. Noch kein Konto? <nuxt-link class="font-bold" to="/mandant-werden">Jetzt registrieren</nuxt-link>.</p>
         </div>
       </section>
     </article>

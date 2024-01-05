@@ -22,9 +22,9 @@
         <div v-if="service.thumbnail_url" class="bg-cover bg-center border rounded-lg h-48 sm:h-64 md:h-72 xl:h-96 w-full mt-4 md:mt-7" :style="`background-image: url(${service.thumbnail_url});`"></div>
         <div class="border border-gray-300 p-4 rounded-md mt-6 lg:hidden">
           <h2 class="text-xl xl:text-2xl mb-2">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(service.price) }}</h2>
-          <p class="mb-2">Rechtsprobleme sind eine enorme Belastung im Alltag. Lassen Sie sich die Last abnehmen.</p>
+          <p class="mb-3">Rechtsprobleme sind eine enorme Belastung im Alltag. Lassen Sie sich die Last abnehmen.</p>
           <p class="font-bold text-gray-500 text-lg mb-2">{{ service.name }}</p>
-          <ul class="flex flex-col space-y-1 mb-5">
+          <ul class="flex flex-col space-y-1 mb-6">
             <li class="flex space-x-2">
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg mt-1" viewBox="0 0 16 16">
@@ -116,9 +116,9 @@
       <section class="hidden lg:block w-full lg:w-1/3">
         <div class="sticky top-4 border border-gray-300 p-4 rounded-md">
           <h2 class="text-xl xl:text-2xl mb-2">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(service.price) }}</h2>
-          <p class="mb-2">Rechtsprobleme sind eine enorme Belastung im Alltag. Lassen Sie sich die Last abnehmen.</p>
+          <p class="mb-4">Rechtsprobleme sind eine enorme Belastung im Alltag. Lassen Sie sich die Last abnehmen.</p>
           <p class="font-bold text-gray-500 text-lg mb-2">{{ service.name }}</p>
-          <ul class="flex flex-col space-y-1 mb-5">
+          <ul class="flex flex-col space-y-1 mb-7">
             <li class="flex space-x-2">
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg mt-1" viewBox="0 0 16 16">

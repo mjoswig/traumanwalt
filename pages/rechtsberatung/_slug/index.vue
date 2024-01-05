@@ -52,27 +52,51 @@
           </ul>
           <Btn class="w-full" :is-disabled="true">Jetzt Beratung buchen</Btn>
         </div>
-        <h2 class="mt-4 md:mt-8 mb-2 md:mb-4">So funktioniert die Traumanwalt-Beratung</h2>
+        <h2 class="mt-5 md:mt-10 mb-3 md:mb-6">So funktioniert die Traumanwalt-Beratung</h2>
         <div class="grid grid-cols gap-2 md:gap-4">
           <div>
             <h3 class="mb-2">1. Kontaktaufnahme</h3>
             <p class="md:text-lg">Sie schildern uns Ihr Problem und senden uns alle relevanten Daten für die Beratung.</p>
           </div>
           <div>
-            <h3 class="mb-2">2. Bezahlung</h3>
-            <p class="md:text-lg">Sie bezahlen das Beratungshonorar in Höhe von {{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(service.price) }} in Vorkasse. Sie können mittels Visa, Mastercard, Apple Pay, Google Pay, PayPal, giropay, Sofort oder Klarna bezahlen.</p>
+            <h3 class="mb-2">2. Online-Bezahlung</h3>
+            <p class="md:text-lg">Sie bezahlen das Beratungshonorar in Höhe von <b>{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(service.price) }}</b> in Vorkasse. Sie können mittels Visa, Mastercard, Apple Pay, Google Pay, PayPal, giropay, Sofort oder Klarna bezahlen.</p>
           </div>
           <div>
-            <h3 class="mb-2">3. Vermittlung an einen Traumanwalt</h3>
-            <p class="md:text-lg">Wir finden einen Anwalt, der Sie optimal beraten kann. Sie bekommen binnen 48 Stunden eine Rückmeldung von einem unserer Partneranwälte. Sollten wir nach 48 Stunden keinen Anwalt für Sie gefunden haben, bekommen Sie Ihr Geld vollständig erstattet.</p>
+            <h3 class="mb-2">3. Vermittlung an einen Anwalt</h3>
+            <p class="md:text-lg">Wir finden einen Anwalt, der Sie optimal beraten kann. Sie bekommen binnen <b>48 Stunden</b> eine Rückmeldung von einem unserer Partneranwälte. Sollten wir nach 48 Stunden keinen Anwalt für Sie gefunden haben, bekommen Sie Ihr Geld <b>vollständig erstattet</b>.</p>
           </div>
           <div>
-            <h3 class="mb-2">4. Rechtsberatung</h3>
+            <h3 class="mb-2">4. Individuelle Rechtsberatung</h3>
             <p class="md:text-lg">Ihr Anwalt wird ein persönliches Gespräch mit Ihnen vereinbaren und Ihnen bei Ihrem Rechtsproblem helfen.</p>
           </div>
         </div>
-        <h2 class="mt-4 md:mt-8 mb-3 md:mb-6">Ähnliche Beratungsleistungen</h2>
-        <div class="grid grid-cols sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6">
+        <h2 class="mt-4 md:mt-8 mb-3 md:mb-5">Haben Sie Fragen vor der Buchung?</h2>
+        <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
+          <div>
+            <div class="h-28 w-28 md:h-36 md:w-36 bg-cover rounded-full" :style="`background-image: url(${require('@/assets/images/manuel-joswig.jpg')}); background-position: center 20%;`"></div>
+          </div>
+          <div>
+            <b class="block md:text-xl">Manuel Joswig</b>
+            <span class="block md:text-lg mb-1">Traumanwalt Gründer</span>
+            <ul class="flex flex-col space-y-1">
+              <li class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-envelope h-5 w-5" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                </svg>
+                <span>manuel.joswig@traumanwalt.com</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-whatsapp h-5 w-5" viewBox="0 0 16 16">
+                  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+                </svg>
+                <span>+49 172 763 6181</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <h2 class="mt-5 md:mt-10 mb-3 md:mb-6">Ähnliche Beratungsleistungen</h2>
+        <div class="grid grid-cols sm:grid-cols-3 gap-4">
           <div class="border flex flex-col justify-between rounded-md space-y-1" v-for="(relatedService, index) in relatedServices" :key="index">
             <div>
               <div class="h-40 bg-cover bg-center bg-no-repeat rounded-t-md mb-3" :style="`background-image: url(${relatedService.thumbnail_url});`"></div>
@@ -80,7 +104,7 @@
             </div>
             <div class="px-4 pb-4">
               <span class="block lg:text-lg mb-3">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(relatedService.price) }}</span>
-              <Btn class="w-full" @click="$router.push(`/rechtsberatung/${relatedService.slug}`)">Mehr erfahren</Btn>
+              <Btn class="w-full" @click="$router.push(`/rechtsberatung/${relatedService.slug}`)">Zur Beratung</Btn>
             </div>
           </div>
         </div>

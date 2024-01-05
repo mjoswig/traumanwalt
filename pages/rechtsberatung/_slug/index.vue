@@ -23,7 +23,7 @@
         <div class="border border-gray-300 p-4 rounded-md mt-6 lg:hidden">
           <h2 class="text-xl xl:text-2xl mb-2">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(service.price) }}</h2>
           <p class="mb-2">Rechtsprobleme sind eine enorme Belastung im Alltag. Lassen Sie sich die Last abnehmen.</p>
-          <p class="font-bold text-gray-500 text-lg mb-2">Schneller Recht bekommen</p>
+          <p class="font-bold text-gray-500 text-lg mb-2">{{ service.name }}</p>
           <ul class="flex flex-col space-y-1 mb-5">
             <li class="flex space-x-2">
               <div>
@@ -39,7 +39,7 @@
                   <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
                 </svg>
               </div>
-              <span>Transparente Kommunikation mit Fachanwälten auf Augenhöhe</span>
+              <span>Transparente Kommunikation mit einem erfahrenen Anwalt auf Augenhöhe</span>
             </li>
             <li class="flex space-x-2">
               <div>
@@ -47,7 +47,7 @@
                   <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
                 </svg>
               </div>
-              <span>Sichere Übermittlung von vertraulichen Daten und Dokumenten</span>
+              <span>100% Geld-zurück-Garantie</span>
             </li>
           </ul>
           <Btn class="w-full" :is-disabled="true">Jetzt Beratung buchen</Btn>
@@ -113,7 +113,7 @@
         <div class="sticky top-4 border border-gray-300 p-4 rounded-md">
           <h2 class="text-xl xl:text-2xl mb-2">{{ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(service.price) }}</h2>
           <p class="mb-2">Rechtsprobleme sind eine enorme Belastung im Alltag. Lassen Sie sich die Last abnehmen.</p>
-          <p class="font-bold text-gray-500 text-lg mb-2">Schneller Recht bekommen</p>
+          <p class="font-bold text-gray-500 text-lg mb-2">{{ service.name }}</p>
           <ul class="flex flex-col space-y-1 mb-5">
             <li class="flex space-x-2">
               <div>
@@ -129,7 +129,7 @@
                   <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
                 </svg>
               </div>
-              <span>Transparente Kommunikation mit Fachanwälten auf Augenhöhe</span>
+              <span>Transparente Kommunikation mit einem erfahrenen Anwalt auf Augenhöhe</span>
             </li>
             <li class="flex space-x-2">
               <div>
@@ -137,7 +137,7 @@
                   <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
                 </svg>
               </div>
-              <span>Sichere Übermittlung von vertraulichen Daten und Dokumenten</span>
+              <span>100% Geld-zurück-Garantie</span>
             </li>
           </ul>
           <Btn class="w-full" :is-disabled="true">Jetzt Beratung buchen</Btn>

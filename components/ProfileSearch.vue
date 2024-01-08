@@ -44,7 +44,7 @@
               <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
           </fieldset>
-          <fieldset class="px-4 lg:px-0">
+          <fieldset class="px-4 lg:px-0" style="margin-bottom: -0.5rem;">
             <label class="block font-bold text-base md:text-lg mb-1">Ø-Bewertung</label>
             <star-rating class="mb-2" :clearable="true" :show-rating="false" :star-size="30" v-model="filters.minAverageRating" />
             <span>ab {{ filters.minAverageRating }} Stern{{ filters.minAverageRating !== 1 ? 'e' : '' }}</span>

@@ -18,8 +18,9 @@
             </svg>
           </div>
         </div>
-        <form class="flex-col space-y-4 p-4" :class="{ 'flex': showMobileFilters, 'hidden lg:flex': !showMobileFilters }" @submit.prevent>
-          <fieldset>
+        <form class="flex-col space-y-4 lg:px-4 pb-4" :class="{ 'flex': showMobileFilters, 'hidden lg:flex': !showMobileFilters }" @submit.prevent>
+          <a class="lg:hidden" href="https://a.partner-versicherung.de/click.php?partner_id=170236&ad_id=787&deep=rechtsschutzversicherung"  target="_blank"><img src="https://a.partner-versicherung.de/view.php?partner_id=170236&ad_id=787" style="width: 100%; height: auto;"></a>
+          <fieldset class="px-4 lg:px-0">
             <label class="block font-bold text-base md:text-lg mb-1">Sortieren nach</label>
             <select class="border rounded-md px-2 py-1 w-full" v-model="filters.sortValue">
               <option value="">Keine Sortierung</option>
@@ -29,30 +30,31 @@
               <option value="new">Neu bei Traumanwalt</option>
             </select>
           </fieldset>
-          <fieldset>
+          <fieldset class="px-4 lg:px-0">
             <label class="block font-bold text-base md:text-lg mb-1">Tätig in Rechtsgebiet</label>
             <select class="border rounded-md px-2 py-1 w-full" v-model="filters.legalFieldSlug">
               <option value="">Bitte auswählen...</option>
               <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
           </fieldset>
-          <fieldset>
+          <fieldset class="px-4 lg:px-0">
             <label class="block font-bold text-base md:text-lg mb-1">Fachanwalt für</label>
             <select class="border rounded-md px-2 py-1 w-full" v-model="filters.specializedLegalFieldSlug">
               <option value="">Bitte auswählen...</option>
               <option v-for="(legalField, index) in legalFields" :key="index" :value="legalField.slug">{{ legalField.name }}</option>
             </select>
           </fieldset>
-          <fieldset>
+          <fieldset class="px-4 lg:px-0">
             <label class="block font-bold text-base md:text-lg mb-1">Ø-Bewertung</label>
             <star-rating class="mb-2" :clearable="true" :show-rating="false" :star-size="30" v-model="filters.minAverageRating" />
             <span>ab {{ filters.minAverageRating }} Stern{{ filters.minAverageRating !== 1 ? 'e' : '' }}</span>
           </fieldset>
-          <fieldset>
+          <fieldset class="px-4 lg:px-0">
             <label class="block font-bold text-base md:text-lg mb-1">Bewertungsanzahl</label>
             <input class="w-full" type="range" id="min-reviews" name="min-reviews" min="0" max="1000" step="5" v-model="filters.minReviews" />
             <span>ab {{ filters.minReviews }} Bewertungen</span>
           </fieldset>
+          <a class="hidden lg:block" href="https://a.partner-versicherung.de/click.php?partner_id=170236&ad_id=783&deep=rechtsschutzversicherung"  target="_blank"><img src="https://a.partner-versicherung.de/view.php?partner_id=170236&ad_id=783" class="rounded-b-md" style="width: 100%; height: auto;"></a>
         </form>
       </div>
     </section>

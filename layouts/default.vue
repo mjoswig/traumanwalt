@@ -2,7 +2,7 @@
   <div>
     <div v-if="!isLoading">
       <div v-show="showPublicLayout" class="top-banner bg-brand text-center text-xs sm:text-sm text-white py-1">
-        <nuxt-link to="/mitgliedschaft">Noch kein Traumanwalt? Jetzt 1 Monat kostenlos testen!</nuxt-link>
+        <nuxt-link to="/mitgliedschaft?utm_content=top_banner">Noch kein Traumanwalt? Jetzt 1 Monat kostenlos testen!</nuxt-link>
       </div>
       <div v-show="showPublicLayout" class="flex justify-center">
         <div class="p-4 sm:p-8 wrapper flex flex-col w-full">
@@ -17,7 +17,7 @@
                   <nuxt-link to="/rechtsberatung" class="hidden lg:inline-block">Online-Rechtsberatung</nuxt-link>
                   <nuxt-link v-show="!$store.getters.isLoggedIn" to="/login">Login</nuxt-link>
                   <nuxt-link v-show="$store.getters.isLoggedIn" to="/konto/logout">Logout</nuxt-link>
-                  <Btn v-show="!isLoggedIn" @click="$router.push('/mitgliedschaft')">Traumanwalt werden</Btn>
+                  <Btn v-show="!isLoggedIn" @click="$router.push('/mitgliedschaft?utm_content=desktop_nav')">Traumanwalt werden</Btn>
                   <Btn v-show="isLoggedIn" @click="$router.push('/konto')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                       <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -41,7 +41,7 @@
               <nuxt-link to="/rechtsberatung">Online-Rechtsberatung</nuxt-link>
               <nuxt-link v-show="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>
               <nuxt-link v-show="isLoggedIn" to="/konto/logout" class="md:hidden">Logout</nuxt-link>
-              <Btn v-show="!isLoggedIn" class="w-fit md:hidden" @click="$router.push('/mitgliedschaft')">Traumanwalt werden</Btn>
+              <Btn v-show="!isLoggedIn" class="w-fit md:hidden" @click="$router.push('/mitgliedschaft?utm_content=mobile_nav')">Traumanwalt werden</Btn>
               <Btn v-show="isLoggedIn" class="w-fit md:hidden" @click="$router.push('/konto')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -66,7 +66,7 @@
                 <ul class="flex flex-col space-y-2">
                   <li><nuxt-link to="/login">Anmelden</nuxt-link></li>
                   <li><nuxt-link to="/traumanwalt-werden">Registrieren</nuxt-link></li>
-                  <li><nuxt-link to="/mitgliedschaft">Mitgliedschaft</nuxt-link></li>
+                  <li><nuxt-link to="/mitgliedschaft?utm_content=footer_nav">Mitgliedschaft</nuxt-link></li>
                   <li><nuxt-link to="/gesetze">Gesetzestexte</nuxt-link></li>
                 </ul>
               </div>

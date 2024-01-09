@@ -46,7 +46,7 @@
       <div class="absolute top-0 left-0 h-full w-full opacity-30 bg-black rounded-md"></div>
       <div class="flex flex-col lg:items-center z-10 text-white lg:text-center lg:w-96 lg:px-0 lg:-ml-40">
         <h2 class="text-xl xl:text-2xl mb-3 lg:mb-4">Gewinnen Sie neue Mandanten und steigern Sie Ihre Reputation mit einem Traumanwalt-Profil</h2>
-        <Btn @click="$router.push('/mitgliedschaft')">Jetzt Traumanwalt werden</Btn>
+        <Btn @click="$router.push('/mitgliedschaft?utm_content=law_paragraph_banner')">Jetzt Traumanwalt werden</Btn>
       </div>
     </div>
   </div>

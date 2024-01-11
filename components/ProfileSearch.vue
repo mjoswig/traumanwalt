@@ -82,7 +82,7 @@
               <p v-if="profile.latest_top_review_description" class="mt-2 text-gray-500 text-xs md:text-base">„{{ profile.latest_top_review_description }}“ ({{ $moment(profile.latest_top_review_created_at).format('DD.MM.YYYY') }})</p>
             </div>
             <div class="flex flex-wrap text-xs md:text-base mt-2">
-              <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in profile.legal_fields" :key="index">
+              <span class="bg-gray-100 px-2 py-1 rounded-md mr-1 mt-1 md:mr-2 md:mt-2" v-for="(legalField, index) in profile.legal_fields.filter(p => p.id)" :key="index">
                 {{ getLegalFieldName(legalField, profile) }}
               </span>
             </div>

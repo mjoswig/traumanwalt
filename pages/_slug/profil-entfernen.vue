@@ -6,7 +6,7 @@
     <p class="md:text-lg mb-4">Es ist erfahrungsgemäß davon auszugehen, dass Rechtsanwälte ein großes Interesse daran haben, Ihre Kanzleidaten einer breiten Öffentlichkeit bekannt zu machen, um so ihren Bekanntheitsgrad zu steigern und potentielle Mandanten auf sich aufmerksam zu machen (vgl. § 27 Abs. 1 BRAO). Die listengemäße Verarbeitung, Nutzung und Speicherung der angezeigten Daten ist gemäß § 28 BDSG a.F. ebenso zulässig, wie gemäß §§ 28, 29 BDSG a.F. die Veröffentlichung der Daten ohne die Verpflichtung einer vorherigen Benachrichtigung.</p>
     <p class="md:text-lg mb-4">Wir bitten Sie von einer Abmahnung abzusehen.</p>
     <p class="md:text-lg mb-4">Sie können Ihre Daten völlig <b>kostenlos entfernen</b> lassen. Kontaktieren Sie uns hierfür einfach via E-Mail oder WhatsApp.</p>
-    <p class="md:text-lg mb-6"></p>
+    <p class="md:text-lg mb-6 md:mb-8"></p>
     <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
       <div>
         <div class="h-28 w-28 md:h-36 md:w-36 bg-cover rounded-full" :style="`background-image: url(${require('@/assets/images/manuel-joswig.jpg')}); background-position: center 20%;`"></div>

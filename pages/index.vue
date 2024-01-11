@@ -17,7 +17,7 @@
           </div>
         </form>
       </div>
-      <div class="bg-cover h-56 sm:h-72 md:h-96 rounded-t-md md:rounded-none xl:rounded-r-md w-full" :style="`background-image: url(${require('@/assets/images/traumanwalt-home-1.jpeg')}); background-position: center 0; min-width: 40vw;`">
+      <div class="bg-cover h-56 sm:h-72 md:h-96 rounded-t-md md:rounded-none xl:rounded-r-md w-full" :style="`background-image: url(${require('@/assets/images/traumanwalt-home-3.jpeg')}); background-position: center 0; min-width: 40vw;`">
       </div>
     </section>
     <section class="mb-12">

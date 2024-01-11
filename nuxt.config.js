@@ -13,7 +13,14 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Finden Sie die besten Anwälte Deutschlands. Mit uns bekommen Sie Recht!' },
+      { hid: 'og-description', property: 'og:description', content: 'Finden Sie die besten Anwälte Deutschlands. Mit uns bekommen Sie Recht!' },
+      { hid: 'og-image', property: 'og:image', content: 'https://traumanwalt.com/images/traumanwalt-og.jpeg' },
+      { hid: 'twitter-card', property: 'twitter:card', content: 'summary' },
+      { hid: 'twitter-site', property: 'twitter:site', content: '@traumanwalt' },
+      { hid: 'twitter-title', property: 'twitter:title', content: 'Traumanwalt' },
+      { hid: 'twitter-description', property: 'twitter:description', content: 'Anwalt suchen und finden' },
+      { hid: 'twitter-image', property: 'twitter:image', content: 'https://traumanwalt.com/images/traumanwalt-og.jpeg' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [

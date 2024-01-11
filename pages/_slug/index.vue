@@ -442,7 +442,7 @@ export default {
       this.$router.push(`/${this.profile.slug}/bewerten`)
     },
     processMessage() {
-      this.$router.push(`/${this.profile.slug}/nachricht?message=${this.message}`)
+      this.$router.push(`/${this.profile.slug}/nachricht`)
     },
     callPhoneNumber() {
       window.open(this.phoneNumberUri)

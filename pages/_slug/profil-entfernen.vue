@@ -1,8 +1,7 @@
 <template>
   <div>
     <h1 class="mb-4">Profil von {{ fullName }} entfernen</h1>
-    <p class="md:text-lg mb-4">Sehr geehrte{{ profile.salutation === 'Herr' ? 'r' : '' }} {{ profile.salutation }} {{ profile.last_name }},</p>
-    <p class="md:text-lg mb-4">die Daten einiger Rechtsanwälte stammen aus öffentlich und allgemein zugänglichen Verzeichnissen. Bei diesen Daten war uns nicht ersichtlich, dass kein Interesse an der Veröffentlichung der Rechtsanwaltsdaten besteht.</p>
+    <p class="md:text-lg mb-4">Die Daten einiger Rechtsanwälte stammen aus öffentlich und allgemein zugänglichen Verzeichnissen. Bei diesen Daten war uns nicht ersichtlich, dass kein Interesse an der Veröffentlichung der Rechtsanwaltsdaten besteht.</p>
     <p class="md:text-lg mb-4">Es ist erfahrungsgemäß davon auszugehen, dass Rechtsanwälte ein großes Interesse daran haben, Ihre Kanzleidaten einer breiten Öffentlichkeit bekannt zu machen, um so ihren Bekanntheitsgrad zu steigern und potentielle Mandanten auf sich aufmerksam zu machen (vgl. § 27 Abs. 1 BRAO). Die listengemäße Verarbeitung, Nutzung und Speicherung der angezeigten Daten ist gemäß § 28 BDSG a.F. ebenso zulässig, wie gemäß §§ 28, 29 BDSG a.F. die Veröffentlichung der Daten ohne die Verpflichtung einer vorherigen Benachrichtigung.</p>
     <p class="md:text-lg mb-4">Wir bitten Sie <b>von einer Abmahnung abzusehen</b> und stattdessen mit uns in Kontakt zu treten.</p>
     <p class="md:text-lg mb-4">Sie können Ihre Daten völlig <b>kostenlos entfernen</b> lassen. Schreiben Sie uns hierfür einfach via E-Mail oder WhatsApp.</p>

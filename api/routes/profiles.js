@@ -55,8 +55,12 @@ router.get('/', async (req, res) => {
       COALESCE(reviews.total_rating_sum, 0) AS total_rating_sum,
       CASE WHEN reviews.total_rating_sum IS NULL THEN 0 ELSE ROUND((total_rating_sum::decimal / reviews.total_reviews::decimal)::decimal, 2) END AS average_rating,
       users.slug AS slug,
+      users.address_line AS address_line,
+      users.postal_code AS postal_code,
+      users.city AS city,
       salutation, job_title, academic_title, first_name, last_name, suffix_title,
-      photo_url, address_line, postal_code, city,
+      photo_url,
+      law_firms.logo_url AS law_firm_logo_url,
       jsonb_agg(
         jsonb_build_object(
           'id', legal_fields.id,
@@ -70,11 +74,13 @@ router.get('/', async (req, res) => {
       (SELECT created_at FROM reviews WHERE reviews.user_id = users.id ORDER BY reviews.rating DESC, reviews.created_at DESC LIMIT 1) AS latest_top_review_created_at,
       (SELECT created_at FROM reviews WHERE reviews.user_id = users.id ORDER BY reviews.created_at DESC LIMIT 1) AS latest_review_created_at
     FROM users
+    LEFT JOIN law_firm_users ON law_firm_users.user_id = users.id
+    LEFT JOIN law_firms ON law_firms.id = law_firm_users.law_firm_id
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
     LEFT JOIN (SELECT r.user_id, COUNT(1) AS total_reviews, SUM(r.rating) AS total_rating_sum FROM reviews r GROUP BY r.user_id) AS reviews ON reviews.user_id = users.id
     WHERE users.client IS FALSE${queryCondition}
-    GROUP BY users.id, users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at, reviews.total_reviews, reviews.total_rating_sum
+    GROUP BY users.id, users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, users.address_line, users.postal_code, users.city, users.created_at, reviews.total_reviews, reviews.total_rating_sum, law_firm_logo_url
     ${`ORDER BY ${orderByArgs.join(' AND ')}`}
     ${queryArgs.length === 2 ? 'LIMIT $1 OFFSET $2' : ''}
   `, queryArgs)
@@ -184,8 +190,12 @@ router.get('/category/:slug', async (req, res) => {
       COALESCE(reviews.total_rating_sum, 0) AS total_rating_sum,
       CASE WHEN reviews.total_rating_sum IS NULL THEN 0 ELSE ROUND((total_rating_sum::decimal / reviews.total_reviews::decimal)::decimal, 2) END AS average_rating,
       users.slug AS slug,
+      users.address_line AS address_line,
+      users.postal_code AS postal_code,
+      users.city AS city,
       salutation, job_title, academic_title, first_name, last_name, suffix_title,
-      photo_url, address_line, postal_code, city,
+      photo_url,
+      law_firms.logo_url AS law_firm_logo_url,
       jsonb_agg(
         jsonb_build_object(
           'id', legal_fields.id,
@@ -199,11 +209,13 @@ router.get('/category/:slug', async (req, res) => {
       (SELECT created_at FROM reviews WHERE reviews.user_id = users.id ORDER BY reviews.rating DESC, reviews.created_at DESC LIMIT 1) AS latest_top_review_created_at,
       (SELECT created_at FROM reviews WHERE reviews.user_id = users.id LIMIT 1) AS latest_review_created_at
     FROM users
+    LEFT JOIN law_firm_users ON law_firm_users.user_id = users.id
+    LEFT JOIN law_firms ON law_firms.id = law_firm_users.law_firm_id
     LEFT JOIN user_legal_fields ON user_legal_fields.user_id = users.id
     LEFT JOIN legal_fields ON legal_fields.id = user_legal_fields.legal_field_id
     LEFT JOIN (SELECT r.user_id, COUNT(1) AS total_reviews, SUM(r.rating) AS total_rating_sum FROM reviews r GROUP BY r.user_id) AS reviews ON reviews.user_id = users.id
     WHERE users.client IS FALSE AND ${queryCondition ? queryCondition : ''}
-    GROUP BY users.id, users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, address_line, postal_code, city, users.created_at, reviews.total_reviews, reviews.total_rating_sum
+    GROUP BY users.id, users.slug, salutation, job_title, academic_title, first_name, last_name, suffix_title, photo_url, users.address_line, users.postal_code, users.city, users.created_at, reviews.total_reviews, reviews.total_rating_sum, law_firm_logo_url
     ${`ORDER BY ${orderByArgs.join(' AND ')}`}
     ${limitQuery ? 'LIMIT $1 OFFSET $2' : ''}
   `, queryArgs)

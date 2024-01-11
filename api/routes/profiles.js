@@ -334,7 +334,8 @@ router.get('/:slug', async (req, res) => {
       salutation, job_title, academic_title, first_name, last_name, suffix_title,
       photo_url, address_line, postal_code, city, country, memberships, landline_number,
       mobile_number, contact_email, website_url, linkedin_url, xing_url, facebook_url,
-      twitter_url, instagram_url, youtube_url, about
+      twitter_url, instagram_url, youtube_url, about,
+      CASE WHEN firebase_uid IS NULL THEN TRUE ELSE FALSE END AS fake
     FROM users
     WHERE users.slug = $1
   `, [ req.params.slug ])

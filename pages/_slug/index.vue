@@ -224,20 +224,41 @@
         </section>
       </article>
       <div class="hidden lg:block w-full lg:w-1/3">
-        <div class="sticky top-4 border border-gray-300 p-4 rounded-md">
-          <h2 class="text-xl xl:text-2xl mb-2">Nachricht an {{ salutation }}{{ salutation === 'Herr' ? 'n' : '' }} {{ lastName }}</h2>
+        <div class="sticky top-4 border border-gray-300 p-4 rounded-md" style="background-color: #f8f8f8;">
+          <div class="flex justify-center w-full mb-3">
+            <div class="profile-photo bg-cover h-32 w-32 rounded-full" :style="`background-image: url(${photoUrl});`"></div>
+          </div>
+          <h2 class="text-center text-xl xl:text-2xl mb-4">{{ firstName }} {{ lastName }}</h2>
           <form class="flex flex-col space-y-4" @submit.prevent>
-            <fieldset>
-              <label>Ihre Nachricht</label>
-              <textarea class="border px-2 py-1 rounded-md w-full" rows="5" placeholder="Bitte beschreiben Sie hier Ihre Situation bzw. Ihren rechtlichen Beratungsbedarf möglichst genau..." v-model="message" />
-            </fieldset>
-            <Btn @click="processMessage">Nachricht senden</Btn>
+            <Btn @click="processMessage">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+              </svg>
+              <span>Nachricht senden</span>
+            </Btn>
+            <Btn v-if="phoneNumber" type="light" @click="showPhoneNumber = true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+              </svg>
+              <span>{{ showPhoneNumber ? nationalPhoneNumber : 'Jetzt anrufen' }}</span>
+            </Btn>
           </form>
         </div>
       </div>
-      <nuxt-link :to="`/${profile.slug}/nachricht`" class="mobile-cta lg:hidden fixed bottom-0 left-0 font-bold shadow-md px-4 py-3 flex justify-center focus:outline-none w-full z-20">
-        Jetzt {{ salutation === 'Frau' ? 'Anwältin' : 'Anwalt' }} fragen
-      </nuxt-link>
+      <div class="lg:hidden bg-white border-t-2 flex space-x-2 p-2 fixed bottom-0 left-0 w-full z-20">
+        <Btn v-if="phoneNumber" type="light" class="w-full" @click="callPhoneNumber">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+          </svg>
+          <span>Anrufen</span>
+        </Btn>
+        <Btn class="w-full" @click="processMessage">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+          </svg>
+          <span>Nachricht</span>
+        </Btn>
+      </div>
     </div>
   </div>
 </template>
@@ -294,8 +315,7 @@ export default {
 
     return {
       profile,
-      showPhoneNumber: false,
-      message: ''
+      showPhoneNumber: false
     }
   },
   computed: {
@@ -423,6 +443,9 @@ export default {
     },
     processMessage() {
       this.$router.push(`/${this.profile.slug}/nachricht?message=${this.message}`)
+    },
+    callPhoneNumber() {
+      window.open(this.phoneNumberUri)
     }
   }
 }
@@ -444,15 +467,6 @@ export default {
     &:hover {
       @apply underline;
     }
-  }
-}
-
-.mobile-cta {
-  @apply text-white;
-  background: #222222;
-
-  &:hover {
-    @apply text-white no-underline;
   }
 }
 

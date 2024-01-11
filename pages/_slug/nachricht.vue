@@ -51,7 +51,7 @@
           <nuxt-link class="font-bold" :to="`/${profile.slug}`">Zurück zum Anwaltsprofil</nuxt-link>
         </div>
       </div>
-      <div class="bg-gray-100 border p-4 rounded-md flex flex-col items-center space-y-4 mb-6 lg:mb-0 w-full lg:w-1/3">
+      <div class="border p-4 rounded-md flex flex-col items-center space-y-4 mb-6 lg:mb-0 w-full lg:w-1/3" style="background-color: #f8f8f8;">
         <div class="bg-cover border border-white h-36 w-36 md:h-48 md:w-48 rounded-full" :style="`background-image: url(${profile.photo_url || require('@/assets/images/photo-default.jpeg')});`"></div>
         <div class="text-center">
           <span class="block uppercase text-sm">{{ jobTitle }}</span>

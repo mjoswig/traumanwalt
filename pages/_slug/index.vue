@@ -270,6 +270,13 @@
         </button>
       </div>
     </div>
+    <div v-if="profile.fake" class="relative flex items-center justify-center bg-cover sm:h-48 lg:h-72 border p-4 rounded-md mt-6 md:mt-10" :style="`background-image: url(${require('@/assets/images/traumanwalt-clients.jpeg')}); background-position: 50% 0;`">
+      <div class="absolute top-0 left-0 h-full w-full opacity-30 bg-black rounded-md"></div>
+      <div class="flex flex-col lg:items-center z-10 text-white lg:text-center lg:w-96 lg:px-0 lg:-ml-40">
+        <h2 class="text-xl xl:text-2xl mb-3 lg:mb-4">Werden Sie als Anwalt sichtbar: Wir helfen Ihnen schneller über Google gefunden zu werden</h2>
+        <Btn @click="$router.push('/mitgliedschaft?utm_content=profile_banner')">Ich will Traumanwalt werden</Btn>
+      </div>
+    </div>
   </div>
 </template>
 

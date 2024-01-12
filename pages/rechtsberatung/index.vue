@@ -13,8 +13,8 @@
     </div>
     <section class="bg-gray-100 flex flex-col-reverse md:flex-row items-center rounded-md shadow-sm mb-8 md:mb-12">
       <div class="px-4 py-6 md:p-8 w-full">
-        <h1 class="mb-2">Rechtsberatung von Traumanwälten</h1>
-        <p class="text-xl">Lassen Sie sich online von einem Traumanwalt beraten. Rechtsverbindlicher Rat in 48 Stunden mit 100% Geld-zurück-Garantie.</p>
+        <h1 class="mb-2">Rechtsberatung von Traumanwälten zum Festpreis</h1>
+        <p class="text-xl">Rechtsverbindlicher Rat in 48 Stunden mit 100% Geld-zurück-Garantie. Einfach. Transparent. Sicher.</p>
       </div>
       <div class="bg-cover h-56 sm:h-72 md:h-96 rounded-t-md md:rounded-none xl:rounded-r-md w-full" :style="`background-image: url(${require('@/assets/images/traumanwalt-rechtsberatung.jpeg')}); background-position: center 0; min-width: 40vw;`">
       </div>
@@ -42,7 +42,7 @@ export default {
   name: 'RechtsberatungIndexPage',
   head() {
     return {
-      title: 'Online-Rechtsberatung - Traumanwalt'
+      title: 'Rechtsberatung - Traumanwalt'
     }
   },
   async asyncData({ app }) {

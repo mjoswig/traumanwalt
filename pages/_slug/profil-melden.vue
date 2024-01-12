@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1 class="mb-4">Profil von {{ fullName }} entfernen</h1>
-    <p class="md:text-lg mb-4">Die Daten einiger Rechtsanwälte stammen aus öffentlich und allgemein zugänglichen Verzeichnissen. Bei diesen Daten war uns nicht ersichtlich, dass kein Interesse an der Veröffentlichung der Rechtsanwaltsdaten besteht.</p>
+    <h1 class="mb-4">Profil von {{ fullName }} melden</h1>
+    <p class="md:text-lg mb-4">Viele Anwaltsprofile wurden von uns selbst erstellt. Die Daten dieser Profile stammen aus öffentlich und allgemein zugänglichen Verzeichnissen. Leider war uns nicht ersichtlich, dass kein Interesse an der Veröffentlichung der Rechtsanwaltsdaten besteht.</p>
     <p class="md:text-lg mb-4">Es ist erfahrungsgemäß davon auszugehen, dass Rechtsanwälte ein großes Interesse daran haben, Ihre Kanzleidaten einer breiten Öffentlichkeit bekannt zu machen, um so ihren Bekanntheitsgrad zu steigern und potentielle Mandanten auf sich aufmerksam zu machen (vgl. § 27 Abs. 1 BRAO). Die listengemäße Verarbeitung, Nutzung und Speicherung der angezeigten Daten ist gemäß § 28 BDSG a.F. ebenso zulässig, wie gemäß §§ 28, 29 BDSG a.F. die Veröffentlichung der Daten ohne die Verpflichtung einer vorherigen Benachrichtigung.</p>
     <p class="md:text-lg mb-4">Wir bitten Sie <b>von einer Abmahnung abzusehen</b> und stattdessen mit uns in Kontakt zu treten.</p>
-    <p class="md:text-lg mb-4">Sie können Ihre Daten völlig <b>kostenlos entfernen</b> lassen. Schreiben Sie uns hierfür einfach via E-Mail oder WhatsApp.</p>
+    <p class="md:text-lg mb-4">Sie können Ihre Daten völlig <b>kostenlos aktualisieren oder entfernen</b> lassen. Schreiben Sie uns hierfür einfach via E-Mail oder WhatsApp.</p>
     <p class="md:text-lg mb-6 md:mb-8"></p>
     <div class="flex flex-col space-y-3 sm:flex-row sm:items-center sm:space-x-6 sm:space-y-0">
       <div>
@@ -34,10 +34,10 @@
 
 <script>
 export default {
-  name: 'ProfileEntfernenPage',
+  name: 'ProfileMeldenPage',
   head() {
     return {
-      title: `Profil von ${this.fullName} entfernen - Traumanwalt`,
+      title: `Profil von ${this.fullName} melden - Traumanwalt`,
       link: [
         { rel: 'canonical', href: `https://traumanwalt.com${this.$route.path}` }
       ]

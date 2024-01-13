@@ -13,7 +13,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill mr-2" viewBox="0 0 16 16">
         <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
       </svg>
-      <nuxt-link :to="`/gesetze/${lawSections[0].law_slug}`">{{ lawSections[0].law_title_short }}</nuxt-link>
+      <nuxt-link :to="`/gesetze/${law.slug}`">{{ law.title_short }}</nuxt-link>
     </div>
     <div class="md:text-center mb-4 md:mb-12">
       <h1>{{ lawTitle }}</h1>
@@ -23,25 +23,25 @@
         <h2 class="block pt-2 md:pt-0">{{ lawSection1.title }}</h2>
         <p class="text-xl">{{ lawSection1.description }}</p>
         <div class="ml-4 md:ml-8 my-2" v-for="(lawParagraph, index) in lawParagraphs.filter(lp => lp.section_id === lawSection1.id)" :key="index">
-          <nuxt-link :to="`/gesetze/${lawSection1.law_slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
+          <nuxt-link :to="`/gesetze/${law.slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
         </div>
         <section class="ml-4 md:ml-8 mt-2" v-for="(lawSection2, index) in lawSections.filter(ls => ls.parent_id === lawSection1.id)" :key="index">
           <h3 class="block pt-2">{{ lawSection2.title }}</h3>
           <p class="text-lg">{{ lawSection2.description }}</p>
           <div class="ml-4 md:ml-8 my-2" v-for="(lawParagraph, index) in lawParagraphs.filter(lp => lp.section_id === lawSection2.id)" :key="index">
-            <nuxt-link :to="`/gesetze/${lawSection2.law_slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
+            <nuxt-link :to="`/gesetze/${law.slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
           </div>
           <section class="ml-4 md:ml-8 mt-2" v-for="(lawSection3, index) in lawSections.filter(ls => ls.parent_id === lawSection2.id)" :key="index">
             <h4 class="block pt-2">{{ lawSection3.title }}</h4>
             <p>{{ lawSection3.description }}</p>
             <div class="ml-4 md:ml-8 my-2" v-for="(lawParagraph, index) in lawParagraphs.filter(lp => lp.section_id === lawSection3.id)" :key="index">
-              <nuxt-link :to="`/gesetze/${lawSection3.law_slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
+              <nuxt-link :to="`/gesetze/${law.slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
             </div>
             <section class="ml-4 md:ml-8 mt-2" v-for="(lawSection4, index) in lawSections.filter(ls => ls.parent_id === lawSection3.id)" :key="index">
               <h5 class="block pt-2">{{ lawSection4.title }}</h5>
               <p>{{ lawSection4.description }}</p>
               <div class="ml-4 md:ml-8 my-2" v-for="(lawParagraph, index) in lawParagraphs.filter(lp => lp.section_id === lawSection4.id)" :key="index">
-                <nuxt-link :to="`/gesetze/${lawSection4.law_slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
+                <nuxt-link :to="`/gesetze/${law.slug}/${lawParagraph.slug}`" class="w-fit pb-2 pt-2">{{ lawParagraph.title_short }} – {{ lawParagraph.title_long }}</nuxt-link>
               </div>
             </section>
           </section>
@@ -63,20 +63,21 @@ export default {
     }
   },
   async asyncData({ app, params, redirect }) {
-    const lawSections = await app.$axios.$get(`/api/laws/${params.gslug}`)
+    const law = await app.$axios.$get(`/api/laws/${params.gslug}`)
     const lawParagraphs = await app.$axios.$get(`/api/laws/${params.gslug}/paragraphs`)
-    if (!lawSections.length) redirect('/gesetze')
+    if (!law || !law.law) redirect('/gesetze')
     return {
-      lawSections,
+      law: law.law,
+      lawSections: law.law_sections,
       lawParagraphs
     }
   },
   computed: {
     lawTitle() {
-      return `${this.lawSections[0].law_title_short} – ${this.lawSections[0].law_title_long}`
+      return `${this.law.title_short} – ${this.law.title_long}`
     },
     seoTitle() {
-      return `${this.lawSections[0].law_title_long} (${this.lawSections[0].law_title_short})`
+      return `${this.law.title_long} (${this.law.title_short})`
     }
   }
 }

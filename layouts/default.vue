@@ -12,10 +12,10 @@
                 <nuxt-link to="/"><img class="h-10 md:h-12 w-auto" src="@/assets/images/traumanwalt-logo.png" /></nuxt-link>
               </div>
               <div class="flex items-center space-x-8">
-                <div class="hidden md:flex items-center space-x-4 xl:space-x-8 xl:text-lg">
+                <div class="hidden md:flex items-center space-x-8 xl:text-lg">
                   <nuxt-link to="/anwaelte" class="hidden lg:inline-block">Anwaltssuche</nuxt-link>
-                  <nuxt-link to="/rechtsberatung" class="hidden lg:inline-block">Rechtsberatung</nuxt-link>
                   <nuxt-link to="/rechtstipps" class="hidden lg:inline-block">Rechtstipps</nuxt-link>
+                  <nuxt-link to="/gesetze" class="hidden lg:inline-block">Gesetze</nuxt-link>
                   <nuxt-link v-show="!$store.getters.isLoggedIn" to="/login">Login</nuxt-link>
                   <nuxt-link v-show="$store.getters.isLoggedIn" to="/konto/logout">Logout</nuxt-link>
                   <Btn v-show="!isLoggedIn" @click="$router.push('/mitgliedschaft?utm_content=desktop_nav')">Traumanwalt werden</Btn>
@@ -39,8 +39,8 @@
             </div>
             <div class="bg-gray-100 p-4 flex-col space-y-4 rounded-md shadow-sm mt-4" :class="{ 'flex lg:hidden': showMobileMenu, 'hidden': !showMobileMenu }">
               <nuxt-link to="/anwaelte">Anwaltssuche</nuxt-link>
-              <nuxt-link to="/rechtsberatung">Rechtsberatung</nuxt-link>
               <nuxt-link to="/rechtstipps">Rechtstipps</nuxt-link>
+              <nuxt-link to="/gesetze">Gesetze</nuxt-link>
               <nuxt-link v-show="!isLoggedIn" to="/login" class="md:hidden">Login</nuxt-link>
               <nuxt-link v-show="isLoggedIn" to="/konto/logout" class="md:hidden">Logout</nuxt-link>
               <Btn v-show="!isLoggedIn" class="w-fit md:hidden" @click="$router.push('/mitgliedschaft?utm_content=mobile_nav')">Traumanwalt werden</Btn>
@@ -77,7 +77,7 @@
                 <ul class="flex flex-col space-y-2">
                   <li><nuxt-link to="/login">Anmelden</nuxt-link></li>
                   <li><nuxt-link to="/mandant-werden">Registrieren</nuxt-link></li>
-                  <li><nuxt-link to="/rechtsberatung">Rechtsberatung</nuxt-link></li>
+                  <li><nuxt-link to="/anwaelte">Anwaltssuche</nuxt-link></li>
                   <li><nuxt-link to="/rechtstipps">Rechtstipps</nuxt-link></li>
                 </ul>
               </div>
@@ -145,14 +145,6 @@
                     <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/>
                   </svg>
                   <span>Kanzleiprofil</span>
-                </nuxt-link>
-              </li>
-              <li v-show="isClient || (!isClient && (!trialExpired || hasSubscribed))">
-                <nuxt-link to="/konto/mandate" class="flex items-center space-x-3" :class="{ 'font-bold': $route.path.startsWith('/konto/mandate') }">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase h-5 w-5 md:h-6 md:w-6" viewBox="0 0 16 16">
-                    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5"/>
-                  </svg>
-                  <span>Mandate</span>
                 </nuxt-link>
               </li>
               <li v-show="isClient || (!isClient && (!trialExpired || hasSubscribed))">

@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center justify-center">
     <div class="lg:w-2/3">
       <h1 class="md:text-center mb-2">Jetzt Mandant werden und beraten lassen</h1>
-      <p class="md:text-center text-lg lg:text-xl">Registrieren Sie sich kostenlos und buchen Sie Beratungsleistungen.</p>
+      <p class="md:text-center text-lg lg:text-xl">Registrieren Sie sich kostenlos und schreiben Sie direkt mit Anwälten.</p>
       <form class="mt-4 md:mt-8" @submit.prevent>
         <div class="grid lg:grid-cols-3 gap-4 mb-4">
           <fieldset>

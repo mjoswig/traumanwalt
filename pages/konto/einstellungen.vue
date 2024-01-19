@@ -113,13 +113,16 @@ export default {
     },
     async payMembershipFee() {
       this.membershipForm.isLoading = true
-      const response = await this.$axios.$post(`/api/stripe/membership/subscribe`, {
+      /*const response = await this.$axios.$post(`/api/stripe/membership/subscribe`, {
         uid: this.$store.state.userData.id,
         email: this.$store.state.userData.email,
         subscription_interval: this.membershipForm.subscriptionInterval
-      })
+      })*/
+      const subject = `Traumanwalt Mitgliedschaft (${ this.membershipForm.subscriptionInterval === 'year' ? '499,99 € jährlich' : '49,99 € monatlich' })`
+      const body = 'Ich interessiere mich für eine Mitgliedschaft bei Traumanwalt. Bitte kontaktieren Sie mich.'
+      window.open(`mailto:support@traumanwalt.com?subject=${subject}&body=${body}`)
       this.membershipForm.isLoading = false
-      window.location.href = response.url
+      //window.location.href = response.url
     },
     manageBilling() {
       window.location.href = 'https://billing.stripe.com/p/login/3csbMs730gP66L6288'

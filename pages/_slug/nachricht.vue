@@ -132,7 +132,7 @@ export default {
       this.isLoading = true
 
       const text = `Neue Anfrage\n\nPfad: ${this.$route.path}\nName: ${this.form.first_name} ${this.form.last_name}\nE-Mail: ${this.form.email}\nTelefonnummer: ${this.form.phone}\nNachricht: ${this.form.message}`
-      await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
+      //await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
 
       await this.$axios.$post(`/api/profiles/${this.profile.slug}/contact`, {
         salutation: this.form.salutation,

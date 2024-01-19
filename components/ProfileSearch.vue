@@ -173,7 +173,7 @@ export default {
     },
     async trackTarifcheckAdClick(isMobile) {
       const text = `Neuer Klick\n\nPfad: ${this.$route.path}\nKontext: Tarifcheck-Anzeige${ isMobile ? ' (Mobile)' : ' (Desktop)' }`
-      await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
+      //await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
     }
   }
 }

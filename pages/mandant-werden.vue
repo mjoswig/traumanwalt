@@ -103,7 +103,7 @@ export default {
         this.isSigningUp = true
 
         const text = `Neue Registrierung\n\nPfad: ${this.$route.path}\nE-Mail: ${this.email}`
-        await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
+        //await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
 
         await this.$fire.auth.createUserWithEmailAndPassword(
           this.email,

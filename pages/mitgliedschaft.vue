@@ -174,11 +174,11 @@ export default {
   methods: {
     async trackPageView() {
       const text = `Neuer Besucher\n\nPfad: ${this.$route.path}\nutm_source: ${this.$route.query.utm_source || 'traumanwalt'}\nutm_content: ${this.$route.query.utm_content}`
-      await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
+      //await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
     },
     async trackButtonClick(context) {
       const text = `Neuer Klick\n\nPfad: ${this.$route.path}\nKontext: ${context}`
-      await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
+      //await this.$axios.$post(`https://api.telegram.org/bot${process.env.telegramBotApiKey}/sendMessage?chat_id=${process.env.telegramBotChatId}&text=${encodeURIComponent(text)}`)
       this.$router.push('/traumanwalt-werden')
     }
   },

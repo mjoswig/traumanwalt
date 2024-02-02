@@ -118,8 +118,8 @@ export default {
         email: this.$store.state.userData.email,
         subscription_interval: this.membershipForm.subscriptionInterval
       })*/
-      const subject = `Traumanwalt Mitgliedschaft (${ this.membershipForm.subscriptionInterval === 'year' ? '499,99 € jährlich' : '49,99 € monatlich' })`
-      const body = 'Ich interessiere mich für eine Mitgliedschaft bei Traumanwalt. Bitte kontaktieren Sie mich.'
+      const subject = 'Anfrage zur Mitgliedschaft'
+      const body = `Ich interessiere mich für eine Mitgliedschaft bei Traumanwalt (${ this.membershipForm.subscriptionInterval === 'year' ? '499,99 € jährlich' : '49,99 € monatlich' }). Bitte kontaktieren Sie mich.`
       window.open(`mailto:support@traumanwalt.com?subject=${subject}&body=${body}`)
       this.membershipForm.isLoading = false
       //window.location.href = response.url

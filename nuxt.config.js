@@ -126,7 +126,7 @@ export default {
           '/konto/**'
         ]
       },
-      /*{
+      {
         path: '/sitemap-legal-fields.xml',
         routes: async () => {
           let routes = []
@@ -217,7 +217,7 @@ export default {
           return routes
         },
         exclude: ['/**']
-      }*/
+      }
     ]
   },
 
